@@ -1,0 +1,73 @@
+<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+
+/**
+ * Contao Open Source CMS
+ * Copyright (C) 2005-2011 Leo Feyer
+ *
+ * Formerly known as TYPOlight Open Source CMS.
+ *
+ * This program is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation, either
+ * version 3 of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this program. If not, please visit the Free
+ * Software Foundation website at <http://www.gnu.org/licenses/>.
+ *
+ * PHP version 5
+ * @copyright  Daniel Kiesel 2012 
+ * @author     Daniel Kiesel 
+ * @package    photoalbums2 
+ * @license    LGPL 
+ * @filesource
+ */
+
+
+/**
+ * Fields
+ */
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['title'] = array('Titel', 'Geben Sie dem Fotoalbum einen Titel.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['alias'] = array('Alias', 'Der Alias wird automatisch generiert und ist später in der URL zu finden.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['startdate'] = array('Startdatum', 'Tragen Sie hier das Startdatum ein.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['enddate'] = array('Enddatum', 'Tragen Sie hier ein Enddatum ein, wenn die Aufnahmen über mehrere Tage dauerten. Ansonsten lassen Sie dieses Feld einfach leer.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['pictures'] = array('Fotos', 'Wählen Sie hier die Fotos aus, die in diesem Album angezeigt werden sollen.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['pic_preview'] = array('Vorschau Bild', 'Wählen Sie hier das Vorschau Bild.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['pic_sort_check'] = array('Fotos sortieren', 'Aktivieren Sie das Häkchen, um die bereits ausgewählten Fotos zu sortieren.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['pic_sort'] = array('Fotos sortieren', 'Hier können Sie die Fotos sortieren.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['event'] = array('Ereignis', 'Tragen Sie hier das Ereignis ein.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['place'] = array('Aufnahmeort', 'Tragen Sie hier den Aufnahmeort ein.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['photographer'] = array('Fotograf', 'Tragen Sie hier den Fotograf ein.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['description'] = array('Beschreibung', 'Geben Sie hier eine Beschreibung ein.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['protected'] = array('Album schützen', 'Begrenzen Sie hier den Zugriff auf dieses Fotoalbum.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['users'] = array('Mitglieder', 'Wählen Sie hier die Mitglieder aus, die Zugriff auf dieses Fotoalbum haben sollen.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['groups'] = array('Mitglieder Gruppen', 'Wählen Sie hier die Mitglieder Gruppen aus, die Zugriff auf dieses Fotoalbum haben sollen.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['published'] = array('Veröffentlicht', 'Setzen Sie das Häkchen, um das Fotoalbum zu veröffentlichen.');
+
+
+/**
+ * Reference
+ */
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['title_legend'] = 'Titel';
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['date_legend'] = 'Datum';
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['pictures_legend'] = 'Fotos';
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['info_legend'] = 'Info';
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['protected_legend'] = 'Album schützen';
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['published_legend'] = 'Veröffentlichen';
+
+
+/**
+ * Buttons
+ */
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['new']    = array('Neues Fotoalbum', 'Neues Fotoalbum erstellen');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['edit']   = array('Fotoalbum bearbeiten', 'Fotoalbum ID %s bearbeiten');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['copy']   = array('Fotoalbum duplizieren', 'Fotoalbum ID %s duplizieren');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['delete'] = array('Fotoalbum löschen', 'Fotoalbum ID %s löschen');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['show']   = array('Fotoalbum anzeigen', 'Fotoalbum ID %s anzeigen');
+
+?>

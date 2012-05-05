@@ -1,0 +1,22 @@
+
+<?php if ($this->show): ?>
+<?php if($this->rowStart): ?><div class="photoswrap"><?php endif; ?>
+<div class="photo block<?php echo $this->class; ?>"<?php if($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+<div class="photoInside">
+<?php if ($this->addImage): ?>
+<div class="image_container"<?php if ($this->margin): ?> style="<?php echo $this->margin; ?>"<?php endif; ?>>
+<a href="<?php echo $this->href; ?>" rel="lightbox[pa2_<?php echo $this->albumID; ?>]">
+<img src="<?php echo $this->src; ?>"<?php echo $this->imgSize; ?> alt="<?php echo $this->alt; ?>" />
+</a>
+</div>
+<?php endif; ?>
+</div>
+</div>
+<?php if($this->rowEnd): ?></div><?php endif; ?>
+<?php else: ?>
+	<div class="hide" style="display: none !important; position: absolute !important; top: 0px !important; left: 0px !important; width: 0px !important; height: 0px !important; overflow: hidden !important;">
+		<a href="<?php echo $this->href; ?>" rel="lightbox[pa2_<?php echo $this->albumID; ?>]">
+			<img src="<?php echo $this->src; ?>"<?php echo $this->imgSize; ?> alt="<?php echo $this->alt; ?>" />
+		</a>
+	</div>
+<?php endif; ?>

@@ -1,0 +1,6 @@
+.mod_photoalbums2 .albumswrap, .mod_photoalbums2 .photoswrap{clear: both; overflow: hidden; display: block;}
+.mod_photoalbums2 .albumswrap .album, .mod_photoalbums2 .photoswrap .photo{float: left; overflow: hidden; display: block;}
+.mod_photoalbums2 .albumswrap .album .albumInside, .mod_photoalbums2 .photoswrap .photo .photoInside{margin-left: 10px; margin-right: 10px; overflow: hidden;}
+.mod_photoalbums2 .albumswrap .album.first .albumInside, .mod_photoalbums2 .photoswrap .photo.first .photoInside{margin-left: 0px;}
+.mod_photoalbums2 .albumswrap .album.last .albumInside, .mod_photoalbums2 .photoswrap .photo.last .photoInside{margin-right: 0px;}
+.mod_photoalbums2 .hide{display: none !important; position: absolute !important; top: 0px !important; left: 0px !important; width: 0px !important; height: 0px !important; overflow: hidden !important;} 

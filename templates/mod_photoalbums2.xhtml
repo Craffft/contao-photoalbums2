@@ -1,0 +1,27 @@
+
+<!-- indexer::stop -->
+<div class="<?php echo $this->class; ?> <?php echo $this->strSubtemplate; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+<?php if ($this->headline): ?>
+	<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+<?php endif; ?>
+
+<?php if ($this->metaFields): ?>
+<div class="info">
+<?php foreach ($this->metaFields as $metaField): ?>
+<div class="<?php echo $metaField; ?>"><?php echo $this->$metaField; ?></div>
+<?php endforeach; ?>
+</div>
+<?php endif; ?>
+
+<?php foreach($this->items as $item) echo $item; ?>
+
+<?php echo $this->pagination; ?>
+
+<?php if($this->back): ?>
+<!-- indexer::stop -->
+<p class="back"><a href="<?php echo $this->referer; ?>" title="<?php echo $this->back; ?>"><?php echo $this->back; ?></a></p>
+<!-- indexer::continue -->
+<?php endif; ?>
+
+</div>
+<!-- indexer::continue -->
