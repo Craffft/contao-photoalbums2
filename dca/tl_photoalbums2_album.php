@@ -59,7 +59,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'mode'                    => 4,
 			'fields'                  => array('sorting'),
 			'headerFields'            => array('title'),
-			'panelLayout'             => 'filter;sort,search,limit',
+			'panelLayout'             => 'filter;search,limit',
 			'child_record_callback'   => array('tl_photoalbums2_album', 'listAlbums')
 		),
 		'label' => array
@@ -135,6 +135,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['title'],
 			'exclude'                 => true,
+			'search'                  => true,
 			'inputType'               => 'text',
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50')
 		),
@@ -153,6 +154,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['startdate'],
 			'exclude'                 => true,
+			'search'                  => true,
 			'inputType'               => 'text',
 			'eval'                    => array('rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard')
 		),
@@ -160,6 +162,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['enddate'],
 			'exclude'                 => true,
+			'search'                  => true,
 			'inputType'               => 'text',
 			'eval'                    => array('rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard')
 		),
@@ -195,6 +198,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['event'],
 			'exclude'                 => true,
+			'search'                  => true,
 			'inputType'               => 'text',
 			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
 		),
@@ -202,6 +206,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['place'],
 			'exclude'                 => true,
+			'search'                  => true,
 			'inputType'               => 'text',
 			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
 		),
@@ -209,6 +214,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['photographer'],
 			'exclude'                 => true,
+			'search'                  => true,
 			'inputType'               => 'text',
 			'eval'                    => array('maxlength'=>255)
 		),
@@ -216,6 +222,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['description'],
 			'exclude'                 => true,
+			'search'                  => true,
 			'inputType'               => 'textarea',
 			'eval'                    => array('rte'=>'tinyMCE')
 		),
@@ -246,6 +253,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['published'],
 			'exclude'                 => true,
+			'search'                  => true,
 			'inputType'               => 'checkbox',
 			'eval'                    => array()
 		)

@@ -55,6 +55,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_archive'] = array
 		(
 			'mode'                    => 1,
 			'fields'                  => array('title'),
+			'panelLayout'             => 'filter;search,limit',
 			'flag'                    => 1 
 		),
 		'label' => array
@@ -124,6 +125,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_archive'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['title'],
 			'exclude'                 => true,
+			'search'                  => true,
 			'inputType'               => 'text',
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>255)
 		),
