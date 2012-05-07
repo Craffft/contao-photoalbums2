@@ -55,7 +55,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_archive'] = array
 		(
 			'mode'                    => 1,
 			'fields'                  => array('title'),
-			'panelLayout'             => 'filter;search,limit',
+			'panelLayout'             => 'search,limit',
 			'flag'                    => 1 
 		),
 		'label' => array

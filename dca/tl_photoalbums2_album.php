@@ -59,7 +59,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'mode'                    => 4,
 			'fields'                  => array('sorting'),
 			'headerFields'            => array('title'),
-			'panelLayout'             => 'filter;search,limit',
+			'panelLayout'             => 'search,limit',
 			'child_record_callback'   => array('tl_photoalbums2_album', 'listAlbums')
 		),
 		'label' => array
