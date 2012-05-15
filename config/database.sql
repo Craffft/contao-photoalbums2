@@ -64,6 +64,17 @@ CREATE TABLE `tl_photoalbums2_album` (
 -- --------------------------------------------------------
 
 -- 
+-- Table `tl_layout`
+-- 
+
+CREATE TABLE `tl_layout` (
+  `skipPhotoalbums2` char(1) NOT NULL default ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+-- --------------------------------------------------------
+
+-- 
 -- Table `tl_modules`
 -- 
 

@@ -99,8 +99,13 @@ class ModulePhotoalbums2 extends Module
 	{
 		global $objPage;
 		
+		// Get layout skipPhotoalbums2
+		$objLayout = $this->Database->prepare("SELECT skipPhotoalbums2 FROM tl_layout WHERE id=? OR fallback=1 ORDER BY fallback")
+									->limit(1)
+									->execute($objPage->layout);
+		
 		// Add css
-		if (TL_MODE=='FE')
+		if (TL_MODE=='FE' && $objLayout->skipPhotoalbums2 != '1')
 		{
 			$GLOBALS['TL_CSS'][] = TL_FILES_URL . 'system/modules/photoalbums2/html/photoalbums2.css';
 		}
