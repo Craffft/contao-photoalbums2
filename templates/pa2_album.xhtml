@@ -6,7 +6,7 @@
 <h2><a href="<?php echo $this->href; ?>"><?php echo $this->title; ?></a></h2>
 <?php if ($this->addImage): ?>
 <div class="image_container"<?php if ($this->margin): ?> style="<?php echo $this->margin; ?>"<?php endif; ?>>
-<a href="<?php echo $this->href; ?>">
+<a href="<?php echo $this->href; ?>" title="<?php echo $this->imgName; ?>">
 <img src="<?php echo $this->src; ?>"<?php echo $this->imgSize; ?> alt="<?php echo $this->alt; ?>" />
 </a>
 </div>

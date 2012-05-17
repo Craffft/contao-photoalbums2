@@ -640,9 +640,13 @@ class ModulePhotoalbums2 extends Module
 			// Add an image
 			if ($element!='' && is_file(TL_ROOT . '/' . $element))
 			{
-			    $arrImage['alt'] = strip_tags($arrAlbum['title']);
+			    // Add alt tag
+			    $arrImage['alt'] = substr(strrchr($element, '/'), 1);
 			    
 			    $this->addImageToTemplate($objTemplate, $arrImage);
+			    
+			    // Add imgName to template
+				$objTemplate->imgName = substr(strrchr($element, '/'), 1);
 			}
 			
 			// Parse template
@@ -701,6 +705,9 @@ class ModulePhotoalbums2 extends Module
 
 				$this->addImageToTemplate($objTemplate, $arrImage);
 			}
+			
+			// Add imgName to template
+			$objTemplate->imgName = strip_tags($album['title']);
 			
 			// Add array
 			$arrLink = array(
