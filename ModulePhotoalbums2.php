@@ -99,7 +99,7 @@ class ModulePhotoalbums2 extends Module
 	{
 		global $objPage;
 		
-		// Get layout skipPhotoalbums2
+		// Get layout skipPhotoalbums2 to disable photoalbums css file
 		$objLayout = $this->Database->prepare("SELECT skipPhotoalbums2 FROM tl_layout WHERE id=? OR fallback=1 ORDER BY fallback")
 									->limit(1)
 									->execute($objPage->layout);
