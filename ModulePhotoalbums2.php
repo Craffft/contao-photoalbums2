@@ -120,7 +120,8 @@ class ModulePhotoalbums2 extends Module
 			$pa2PerPage = $this->pa2PhotosPerPage;
 			$arrElements = $this->getAlbum($this->Input->get('items'));
 			$arrPhotos = $arrElements[0];
-			$arrElements = ($arrElements[0]['pic_sort_check'] == 1) ? $arrElements[0]['pic_sort'] : $arrElements[0]['pictures'];
+			
+			$arrElements = ($arrElements[0]['pic_sort_check'] == 'pic_sort_wizard') ? $arrElements[0]['pic_sort'] : $this->sortElements($arrElements[0]['pictures'], $arrElements[0]['pic_sort_check']);
 			
 			// Go back
 			$this->Template->referer = $this->generateFrontendUrl(array('id'=>$objPage->id, 'alias'=>$objPage->alias));
@@ -274,6 +275,74 @@ class ModulePhotoalbums2 extends Module
 	
 	
 	/**
+	 * sortElements function.
+	 * 
+	 * @access protected
+	 * @param array $arrImagePaths
+	 * @param string $sortType
+	 * @return array
+	 */
+	protected function sortElements($arrImagePaths, $sortType)
+	{
+		// Sort by name
+		if($sortType == 'name_asc' || $sortType == 'name_desc')
+		{
+			$arrSort = array();
+			
+			foreach($arrImagePaths as $key => $imagePath)
+		    {
+		    	$arrSort[$key] = substr(strrchr($imagePath, '/'), 1);
+		    }
+		    
+		    if($sortType == 'name_asc')
+		    {
+		    	array_multisort($arrSort, SORT_ASC, $arrImagePaths, SORT_ASC);
+		    }
+		    
+		    if($sortType == 'name_desc')
+		    {
+		    	array_multisort($arrSort, SORT_DESC, $arrImagePaths, SORT_DESC);
+		    }
+		}
+		
+		// Sort by date
+		if($sortType == 'date_asc' || $sortType == 'date_desc')
+		{
+			$arrSort = array();
+			
+			foreach($arrImagePaths as $key => $imagePath)
+		    {
+		    	$arrSort[$key] = filemtime($imagePath);
+		    }
+		    
+		    if($sortType == 'date_asc')
+		    {
+		    	array_multisort($arrSort, SORT_NUMERIC, SORT_ASC, $arrImagePaths, SORT_ASC);
+		    }
+		    
+		    if($sortType == 'date_desc')
+		    {
+		    	array_multisort($arrSort, SORT_NUMERIC, SORT_DESC, $arrImagePaths, SORT_DESC);
+		    }
+		    
+		    foreach($arrImagePaths as $a)
+		    {
+		    	echo '<br>';
+		    	echo filemtime($a);
+		    }
+		}
+		
+		// Sort random
+		if($sortType == 'random')
+		{
+			shuffle($arrImagePaths);
+		}
+		
+		return $arrImagePaths;
+	}
+	
+	
+	/**
 	 * sortOutElements function.
 	 * 
 	 * @access protected
@@ -336,17 +405,6 @@ class ModulePhotoalbums2 extends Module
 					$filterEnd = $this->Photoalbums2->getTimeFilterData($this->pa2TimeFilterEnd, true);
 					$dateStart = $objElement->startdate;
 					$dateEnd = $objElement->enddate;
-					
-					echo '<br>';
-					echo '<br>';
-					var_dump(date('d.m.Y H:i:s', $filterStart));
-					echo '<br>';
-					var_dump(date('d.m.Y H:i:s', $dateStart));
-					echo '<br>';
-					var_dump(date('d.m.Y H:i:s', $filterEnd));
-					echo '<br>';
-					echo '<br>';
-					echo '<br>';
 					
 					if (!(($filterStart <= $dateStart && $dateStart < $filterEnd) || ($filterStart <= $dateEnd && $dateEnd < $filterEnd)))
 					{
@@ -578,7 +636,7 @@ class ModulePhotoalbums2 extends Module
 		$this->Template->description = $arrAlbum['description'];
 		
 		// Get only pictures as array
-		$arrPictures = ($arrAlbum['pic_sort_check'] == 1) ? $arrAlbum['pic_sort'] : $arrAlbum['pictures'];
+		$arrPictures = ($arrAlbum['pic_sort_check'] == 'pic_sort_wizard') ? $arrAlbum['pic_sort'] : $this->sortElements($arrAlbum['pictures'], $arrAlbum['pic_sort_check']);;
 		
 		// Check arrElements
 		if(!is_array($arrPictures) || count($arrPictures) < 1)

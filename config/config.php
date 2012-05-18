@@ -51,5 +51,19 @@ $GLOBALS['FE_MOD']['photoalbums2_legend']['photoalbums2'] = 'ModulePhotoalbums2'
  */
 $GLOBALS['TL_PERMISSIONS'][] = 'photoalbums';
 $GLOBALS['TL_PERMISSIONS'][] = 'photoalbump';
+
+
+/**
+ * Sort types
+ */
+$GLOBALS['pa2_sort_types'] = array
+(
+	'name_asc' => 'name_asc',
+	'name_desc' => 'name_desc',
+	'date_asc' => 'date_asc',
+	'date_desc' => 'date_desc',
+	'random' => 'random',
+	'pic_sort_wizard' => 'pic_sort_wizard'
+);
  
 ?>

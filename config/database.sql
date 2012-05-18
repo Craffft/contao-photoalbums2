@@ -46,7 +46,7 @@ CREATE TABLE `tl_photoalbums2_album` (
   `enddate` varchar(10) NOT NULL default '',
   `pictures` blob NULL,
   `pic_preview` varchar(255) NOT NULL default '',
-  `pic_sort_check` char(1) NOT NULL default '',
+  `pic_sort_check` varchar(64) NOT NULL default '',
   `pic_sort` blob NULL,
   `event` varchar(255) NOT NULL default '',
   `place` varchar(255) NOT NULL default '',

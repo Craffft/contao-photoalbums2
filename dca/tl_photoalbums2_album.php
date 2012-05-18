@@ -118,13 +118,13 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array('pic_sort_check', 'protected'),
-		'default'                     => '{title_legend},title,alias;{date_legend},startdate,enddate;{pictures_legend},pictures,pic_preview,pic_sort_check;{info_legend},event,place,photographer,description;{protected_legend},protected;{published_legend},published'
+		'default'                     => '{title_legend},title,alias;{date_legend},startdate,enddate;{pictures_legend},pictures,pic_preview,pic_sort_check;{info_legend},event,place,photographer,description;{protected_legend},protected;{published_legend},published',
+		'pic_sort_wizard'             => '{title_legend},title,alias;{date_legend},startdate,enddate;{pictures_legend},pictures,pic_preview,pic_sort_check,pic_sort;{info_legend},event,place,photographer,description;{protected_legend},protected;{published_legend},published'
 	),
 
 	// Subpalettes
 	'subpalettes' => array
 	(
-		'pic_sort_check'			  => 'pic_sort',
 		'protected'                   => 'users,groups'
 	),
 
@@ -184,7 +184,9 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['pic_sort_check'],
 			'exclude'                 => true,
-			'inputType'               => 'checkbox',
+			'inputType'               => 'select',
+			'options'				  => $GLOBALS['pa2_sort_types'],
+			'reference'				  => &$GLOBALS['TL_LANG']['pa2_sort_types'],
 			'eval'                    => array('submitOnChange'=>true)
 		),
 		'pic_sort' => array
