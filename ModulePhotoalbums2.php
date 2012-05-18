@@ -709,7 +709,6 @@ class ModulePhotoalbums2 extends Module
 			
 			// Parse template
 			$arrElements[] = $objTemplate->parse();
-				
 		}
 		
 		return $arrElements;
