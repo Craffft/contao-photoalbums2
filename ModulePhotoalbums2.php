@@ -82,6 +82,21 @@ class ModulePhotoalbums2 extends Module
 		$this->loadDataContainer('tl_photoalbums2_album');
 		$this->pictures = $this->PicSortWizard->getUnsortedPictures($this->pictures, $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['pictures']['eval']['extensions']);
 		
+		// Set the item from the auto_item parameter
+		if ($GLOBALS['TL_CONFIG']['useAutoItem'] && isset($_GET['auto_item']))
+		{
+			$this->Input->setGet('album', $this->Input->get('auto_item'));
+		}
+		
+		/*// Do not index or cache the page if no event has been specified
+		if (!$this->Input->get('album'))
+		{
+			global $objPage;
+			$objPage->noSearch = 1;
+			$objPage->cache = 0;
+			return '';
+		}*/
+		
 		return parent::generate();
 	}
 
@@ -96,8 +111,8 @@ class ModulePhotoalbums2 extends Module
 	{
 		global $objPage;
 		
-		// Check for detail view
-		if ($this->Input->get('items'))
+		// Show photos
+		if($this->Input->get('album') && ((empty($this->pa2DetailPage)) || (!empty($this->pa2DetailPage) && $this->pa2DetailPage == $objPage->id)))
 		{
 			// Import Photoalbums2 class
 			$this->import('Pa2Photos', 'Pa2');
@@ -107,22 +122,33 @@ class ModulePhotoalbums2 extends Module
 			
 			$pa2NumberOf = $this->pa2NumberOfPhotos;
 			$pa2PerPage = $this->pa2PhotosPerPage;
-			$arrElements = $this->Pa2->getAlbum($this->Input->get('items'));
+			$arrElements = $this->Pa2->getAlbum($this->Input->get('album'));
+			
 			$arrPhotos = $arrElements[0];
 			
 			$arrElements = ($arrElements[0]['pic_sort_check'] == 'pic_sort_wizard') ? $arrElements[0]['pic_sort'] : $this->Pa2->sortElements($arrElements[0]['pictures'], $arrElements[0]['pic_sort_check']);
 			
-			// Go back
-			$this->Template->referer = $this->generateFrontendUrl(array('id'=>$objPage->id, 'alias'=>$objPage->alias));
+			// Save referer from albums page
+			if($this->Session->get('pa2_referer') == NULL)
+			{
+				$referer = $this->Session->get('referer');
+				$this->Session->set('pa2_referer', $referer['current']);
+			}
+			
+			$this->Template->referer = $this->Session->get('pa2_referer'); //$this->generateFrontendUrl(array('id'=>$objPage->id, 'alias'=>$objPage->alias));
 			$this->Template->back = $GLOBALS['TL_LANG']['MSC']['goBack'];
 			
 			// Empty text
 			$empty = $GLOBALS['TL_LANG']['MSC']['photosEmpty'];
 		}
-		else
+		// Show albums
+		else if(!$this->Input->get('album') && ((empty($this->pa2DetailPage)) || (!empty($this->pa2DetailPage) && $this->pa2DetailPage != $objPage->id)))
 		{
 			// Import Photoalbums2 class
 			$this->import('Pa2Albums', 'Pa2');
+			
+			// Remove referer
+			$this->Session->remove('pa2_referer');
 			
 			// Set Subtemplate
 			$this->strSubtemplate = $this->pa2AlbumsTemplate;
@@ -138,6 +164,29 @@ class ModulePhotoalbums2 extends Module
 			// Empty text
 			$empty = $GLOBALS['TL_LANG']['MSC']['albumsEmpty'];
 		}
+		// Go to detail page (photos)
+		else if($this->Input->get('album'))
+		{
+			// Get detail page informations
+			$objDetailPage = $this->getPageDetails($this->pa2DetailPage);
+			
+			// Add array
+			$arrDetailPage = array(
+				'id' => $objDetailPage->id,
+				'alias' => $objDetailPage->alias
+			);
+			
+			$linkDetailPage = $this->generateFrontendUrl($arrDetailPage, '/album/' . $this->Input->get('album'));
+			
+			// Locate to detail page
+			$this->redirect($linkDetailPage);
+		}
+		// Do nothing
+		else
+		{
+			$this->Template = new FrontendTemplate('mod_photoalbums2_empty');
+			return;
+		}
 		
 		// Add photoalbums2 css file
 		$this->Pa2->addCssFile();
@@ -149,12 +198,14 @@ class ModulePhotoalbums2 extends Module
 		$total = count($arrElements);
 		
 		// If albums empty
-		if ($total < 1 || !$arrElements)
+		if ($total < 1 || !$arrElements || $arrElements == false)
 		{
 			$this->strTemplate = 'mod_photoalbums2_empty';
 			$this->Template = new FrontendTemplate($this->strTemplate);
 			$this->Template->setData($this->arrData);
 			$this->Template->empty = $empty;
+			
+			return;
 		}
 		
 		// Pagination
@@ -166,11 +217,12 @@ class ModulePhotoalbums2 extends Module
 		$arrVars = array(
 			'id'				=> $this->id,
 			'strSubtemplate'	=> $this->strSubtemplate,
-			'arrData'			=> $this->arrData
+			'arrData'			=> $this->arrData,
+			'pa2DetailPage'		=> $this->pa2DetailPage
 		);
 		
 		// Check for detail view
-		if ($this->Input->get('items'))
+		if ($this->Input->get('album'))
 		{
 			// Add to arrVars
 			$arrVars['pa2MetaFields']	= $this->pa2PhotosMetaFields;
@@ -192,9 +244,6 @@ class ModulePhotoalbums2 extends Module
 			// Parse albums
 			$this->Template = $this->Pa2->parseAlbums($this->Template, $arrElements, $arrVars);
 		}
-		
-		// Set Template vars
-		$this->items = $this->Template->items;
 	}
 }
 

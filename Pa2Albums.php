@@ -121,13 +121,21 @@ class Pa2Albums extends Pa2
 				'alias' => $objPage->alias
 			);
 			
+			if(!empty($arrVars['pa2DetailPage']) && is_numeric($arrVars['pa2DetailPage']))
+			{
+				$objDetailPage = $this->getPageDetails($arrVars['pa2DetailPage']);
+				
+				$arrLink['id'] = $objDetailPage->id;
+				$arrLink['alias'] = $objDetailPage->alias;
+			}
+			
 			$objSubTemplate->title = $album['title'];
 			$objSubTemplate->alias = $album['alias'];
 			$objSubTemplate->event = $album['event'];
 			$objSubTemplate->place = $album['place'];
 			$objSubTemplate->photographer = $album['photographer'];
 			$objSubTemplate->description = $album['description'];
-			$objSubTemplate->href = $this->generateFrontendUrl($arrLink, '/items/' . $album['alias']);
+			$objSubTemplate->href = $this->generateFrontendUrl($arrLink, '/album/' . $album['alias']);
 			
 			// Parse template
 			$arrElements[] = $objSubTemplate->parse();

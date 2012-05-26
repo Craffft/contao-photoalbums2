@@ -94,6 +94,7 @@ CREATE TABLE `tl_module` (
   `pa2PhotosImageMargin` varchar(128) NOT NULL default '',
   `pa2AlbumsMetaFields` blob NULL,
   `pa2PhotosMetaFields` blob NULL,
+  `pa2DetailPage` varchar(10) NOT NULL default '',
   `pa2TimeFilter` char(1) NOT NULL default '',
   `pa2TimeFilterStart` varchar(64) NOT NULL default '',
   `pa2TimeFilterEnd` varchar(64) NOT NULL default '',

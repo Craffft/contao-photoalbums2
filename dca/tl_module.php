@@ -38,6 +38,7 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['photoalbums2'] = '{title_legend},na
 																{config_legend},pa2Archives,pa2AlbumsTemplate,pa2PhotosTemplate,pa2NumberOfAlbums,pa2NumberOfPhotos,pa2AlbumsPerPage,pa2PhotosPerPage;
 																{pa2Image_legend},pa2AlbumsPerRow,pa2PhotosPerRow,pa2AlbumsImageSize,pa2PhotosImageSize,pa2AlbumsImageMargin,pa2PhotosImageMargin;
 																{pa2Meta_legend:hide},pa2AlbumsMetaFields,pa2PhotosMetaFields;
+																{pa2PageView_legend},pa2DetailPage;
 																{pa2TimeFilter_legend:hide},pa2TimeFilter;
 																{protected_legend:hide},protected;
 																{expert_legend:hide},guests,cssID,space';
@@ -193,6 +194,14 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2PhotosMetaFields'] = array
 	'eval'                    => array('multiple'=>true)
 );
 
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2DetailPage'] = array
+(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2DetailPage'],
+    'exclude'                 => true,
+    'inputType'               => 'pageTree',
+    'eval'                    => array('fieldType'=>'radio')
+);
+
 $GLOBALS['TL_DCA']['tl_module']['fields']['pa2TimeFilter'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter'],
@@ -286,7 +295,7 @@ class tl_module_photoalbums2 extends Backend
 		}
 		
 		// Import Photoalbums2 class
-		$this->import('Photoalbums2');
+		$this->import('Pa2');
 		
 		// Set arrSet
 		$arrSet['pa2TimeFilterStart'] = deserialize($dc->activeRecord->pa2TimeFilterStart);
@@ -307,7 +316,7 @@ class tl_module_photoalbums2 extends Backend
 			}
 			
 			// Check startdate and enddate
-			if($this->Photoalbums2->getTimeFilterData($arrSet['pa2TimeFilterStart']) > $this->Photoalbums2->getTimeFilterData($arrSet['pa2TimeFilterEnd']))
+			if($this->Pa2->getTimeFilterData($arrSet['pa2TimeFilterStart']) > $this->Pa2->getTimeFilterData($arrSet['pa2TimeFilterEnd']))
 			{
 				$arrSet['pa2TimeFilterEnd'] = $arrSet['pa2TimeFilterStart'];
 			}

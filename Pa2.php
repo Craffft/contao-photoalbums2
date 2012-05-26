@@ -30,13 +30,13 @@
 
 
 /**
- * Abstract Class Pa2
+ * Class Pa2
  *
  * @copyright  Daniel Kiesel 2012 
  * @author     Daniel Kiesel 
  * @package    Frontend
  */
-abstract class Pa2 extends Frontend
+class Pa2 extends Frontend
 {
 	public static $pa2Type;
 	
