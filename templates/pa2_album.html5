@@ -1,6 +1,6 @@
 
 <!-- indexer::stop -->
-<?php if($this->rowStart): ?><div class="albumswrap"><?php endif; ?>
+<?php if($this->rowStart): ?><div class="albumswrap <?php echo $this->rowClass; ?>"><?php endif; ?>
 <section class="album block<?php echo $this->class; ?>"<?php if($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
 <div class="albumInside">
 <h2><a href="<?php echo $this->href; ?>"><?php echo $this->title; ?></a></h2>

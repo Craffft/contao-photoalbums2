@@ -267,7 +267,7 @@ class Pa2 extends Frontend
 		$objTemplate->rowStart = false;
 		if($m == 0)
 		{
-		    $objTemplate->class = (($objTemplate->class=='') ? ' ' : ($objTemplate->class) . ' ') . 'first';
+		    $objTemplate->class .= ' first';
 		    $objTemplate->rowStart = true;
 		}
 		
@@ -275,8 +275,24 @@ class Pa2 extends Frontend
 		$objTemplate->rowEnd = false;
 		if($m == ($perRow-1) || $total == ($i+1))
 		{
-		    $objTemplate->class = (($objTemplate->class=='') ? ' ' : ($objTemplate->class) . ' ') . 'last';
+		    $objTemplate->class .= ' last';
 		    $objTemplate->rowEnd = true;
+		}
+		
+		// Set even and odd in photos
+		$objTemplate->class .= ' ' . ((($i%2) == 0) ? 'even' : 'odd');
+		
+		// Set even and odd in rows
+		if($m == 0)
+		{
+			if(!isset($GLOBALS['pa2RowEvenOdd']))
+			{
+				$GLOBALS['pa2RowEvenOdd'] = 0;
+			}
+			
+			$objTemplate->rowClass = ((($GLOBALS['pa2RowEvenOdd']%2) == 0) ? 'even' : 'odd');
+			
+			$GLOBALS['pa2RowEvenOdd']++;
 		}
 		
 		return $objTemplate;

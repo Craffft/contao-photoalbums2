@@ -1,6 +1,6 @@
 
 <?php if ($this->show): ?>
-<?php if($this->rowStart): ?><div class="photoswrap"><?php endif; ?>
+<?php if($this->rowStart): ?><div class="photoswrap <?php echo $this->rowClass; ?>"><?php endif; ?>
 <div class="photo block<?php echo $this->class; ?>"<?php if($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
 <div class="photoInside">
 <?php if ($this->addImage): ?>
