@@ -169,6 +169,11 @@ class ModulePhotoalbums2 extends Module
 			
 			$linkDetailPage = $this->generateFrontendUrl($arrDetailPage, '/album/' . $this->Input->get('album'));
 			
+			if(($this->Input->get('page') != '') && ($this->Input->get('page') != NULL) && is_numeric($this->Input->get('page')))
+			{
+				$linkDetailPage .= '?page=' . $this->Input->get('page');
+			}
+			
 			// Locate to detail page
 			$this->redirect($linkDetailPage);
 		}
