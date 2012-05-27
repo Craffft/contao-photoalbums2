@@ -88,15 +88,6 @@ class ModulePhotoalbums2 extends Module
 			$this->Input->setGet('album', $this->Input->get('auto_item'));
 		}
 		
-		/*// Do not index or cache the page if no event has been specified
-		if (!$this->Input->get('album'))
-		{
-			global $objPage;
-			$objPage->noSearch = 1;
-			$objPage->cache = 0;
-			return '';
-		}*/
-		
 		return parent::generate();
 	}
 
@@ -112,7 +103,7 @@ class ModulePhotoalbums2 extends Module
 		global $objPage;
 		
 		// Show photos
-		if($this->Input->get('album') && ((empty($this->pa2DetailPage)) || (!empty($this->pa2DetailPage) && $this->pa2DetailPage == $objPage->id)))
+		if($this->Input->get('album') && (($this->pa2DetailPage == '') || ($this->pa2DetailPage != '' && ($this->pa2DetailPage == $objPage->id || ($objPage->languageMain != '' && $objPage->languageMain == $this->pa2DetailPage)))))
 		{
 			// Import Photoalbums2 class
 			$this->import('Pa2Photos', 'Pa2');
@@ -142,7 +133,7 @@ class ModulePhotoalbums2 extends Module
 			$empty = $GLOBALS['TL_LANG']['MSC']['photosEmpty'];
 		}
 		// Show albums
-		else if(!$this->Input->get('album') && ((empty($this->pa2DetailPage)) || (!empty($this->pa2DetailPage) && $this->pa2DetailPage != $objPage->id)))
+		else if(!$this->Input->get('album') && ($this->pa2DetailPage == '' || ($this->pa2DetailPage != '' && $this->pa2DetailPage != $objPage->id)))
 		{
 			// Import Photoalbums2 class
 			$this->import('Pa2Albums', 'Pa2');
@@ -184,6 +175,10 @@ class ModulePhotoalbums2 extends Module
 		// Go to root page
 		else
 		{
+			// Do not index or cache the page if no album has been specified
+			$objPage->noSearch = 1;
+			$objPage->cache = 0;
+			
 			// Get root page informations
 			$objRootPage = $this->getPageDetails($objPage->rootId);
 			
