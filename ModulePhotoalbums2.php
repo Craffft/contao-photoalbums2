@@ -181,11 +181,22 @@ class ModulePhotoalbums2 extends Module
 			// Locate to detail page
 			$this->redirect($linkDetailPage);
 		}
-		// Do nothing
+		// Go to root page
 		else
 		{
-			$this->Template = new FrontendTemplate('mod_photoalbums2_empty');
-			return;
+			// Get root page informations
+			$objRootPage = $this->getPageDetails($objPage->rootId);
+			
+			// Add array
+			$arrRootPage = array(
+				'id' => $objRootPage->id,
+				'alias' => $objRootPage->alias
+			);
+			
+			$linkRootPage = $this->generateFrontendUrl($arrRootPage);
+			
+			// Locate to root page
+			$this->redirect($linkRootPage);
 		}
 		
 		// Add photoalbums2 css file
