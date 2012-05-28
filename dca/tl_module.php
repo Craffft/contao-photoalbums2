@@ -35,7 +35,7 @@
 $GLOBALS['TL_DCA']['tl_module']['config']['onsubmit_callback'][] = array('tl_module_photoalbums2', 'checkTimeFilter');
 $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][] = 'pa2TimeFilter';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['photoalbums2'] = '{title_legend},name,headline,type;
-																{config_legend},pa2Archives,pa2AlbumsTemplate,pa2PhotosTemplate,pa2NumberOfAlbums,pa2NumberOfPhotos,pa2AlbumsPerPage,pa2PhotosPerPage;
+																{config_legend},pa2Archives,pa2AlbumsTemplate,pa2PhotosTemplate,pa2NumberOfAlbums,pa2NumberOfPhotos,pa2AlbumsPerPage,pa2PhotosPerPage,pa2AlbumsShowHeadline,pa2PhotosShowHeadline,pa2AlbumsShowTitle,pa2PhotosShowTitle;
 																{pa2Image_legend},pa2AlbumsPerRow,pa2PhotosPerRow,pa2AlbumsImageSize,pa2PhotosImageSize,pa2AlbumsImageMargin,pa2PhotosImageMargin;
 																{pa2Meta_legend:hide},pa2AlbumsMetaFields,pa2PhotosMetaFields;
 																{pa2PageView_legend},pa2DetailPage;
@@ -136,6 +136,42 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2PhotosPerRow'] = array
     'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50')
 );
 
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowHeadline'] = array
+(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowHeadline'],
+    'exclude'                 => true,
+    'inputType'               => 'checkbox',
+	'default'                 => 1,
+    'eval'                    => array('tl_class'=>'w50')
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2PhotosShowHeadline'] = array
+(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2PhotosShowHeadline'],
+    'exclude'                 => true,
+    'inputType'               => 'checkbox',
+	'default'                 => 1,
+    'eval'                    => array('tl_class'=>'w50')
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowTitle'] = array
+(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowTitle'],
+    'exclude'                 => true,
+    'inputType'               => 'checkbox',
+	'default'                 => 1,
+    'eval'                    => array('tl_class'=>'w50')
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2PhotosShowTitle'] = array
+(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2PhotosShowTitle'],
+    'exclude'                 => true,
+    'inputType'               => 'checkbox',
+	'default'                 => 1,
+    'eval'                    => array('tl_class'=>'w50')
+);
+
 $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageSize'] = array
 (
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsImageSize'],
@@ -179,7 +215,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsMetaFields'] = array
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsMetaFields'],
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
-	'options'                 => array('date', 'event', 'place', 'photographer', 'description'),
+	'options'                 => $GLOBALS['Pa2']['metaFields'],
 	'reference'               => &$GLOBALS['TL_LANG']['tl_module']['pa2MetaFields_options'],
 	'eval'                    => array('multiple'=>true)
 );
@@ -189,7 +225,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2PhotosMetaFields'] = array
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2PhotosMetaFields'],
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
-	'options'                 => array('date', 'event', 'place', 'photographer', 'description'),
+	'options'                 => $GLOBALS['Pa2']['metaFields'],
 	'reference'               => &$GLOBALS['TL_LANG']['tl_module']['pa2MetaFields_options'],
 	'eval'                    => array('multiple'=>true)
 );

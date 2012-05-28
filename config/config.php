@@ -56,7 +56,7 @@ $GLOBALS['TL_PERMISSIONS'][] = 'photoalbump';
 /**
  * Sort types
  */
-$GLOBALS['pa2_sort_types'] = array
+$GLOBALS['Pa2']['pa2_sort_types'] = array
 (
 	'name_asc' => 'name_asc',
 	'name_desc' => 'name_desc',
@@ -65,5 +65,11 @@ $GLOBALS['pa2_sort_types'] = array
 	'random' => 'random',
 	'pic_sort_wizard' => 'pic_sort_wizard'
 );
- 
+
+
+/**
+ * Meta fields
+ */
+$GLOBALS['Pa2']['metaFields'] = array('date', 'event', 'place', 'photographer', 'description');
+
 ?>

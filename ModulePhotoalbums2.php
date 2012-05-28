@@ -240,6 +240,8 @@ class ModulePhotoalbums2 extends Module
 			$arrVars['pa2PerRow']		= $this->pa2PhotosPerRow;
 			$arrVars['pa2ImageSize']	= $this->pa2PhotosImageSize;
 			$arrVars['pa2ImageMargin']	= $this->pa2PhotosImageMargin;
+			$arrVars['pa2ShowHeadline']	= $this->pa2PhotosShowHeadline;
+			$arrVars['pa2ShowTitle']	= $this->pa2PhotosShowTitle;
 			
 			// Parse photos
 			$this->Template = $this->Pa2->parsePhotos($this->Template, $arrPhotos, $arrElements, $arrVars);
@@ -251,6 +253,8 @@ class ModulePhotoalbums2 extends Module
 			$arrVars['pa2PerRow']		= $this->pa2AlbumsPerRow;
 			$arrVars['pa2ImageSize']	= $this->pa2AlbumsImageSize;
 			$arrVars['pa2ImageMargin']	= $this->pa2AlbumsImageMargin;
+			$arrVars['pa2ShowHeadline']	= $this->pa2AlbumsShowHeadline;
+			$arrVars['pa2ShowTitle']	= $this->pa2AlbumsShowTitle;
 			
 			// Parse albums
 			$this->Template = $this->Pa2->parseAlbums($this->Template, $arrElements, $arrVars);

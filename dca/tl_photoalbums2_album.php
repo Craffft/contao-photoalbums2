@@ -185,7 +185,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['pic_sort_check'],
 			'exclude'                 => true,
 			'inputType'               => 'select',
-			'options'				  => $GLOBALS['pa2_sort_types'],
+			'options'				  => $GLOBALS['Pa2']['pa2_sort_types'],
 			'reference'				  => &$GLOBALS['TL_LANG']['pa2_sort_types'],
 			'eval'                    => array('submitOnChange'=>true)
 		),

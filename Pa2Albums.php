@@ -83,6 +83,9 @@ class Pa2Albums extends Pa2
 		
 		$arrElements = array();
 		
+		// Set Template vars
+		$objTemplate->showHeadline = ($arrVars['pa2ShowHeadline'] == 1) ? true : false;
+		
 		// Numerical value of all albums
 		$total = count($arrAlbums);
 		
@@ -131,6 +134,7 @@ class Pa2Albums extends Pa2
 			
 			$objSubTemplate->title = $album['title'];
 			$objSubTemplate->alias = $album['alias'];
+			$objSubTemplate->showTitle = ($arrVars['pa2ShowTitle'] == 1) ? true : false;
 			$objSubTemplate->event = $album['event'];
 			$objSubTemplate->place = $album['place'];
 			$objSubTemplate->photographer = $album['photographer'];
