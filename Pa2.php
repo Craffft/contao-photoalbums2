@@ -310,14 +310,16 @@ class Pa2 extends Frontend
 	 */
 	protected function pa2BuildDate($objTemplate, $intStartdate, $intEnddate)
 	{
+		global $objPage;
+		
 		// Check
 		if(!is_object($objTemplate))
 		{
 			return false;
 		}
 		
-		$startdate = (!empty($intStartdate) && $intStartdate > 0) ? date($GLOBALS['TL_CONFIG']['dateFormat'], $intStartdate) : false;
-		$enddate = (!empty($intEnddate) && $intEnddate > 0) ? date($GLOBALS['TL_CONFIG']['dateFormat'], $intEnddate) : false;
+		$startdate = (!empty($intStartdate) && $intStartdate > 0) ? date($objPage->dateFormat, $intStartdate) : false;
+		$enddate = (!empty($intEnddate) && $intEnddate > 0) ? date($objPage->dateFormat, $intEnddate) : false;
 		
 		if ($startdate == $enddate)
 		{
