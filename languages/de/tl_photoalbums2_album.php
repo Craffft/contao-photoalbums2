@@ -68,6 +68,7 @@ $GLOBALS['TL_LANG']['tl_photoalbums2_album']['new']    = array('Neues Fotoalbum'
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['edit']   = array('Fotoalbum bearbeiten', 'Fotoalbum ID %s bearbeiten');
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['copy']   = array('Fotoalbum duplizieren', 'Fotoalbum ID %s duplizieren');
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['delete'] = array('Fotoalbum löschen', 'Fotoalbum ID %s löschen');
-$GLOBALS['TL_LANG']['tl_photoalbums2_album']['show']   = array('Fotoalbum anzeigen', 'Fotoalbum ID %s anzeigen');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['show']   = array('Details des Fotoalbum anzeigen', 'Details des Fotoalbum ID %s anzeigen');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['toggle'] = array('Fotoalbum veröffentlichten/unveröffentlichen', 'Fotoalbum ID %s veröffentlichten/unveröffentlichen');
 
 ?>

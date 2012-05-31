@@ -69,5 +69,6 @@ $GLOBALS['TL_LANG']['tl_photoalbums2_album']['edit']   = array('Edit photo album
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['copy']   = array('Copy photo album', 'Copy photo album ID %s');
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['delete'] = array('Delete photo album', 'Delete photo album ID %s');
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['show']   = array('Show details of the photo album', 'Show details of the photo album ID %s');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['toggle'] = array('Publish/unpublish photo album', 'Publish/unpublish photo album ID %s');
 
 ?>
