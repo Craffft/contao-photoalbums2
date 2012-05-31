@@ -422,7 +422,15 @@ class tl_photoalbums2_album extends Backend
 		
 		$time = time();
 		$key = ($arrRow['published']) ? 'published' : 'unpublished';
-		$date = $this->parseDate($GLOBALS['TL_CONFIG']['datimFormat'], $arrRow['date']);
+		
+		// Parse date
+		$date = $this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'], $arrRow['startdate']);
+		
+		if($arrRow['enddate'] > $arrRow['startdate'])
+		{
+			$date .= ' - ';
+			$date .= $this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'], $arrRow['enddate']);
+		}
 
 		return '
 <div class="cte_type ' . $key . '"><strong>' . $arrRow['title'] . '</strong> - ' . $date . '</div>

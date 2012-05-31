@@ -318,8 +318,8 @@ class Pa2 extends Frontend
 			return false;
 		}
 		
-		$startdate = (!empty($intStartdate) && $intStartdate > 0) ? date($objPage->dateFormat, $intStartdate) : false;
-		$enddate = (!empty($intEnddate) && $intEnddate > 0) ? date($objPage->dateFormat, $intEnddate) : false;
+		$startdate = (!empty($intStartdate) && $intStartdate > 0) ? $this->parseDate($objPage->dateFormat, $intStartdate) : false;
+		$enddate = (!empty($intEnddate) && $intEnddate > 0) ? $this->parseDate($objPage->dateFormat, $intEnddate) : false;
 		
 		if ($startdate == $enddate)
 		{
