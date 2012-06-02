@@ -85,6 +85,8 @@ class Pa2Albums extends Pa2
 		
 		// Set Template vars
 		$objTemplate->showHeadline = ($arrVars['pa2ShowHeadline'] == 1) ? true : false;
+		$objTemplate->showTeaser = ($arrVars['pa2ShowTeaser'] == 1) ? true : false;
+		$objTemplate->teaser = $arrVars['pa2Teaser'];
 		
 		// Numerical value of all albums
 		$total = count($arrAlbums);

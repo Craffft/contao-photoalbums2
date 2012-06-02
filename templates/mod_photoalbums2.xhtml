@@ -9,6 +9,10 @@
 <h2><?php echo $this->title; ?></h2>
 <?php endif; ?>
 
+<?php if ($this->showTeaser): ?>
+<div class="teaser"><?php echo $this->teaser; ?></div>
+<?php endif; ?>
+
 <?php if ($this->metaFields): ?>
 <div class="info">
 <?php foreach ($this->metaFields as $metaField): ?>

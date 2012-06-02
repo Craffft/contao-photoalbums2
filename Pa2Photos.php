@@ -145,6 +145,8 @@ class Pa2Photos extends Pa2
 		$objTemplate->alias = $arrAlbum['alias'];
 		$objTemplate->showHeadline = ($arrVars['pa2ShowHeadline'] == 1) ? true : false;
 		$objTemplate->showTitle = ($arrVars['pa2ShowTitle'] == 1) ? true : false;
+		$objTemplate->showTeaser = ($arrVars['pa2ShowTeaser'] == 1) ? true : false;
+		$objTemplate->teaser = $arrVars['pa2Teaser'];
 		
 		// Define date
 		$objTemplate = $this->pa2BuildDate($objTemplate, $arrAlbum['startdate'], $arrAlbum['enddate']);

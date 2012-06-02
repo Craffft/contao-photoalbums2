@@ -92,6 +92,8 @@ CREATE TABLE `tl_module` (
   `pa2PhotosShowHeadline` char(1) NOT NULL default '',
   `pa2AlbumsShowTitle` char(1) NOT NULL default '',
   `pa2PhotosShowTitle` char(1) NOT NULL default '',
+  `pa2AlbumsShowTeaser` char(1) NOT NULL default '',
+  `pa2PhotosShowTeaser` char(1) NOT NULL default '',
   `pa2AlbumsImageSize` varchar(64) NOT NULL default '',
   `pa2PhotosImageSize` varchar(64) NOT NULL default '',
   `pa2AlbumsImageMargin` varchar(128) NOT NULL default '',
@@ -102,6 +104,7 @@ CREATE TABLE `tl_module` (
   `pa2TimeFilter` char(1) NOT NULL default '',
   `pa2TimeFilterStart` varchar(64) NOT NULL default '',
   `pa2TimeFilterEnd` varchar(64) NOT NULL default '',
+  `pa2Teaser` text NULL,
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 

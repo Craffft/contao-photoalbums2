@@ -35,11 +35,12 @@
 $GLOBALS['TL_DCA']['tl_module']['config']['onsubmit_callback'][] = array('tl_module_photoalbums2', 'checkTimeFilter');
 $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][] = 'pa2TimeFilter';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['photoalbums2'] = '{title_legend},name,headline,type;
-																{config_legend},pa2Archives,pa2AlbumsTemplate,pa2PhotosTemplate,pa2NumberOfAlbums,pa2NumberOfPhotos,pa2AlbumsPerPage,pa2PhotosPerPage,pa2AlbumsShowHeadline,pa2PhotosShowHeadline,pa2AlbumsShowTitle,pa2PhotosShowTitle;
+																{config_legend},pa2Archives,pa2AlbumsTemplate,pa2PhotosTemplate,pa2NumberOfAlbums,pa2NumberOfPhotos,pa2AlbumsPerPage,pa2PhotosPerPage,pa2AlbumsShowHeadline,pa2PhotosShowHeadline,pa2AlbumsShowTitle,pa2PhotosShowTitle,pa2AlbumsShowTeaser,pa2PhotosShowTeaser;
 																{pa2Image_legend},pa2AlbumsPerRow,pa2PhotosPerRow,pa2AlbumsImageSize,pa2PhotosImageSize,pa2AlbumsImageMargin,pa2PhotosImageMargin;
 																{pa2Meta_legend:hide},pa2AlbumsMetaFields,pa2PhotosMetaFields;
 																{pa2PageView_legend},pa2DetailPage;
 																{pa2TimeFilter_legend:hide},pa2TimeFilter;
+																{pa2Teaser_legend:hide},pa2Teaser;
 																{protected_legend:hide},protected;
 																{expert_legend:hide},guests,cssID,space';
 
@@ -172,6 +173,24 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2PhotosShowTitle'] = array
     'eval'                    => array('tl_class'=>'w50')
 );
 
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowTeaser'] = array
+(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowTeaser'],
+    'exclude'                 => true,
+    'inputType'               => 'checkbox',
+	'default'                 => 1,
+    'eval'                    => array('tl_class'=>'w50')
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2PhotosShowTeaser'] = array
+(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2PhotosShowTeaser'],
+    'exclude'                 => true,
+    'inputType'               => 'checkbox',
+	'default'                 => 1,
+    'eval'                    => array('tl_class'=>'w50')
+);
+
 $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageSize'] = array
 (
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsImageSize'],
@@ -266,6 +285,14 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2TimeFilterEnd'] = array
     'options'                 => array(/*'seconds', 'minutes', 'hours', */'days', 'weeks', 'months', 'years'),
 	'reference'               => &$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter_options'],
 	'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50')
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2Teaser'] = array
+(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2Teaser'],
+    'exclude'                 => true,
+    'inputType'               => 'textarea',
+	'eval'                    => array('rte'=>'tinyFlash', 'tl_class'=>'long')
 );
 
 

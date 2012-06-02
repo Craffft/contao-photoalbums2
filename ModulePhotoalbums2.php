@@ -229,7 +229,8 @@ class ModulePhotoalbums2 extends Module
 			'id'				=> $this->id,
 			'strSubtemplate'	=> $this->strSubtemplate,
 			'arrData'			=> $this->arrData,
-			'pa2DetailPage'		=> $this->pa2DetailPage
+			'pa2DetailPage'		=> $this->pa2DetailPage,
+			'pa2Teaser'			=> $this->pa2Teaser
 		);
 		
 		// Check for detail view
@@ -242,6 +243,7 @@ class ModulePhotoalbums2 extends Module
 			$arrVars['pa2ImageMargin']	= $this->pa2PhotosImageMargin;
 			$arrVars['pa2ShowHeadline']	= $this->pa2PhotosShowHeadline;
 			$arrVars['pa2ShowTitle']	= $this->pa2PhotosShowTitle;
+			$arrVars['pa2ShowTeaser']	= $this->pa2PhotosShowTeaser;
 			
 			// Parse photos
 			$this->Template = $this->Pa2->parsePhotos($this->Template, $arrPhotos, $arrElements, $arrVars);
@@ -255,6 +257,7 @@ class ModulePhotoalbums2 extends Module
 			$arrVars['pa2ImageMargin']	= $this->pa2AlbumsImageMargin;
 			$arrVars['pa2ShowHeadline']	= $this->pa2AlbumsShowHeadline;
 			$arrVars['pa2ShowTitle']	= $this->pa2AlbumsShowTitle;
+			$arrVars['pa2ShowTeaser']	= $this->pa2AlbumsShowTeaser;
 			
 			// Parse albums
 			$this->Template = $this->Pa2->parseAlbums($this->Template, $arrElements, $arrVars);

@@ -226,7 +226,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'textarea',
-			'eval'                    => array('rte'=>'tinyMCE')
+			'eval'                    => array('rte'=>'tinyFlash')
 		),
 		'protected' => array
 		(

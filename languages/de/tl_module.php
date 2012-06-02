@@ -43,6 +43,8 @@ $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowHeadline'] = array('Modul Übersc
 $GLOBALS['TL_LANG']['tl_module']['pa2PhotosShowHeadline'] = array('Modul Überschrift in Foto-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um die Modul Überschrift in der Foto-Ansicht anzuzeigen.');
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowTitle'] = array('Alben Titel in Alben-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um den Titel der Alben in der Alben-Ansicht anzuzeigen.');
 $GLOBALS['TL_LANG']['tl_module']['pa2PhotosShowTitle'] = array('Alben Titel in Foto-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um den Titel des Albums in der Foto-Ansicht anzuzeigen.');
+$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowTeaser'] = array('Teaser in Alben-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um den Teaser in der Alben-Ansicht anzuzeigen.');
+$GLOBALS['TL_LANG']['tl_module']['pa2PhotosShowTeaser'] = array('Teaser in Foto-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um den Teaser in der Foto-Ansicht anzuzeigen.');
 
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsImageSize'] = array('Alben-Ansicht Bildbreite und Bildhöhe', 'Hier können Sie die Abmessungen des Bildes und den Skalierungsmodus festlegen.');
 $GLOBALS['TL_LANG']['tl_module']['pa2PhotosImageSize'] = array('Foto-Ansicht Bildbreite und Bildhöhe', 'Hier können Sie die Abmessungen des Bildes und den Skalierungsmodus festlegen.');
@@ -56,6 +58,7 @@ $GLOBALS['TL_LANG']['tl_module']['pa2DetailPage'] = array('Foto-Ansicht auf eine
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter'] = array('Zeitfilter', 'Hier haben Sie die Möglichkeit, die Fotoalben über einen vergangenen Zeitraum zu filtern.');
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilterStart'] = array('Zeitraum von', 'Tragen Sie hier den Startwert des zu filternden Zeitraumes ein. Sollten Sie beispielsweise 10 Tage eintragen, so werden die Alben der vergangenen 10 Tage im Frontend angezeigt. Um von heute aus zu starten, tragen Sie die Zahl "0" ein.');
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilterEnd'] = array('Zeitraum bis', 'Tragen Sie hier den Endwert des zu filternden Zeitraumes ein. Sollten Sie beispielsweise im ersten Feld 10 Tage und in diesem Feld 5 Tage eintragen, so werden die Alben im Zeitraum von vor 10 Tagen bis von vor 5 Tagen im Frontend angezeigt. Um das Ende des Zeitraumes auf heute zu legen, tragen Sie die Zahl "0" ein.');
+$GLOBALS['TL_LANG']['tl_module']['pa2Teaser'] = array('Teaser', 'Hier können Sie einen Teaser definieren. Achten Sie darauf, dass der Teaser nur angezeigt wird, wenn Sie im oberen Teil des Formulars die Ausgabe aktiviert haben.');
 
 
 /**
@@ -63,8 +66,9 @@ $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilterEnd'] = array('Zeitraum bis', 'Tr
  */
 $GLOBALS['TL_LANG']['tl_module']['pa2Image_legend'] = 'Foto Einstellungen';
 $GLOBALS['TL_LANG']['tl_module']['pa2Meta_legend'] = 'Meta Einstellungen';
-$GLOBALS['TL_LANG']['tl_module']['pa2PageView_legend'] = 'Seitenansicht Einstellungen';
-$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter_legend'] = 'Zeitfilter Einstellungen';
+$GLOBALS['TL_LANG']['tl_module']['pa2PageView_legend'] = 'Seitenansicht';
+$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter_legend'] = 'Zeitfilter';
+$GLOBALS['TL_LANG']['tl_module']['pa2Teaser_legend'] = 'Teaser';
 
 $GLOBALS['TL_LANG']['tl_module']['pa2MetaFields_options']['date'] = 'Aufnahmedatum';
 $GLOBALS['TL_LANG']['tl_module']['pa2MetaFields_options']['event'] = 'Ereignis';

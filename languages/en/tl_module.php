@@ -43,6 +43,8 @@ $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowHeadline'] = array('Show the modu
 $GLOBALS['TL_LANG']['tl_module']['pa2PhotosShowHeadline'] = array('Show the module title in the photo view', 'Set this checkbox to display the module title in the photo view.');
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowTitle'] = array('Show the album title in the album view', 'Set this checkbox to display the album title in the album view.');
 $GLOBALS['TL_LANG']['tl_module']['pa2PhotosShowTitle'] = array('Show the album title in the photo view', 'Set this checkbox to display the module title in the photo view.');
+$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowTeaser'] = array('Teaser in Alben-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um den Teaser in der Alben-Ansicht anzuzeigen.');
+$GLOBALS['TL_LANG']['tl_module']['pa2PhotosShowTeaser'] = array('Teaser in Foto-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um den Teaser in der Foto-Ansicht anzuzeigen.');
 
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsImageSize'] = array('Album view image dimensions', 'Here you can set the image dimensions and the resize mode.');
 $GLOBALS['TL_LANG']['tl_module']['pa2PhotosImageSize'] = array('Photo view image dimensions', 'Here you can set the image dimensions and the resize mode.');
@@ -56,6 +58,7 @@ $GLOBALS['TL_LANG']['tl_module']['pa2DetailPage'] = array('Photo view on another
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter'] = array('Time filter', 'Here you have the option of the photo albums for a period previous filter.');
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilterStart'] = array('Period of', 'Enter the starting value of the period to be filtered. Example, if you enter 10 days, so the albums of the past 10 days are shown in the frontend. To start from today, enter the number "0".');
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilterEnd'] = array('Period up', 'Enter here the final value of the period to be filtered. For example, you should enter in the first field 10 days and in this field 5 days, the albums are displayed in the period before 10 days from 5 days before the front end. To add to the end of the period to today, enter the number "0".');
+$GLOBALS['TL_LANG']['tl_module']['pa2Teaser'] = array('Teaser', 'Hier können Sie einen Teaser definieren. Achten Sie darauf, dass der Teaser nur angezeigt wird, wenn Sie im oberen Teil des Formulars die Ausgabe aktiviert haben.');
 
 
 /**
@@ -65,6 +68,7 @@ $GLOBALS['TL_LANG']['tl_module']['pa2Image_legend'] = 'Photo settings';
 $GLOBALS['TL_LANG']['tl_module']['pa2Meta_legend'] = 'Meta settings';
 $GLOBALS['TL_LANG']['tl_module']['pa2PageView_legend'] = 'Side view settings';
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter_legend'] = 'Time filter settings';
+$GLOBALS['TL_LANG']['tl_module']['pa2Teaser_legend'] = 'Teaser';
 
 $GLOBALS['TL_LANG']['tl_module']['pa2MetaFields_options']['date'] = 'Capture date';
 $GLOBALS['TL_LANG']['tl_module']['pa2MetaFields_options']['event'] = 'Event';
