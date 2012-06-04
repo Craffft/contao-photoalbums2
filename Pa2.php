@@ -195,6 +195,68 @@ class Pa2 extends Frontend
 	
 	
 	/**
+	 * sortElements function.
+	 * 
+	 * @access public
+	 * @param array $arrImagePaths
+	 * @param string $sortType
+	 * @return array
+	 */
+	public function sortElements($arrImagePaths, $sortType)
+	{
+		// Sort by name
+		if($sortType == 'name_asc' || $sortType == 'name_desc')
+		{
+			$arrSort = array();
+			
+			foreach($arrImagePaths as $key => $imagePath)
+		    {
+		    	$arrSort[$key] = substr(strrchr($imagePath, '/'), 1);
+		    }
+		    
+		    if($sortType == 'name_asc')
+		    {
+		    	array_multisort($arrSort, SORT_ASC, $arrImagePaths, SORT_ASC);
+		    }
+		    
+		    if($sortType == 'name_desc')
+		    {
+		    	array_multisort($arrSort, SORT_DESC, $arrImagePaths, SORT_DESC);
+		    }
+		}
+		
+		// Sort by date
+		if($sortType == 'date_asc' || $sortType == 'date_desc')
+		{
+			$arrSort = array();
+			
+			foreach($arrImagePaths as $key => $imagePath)
+		    {
+		    	$arrSort[$key] = filemtime($imagePath);
+		    }
+		    
+		    if($sortType == 'date_asc')
+		    {
+		    	array_multisort($arrSort, SORT_NUMERIC, SORT_ASC, $arrImagePaths, SORT_ASC);
+		    }
+		    
+		    if($sortType == 'date_desc')
+		    {
+		    	array_multisort($arrSort, SORT_NUMERIC, SORT_DESC, $arrImagePaths, SORT_DESC);
+		    }
+		}
+		
+		// Sort random
+		if($sortType == 'random')
+		{
+			shuffle($arrImagePaths);
+		}
+		
+		return $arrImagePaths;
+	}
+	
+	
+	/**
 	 * getTimeFilterData function.
 	 * 
 	 * @access protected

@@ -2,17 +2,21 @@
 <!-- indexer::stop -->
 <?php if($this->rowStart): ?><div class="albumswrap <?php echo $this->rowClass; ?>"><?php endif; ?>
 <div class="album block<?php echo $this->class; ?>"<?php if($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
 <div class="albumInside">
+
 <?php if($this->showTitle): ?>
-<h2><a href="<?php echo $this->href; ?>"><?php echo $this->title; ?></a></h2>
+<h2><a href="<?php echo $this->href; ?>" title="<?php echo $this->title; ?>"<?php if ($this->albumLightbox): ?> rel="lightbox[pa2_<?php echo $this->albumID; ?>]"<?php endif; ?>><?php echo $this->title; ?></a></h2>
 <?php endif; ?>
+
 <?php if ($this->addImage): ?>
 <div class="image_container"<?php if ($this->margin): ?> style="<?php echo $this->margin; ?>"<?php endif; ?>>
-<a href="<?php echo $this->href; ?>" title="<?php echo $this->imgName; ?>">
+<a href="<?php echo $this->href; ?>" title="<?php echo $this->title; ?>"<?php if ($this->albumLightbox): ?> rel="lightbox[pa2_<?php echo $this->albumID; ?>]"<?php endif; ?>>
 <img src="<?php echo $this->src; ?>"<?php echo $this->imgSize; ?> alt="<?php echo $this->alt; ?>" />
 </a>
 </div>
 <?php endif; ?>
+
 <?php if ($this->metaFields): ?>
 <div class="info">
 <?php foreach ($this->metaFields as $metaField): ?>
@@ -20,7 +24,17 @@
 <?php endforeach; ?>
 </div>
 <?php endif; ?>
+
 </div>
+
+<?php if($this->albumLightbox): ?>
+<div class="hide albumLightboxPictures">
+<?php foreach($this->albumLightboxPictures as $lightboxPicture): ?>
+<?php echo $lightboxPicture; ?>
+<?php endforeach; ?>
+</div>
+<?php endif; ?>
+
 </div>
 <?php if($this->rowEnd): ?></div><?php endif; ?>
 <!-- indexer::continue -->

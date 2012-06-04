@@ -84,8 +84,8 @@ class Pa2Albums extends Pa2
 		$arrElements = array();
 		
 		// Set Template vars
-		$objTemplate->showHeadline = ($arrVars['pa2ShowHeadline'] == 1) ? true : false;
-		$objTemplate->showTeaser = ($arrVars['pa2ShowTeaser'] == 1) ? true : false;
+		$objTemplate->showHeadline = $arrVars['pa2ShowHeadline'];
+		$objTemplate->showTeaser = $arrVars['pa2ShowTeaser'];
 		$objTemplate->teaser = $arrVars['pa2Teaser'];
 		
 		// Numerical value of all albums
@@ -117,8 +117,8 @@ class Pa2Albums extends Pa2
 				$this->addImageToTemplate($objSubTemplate, $arrImage);
 			}
 			
-			// Add imgName to template
-			$objSubTemplate->imgName = strip_tags($album['title']);
+			// Add link title to template
+			$objSubTemplate->title = strip_tags($album['title']);
 			
 			// Add array
 			$arrLink = array(
@@ -136,12 +136,15 @@ class Pa2Albums extends Pa2
 			
 			$objSubTemplate->title = $album['title'];
 			$objSubTemplate->alias = $album['alias'];
-			$objSubTemplate->showTitle = ($arrVars['pa2ShowTitle'] == 1) ? true : false;
+			$objSubTemplate->showTitle = $arrVars['pa2ShowTitle'];
 			$objSubTemplate->event = $album['event'];
 			$objSubTemplate->place = $album['place'];
 			$objSubTemplate->photographer = $album['photographer'];
 			$objSubTemplate->description = $album['description'];
 			$objSubTemplate->href = $this->generateFrontendUrl($arrLink, '/album/' . $album['alias']);
+			
+			// If album lightbox is activated the photos will be added to the album template
+			$objSubTemplate = $this->albumLightbox($objSubTemplate, $album, $arrVars['pa2AlbumLightbox']);
 			
 			// Parse template
 			$arrElements[] = $objSubTemplate->parse();
@@ -149,6 +152,67 @@ class Pa2Albums extends Pa2
 		
 		// Add items to template
 		$objTemplate->items = $arrElements;
+		
+		return $objTemplate;
+	}
+	
+	
+	protected function albumLightbox($objTemplate, $album, $pa2AlbumLightbox)
+	{
+		$objTemplate->albumLightbox = $pa2AlbumLightbox;
+		
+		if($objTemplate->albumLightbox)
+		{
+			// Sort pictures
+			$arrElements = ($album['pic_sort_check'] == 'pic_sort_wizard') ? $album['pic_sort'] : $this->sortElements($album['pictures'], $album['pic_sort_check']);
+			
+			$albumLightboxPictures = array();
+			$i = 0;
+			
+			foreach($arrElements as $element)
+			{
+				if($i == 0)
+				{
+					$objTemplate->albumID = $album['id'];
+					$objTemplate->href = str_replace(' ', '%20', $element);
+					$objTemplate->lbvCheck = (version_compare(VERSION.'.'.BUILD, '2.11.0', '>='));
+				}
+				else
+				{
+					// Define image template
+					$objImageTemplate = new FrontendTemplate('pa2_photo');
+									
+					// Set vars
+					$objImageTemplate->albumID = $album['id'];
+					$objImageTemplate->href = str_replace(' ', '%20', $element);
+					$objImageTemplate->show = false;
+					$objImageTemplate->lbvCheck = (version_compare(VERSION.'.'.BUILD, '2.11.0', '>='));
+					
+					// Add an image
+					if ($element!='' && is_file(TL_ROOT . '/' . $element))
+					{
+						// Set image array
+						$arrImage = array();
+						$arrImage['size'] = serialize(array(0, 0, 'crop'));
+						$arrImage['imagemargin'] = serialize(array('bottom'=>'', 'left'=>'', 'right'=>'', 'top'=>'', 'unit'=>''));
+						$arrImage['singleSRC'] = 'system/modules/photoalbums2/html/blank.gif';
+						$arrImage['alt'] = substr(strrchr($element, '/'), 1);
+						
+						$this->addImageToTemplate($objImageTemplate, $arrImage);
+						
+						// Add link title to template
+						$objImageTemplate->title = substr(strrchr($element, '/'), 1);
+					}
+					
+					// Add image template to parent template
+					$albumLightboxPictures[] = $objImageTemplate->parse();
+				}
+				
+				$i++;
+			}
+			
+			$objTemplate->albumLightboxPictures = $albumLightboxPictures;
+		}
 		
 		return $objTemplate;
 	}

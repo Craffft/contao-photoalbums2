@@ -32,6 +32,8 @@
 /**
  * Fields
  */
+$GLOBALS['TL_LANG']['tl_module']['pa2Mode'] = array('Ansichtsmodus wählen', 'Hier können Sie den Ansichtsmodus des Moduls auswählen.');
+$GLOBALS['TL_LANG']['tl_module']['pa2DetailPage'] = array('Foto-Ansicht auf einer anderen Seite anzeigen', 'Im Normalfall wird die Alben-Ansicht und die Foto-Ansicht auf der gleichen Seite dargestellt. Manchmal ist es jedoch nötig diese Beiden Seitenansichten auf zwei verschiedenen Seiten darzustellen. Damit Sie dies tun können, wählen Sie hier einfach die Seite aus, auf der die Foto-Ansicht dargestellt werden soll. Danach fügen Sie dieses Modul einmal auf der ausgewählten Seite und einmal auf einer anderen Seite ein. Auf der anderen Seite ist dann die Alben-Ansicht zu sehen.<br>Kleiner Tipp: Es empfiehlt sich den "auto_item-Parameter" zu verwenden.');
 $GLOBALS['TL_LANG']['tl_module']['pa2Archives'] = array('Fotoalben-Archive', 'Bitte wählen Sie ein oder mehrere Fotoalben-Archive.');
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsTemplate'] = array('Alben Template', 'Wählen Sie hier das Template für die Alben aus.');
 $GLOBALS['TL_LANG']['tl_module']['pa2PhotosTemplate'] = array('Fotos Template', 'Wählen Sie hier das Template für die Fotos aus.');
@@ -54,7 +56,6 @@ $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsPerRow'] = array('Alben pro Zeile', '
 $GLOBALS['TL_LANG']['tl_module']['pa2PhotosPerRow'] = array('Fotos pro Zeile', 'Bitte legen Sie fest, wie viele Fotos pro Zeile angezeigt werden sollen.');
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsMetaFields'] = array('Alben-Ansicht Meta Felder', 'Bitte wählen Sie die Meta Felder aus, die in der Alben-Ansicht ausgegeben werden sollen.');
 $GLOBALS['TL_LANG']['tl_module']['pa2PhotosMetaFields'] = array('Foto-Ansicht Meta Felder', 'Bitte wählen Sie die Meta Felder aus, die in der Foto-Ansicht ausgegeben werden sollen.');
-$GLOBALS['TL_LANG']['tl_module']['pa2DetailPage'] = array('Foto-Ansicht auf einer anderen Seite anzeigen', 'Im Normalfall wird die Alben-Ansicht und die Foto-Ansicht auf der gleichen Seite dargestellt. Manchmal ist es jedoch nötig diese Beiden Seitenansichten auf zwei verschiedenen Seiten darzustellen. Damit Sie dies tun können, wählen Sie hier einfach die Seite aus, auf der die Foto-Ansicht dargestellt werden soll. Danach fügen Sie dieses Modul einmal auf der ausgewählten Seite und einmal auf einer anderen Seite ein. Auf der anderen Seite ist dann die Alben-Ansicht zu sehen.<br>Kleiner Tipp: Es empfiehlt sich den "auto_item-Parameter" zu verwenden.');
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter'] = array('Zeitfilter', 'Hier haben Sie die Möglichkeit, die Fotoalben über einen vergangenen Zeitraum zu filtern.');
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilterStart'] = array('Zeitraum von', 'Tragen Sie hier den Startwert des zu filternden Zeitraumes ein. Sollten Sie beispielsweise 10 Tage eintragen, so werden die Alben der vergangenen 10 Tage im Frontend angezeigt. Um von heute aus zu starten, tragen Sie die Zahl "0" ein.');
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilterEnd'] = array('Zeitraum bis', 'Tragen Sie hier den Endwert des zu filternden Zeitraumes ein. Sollten Sie beispielsweise im ersten Feld 10 Tage und in diesem Feld 5 Tage eintragen, so werden die Alben im Zeitraum von vor 10 Tagen bis von vor 5 Tagen im Frontend angezeigt. Um das Ende des Zeitraumes auf heute zu legen, tragen Sie die Zahl "0" ein.');
@@ -64,9 +65,9 @@ $GLOBALS['TL_LANG']['tl_module']['pa2Teaser'] = array('Teaser', 'Hier können Si
 /**
  * Reference
  */
+$GLOBALS['TL_LANG']['tl_module']['pa2Template_legend'] = 'Template Einstellungen';
 $GLOBALS['TL_LANG']['tl_module']['pa2Image_legend'] = 'Foto Einstellungen';
 $GLOBALS['TL_LANG']['tl_module']['pa2Meta_legend'] = 'Meta Einstellungen';
-$GLOBALS['TL_LANG']['tl_module']['pa2PageView_legend'] = 'Seitenansicht';
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter_legend'] = 'Zeitfilter';
 $GLOBALS['TL_LANG']['tl_module']['pa2Teaser_legend'] = 'Teaser';
 

@@ -37,7 +37,7 @@ $GLOBALS['TL_LANG']['MSC']['photosEmpty'] = 'The photo album could not be found!
 
 
 /**
- * Secure Accessdata types
+ * Sort types
  */
 $GLOBALS['TL_LANG']['pa2_sort_types']['name_asc'] = array('Name (ascending)', 'Name (ascending)');
 $GLOBALS['TL_LANG']['pa2_sort_types']['name_desc'] = array('Name (descending)', 'Name (descending)');
@@ -45,5 +45,13 @@ $GLOBALS['TL_LANG']['pa2_sort_types']['date_asc'] = array('Date (ascending)', 'D
 $GLOBALS['TL_LANG']['pa2_sort_types']['date_desc'] = array('Date (descending)', 'Date (descending)');
 $GLOBALS['TL_LANG']['pa2_sort_types']['random'] = array('Random output', 'Random output');
 $GLOBALS['TL_LANG']['pa2_sort_types']['pic_sort_wizard'] = array('Own sorting', 'Own sorting');
+
+
+/**
+ * Mode types
+ */
+$GLOBALS['TL_LANG']['pa2_mode_types']['pa2_on_one_page'] = array('Foto-Ansicht und Alben-Ansicht auf gleicher Seite darstellen (Standard)', 'Wählen Sie diese Einstellung, damit beide Ansichtsarten auf der gleichen Seite dargestellt werden.');
+$GLOBALS['TL_LANG']['pa2_mode_types']['pa2_only_album_view'] = array('Nur Album-Ansicht verwenden und Lightbox direkt einbinden', 'Wählen Sie diese Einstellung um nur die Alben-Ansicht zu verwenden. Bei einem Klick auf ein Album öffnet sich dann direkt die Ligabox mit den Bildern aus dem Fotoalbum.');
+$GLOBALS['TL_LANG']['pa2_mode_types']['pa2_with_detail_page'] = array('Foto-Ansicht auf einer anderen Seite anzeigen', 'Wählen Sie diese Einstellung, damit die Foto-Ansicht und die Alben-Ansicht auf zwei verschiedenen Seiten dargestellt werden kann.');
 
 ?>

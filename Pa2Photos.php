@@ -60,68 +60,6 @@ class Pa2Photos extends Pa2
 	
 	
 	/**
-	 * sortElements function.
-	 * 
-	 * @access public
-	 * @param array $arrImagePaths
-	 * @param string $sortType
-	 * @return array
-	 */
-	public function sortElements($arrImagePaths, $sortType)
-	{
-		// Sort by name
-		if($sortType == 'name_asc' || $sortType == 'name_desc')
-		{
-			$arrSort = array();
-			
-			foreach($arrImagePaths as $key => $imagePath)
-		    {
-		    	$arrSort[$key] = substr(strrchr($imagePath, '/'), 1);
-		    }
-		    
-		    if($sortType == 'name_asc')
-		    {
-		    	array_multisort($arrSort, SORT_ASC, $arrImagePaths, SORT_ASC);
-		    }
-		    
-		    if($sortType == 'name_desc')
-		    {
-		    	array_multisort($arrSort, SORT_DESC, $arrImagePaths, SORT_DESC);
-		    }
-		}
-		
-		// Sort by date
-		if($sortType == 'date_asc' || $sortType == 'date_desc')
-		{
-			$arrSort = array();
-			
-			foreach($arrImagePaths as $key => $imagePath)
-		    {
-		    	$arrSort[$key] = filemtime($imagePath);
-		    }
-		    
-		    if($sortType == 'date_asc')
-		    {
-		    	array_multisort($arrSort, SORT_NUMERIC, SORT_ASC, $arrImagePaths, SORT_ASC);
-		    }
-		    
-		    if($sortType == 'date_desc')
-		    {
-		    	array_multisort($arrSort, SORT_NUMERIC, SORT_DESC, $arrImagePaths, SORT_DESC);
-		    }
-		}
-		
-		// Sort random
-		if($sortType == 'random')
-		{
-			shuffle($arrImagePaths);
-		}
-		
-		return $arrImagePaths;
-	}
-	
-	
-	/**
 	 * parsePhotos function.
 	 * 
 	 * @access public
@@ -143,9 +81,9 @@ class Pa2Photos extends Pa2
 		
 		$objTemplate->title = $arrAlbum['title'];
 		$objTemplate->alias = $arrAlbum['alias'];
-		$objTemplate->showHeadline = ($arrVars['pa2ShowHeadline'] == 1) ? true : false;
-		$objTemplate->showTitle = ($arrVars['pa2ShowTitle'] == 1) ? true : false;
-		$objTemplate->showTeaser = ($arrVars['pa2ShowTeaser'] == 1) ? true : false;
+		$objTemplate->showHeadline = $arrVars['pa2ShowHeadline'];
+		$objTemplate->showTitle = $arrVars['pa2ShowTitle'];
+		$objTemplate->showTeaser = $arrVars['pa2ShowTeaser'];
 		$objTemplate->teaser = $arrVars['pa2Teaser'];
 		
 		// Define date
@@ -226,8 +164,8 @@ class Pa2Photos extends Pa2
 			    
 			    $this->addImageToTemplate($objSubTemplate, $arrImage);
 			    
-			    // Add imgName to template
-				$objSubTemplate->imgName = substr(strrchr($element, '/'), 1);
+			    // Add link title to template
+				$objSubTemplate->title = substr(strrchr($element, '/'), 1);
 			}
 			
 			// Parse template

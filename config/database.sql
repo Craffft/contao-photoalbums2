@@ -79,6 +79,7 @@ CREATE TABLE `tl_layout` (
 -- 
 
 CREATE TABLE `tl_module` (
+  `pa2Mode` varchar(64) NOT NULL default '',
   `pa2Archives` blob NULL,
   `pa2AlbumsTemplate` varchar(64) NOT NULL default '',
   `pa2PhotosTemplate` varchar(64) NOT NULL default '',
