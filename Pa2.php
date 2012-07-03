@@ -69,7 +69,7 @@ class Pa2 extends Frontend
 	 * @param object $objAlbums
 	 * @return array
 	 */
-	protected function fetchAlbums($objAlbums)
+	protected function fetchAlbums($objAlbums, $arrVars)
 	{
 		$arrAlbums = array();
 		
@@ -105,7 +105,8 @@ class Pa2 extends Frontend
 			if (in_array($album['id'], $arrSortedAlbums))
 			{
 				$album['pictures'] = $this->PicSortWizard->getUnsortedPictures(deserialize($album['pictures']), $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['pictures']['eval']['extensions']);
-				$album['pic_preview'] = deserialize($album['pic_preview']);
+				$album['preview_pic'] = deserialize($album['preview_pic']);
+				$album['preview_pic'] = $this->getPreviewPic($album, $arrVars['pa2PreviewPic']);
 				$album['pic_sort'] = deserialize($album['pic_sort']);
 				
 				$arrAlbums[] = $album;
@@ -490,6 +491,79 @@ class Pa2 extends Frontend
 		);
 		
 		return $arrReturn;
+	}
+	
+	
+	/**
+	 * getPreviewPic function.
+	 * 
+	 * @access public
+	 * @param array $album
+	 * @param string $pa2PreviewPic
+	 * @return string
+	 */
+	public function getPreviewPic($album, $pa2PreviewPic)
+	{
+		$previewPic = '';
+		
+		switch($pa2PreviewPic)
+		{
+			case 'use_album_options':
+				switch($album['preview_pic_check'])
+				{
+					case 'no_preview_pic':
+						$previewPic = '';
+					break;
+					
+					case 'random_preview_pic':
+						$previewPic = $this->getRandomPreviewPic($album);
+					break;
+					
+					case 'select_preview_pic':
+						$previewPic = $album['preview_pic'];
+					break;
+				}
+			break;
+			
+			case 'no_preview_pics':
+				$previewPic = '';
+			break;
+			
+			case 'random_pics':
+				$previewPic = $this->getRandomPreviewPic($album);
+			break;
+			
+			case 'random_pics_at_no_preview_pics':
+				if($album['preview_pic_check'] == 'select_preview_pic')
+				{
+					$previewPic = $album['preview_pic'];
+				}
+				else
+				{
+					$previewPic = $this->getRandomPreviewPic($album);
+				}
+			break;
+		}
+		
+		return $previewPic;
+	}
+	
+	
+	/**
+	 * getRandomPreviewPic function.
+	 * 
+	 * @access public
+	 * @param array $album
+	 * @return string
+	 */
+	public function getRandomPreviewPic($album)
+	{
+		if(count($album['pictures']) < 1)
+		{
+			return '';
+		}
+		
+		return $album['pictures'][mt_rand(0, count($album['pictures'])-1)];
 	}
 }
 

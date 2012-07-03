@@ -48,6 +48,23 @@ $GLOBALS['TL_LANG']['pa2_sort_types']['pic_sort_wizard'] = array('Eigene Sortier
 
 
 /**
+ * Pic preview types
+ */
+$GLOBALS['TL_LANG']['pa2_preview_pic_types']['no_preview_pic'] = array('Kein Vorschau Foto', 'Kein Vorschau Foto');
+$GLOBALS['TL_LANG']['pa2_preview_pic_types']['random_preview_pic'] = array('Zufälliges Vorschau Foto', 'Zufälliges Vorschau Foto');
+$GLOBALS['TL_LANG']['pa2_preview_pic_types']['select_preview_pic'] = array('Vorschau Foto auswählen', 'Vorschau Foto auswählen');
+
+
+/**
+ * Pic preview types
+ */
+$GLOBALS['TL_LANG']['pa2_preview_pic_module_types']['use_album_options'] = array('Einstellungen von Album übernehmen', 'Einstellungen von Album übernehmen');
+$GLOBALS['TL_LANG']['pa2_preview_pic_module_types']['no_preview_pics'] = array('Keine Vorschau Fotos anzeigen', 'Keine Vorschau Fotos anzeigen');
+$GLOBALS['TL_LANG']['pa2_preview_pic_module_types']['random_pics'] = array('Zufällige Vorschau Fotos anzeigen', 'Zufällige Vorschau Fotos anzeigen');
+$GLOBALS['TL_LANG']['pa2_preview_pic_module_types']['random_pics_at_no_preview_pics'] = array('Zufällige Vorschau Fotos bei nicht definiertem Vorschau Foto verwenden', 'Zufällige Vorschau Fotos bei nicht definiertem Vorschau Foto verwenden');
+
+
+/**
  * Mode types
  */
 $GLOBALS['TL_LANG']['pa2_mode_types']['pa2_on_one_page'] = array('Foto-Ansicht und Alben-Ansicht auf gleicher Seite darstellen (Standard)', 'Wählen Sie diese Einstellung, damit beide Ansichtsarten auf der gleichen Seite dargestellt werden.');

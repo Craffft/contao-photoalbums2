@@ -45,7 +45,8 @@ CREATE TABLE `tl_photoalbums2_album` (
   `enddate` varchar(10) NOT NULL default '',
   `enddate` varchar(10) NOT NULL default '',
   `pictures` blob NULL,
-  `pic_preview` varchar(255) NOT NULL default '',
+  `preview_pic_check` varchar(64) NOT NULL default '',
+  `preview_pic` varchar(255) NOT NULL default '',
   `pic_sort_check` varchar(64) NOT NULL default '',
   `pic_sort` blob NULL,
   `event` varchar(255) NOT NULL default '',
@@ -105,6 +106,7 @@ CREATE TABLE `tl_module` (
   `pa2TimeFilter` char(1) NOT NULL default '',
   `pa2TimeFilterStart` varchar(64) NOT NULL default '',
   `pa2TimeFilterEnd` varchar(64) NOT NULL default '',
+  `pa2PreviewPic` varchar(64) NOT NULL default '',
   `pa2Teaser` text NULL,
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

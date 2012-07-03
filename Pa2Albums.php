@@ -49,7 +49,7 @@ class Pa2Albums extends Pa2
 	 * @param array $arrArchives
 	 * @return array
 	 */
-	public function getAlbums($arrArchives)
+	public function getAlbums($arrArchives, $arrVars)
 	{
 		// Check for array and content
 		if (!is_array($arrArchives) || count($arrArchives) < 1)
@@ -60,7 +60,7 @@ class Pa2Albums extends Pa2
 		// Get albums from archives
 		$objAlbums = $this->Database->execute("SELECT * FROM tl_photoalbums2_album WHERE pid IN(" . implode(',', array_map('intval', $arrArchives)) . ") ORDER BY pid, sorting");
 		
-		return $this->fetchAlbums($objAlbums);
+		return $this->fetchAlbums($objAlbums, $arrVars);
 	}
 	
 	
@@ -106,12 +106,12 @@ class Pa2Albums extends Pa2
 			$objSubTemplate = $this->pa2MetaFields($objSubTemplate, $arrVars['pa2MetaFields']);
 			
 			// Add an image
-			if ($album['pic_preview']!='' && is_file(TL_ROOT . '/' . $album['pic_preview']))
+			if ($album['preview_pic']!='' && is_file(TL_ROOT . '/' . $album['preview_pic']))
 			{
 				$arrImage = array();
 				$arrImage['size'] = $arrVars['pa2ImageSize'];
 				$arrImage['imagemargin'] = $arrVars['pa2ImageMargin'];
-				$arrImage['singleSRC'] = $album['pic_preview'];
+				$arrImage['singleSRC'] = $album['preview_pic'];
 				$arrImage['alt'] = strip_tags($album['title']);
 
 				$this->addImageToTemplate($objSubTemplate, $arrImage);

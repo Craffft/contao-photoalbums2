@@ -68,6 +68,29 @@ $GLOBALS['Pa2']['pa2_sort_types'] = array
 
 
 /**
+ * Preview pic types
+ */
+$GLOBALS['Pa2']['pa2_preview_pic_types'] = array
+(
+	'no_preview_pic' => 'no_preview_pic',
+	'random_preview_pic' => 'random_preview_pic',
+	'select_preview_pic' => 'select_preview_pic'
+);
+
+
+/**
+ * Preview pic module types
+ */
+$GLOBALS['Pa2']['pa2_preview_pic_module_types'] = array
+(
+	'use_album_options' => 'use_album_options',
+	'no_preview_pics' => 'no_preview_pics',
+	'random_pics' => 'random_pics',
+	'random_pics_at_no_preview_pics' => 'random_pics_at_no_preview_pics'
+);
+
+
+/**
  * Meta fields
  */
 $GLOBALS['Pa2']['metaFields'] = array('date', 'event', 'place', 'photographer', 'description');

@@ -47,7 +47,8 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 		),
 		'onload_callback' => array
 		(
-			array('tl_photoalbums2_album', 'checkPermission')
+			array('tl_photoalbums2_album', 'checkPermission'),
+			array('tl_photoalbums2_album', 'generatePalette')
 		)
 	),
 
@@ -117,15 +118,14 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'__selector__'                => array('pic_sort_check', 'protected'),
-		'default'                     => '{title_legend},title,alias;{date_legend},startdate,enddate;{pictures_legend},pictures,pic_preview,pic_sort_check;{info_legend},event,place,photographer,description;{protected_legend},protected;{published_legend},published',
-		'pic_sort_wizard'             => '{title_legend},title,alias;{date_legend},startdate,enddate;{pictures_legend},pictures,pic_preview,pic_sort_check,pic_sort;{info_legend},event,place,photographer,description;{protected_legend},protected;{published_legend},published'
+		'__selector__'                => array('preview_pic_check', 'pic_sort_check', 'protected'),
+		'default'                     => '{title_legend},title,alias;{date_legend},startdate,enddate;{pictures_legend},pictures,preview_pic_check,preview_pic,pic_sort_check,pic_sort;{info_legend},event,place,photographer,description;{protected_legend},protected;{published_legend},published'
 	),
 
 	// Subpalettes
 	'subpalettes' => array
 	(
-		'protected'                   => 'users,groups'
+		'protected'                   => 'users,groups',
 	),
 
 	// Fields
@@ -173,9 +173,18 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'inputType'               => 'fileTree',
 			'eval'                    => array('mandatory'=>true, 'fieldType'=>'checkbox', 'files'=>true, 'extensions'=>'png,jpg,jpeg,gif')
 		),
-		'pic_preview' => array
+		'preview_pic_check' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['pic_preview'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['preview_pic_check'],
+			'exclude'                 => true,
+			'inputType'               => 'select',
+			'options'				  => $GLOBALS['Pa2']['pa2_preview_pic_types'],
+			'reference'				  => &$GLOBALS['TL_LANG']['pa2_preview_pic_types'],
+			'eval'                    => array('submitOnChange'=>true)
+		),
+		'preview_pic' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['preview_pic'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
 			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'png,jpg,jpeg,gif')
@@ -399,7 +408,7 @@ class tl_photoalbums2_album extends Backend
 	{
 		// Generate thumbnail
 		$thumbnail = '';
-		$currentFile = $arrRow['pic_preview'];
+		$currentFile = $arrRow['preview_pic'];
 		
 		if (!empty($currentFile))
 		{
@@ -590,6 +599,45 @@ class tl_photoalbums2_album extends Backend
 		
 		// Update date
 		$this->Database->prepare("UPDATE tl_photoalbums2_album %s WHERE id=?")->set($arrSet)->execute($dc->id);
+	}
+	
+	
+	/**
+	 * generatePalette function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function generatePalette()
+	{
+		// Get album
+		$objAlbum = $this->Database->prepare("SELECT * FROM tl_photoalbums2_album WHERE id=?")
+								   ->execute($this->Input->get('id'));
+		
+		// Remove from palette
+		if($objAlbum->preview_pic_check != 'select_preview_pic')
+		{
+			$this->removeFromPalette('preview_pic');
+		}
+		
+		// Remove from palette
+		if($objAlbum->pic_sort_check != 'pic_sort_wizard')
+		{
+			$this->removeFromPalette('pic_sort');
+		}
+	}
+	
+	
+	/**
+	 * removeFromPalette function.
+	 * 
+	 * @access private
+	 * @param string $value
+	 * @return void
+	 */
+	private function removeFromPalette($value)
+	{
+		$GLOBALS['TL_DCA']['tl_photoalbums2_album']['palettes']['default'] = preg_replace('#[,]{1}(' . $value . ')[,;]{1}#', ',', $GLOBALS['TL_DCA']['tl_photoalbums2_album']['palettes']['default']);
 	}
 }
 

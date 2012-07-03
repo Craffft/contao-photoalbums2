@@ -49,13 +49,13 @@ class Pa2Photos extends Pa2
 	 * @param string $alias
 	 * @return int
 	 */
-	public function getAlbum($alias)
+	public function getAlbum($alias, $arrVars)
 	{
-		// Get album id by alias
+		// Get album by alias
 		$objAlbums = $this->Database->prepare("SELECT * FROM tl_photoalbums2_album WHERE alias=? LIMIT 1")
 									->execute($alias);
 		
-		return $this->fetchAlbums($objAlbums);
+		return $this->fetchAlbums($objAlbums, $arrVars);
 	}
 	
 	
