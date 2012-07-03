@@ -49,7 +49,7 @@ class Pa2Albums extends Pa2
 	 * @param array $arrArchives
 	 * @return array
 	 */
-	public function getAlbums($arrArchives, $arrVars)
+	public function getAlbums($arrArchives)
 	{
 		// Check for array and content
 		if (!is_array($arrArchives) || count($arrArchives) < 1)
@@ -60,7 +60,7 @@ class Pa2Albums extends Pa2
 		// Get albums from archives
 		$objAlbums = $this->Database->execute("SELECT * FROM tl_photoalbums2_album WHERE pid IN(" . implode(',', array_map('intval', $arrArchives)) . ") ORDER BY pid, sorting");
 		
-		return $this->fetchAlbums($objAlbums, $arrVars);
+		return $this->fetchAlbums($objAlbums);
 	}
 	
 	
@@ -71,7 +71,7 @@ class Pa2Albums extends Pa2
 	 * @param array $arrAlbums
 	 * @return array
 	 */
-	function parseAlbums($objTemplate, $arrAlbums, $arrVars)
+	function parseAlbums($objTemplate, $arrAlbums)
 	{
 		// Check
 		if(!is_array($arrAlbums) || count($arrAlbums) < 1)
@@ -84,33 +84,33 @@ class Pa2Albums extends Pa2
 		$arrElements = array();
 		
 		// Set Template vars
-		$objTemplate->showHeadline = $arrVars['pa2ShowHeadline'];
-		$objTemplate->showTeaser = $arrVars['pa2ShowTeaser'];
-		$objTemplate->teaser = $arrVars['pa2Teaser'];
+		$objTemplate->showHeadline = $this->arrVars['pa2ShowHeadline'];
+		$objTemplate->showTeaser = $this->arrVars['pa2ShowTeaser'];
+		$objTemplate->teaser = $this->arrVars['pa2Teaser'];
 		
 		// Numerical value of all albums
 		$total = count($arrAlbums);
 		
 		foreach($arrAlbums as $i => $album)
 		{
-			$objSubTemplate = new FrontendTemplate($arrVars['strSubtemplate']);
-			$objSubTemplate->setData($arrVars['arrData']);
+			$objSubTemplate = new FrontendTemplate($this->arrVars['strSubtemplate']);
+			$objSubTemplate->setData($this->arrVars['arrData']);
 			
 			// Define perRow
-			$objSubTemplate = $this->pa2PerRow($objSubTemplate, $total, $i, $arrVars['pa2PerRow']);
+			$objSubTemplate = $this->pa2PerRow($objSubTemplate, $total, $i, $this->arrVars['pa2PerRow']);
 			
 			// Define date
 			$objSubTemplate = $this->pa2BuildDate($objSubTemplate, $album['startdate'], $album['enddate']);
 			
 			// Define metaFields
-			$objSubTemplate = $this->pa2MetaFields($objSubTemplate, $arrVars['pa2MetaFields']);
+			$objSubTemplate = $this->pa2MetaFields($objSubTemplate, $this->arrVars['pa2MetaFields']);
 			
 			// Add an image
 			if ($album['preview_pic']!='' && is_file(TL_ROOT . '/' . $album['preview_pic']))
 			{
 				$arrImage = array();
-				$arrImage['size'] = $arrVars['pa2ImageSize'];
-				$arrImage['imagemargin'] = $arrVars['pa2ImageMargin'];
+				$arrImage['size'] = $this->arrVars['pa2ImageSize'];
+				$arrImage['imagemargin'] = $this->arrVars['pa2ImageMargin'];
 				$arrImage['singleSRC'] = $album['preview_pic'];
 				$arrImage['alt'] = strip_tags($album['title']);
 
@@ -126,9 +126,9 @@ class Pa2Albums extends Pa2
 				'alias' => $objPage->alias
 			);
 			
-			if(!empty($arrVars['pa2DetailPage']) && is_numeric($arrVars['pa2DetailPage']))
+			if(!empty($this->arrVars['pa2DetailPage']) && is_numeric($this->arrVars['pa2DetailPage']))
 			{
-				$objDetailPage = $this->getPageDetails($arrVars['pa2DetailPage']);
+				$objDetailPage = $this->getPageDetails($this->arrVars['pa2DetailPage']);
 				
 				$arrLink['id'] = $objDetailPage->id;
 				$arrLink['alias'] = $objDetailPage->alias;
@@ -136,7 +136,7 @@ class Pa2Albums extends Pa2
 			
 			$objSubTemplate->title = $album['title'];
 			$objSubTemplate->alias = $album['alias'];
-			$objSubTemplate->showTitle = $arrVars['pa2ShowTitle'];
+			$objSubTemplate->showTitle = $this->arrVars['pa2ShowTitle'];
 			$objSubTemplate->event = $album['event'];
 			$objSubTemplate->place = $album['place'];
 			$objSubTemplate->photographer = $album['photographer'];
@@ -144,7 +144,7 @@ class Pa2Albums extends Pa2
 			$objSubTemplate->href = $this->generateFrontendUrl($arrLink, '/album/' . $album['alias']);
 			
 			// If album lightbox is activated the photos will be added to the album template
-			$objSubTemplate = $this->albumLightbox($objSubTemplate, $album, $arrVars['pa2AlbumLightbox']);
+			$objSubTemplate = $this->albumLightbox($objSubTemplate, $album, $this->arrVars['pa2AlbumLightbox']);
 			
 			// Parse template
 			$arrElements[] = $objSubTemplate->parse();

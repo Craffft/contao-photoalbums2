@@ -39,6 +39,7 @@
 class Pa2 extends Frontend
 {
 	public static $pa2Type;
+	protected $arrVars = array();
 	
 	
 	/**
@@ -69,7 +70,7 @@ class Pa2 extends Frontend
 	 * @param object $objAlbums
 	 * @return array
 	 */
-	protected function fetchAlbums($objAlbums, $arrVars)
+	protected function fetchAlbums($objAlbums)
 	{
 		$arrAlbums = array();
 		
@@ -106,7 +107,7 @@ class Pa2 extends Frontend
 			{
 				$album['pictures'] = $this->PicSortWizard->getUnsortedPictures(deserialize($album['pictures']), $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['pictures']['eval']['extensions']);
 				$album['preview_pic'] = deserialize($album['preview_pic']);
-				$album['preview_pic'] = $this->getPreviewPic($album, $arrVars['pa2PreviewPic']);
+				$album['preview_pic'] = $this->getPreviewPic($album, $this->arrVars['pa2PreviewPic']);
 				$album['pic_sort'] = deserialize($album['pic_sort']);
 				
 				$arrAlbums[] = $album;
@@ -564,6 +565,19 @@ class Pa2 extends Frontend
 		}
 		
 		return $album['pictures'][mt_rand(0, count($album['pictures'])-1)];
+	}
+	
+	
+	/**
+	 * addArrVars function.
+	 * 
+	 * @access public
+	 * @param array $arrVars
+	 * @return void
+	 */
+	public function addArrVars($arrVars)
+	{
+		$this->arrVars = $arrVars;
 	}
 }
 

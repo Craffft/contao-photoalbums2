@@ -140,50 +140,15 @@ class ModulePhotoalbums2 extends Module
 	{
 		global $objPage;
 		
-		// Define arrVars
-		$arrVars = array(
-			'id'				=> $this->id,
-			'strSubtemplate'	=> $this->strSubtemplate,
-			'arrData'			=> $this->arrData,
-			'pa2DetailPage'		=> $this->pa2DetailPage,
-			'pa2Teaser'			=> $this->pa2Teaser
-		);
-		
-		// Check for detail view
-		if ($this->Input->get('album'))
-		{
-			// Add to arrVars
-			$arrVars['pa2MetaFields']		= $this->pa2PhotosMetaFields;
-			$arrVars['pa2PerRow']			= $this->pa2PhotosPerRow;
-			$arrVars['pa2ImageSize']		= $this->pa2PhotosImageSize;
-			$arrVars['pa2ImageMargin']		= $this->pa2PhotosImageMargin;
-			$arrVars['pa2ShowHeadline']		= $this->pa2PhotosShowHeadline;
-			$arrVars['pa2ShowTitle']		= $this->pa2PhotosShowTitle;
-			$arrVars['pa2ShowTeaser']		= $this->pa2PhotosShowTeaser;
-		}
-		else
-		{
-			// Add to arrVars
-			$arrVars['pa2MetaFields']		= $this->pa2AlbumsMetaFields;
-			$arrVars['pa2PerRow']			= $this->pa2AlbumsPerRow;
-			$arrVars['pa2ImageSize']		= $this->pa2AlbumsImageSize;
-			$arrVars['pa2ImageMargin']		= $this->pa2AlbumsImageMargin;
-			$arrVars['pa2ShowHeadline']		= $this->pa2AlbumsShowHeadline;
-			$arrVars['pa2ShowTitle']		= $this->pa2AlbumsShowTitle;
-			$arrVars['pa2ShowTeaser']		= $this->pa2AlbumsShowTeaser;
-			$arrVars['pa2AlbumLightbox']	= $this->pa2AlbumLightbox;
-			$arrVars['pa2PreviewPic']		= $this->pa2PreviewPic;
-		}
-		
 		// Show photos
 		if($this->Input->get('album') && (($this->pa2DetailPage == '') || ($this->pa2DetailPage != '' && ($this->pa2DetailPage == $objPage->id || ($objPage->languageMain != '' && $objPage->languageMain == $this->pa2DetailPage)))))
 		{
-			$this->preparePhotos($arrVars);
+			$this->preparePhotos();
 		}
 		// Show albums
 		else if(!$this->Input->get('album') && ($this->pa2DetailPage == '' || ($this->pa2DetailPage != '' && $this->pa2DetailPage != $objPage->id)))
 		{
-			$this->prepareAlbums($arrVars);
+			$this->prepareAlbums();
 		}
 		// Go to detail page (photos)
 		else if($this->Input->get('album'))
@@ -221,16 +186,19 @@ class ModulePhotoalbums2 extends Module
 		$this->arrElements = $arrPa2Pagination['elements'];
 		$this->Template->pagination = $arrPa2Pagination['pagination'];
 		
+		// Add arrVars to Pa2
+		$this->Pa2 = $this->addArrVars($this->Pa2);
+		
 		// Check for detail view
 		if ($this->Input->get('album'))
 		{
 			// Parse photos
-			$this->Template = $this->Pa2->parsePhotos($this->Template, $this->arrPhotos, $this->arrElements, $arrVars);
+			$this->Template = $this->Pa2->parsePhotos($this->Template, $this->arrPhotos, $this->arrElements);
 		}
 		else
 		{
 			// Parse albums
-			$this->Template = $this->Pa2->parseAlbums($this->Template, $this->arrElements, $arrVars);
+			$this->Template = $this->Pa2->parseAlbums($this->Template, $this->arrElements);
 		}
 	}
 	
@@ -241,7 +209,7 @@ class ModulePhotoalbums2 extends Module
 	 * @access protected
 	 * @return void
 	 */
-	protected function preparePhotos($arrVars)
+	protected function preparePhotos()
 	{
 		// Import Photoalbums2 class
 		$this->import('Pa2Photos', 'Pa2');
@@ -249,9 +217,12 @@ class ModulePhotoalbums2 extends Module
 		// Set Subtemplate
 		$this->strSubtemplate = $this->pa2PhotosTemplate;
 		
+		// Add arrVars to Pa2
+		$this->Pa2 = $this->addArrVars($this->Pa2);
+		
 		$this->pa2NumberOf = $this->pa2NumberOfPhotos;
 		$this->pa2PerPage = $this->pa2PhotosPerPage;
-		$this->arrElements = $this->Pa2->getAlbum($this->Input->get('album'), $arrVars);
+		$this->arrElements = $this->Pa2->getAlbum($this->Input->get('album'));
 		
 		$this->arrPhotos = $this->arrElements[0];
 		
@@ -278,7 +249,7 @@ class ModulePhotoalbums2 extends Module
 	 * @access protected
 	 * @return void
 	 */
-	protected function prepareAlbums($arrVars)
+	protected function prepareAlbums()
 	{
 		// Import Photoalbums2 class
 		$this->import('Pa2Albums', 'Pa2');
@@ -289,13 +260,16 @@ class ModulePhotoalbums2 extends Module
 		// Set Subtemplate
 		$this->strSubtemplate = $this->pa2AlbumsTemplate;
 		
+		// Add arrVars to Pa2
+		$this->Pa2 = $this->addArrVars($this->Pa2);
+		
 		// Define vars
 		$this->pa2NumberOf = $this->pa2NumberOfAlbums;
 		$this->pa2PerPage = $this->pa2AlbumsPerPage;
 		
 		// Sort out 
 		$this->pa2Archives = $this->Pa2->sortOutElements($this->pa2Archives);
-		$this->arrElements = $this->Pa2->getAlbums($this->pa2Archives, $arrVars);
+		$this->arrElements = $this->Pa2->getAlbums($this->pa2Archives);
 		
 		// Empty text
 		$this->empty = $GLOBALS['TL_LANG']['MSC']['albumsEmpty'];
@@ -358,6 +332,62 @@ class ModulePhotoalbums2 extends Module
 		
 		// Locate to root page
 		$this->redirect($linkRootPage);
+	}
+	
+	
+	/**
+	 * addArrVars function.
+	 * 
+	 * @access public
+	 * @param obj $objPa2
+	 * @return obj
+	 */
+	public function addArrVars($objPa2)
+	{
+		if(!is_object($objPa2))
+		{
+			return $objPa2;
+		}
+		
+		// Define arrVars
+		$arrVars = array(
+			'id'				=> $this->id,
+			'strSubtemplate'	=> $this->strSubtemplate,
+			'arrData'			=> $this->arrData,
+			'pa2DetailPage'		=> $this->pa2DetailPage,
+			'pa2Teaser'			=> $this->pa2Teaser
+		);
+		
+		// Check for detail view
+		if ($this->Input->get('album'))
+		{
+			// Add to arrVars
+			$arrVars['pa2MetaFields']		= $this->pa2PhotosMetaFields;
+			$arrVars['pa2PerRow']			= $this->pa2PhotosPerRow;
+			$arrVars['pa2ImageSize']		= $this->pa2PhotosImageSize;
+			$arrVars['pa2ImageMargin']		= $this->pa2PhotosImageMargin;
+			$arrVars['pa2ShowHeadline']		= $this->pa2PhotosShowHeadline;
+			$arrVars['pa2ShowTitle']		= $this->pa2PhotosShowTitle;
+			$arrVars['pa2ShowTeaser']		= $this->pa2PhotosShowTeaser;
+		}
+		else
+		{
+			// Add to arrVars
+			$arrVars['pa2MetaFields']		= $this->pa2AlbumsMetaFields;
+			$arrVars['pa2PerRow']			= $this->pa2AlbumsPerRow;
+			$arrVars['pa2ImageSize']		= $this->pa2AlbumsImageSize;
+			$arrVars['pa2ImageMargin']		= $this->pa2AlbumsImageMargin;
+			$arrVars['pa2ShowHeadline']		= $this->pa2AlbumsShowHeadline;
+			$arrVars['pa2ShowTitle']		= $this->pa2AlbumsShowTitle;
+			$arrVars['pa2ShowTeaser']		= $this->pa2AlbumsShowTeaser;
+			$arrVars['pa2AlbumLightbox']	= $this->pa2AlbumLightbox;
+			$arrVars['pa2PreviewPic']		= $this->pa2PreviewPic;
+		}
+		
+		// Add arrVars to Pa2
+		$objPa2->addArrVars($arrVars);
+		
+		return $objPa2;
 	}
 }
 

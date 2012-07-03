@@ -49,13 +49,13 @@ class Pa2Photos extends Pa2
 	 * @param string $alias
 	 * @return int
 	 */
-	public function getAlbum($alias, $arrVars)
+	public function getAlbum($alias)
 	{
 		// Get album by alias
 		$objAlbums = $this->Database->prepare("SELECT * FROM tl_photoalbums2_album WHERE alias=? LIMIT 1")
 									->execute($alias);
 		
-		return $this->fetchAlbums($objAlbums, $arrVars);
+		return $this->fetchAlbums($objAlbums);
 	}
 	
 	
@@ -67,7 +67,7 @@ class Pa2Photos extends Pa2
 	 * @param array $arrPaginationPhotos
 	 * @return array
 	 */
-	function parsePhotos($objTemplate, $arrAlbum, $arrPaginationPhotos, $arrVars)
+	function parsePhotos($objTemplate, $arrAlbum, $arrPaginationPhotos)
 	{
 		// Check
 		if(!is_array($arrAlbum) || count($arrAlbum) < 1 || !is_array($arrPaginationPhotos) || count($arrPaginationPhotos) < 1)
@@ -81,16 +81,16 @@ class Pa2Photos extends Pa2
 		
 		$objTemplate->title = $arrAlbum['title'];
 		$objTemplate->alias = $arrAlbum['alias'];
-		$objTemplate->showHeadline = $arrVars['pa2ShowHeadline'];
-		$objTemplate->showTitle = $arrVars['pa2ShowTitle'];
-		$objTemplate->showTeaser = $arrVars['pa2ShowTeaser'];
-		$objTemplate->teaser = $arrVars['pa2Teaser'];
+		$objTemplate->showHeadline = $this->arrVars['pa2ShowHeadline'];
+		$objTemplate->showTitle = $this->arrVars['pa2ShowTitle'];
+		$objTemplate->showTeaser = $this->arrVars['pa2ShowTeaser'];
+		$objTemplate->teaser = $this->arrVars['pa2Teaser'];
 		
 		// Define date
 		$objTemplate = $this->pa2BuildDate($objTemplate, $arrAlbum['startdate'], $arrAlbum['enddate']);
 		
 		// Define metaFields
-		$objTemplate = $this->pa2MetaFields($objTemplate, $arrVars['pa2MetaFields']);
+		$objTemplate = $this->pa2MetaFields($objTemplate, $this->arrVars['pa2MetaFields']);
 		$objTemplate->event = $arrAlbum['event'];
 		$objTemplate->place = $arrAlbum['place'];
 		$objTemplate->photographer = $arrAlbum['photographer'];
@@ -111,8 +111,8 @@ class Pa2Photos extends Pa2
 		
 		foreach($arrPictures as $i => $element)
 		{
-			$objSubTemplate = new FrontendTemplate($arrVars['strSubtemplate']);
-			$objSubTemplate->setData($arrVars['arrData']);
+			$objSubTemplate = new FrontendTemplate($this->arrVars['strSubtemplate']);
+			$objSubTemplate->setData($this->arrVars['arrData']);
 			
 			// Define show
 			$objSubTemplate->show = false;
@@ -127,14 +127,14 @@ class Pa2Photos extends Pa2
 			if (in_array($element, $arrPaginationPhotos))
 			{
 				// Define perRow
-				$objSubTemplate = $this->pa2PerRow($objSubTemplate, $paginationTotal, $pagiantionCount, $arrVars['pa2PerRow']);
+				$objSubTemplate = $this->pa2PerRow($objSubTemplate, $paginationTotal, $pagiantionCount, $this->arrVars['pa2PerRow']);
 				
 				// Define show
 				$objSubTemplate->show = true;
 				
 				// Set image
-			    $arrImage['size'] = $arrVars['pa2ImageSize'];
-			    $arrImage['imagemargin'] = $arrVars['pa2ImageMargin'];
+			    $arrImage['size'] = $this->arrVars['pa2ImageSize'];
+			    $arrImage['imagemargin'] = $this->arrVars['pa2ImageMargin'];
 			    $arrImage['singleSRC'] = $element;
 				
 				$pagiantionCount++;
@@ -151,7 +151,7 @@ class Pa2Photos extends Pa2
 			$objSubTemplate->elementID = $i;
 			
 			// Set album ID
-			$objSubTemplate->albumID = $arrVars['id'];
+			$objSubTemplate->albumID = $this->arrVars['id'];
 			
 			// Set href
 			$objSubTemplate->href = str_replace(' ', '%20', $element);
