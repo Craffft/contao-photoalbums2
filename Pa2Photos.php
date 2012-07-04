@@ -66,7 +66,7 @@ class Pa2Photos extends Pa2
 		}
 		
 		
-		// Get album by alias
+		// Get album by id or alias
 		$objAlbums = $this->Database->prepare("SELECT * FROM tl_photoalbums2_album WHERE id=? OR alias=? LIMIT 1")
 									->execute($id, $alias);
 		
