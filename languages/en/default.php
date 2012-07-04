@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2011 Leo Feyer
+ * Copyright (C) 2005-2012 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -27,6 +27,12 @@
  * @license    LGPL 
  * @filesource
  */
+
+
+/**
+ * Content elements
+ */
+$GLOBALS['TL_LANG']['CTE']['photoalbums2']  = array('Photoalbum', 'Generates a photoalbum.');
 
 
 /**
@@ -70,5 +76,27 @@ $GLOBALS['TL_LANG']['pa2_preview_pic_module_types']['random_pics_at_no_preview_p
 $GLOBALS['TL_LANG']['pa2_mode_types']['pa2_on_one_page'] = array('Foto-Ansicht und Alben-Ansicht auf gleicher Seite darstellen (Standard)', 'Wählen Sie diese Einstellung, damit beide Ansichtsarten auf der gleichen Seite dargestellt werden.');
 $GLOBALS['TL_LANG']['pa2_mode_types']['pa2_only_album_view'] = array('Nur Album-Ansicht verwenden und Lightbox direkt einbinden', 'Wählen Sie diese Einstellung um nur die Alben-Ansicht zu verwenden. Bei einem Klick auf ein Album öffnet sich dann direkt die Ligabox mit den Bildern aus dem Fotoalbum.');
 $GLOBALS['TL_LANG']['pa2_mode_types']['pa2_with_detail_page'] = array('Foto-Ansicht auf einer anderen Seite anzeigen', 'Wählen Sie diese Einstellung, damit die Foto-Ansicht und die Alben-Ansicht auf zwei verschiedenen Seiten dargestellt werden kann.');
+
+
+/**
+ * Meta fields
+ */
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options']['date'] = 'Capture date';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options']['event'] = 'Event';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options']['place'] = 'Place';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options']['photographer'] = 'Photographer';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options']['description'] = 'Description';
+
+
+/**
+ * Time filter
+ */
+$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['seconds'] = 'second(s)';
+$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['minutes'] = 'minute(s)';
+$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['hours'] = 'hour(s)';
+$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['days'] = 'day(s)';
+$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['weeks'] = 'week(s)';
+$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['months'] = 'month(s)';
+$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['years'] = 'year(s)';
 
 ?>

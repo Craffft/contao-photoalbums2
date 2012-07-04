@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2011 Leo Feyer
+ * Copyright (C) 2005-2012 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -59,6 +59,13 @@ class Pa2 extends Frontend
 		if (TL_MODE=='FE' && $objLayout->skipPhotoalbums2 != '1')
 		{
 			$GLOBALS['TL_CSS'][] = TL_FILES_URL . 'system/modules/photoalbums2/html/photoalbums2.css';
+		}
+		
+		// Add css
+		if (TL_MODE=='BE')
+		{
+			$GLOBALS['TL_CSS'][] = TL_FILES_URL . 'system/modules/photoalbums2/html/photoalbums2.css';
+			$GLOBALS['TL_CSS'][] = TL_FILES_URL . 'system/modules/photoalbums2/html/photoalbums2_be.css';
 		}
 	}
 	
@@ -578,6 +585,34 @@ class Pa2 extends Frontend
 	public function addArrVars($arrVars)
 	{
 		$this->arrVars = $arrVars;
+	}
+	
+	
+	/**
+	 * cleanRteOutput function.
+	 * 
+	 * @access public
+	 * @param string $text
+	 * @return string
+	 */
+	public function cleanRteOutput($text)
+	{
+		global $objPage;
+		$this->import('String');
+		
+		// Clean the RTE output
+		if ($objPage->outputFormat == 'xhtml')
+		{
+			$text = $this->String->toXhtml($text);
+		}
+		else
+		{
+			$text = $this->String->toHtml5($text);
+		}
+
+		$text = $this->String->encodeEmail($text);
+		
+		return $text;
 	}
 }
 

@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2011 Leo Feyer
+ * Copyright (C) 2005-2012 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -44,6 +44,12 @@ $GLOBALS['BE_MOD']['content']['photoalbums2'] = array
  * Frontend Modules
  */
 $GLOBALS['FE_MOD']['photoalbums2_legend']['photoalbums2'] = 'ModulePhotoalbums2';
+
+
+/**
+ * Content Elements
+ */
+$GLOBALS['TL_CTE']['images']['photoalbums2'] = 'ContentPhotoalbums2';
 
 
 /**

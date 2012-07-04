@@ -32,32 +32,19 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_module']['pa2Mode'] = array('Select view mode', 'Here you can select the view mode of the module.');
-$GLOBALS['TL_LANG']['tl_module']['pa2DetailPage'] = array('Photo view on another page', 'Normally, the album view and the photo view are on the same page. If it is necessary to use different pages, choose here the page for the photo view.<br>Please use the "auto_item"-parameter.');
-$GLOBALS['TL_LANG']['tl_module']['pa2PreviewPic'] = array('Preview pic', 'Here you can define the output of the preview photo.');
-$GLOBALS['TL_LANG']['tl_module']['pa2Archives'] = array('Photo album archive', 'Please choose one or more photo album archives.');
+$GLOBALS['TL_LANG']['tl_module']['pa2Album'] = array('Select photoalbum', 'Please select your favourite album.');
 
-$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsTemplate'] = array('Album Layout', 'Please choose here the layout of the album.');
 $GLOBALS['TL_LANG']['tl_module']['pa2PhotosTemplate'] = array('Photo Layout', 'Please choose here the layout of the photos.');
-$GLOBALS['TL_LANG']['tl_module']['pa2NumberOfAlbums'] = array('Total number of albums', 'Here you can specify the total number of albums. Enter 0 to display all.');
 $GLOBALS['TL_LANG']['tl_module']['pa2NumberOfPhotos'] = array('Total number of photos', 'Here you can specify the total number of photos. Enter 0 to display all.');
-$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsPerPage'] = array('Albums per page', 'The number of albums per page. Enter 0 to disable the automatic page break.');
 $GLOBALS['TL_LANG']['tl_module']['pa2PhotosPerPage'] = array('Photos per Page', 'The number of photos per page. Enter 0 to disable the automatic page break.');
-$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowHeadline'] = array('Show the module title in the album view', 'Set this checkbox to display the module title in the album view.');
 $GLOBALS['TL_LANG']['tl_module']['pa2PhotosShowHeadline'] = array('Show the module title in the photo view', 'Set this checkbox to display the module title in the photo view.');
-$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowTitle'] = array('Show the album title in the album view', 'Set this checkbox to display the album title in the album view.');
 $GLOBALS['TL_LANG']['tl_module']['pa2PhotosShowTitle'] = array('Show the album title in the photo view', 'Set this checkbox to display the module title in the photo view.');
-$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowTeaser'] = array('Teaser in Alben-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um den Teaser in der Alben-Ansicht anzuzeigen.');
 $GLOBALS['TL_LANG']['tl_module']['pa2PhotosShowTeaser'] = array('Teaser in Foto-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um den Teaser in der Foto-Ansicht anzuzeigen.');
 
-$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsImageSize'] = array('Album view image dimensions', 'Here you can set the image dimensions and the resize mode.');
 $GLOBALS['TL_LANG']['tl_module']['pa2PhotosImageSize'] = array('Photo view image dimensions', 'Here you can set the image dimensions and the resize mode.');
-$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsImageMargin'] = array('Album view image margin', 'Here you can enter the top, right, bottom and left margin and the unit.');
 $GLOBALS['TL_LANG']['tl_module']['pa2PhotosImageMargin'] = array('Photo view image margin', 'Here you can enter the top, right, bottom and left margin and the unit.');
-$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsPerRow'] = array('Albums per row', 'Please enter the number of albums to display per row');
 $GLOBALS['TL_LANG']['tl_module']['pa2PhotosPerRow'] = array('Photos per row', 'Please enter the number of photos to display per row');
 
-$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsMetaFields'] = array('Album view meta fields', 'Please select the meta fields to display in the album view.');
 $GLOBALS['TL_LANG']['tl_module']['pa2PhotosMetaFields'] = array('Foto-Ansicht Meta Felder', 'Please select the meta fields to display in the photo view.');
 
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter'] = array('Time filter', 'Here you have the option of the photo albums for a period previous filter.');
@@ -70,6 +57,7 @@ $GLOBALS['TL_LANG']['tl_module']['pa2Teaser'] = array('Teaser', 'Hier können Si
 /**
  * Reference
  */
+$GLOBALS['TL_LANG']['tl_content']['config_legend'] = 'Configuration';
 $GLOBALS['TL_LANG']['tl_module']['pa2Template_legend'] = 'Template settings';
 $GLOBALS['TL_LANG']['tl_module']['pa2Image_legend'] = 'Photo settings';
 $GLOBALS['TL_LANG']['tl_module']['pa2Meta_legend'] = 'Meta settings';

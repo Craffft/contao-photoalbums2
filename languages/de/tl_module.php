@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2011 Leo Feyer
+ * Copyright (C) 2005-2012 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -75,19 +75,5 @@ $GLOBALS['TL_LANG']['tl_module']['pa2Image_legend'] = 'Foto Einstellungen';
 $GLOBALS['TL_LANG']['tl_module']['pa2Meta_legend'] = 'Meta Einstellungen';
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter_legend'] = 'Zeitfilter';
 $GLOBALS['TL_LANG']['tl_module']['pa2Other_legend'] = 'Sonstiges';
-
-$GLOBALS['TL_LANG']['tl_module']['pa2MetaFields_options']['date'] = 'Aufnahmedatum';
-$GLOBALS['TL_LANG']['tl_module']['pa2MetaFields_options']['event'] = 'Ereignis';
-$GLOBALS['TL_LANG']['tl_module']['pa2MetaFields_options']['place'] = 'Aufnahmeort';
-$GLOBALS['TL_LANG']['tl_module']['pa2MetaFields_options']['photographer'] = 'Fotograf';
-$GLOBALS['TL_LANG']['tl_module']['pa2MetaFields_options']['description'] = 'Beschreibung';
-
-$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter_options']['seconds'] = 'Sekunde(n)';
-$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter_options']['minutes'] = 'Minute(n)';
-$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter_options']['hours'] = 'Stunde(n)';
-$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter_options']['days'] = 'Tag(e)';
-$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter_options']['weeks'] = 'Woche(n)';
-$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter_options']['months'] = 'Monat(e)';
-$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter_options']['years'] = 'Jahr(e)';
 
 ?>

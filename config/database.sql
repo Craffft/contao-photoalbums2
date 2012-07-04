@@ -11,6 +11,31 @@
 -- --------------------------------------------------------
 
 -- 
+-- Table `tl_content`
+-- 
+
+CREATE TABLE `tl_content` (
+  `pa2Album` int(10) unsigned NOT NULL default '0',
+  `pa2PhotosTemplate` varchar(64) NOT NULL default '',
+  `pa2NumberOfPhotos` smallint(5) unsigned NOT NULL default '0',
+  `pa2PhotosPerPage` smallint(5) unsigned NOT NULL default '24',
+  `pa2PhotosPerRow` smallint(5) unsigned NOT NULL default '2',
+  `pa2PhotosShowHeadline` char(1) NOT NULL default '',
+  `pa2PhotosShowTitle` char(1) NOT NULL default '',
+  `pa2PhotosShowTeaser` char(1) NOT NULL default '',
+  `pa2PhotosImageSize` varchar(64) NOT NULL default '',
+  `pa2PhotosImageMargin` varchar(128) NOT NULL default '',
+  `pa2PhotosMetaFields` blob NULL,
+  `pa2TimeFilter` char(1) NOT NULL default '',
+  `pa2TimeFilterStart` varchar(64) NOT NULL default '',
+  `pa2TimeFilterEnd` varchar(64) NOT NULL default '',
+  `pa2Teaser` text NULL,
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+-- --------------------------------------------------------
+
+-- 
 -- Table `tl_photoalbums2_archive`
 -- 
 
@@ -81,6 +106,8 @@ CREATE TABLE `tl_layout` (
 
 CREATE TABLE `tl_module` (
   `pa2Mode` varchar(64) NOT NULL default '',
+  `pa2DetailPage` varchar(10) NOT NULL default '',
+  `pa2PreviewPic` varchar(64) NOT NULL default '',
   `pa2Archives` blob NULL,
   `pa2AlbumsTemplate` varchar(64) NOT NULL default '',
   `pa2PhotosTemplate` varchar(64) NOT NULL default '',
@@ -102,11 +129,9 @@ CREATE TABLE `tl_module` (
   `pa2PhotosImageMargin` varchar(128) NOT NULL default '',
   `pa2AlbumsMetaFields` blob NULL,
   `pa2PhotosMetaFields` blob NULL,
-  `pa2DetailPage` varchar(10) NOT NULL default '',
   `pa2TimeFilter` char(1) NOT NULL default '',
   `pa2TimeFilterStart` varchar(64) NOT NULL default '',
   `pa2TimeFilterEnd` varchar(64) NOT NULL default '',
-  `pa2PreviewPic` varchar(64) NOT NULL default '',
   `pa2Teaser` text NULL,
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

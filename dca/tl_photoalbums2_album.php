@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2011 Leo Feyer
+ * Copyright (C) 2005-2012 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -406,45 +406,56 @@ class tl_photoalbums2_album extends Backend
 	 */
 	public function listAlbums($arrRow)
 	{
-		// Generate thumbnail
-		$thumbnail = '';
-		$currentFile = $arrRow['preview_pic'];
+		// Import Pa2Photos
+		$this->import('Pa2Photos', 'Pa2');
 		
-		if (!empty($currentFile))
-		{
-			$currentEncoded = $this->urlEncode($currentFile);
-			
-			$objFile = new File($currentFile);
-			
-			// Generate thumbnail
-			if ($objFile->isGdImage && $objFile->height > 0)
-			{
-			    if ($GLOBALS['TL_CONFIG']['thumbnails'] && $objFile->height <= $GLOBALS['TL_CONFIG']['gdMaxImgHeight'] && $objFile->width <= $GLOBALS['TL_CONFIG']['gdMaxImgWidth'])
-			    {
-			    	$_height = ($objFile->height < 50) ? $objFile->height : 50;
-			    	$_width = (($objFile->width * $_height / $objFile->height) > 400) ? 90 : '';
-			
-			    	$thumbnail = '<img src="' . TL_FILES_URL . $this->getImage($currentEncoded, $_width, $_height) . '" alt="" style="margin:0px 0px 2px 23px;">';
-			    }
-			}
-		}
+		// Add photoalbums2 css file
+		$this->Pa2->addCssFile();
 		
-		$time = time();
-		$key = ($arrRow['published']) ? 'published' : 'unpublished';
+		// Deserialize vars
+		$arrRow['pictures'] = deserialize($arrRow['pictures']);
+		$arrRow['pic_sort'] = deserialize($arrRow['pic_sort']);
+		$arrRow['users'] = deserialize($arrRow['users']);
 		
-		// Parse date
-		$date = $this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'], $arrRow['startdate']);
+		// Define arrVars
+		$arrVars = array(
+			'id'				=> $arrRow['id'],
+			'strSubtemplate'	=> 'pa2_photo',
+			'arrData'			=> $arrRow,
+			'pa2Teaser'			=> ''
+		);
 		
-		if($arrRow['enddate'] > $arrRow['startdate'])
-		{
-			$date .= ' - ';
-			$date .= $this->parseDate($GLOBALS['TL_CONFIG']['dateFormat'], $arrRow['enddate']);
-		}
-
+		// Add to arrVars
+		$arrVars['pa2MetaFields']		= '';
+		$arrVars['pa2PerRow']			= 1;
+		$arrVars['pa2ImageSize']		= serialize(array(100, 100, 'crop'));
+		$arrVars['pa2ImageMargin']		= 0;
+		$arrVars['pa2ShowHeadline']		= true;
+		$arrVars['pa2ShowTitle']		= false;
+		$arrVars['pa2ShowTeaser']		= true;
+		
+		// Add arrVars to Pa2
+		$this->Pa2->addArrVars($arrVars);
+		
+		// Generate Template
+		$objTemplate = new FrontendTemplate('mod_photoalbums2');
+		
+		// Add class
+		$objTemplate->class = 'mod_photoalbums2';
+		
+		// Sort elements
+		$this->arrElements = ($arrRow['pic_sort_check'] == 'pic_sort_wizard') ? $arrRow['pic_sort'] : $this->Pa2->sortElements($arrRow['pictures'], $arrRow['pic_sort_check']);
+		
+		// Parse photos
+		$objTemplate = $this->Pa2->parsePhotos($objTemplate, $arrRow, $this->arrElements);
+		
+		// Set key
+		$key = $arrRow['invisible'] ? 'unpublished' : 'published';
+		
 		return '
-<div class="cte_type ' . $key . '"><strong>' . $arrRow['title'] . '</strong> - ' . $date . '</div>
-<div class="limit_height block">
-' . $thumbnail . '
+<div class="cte_type ' . $key . '">' . $arrRow['title'] . '</div>
+<div class="limit_height' . (!$GLOBALS['TL_CONFIG']['doNotCollapse'] ? ' h64' : '') . '">
+' . $objTemplate->parse() . '
 </div>' . "\n";
 	}
 

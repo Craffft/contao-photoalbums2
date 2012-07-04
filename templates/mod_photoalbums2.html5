@@ -1,7 +1,7 @@
 
 <!-- indexer::stop -->
 <section class="<?php echo $this->class; ?> <?php echo $this->strSubtemplate; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
-<?php if ($this->showHeadline && $this->headline): ?>
+<?php if ($this->showHeadline): ?>
 	<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
 <?php endif; ?>
 
@@ -9,7 +9,7 @@
 <div class="teaser"><?php echo $this->teaser; ?></div>
 <?php endif; ?>
 
-<?php if ($this->showTitle && $this->title): ?>
+<?php if ($this->showTitle): ?>
 <h2><?php echo $this->title; ?></h2>
 <?php endif; ?>
 

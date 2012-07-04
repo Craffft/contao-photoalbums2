@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2011 Leo Feyer
+ * Copyright (C) 2005-2012 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -71,7 +71,7 @@ class Pa2Albums extends Pa2
 	 * @param array $arrAlbums
 	 * @return array
 	 */
-	function parseAlbums($objTemplate, $arrAlbums)
+	public function parseAlbums($objTemplate, $arrAlbums)
 	{
 		// Check
 		if(!is_array($arrAlbums) || count($arrAlbums) < 1)
@@ -86,7 +86,19 @@ class Pa2Albums extends Pa2
 		// Set Template vars
 		$objTemplate->showHeadline = $this->arrVars['pa2ShowHeadline'];
 		$objTemplate->showTeaser = $this->arrVars['pa2ShowTeaser'];
-		$objTemplate->teaser = $this->arrVars['pa2Teaser'];
+		$objTemplate->teaser = $this->cleanRteOutput($this->arrVars['pa2Teaser']);
+		
+		// Check headline
+		if($objTemplate->headline == '')
+		{
+			$objTemplate->showHeadline = false;
+		}
+		
+		// Check teaser
+		if($objTemplate->teaser == '')
+		{
+			$objTemplate->showTeaser = false;
+		}
 		
 		// Numerical value of all albums
 		$total = count($arrAlbums);
@@ -142,6 +154,12 @@ class Pa2Albums extends Pa2
 			$objSubTemplate->photographer = $album['photographer'];
 			$objSubTemplate->description = $album['description'];
 			$objSubTemplate->href = $this->generateFrontendUrl($arrLink, '/album/' . $album['alias']);
+			
+			// Check title
+			if($objSubTemplate->title == '')
+			{
+				$objSubTemplate->showTitle = false;
+			}
 			
 			// If album lightbox is activated the photos will be added to the album template
 			$objSubTemplate = $this->albumLightbox($objSubTemplate, $album, $this->arrVars['pa2AlbumLightbox']);

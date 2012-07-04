@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2011 Leo Feyer
+ * Copyright (C) 2005-2012 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -32,7 +32,7 @@
 /**
  * Table tl_module 
  */
-$GLOBALS['TL_DCA']['tl_module']['config']['onsubmit_callback'][] = array('tl_module_photoalbums2', 'checkTimeFilter');
+$GLOBALS['TL_DCA']['tl_module']['config']['onsubmit_callback'][] = array('Pa2Backend', 'checkTimeFilter');
 $GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][] = array('tl_module_photoalbums2', 'fixPa2FieldPosition');
 $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][] = 'pa2TimeFilter';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][] = 'pa2Mode';
@@ -77,6 +77,14 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2Mode'] = array
     'reference'               => &$GLOBALS['TL_LANG']['pa2_mode_types'],
 	'default'                 => 'photoalbums2_on_one_page',
     'eval'                    => array('submitOnChange'=>true, 'tl_class'=>'long')
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2DetailPage'] = array
+(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2DetailPage'],
+    'exclude'                 => true,
+    'inputType'               => 'pageTree',
+    'eval'                    => array('mandatory'=>true, 'fieldType'=>'radio')
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['pa2PreviewPic'] = array
@@ -279,7 +287,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsMetaFields'] = array
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
 	'options'                 => $GLOBALS['Pa2']['metaFields'],
-	'reference'               => &$GLOBALS['TL_LANG']['tl_module']['pa2MetaFields_options'],
+	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options'],
 	'eval'                    => array('multiple'=>true)
 );
 
@@ -289,16 +297,8 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2PhotosMetaFields'] = array
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
 	'options'                 => $GLOBALS['Pa2']['metaFields'],
-	'reference'               => &$GLOBALS['TL_LANG']['tl_module']['pa2MetaFields_options'],
+	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options'],
 	'eval'                    => array('multiple'=>true)
-);
-
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2DetailPage'] = array
-(
-    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2DetailPage'],
-    'exclude'                 => true,
-    'inputType'               => 'pageTree',
-    'eval'                    => array('mandatory'=>true, 'fieldType'=>'radio')
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['pa2TimeFilter'] = array
@@ -316,7 +316,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2TimeFilterStart'] = array
     'inputType'               => 'timePeriod',
     'default'				  => 'days',
     'options'                 => array(/*'seconds', 'minutes', 'hours', */'days', 'weeks', 'months', 'years'),
-	'reference'               => &$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter_options'],
+	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options'],
 	'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50')
 );
 
@@ -327,7 +327,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2TimeFilterEnd'] = array
     'inputType'               => 'timePeriod',
     'default'				  => 'days',
     'options'                 => array(/*'seconds', 'minutes', 'hours', */'days', 'weeks', 'months', 'years'),
-	'reference'               => &$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter_options'],
+	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options'],
 	'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50')
 );
 

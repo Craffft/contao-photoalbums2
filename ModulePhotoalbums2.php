@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2011 Leo Feyer
+ * Copyright (C) 2005-2012 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -235,7 +235,7 @@ class ModulePhotoalbums2 extends Module
 			$this->Session->set('pa2_referer', $referer['current']);
 		}
 		
-		$this->Template->referer = $this->Session->get('pa2_referer'); //$this->generateFrontendUrl(array('id'=>$objPage->id, 'alias'=>$objPage->alias));
+		$this->Template->referer = $this->Session->get('pa2_referer');
 		$this->Template->back = $GLOBALS['TL_LANG']['MSC']['goBack'];
 		
 		// Empty text

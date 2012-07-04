@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2011 Leo Feyer
+ * Copyright (C) 2005-2012 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -49,11 +49,26 @@ class Pa2Photos extends Pa2
 	 * @param string $alias
 	 * @return int
 	 */
-	public function getAlbum($alias)
+	public function getAlbum($val)
 	{
+		// Set id and alias
+		$id = '';
+		$alias = '';
+		
+		// Check value
+		if(is_numeric($val))
+		{
+			$id = $val;
+		}
+		else
+		{
+			$alias = $val;
+		}
+		
+		
 		// Get album by alias
-		$objAlbums = $this->Database->prepare("SELECT * FROM tl_photoalbums2_album WHERE alias=? LIMIT 1")
-									->execute($alias);
+		$objAlbums = $this->Database->prepare("SELECT * FROM tl_photoalbums2_album WHERE id=? OR alias=? LIMIT 1")
+									->execute($id, $alias);
 		
 		return $this->fetchAlbums($objAlbums);
 	}
@@ -67,7 +82,7 @@ class Pa2Photos extends Pa2
 	 * @param array $arrPaginationPhotos
 	 * @return array
 	 */
-	function parsePhotos($objTemplate, $arrAlbum, $arrPaginationPhotos)
+	public function parsePhotos($objTemplate, $arrAlbum, $arrPaginationPhotos)
 	{
 		// Check
 		if(!is_array($arrAlbum) || count($arrAlbum) < 1 || !is_array($arrPaginationPhotos) || count($arrPaginationPhotos) < 1)
@@ -84,7 +99,25 @@ class Pa2Photos extends Pa2
 		$objTemplate->showHeadline = $this->arrVars['pa2ShowHeadline'];
 		$objTemplate->showTitle = $this->arrVars['pa2ShowTitle'];
 		$objTemplate->showTeaser = $this->arrVars['pa2ShowTeaser'];
-		$objTemplate->teaser = $this->arrVars['pa2Teaser'];
+		$objTemplate->teaser = $this->cleanRteOutput($this->arrVars['pa2Teaser']);
+		
+		// Check headline
+		if($objTemplate->headline == '')
+		{
+			$objTemplate->showHeadline = false;
+		}
+		
+		// Check title
+		if($objTemplate->title == '')
+		{
+			$objTemplate->showTitle = false;
+		}
+		
+		// Check teaser
+		if($objTemplate->teaser == '')
+		{
+			$objTemplate->showTeaser = false;
+		}
 		
 		// Define date
 		$objTemplate = $this->pa2BuildDate($objTemplate, $arrAlbum['startdate'], $arrAlbum['enddate']);
@@ -171,8 +204,6 @@ class Pa2Photos extends Pa2
 			// Parse template
 			$arrElements[] = $objSubTemplate->parse();
 		}
-		
-		
 		
 		// Add items to template
 		$objTemplate->items = $arrElements;
