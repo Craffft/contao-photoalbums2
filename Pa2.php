@@ -614,6 +614,140 @@ class Pa2 extends Frontend
 		
 		return $text;
 	}
+	
+	
+	/**
+	 * Update a particular RSS feed
+	 * @param integer
+	 */
+	public function generateFeed($intId)
+	{
+		$objArchive = $this->Database->prepare("SELECT * FROM tl_photoalbums2_archive WHERE id=? AND makeFeed=?")
+									 ->limit(1)
+									 ->execute($intId, 1);
+
+		if ($objArchive->numRows < 1)
+		{
+			return;
+		}
+
+		$objArchive->feedName = ($objArchive->alias != '') ? $objArchive->alias : 'pa2' . $objArchive->id;
+		
+		// Delete XML file
+		if ($this->Input->get('act') == 'delete' || $objArchive->protected)
+		{
+			$this->import('Files');
+			$this->Files->delete($objArchive->feedName . '.xml');
+		}
+
+		// Update XML file
+		else
+		{
+			$this->generateFiles($objArchive->row());
+			$this->log('Generated pa2 feed "' . $objArchive->feedName . '.xml"', 'Pa2 generateFeed()', TL_CRON);
+		}
+	}
+
+
+	/**
+	 * Delete old files and generate all feeds
+	 */
+	public function generateFeeds()
+	{
+		$this->removeOldFeeds();
+		$objArchive = $this->Database->execute("SELECT * FROM tl_photoalbums2_archive WHERE makeFeed=1 AND protected!=1");
+
+		while ($objArchive->next())
+		{
+			$objArchive->feedName = ($objArchive->alias != '') ? $objArchive->alias : 'pa2' . $objArchive->id;
+
+			$this->generateFiles($objArchive->row());
+			$this->log('Generated pa2 feed "' . $objArchive->feedName . '.xml"', 'Pa2 generateFeeds()', TL_CRON);
+		}
+	}
+
+
+	/**
+	 * Generate an XML files and save them to the root directory
+	 * @param array
+	 */
+	protected function generateFiles($arrArchive)
+	{
+		$time = time();
+		$strType = ($arrArchive['format'] == 'atom') ? 'generateAtom' : 'generateRss';
+		$strLink = ($arrArchive['feedBase'] != '') ? $arrArchive['feedBase'] : $this->Environment->base;
+		$strFile = $arrArchive['feedName'];
+
+		$objFeed = new Feed($strFile);
+
+		$objFeed->link = $strLink;
+		$objFeed->title = $arrArchive['title'];
+		$objFeed->description = $arrArchive['description'];
+		$objFeed->language = $arrArchive['language'];
+		$objFeed->published = $arrArchive['tstamp'];
+
+		// Get items
+		$objArticleStmt = $this->Database->prepare("SELECT *, (SELECT name FROM tl_user u WHERE u.id=p.author) AS authorName FROM tl_photoalbums2_album p WHERE pid=? AND (start='' OR start<$time) AND (stop='' OR stop>$time) AND published=1 ORDER BY sorting ASC");
+
+		if ($arrArchive['maxItems'] > 0)
+		{
+			$objArticleStmt->limit($arrArchive['maxItems']);
+		}
+
+		$objArticle = $objArticleStmt->execute($arrArchive['id']);
+
+		// Get the default URL
+		$objParent = $this->Database->prepare("SELECT id, alias FROM tl_page WHERE id=?")
+									->limit(1)
+									->execute($arrArchive['modulePage']);
+
+		if ($objParent->numRows < 1)
+		{
+			return;
+		}
+
+		$objParent = $this->getPageDetails($objParent->id);
+		$strUrl = $this->generateFrontendUrl($objParent->row(), ($GLOBALS['TL_CONFIG']['useAutoItem'] ?  '/%s' : '/album/%s'), $objParent->language);
+		
+		// Parse items
+		while ($objArticle->next())
+		{
+			// Deserialize picture arrays
+			$objArticle->pictures = deserialize($objArticle->pictures);
+			$objArticle->pic_sort = deserialize($objArticle->pic_sort);
+			
+			// Sort photos
+			$objArticle->arrPhotos = ($objArticle->pic_sort_check == 'pic_sort_wizard') ? $objArticle->pic_sort : $this->sortElements($objArticle->pictures, $objArticle->pic_sort_check);
+			
+			$objItem = new FeedItem();
+			
+			$objItem->title = $objArticle->title;
+			$objItem->link = sprintf($strLink . $strUrl, (($objArticle->alias != '' && !$GLOBALS['TL_CONFIG']['disableAlias']) ? $objArticle->alias : $objArticle->id));
+			$objItem->published = $objArticle->startdate;
+			$objItem->author = $objArticle->authorName;
+			
+			if(is_array($objArticle->arrPhotos) && count($objArticle->arrPhotos) > 0)
+			{
+				foreach($objArticle->arrPhotos as $photo)
+				{
+					if (is_file(TL_ROOT . '/' . $photo))
+					{
+						$objItem->addEnclosure($photo);
+					}
+				}
+			}
+
+			// Prepare the description
+			$objItem->description = $this->replaceInsertTags($objArticle->description);
+
+			$objFeed->addItem($objItem);
+		}
+
+		// Create file
+		$objRss = new File($strFile . '.xml');
+		$objRss->write($this->replaceInsertTags($objFeed->$strType()));
+		$objRss->close();
+	}
 }
 
 ?>

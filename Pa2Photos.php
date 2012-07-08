@@ -51,6 +51,8 @@ class Pa2Photos extends Pa2
 	 */
 	public function getAlbum($val)
 	{
+		$time = time();
+		
 		// Set id and alias
 		$id = '';
 		$alias = '';
@@ -67,7 +69,7 @@ class Pa2Photos extends Pa2
 		
 		
 		// Get album by id or alias
-		$objAlbums = $this->Database->prepare("SELECT * FROM tl_photoalbums2_album WHERE id=? OR alias=? LIMIT 1")
+		$objAlbums = $this->Database->prepare("SELECT * FROM tl_photoalbums2_album WHERE (id=? OR alias=?) AND (start='' OR start<$time) AND (stop='' OR stop>$time) AND published=1 LIMIT 1")
 									->execute($id, $alias);
 		
 		return $this->fetchAlbums($objAlbums);
@@ -100,6 +102,7 @@ class Pa2Photos extends Pa2
 		$objTemplate->showTitle = $this->arrVars['pa2ShowTitle'];
 		$objTemplate->showTeaser = $this->arrVars['pa2ShowTeaser'];
 		$objTemplate->teaser = $this->cleanRteOutput($this->arrVars['pa2Teaser']);
+		$objTemplate->cssClass = ($arrAlbum['cssClass'] == '') ? '' : ' ' . $arrAlbum['cssClass'];
 		
 		// Check headline
 		if($objTemplate->headline == '')

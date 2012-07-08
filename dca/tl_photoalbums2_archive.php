@@ -44,7 +44,12 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_archive'] = array
 		'ctable'					  => array('tl_photoalbums2_album'),
 		'onload_callback' => array
 		(
-			array('tl_photoalbums2_archive', 'checkPermission')
+			array('tl_photoalbums2_archive', 'checkPermission'),
+			array('tl_photoalbums2_archive', 'generateFeed')
+		),
+		'onsubmit_callback' => array
+		(
+			array('tl_photoalbums2_archive', 'scheduleUpdate')
 		)
 	),
 
@@ -108,14 +113,16 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_archive'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'__selector__'                => array('protected'),
-		'default'                     => '{title_legend},title;{protected_legend},protected'
+		'__selector__'                => array('allowComments', 'protected', 'makeFeed'),
+		'default'                     => '{title_legend},title;{comments_legend:hide},allowComments;{protected_legend},protected;{feed_legend:hide},makeFeed'
 	),
 
 	// Subpalettes
 	'subpalettes' => array
 	(
-		'protected'                   => 'users,groups'
+		'allowComments'               => 'notify,sortOrder,perPage,moderate,bbcode,requireLogin,disableCaptcha',
+		'protected'                   => 'users,groups',
+		'makeFeed'                    => 'format,language,maxItems,feedBase,alias,modulePage,description'
 	),
 
 	// Fields
@@ -128,6 +135,68 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_archive'] = array
 			'search'                  => true,
 			'inputType'               => 'text',
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>255)
+		),
+		'allowComments' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['allowComments'],
+			'exclude'                 => true,
+			'filter'                  => true,
+			'inputType'               => 'checkbox',
+			'eval'                    => array('submitOnChange'=>true)
+		),
+		'notify' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['notify'],
+			'default'                 => 'notify_admin',
+			'exclude'                 => true,
+			'inputType'               => 'select',
+			'options'                 => array('notify_admin', 'notify_author', 'notify_both'),
+			'reference'               => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']
+		),
+		'sortOrder' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['sortOrder'],
+			'default'                 => 'ascending',
+			'exclude'                 => true,
+			'inputType'               => 'select',
+			'options'                 => array('ascending', 'descending'),
+			'reference'               => &$GLOBALS['TL_LANG']['MSC'],
+			'eval'                    => array('tl_class'=>'w50')
+		),
+		'perPage' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['perPage'],
+			'exclude'                 => true,
+			'inputType'               => 'text',
+			'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50')
+		),
+		'moderate' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['moderate'],
+			'exclude'                 => true,
+			'inputType'               => 'checkbox',
+			'eval'                    => array('tl_class'=>'w50')
+		),
+		'bbcode' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['bbcode'],
+			'exclude'                 => true,
+			'inputType'               => 'checkbox',
+			'eval'                    => array('tl_class'=>'w50')
+		),
+		'requireLogin' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['requireLogin'],
+			'exclude'                 => true,
+			'inputType'               => 'checkbox',
+			'eval'                    => array('tl_class'=>'w50')
+		),
+		'disableCaptcha' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['disableCaptcha'],
+			'exclude'                 => true,
+			'inputType'               => 'checkbox',
+			'eval'                    => array('tl_class'=>'w50')
 		),
 		'protected' => array
 		(
@@ -151,6 +220,77 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_archive'] = array
 			'inputType'               => 'checkbox',
 			'foreignKey'              => 'tl_member_group.name',
 			'eval'                    => array('multiple'=>true, 'tl_class'=>'w50')
+		),
+		'makeFeed' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['makeFeed'],
+			'exclude'                 => true,
+			'filter'                  => true,
+			'inputType'               => 'checkbox',
+			'eval'                    => array('submitOnChange'=>true)
+		),
+		'format' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['format'],
+			'default'                 => 'rss',
+			'exclude'                 => true,
+			'filter'                  => true,
+			'inputType'               => 'select',
+			'options'                 => array('rss'=>'RSS 2.0', 'atom'=>'Atom'),
+			'eval'                    => array('tl_class'=>'w50')
+		),
+		'language' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['language'],
+			'exclude'                 => true,
+			'search'                  => true,
+			'filter'                  => true,
+			'inputType'               => 'text',
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>32, 'tl_class'=>'w50')
+		),
+		'maxItems' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['maxItems'],
+			'default'                 => 25,
+			'exclude'                 => true,
+			'inputType'               => 'text',
+			'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50,clr')
+		),
+		'feedBase' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['feedBase'],
+			'default'                 => $this->Environment->base,
+			'exclude'                 => true,
+			'search'                  => true,
+			'inputType'               => 'text',
+			'eval'                    => array('trailingSlash'=>true, 'rgxp'=>'url', 'decodeEntities'=>true, 'maxlength'=>255, 'tl_class'=>'w50')
+		),
+		'alias' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['alias'],
+			'exclude'                 => true,
+			'search'                  => true,
+			'inputType'               => 'text',
+			'eval'                    => array('mandatory'=>true, 'rgxp'=>'alnum', 'unique'=>true, 'spaceToUnderscore'=>true, 'maxlength'=>128, 'tl_class'=>'w50,clr'),
+			'save_callback' => array
+			(
+				array('tl_photoalbums2_archive', 'checkFeedAlias')
+			)
+		),
+		'modulePage' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['modulePage'],
+			'exclude'                 => true,
+			'inputType'               => 'pageTree',
+			'eval'                    => array('mandatory'=>true, 'fieldType'=>'radio')
+		),
+		'description' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['description'],
+			'exclude'                 => true,
+			'search'                  => true,
+			'inputType'               => 'textarea',
+			'eval'                    => array('style'=>'height:60px;', 'tl_class'=>'clr')
 		)
 	)
 );
@@ -295,6 +435,78 @@ class tl_photoalbums2_archive extends Backend
 				}
 				break;
 		}
+	}
+
+
+	/**
+	 * Check for modified pa2 feeds and update the XML files if necessary
+	 */
+	public function generateFeed()
+	{
+		$session = $this->Session->get('pa2_feed_updater');
+
+		if (!is_array($session) || empty($session))
+		{
+			return;
+		}
+
+		$this->import('Pa2');
+
+		foreach ($session as $id)
+		{
+			$this->Pa2->generateFeed($id);
+		}
+
+		$this->Session->set('pa2_feed_updater', null);
+	}
+
+
+	/**
+	 * Schedule a pa2 feed update
+	 * 
+	 * This method is triggered when a single pa2 archive or multiple pa2
+	 * archives are modified (edit/editAll).
+	 * @param DataContainer
+	 */
+	public function scheduleUpdate(DataContainer $dc)
+	{
+		// Return if there is no ID 
+		if (!$dc->id)
+		{
+			return;
+		}
+
+		// Store the ID in the session
+		$session = $this->Session->get('pa2_feed_updater');
+		$session[] = $dc->id;
+		$this->Session->set('pa2_feed_updater', array_unique($session));
+	}
+
+
+	/**
+	 * Check the RSS-feed alias
+	 * @param mixed
+	 * @param DataContainer
+	 * @return mixed
+	 * @throws Exception
+	 */
+	public function checkFeedAlias($varValue, DataContainer $dc)
+	{
+		// No change or empty value
+		if ($varValue == $dc->value || $varValue == '')
+		{
+			return $varValue;
+		}
+
+		$arrFeeds = $this->removeOldFeeds(true);
+
+		// Alias exists
+		if (array_search($varValue, $arrFeeds) !== false)
+		{
+			throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $varValue));
+		}
+
+		return $varValue;
 	}
 
 

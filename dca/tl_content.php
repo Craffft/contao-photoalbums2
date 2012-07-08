@@ -46,24 +46,17 @@ $GLOBALS['TL_DCA']['tl_content']['palettes']['photoalbums2']			 = '{type_legend}
 
 $GLOBALS['TL_DCA']['tl_content']['subpalettes']['pa2TimeFilter'] = 'pa2TimeFilterStart,pa2TimeFilterEnd';
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['pa2PreviewPic'] = array
-(
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2PreviewPic'],
-    'exclude'                 => true,
-    'inputType'               => 'select',
-    'default'                 => 'use_album_options',
-	'options'				  => $GLOBALS['Pa2']['pa2_preview_pic_module_types'],
-	'reference'				  => &$GLOBALS['TL_LANG']['pa2_preview_pic_module_types'],
-	'eval'                    => array('tl_class'=>'long')
-);
-
 $GLOBALS['TL_DCA']['tl_content']['fields']['pa2Album'] = array
 (
     'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2Album'],
     'exclude'                 => true,
 	'inputType'               => 'select',
 	'options_callback'        => array('tl_content_photoalbums2', 'getPhotoalbums2Albums'),
-	'eval'                    => array('mandatory'=>true)
+	'eval'                    => array('mandatory'=>true, 'chosen'=>true),
+	'wizard' => array
+	(
+	    array('tl_content_photoalbums2', 'editAlbum')
+	)
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosTemplate'] = array
@@ -76,7 +69,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosTemplate'] = array
     'flag'                    => 11,
     'inputType'               => 'select',
     'options_callback'        => array('tl_content_photoalbums2', 'getPhotosTemplates'),
-    'eval'                    => array('tl_class'=>'long')
+    'eval'                    => array('tl_class'=>'long', 'chosen'=>true)
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['pa2NumberOfPhotos'] = array
@@ -104,7 +97,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosPerRow'] = array
     'inputType'               => 'select',
     'default'                 => 2,
     'options'                 => array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
-    'eval'                    => array('mandatory'=>true)
+    'eval'                    => array('mandatory'=>true, 'chosen'=>true)
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosShowHeadline'] = array
@@ -269,6 +262,17 @@ class tl_content_photoalbums2 extends Backend
 		}
 
 		return $this->getTemplateGroup('pa2_photo', $intPid);
+	}
+
+
+	/**
+	 * Return the edit album wizard
+	 * @param DataContainer
+	 * @return string
+	 */
+	public function editAlbum(DataContainer $dc)
+	{
+		return ($dc->value < 1) ? '' : ' <a href="contao/main.php?do=photoalbums2&amp;table=tl_photoalbums2_album&amp;act=edit&amp;id=' . $dc->value . '" title="'.sprintf(specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $dc->value).'" style="padding-left:3px">' . $this->generateImage('alias.gif', $GLOBALS['TL_LANG']['tl_content']['editalias'][0], 'style="vertical-align:top"') . '</a>';
 	}
 }
 

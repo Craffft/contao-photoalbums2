@@ -41,14 +41,24 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 		'dataContainer'               => 'Table',
 		'enableVersioning'            => true,
 		'ptable'					  => 'tl_photoalbums2_archive',
-		'onsubmit_callback' => array
-		(
-			array('tl_photoalbums2_album', 'adjustTime')
-		),
 		'onload_callback' => array
 		(
 			array('tl_photoalbums2_album', 'checkPermission'),
+			array('tl_photoalbums2_album', 'generateFeed'),
 			array('tl_photoalbums2_album', 'generatePalette')
+		),
+		'oncut_callback' => array
+		(
+			array('tl_photoalbums2_album', 'scheduleUpdate')
+		),
+		'ondelete_callback' => array
+		(
+			array('tl_photoalbums2_album', 'scheduleUpdate')
+		),
+		'onsubmit_callback' => array
+		(
+			array('tl_photoalbums2_album', 'adjustTime'),
+			array('tl_photoalbums2_album', 'scheduleUpdate')
 		)
 	),
 
@@ -59,14 +69,9 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 		(
 			'mode'                    => 4,
 			'fields'                  => array('sorting'),
-			'headerFields'            => array('title'),
+			'headerFields'            => array('title', 'tstamp', 'protected', 'allowComments', 'makeFeed'),
 			'panelLayout'             => 'search,limit',
 			'child_record_callback'   => array('tl_photoalbums2_album', 'listAlbums')
-		),
-		'label' => array
-		(
-			'fields'                  => array('title'),
-			'format'                  => '%s'
 		),
 		'global_operations' => array
 		(
@@ -91,6 +96,13 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 				'label'               => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['copy'],
 				'href'                => 'act=copy',
 				'icon'                => 'copy.gif'
+			),
+			'cut' => array
+			(
+				'label'               => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['cut'],
+				'href'                => 'act=paste&amp;mode=cut',
+				'icon'                => 'cut.gif',
+				'attributes'          => 'onclick="Backend.getScrollOffset()"'
 			),
 			'delete' => array
 			(
@@ -119,7 +131,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array('preview_pic_check', 'pic_sort_check', 'protected'),
-		'default'                     => '{title_legend},title,alias;{date_legend},startdate,enddate;{pictures_legend},pictures,preview_pic_check,preview_pic,pic_sort_check,pic_sort;{info_legend},event,place,photographer,description;{protected_legend},protected;{published_legend},published'
+		'default'                     => '{title_legend},title,alias,author;{date_legend},startdate,enddate;{pictures_legend},pictures,preview_pic_check,preview_pic,pic_sort_check,pic_sort;{info_legend},event,place,photographer,description;{protected_legend},protected;{expert_legend:hide},cssClass,noComments;{published_legend},published,start,stop'
 	),
 
 	// Subpalettes
@@ -149,6 +161,18 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			(
 				array('tl_photoalbums2_album', 'generateAlias')
 			)
+		),
+		'author' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['author'],
+			'default'                 => $this->User->id,
+			'exclude'                 => true,
+			'filter'                  => true,
+			'sorting'                 => true,
+			'flag'                    => 11,
+			'inputType'               => 'select',
+			'foreignKey'              => 'tl_user.name',
+			'eval'                    => array('doNotCopy'=>true, 'chosen'=>true, 'mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50')
 		),
 		'startdate' => array
 		(
@@ -260,6 +284,20 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'foreignKey'              => 'tl_member_group.name',
 			'eval'                    => array('multiple'=>true, 'tl_class'=>'w50')
 		),
+		'cssClass' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['cssClass'],
+			'exclude'                 => true,
+			'inputType'               => 'text'
+		),
+		'noComments' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['noComments'],
+			'exclude'                 => true,
+			'filter'                  => true,
+			'inputType'               => 'checkbox',
+			'eval'                    => array('tl_class'=>'w50')
+		),
 		'published' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['published'],
@@ -267,6 +305,20 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'search'                  => true,
 			'inputType'               => 'checkbox',
 			'eval'                    => array()
+		),
+		'start' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['start'],
+			'exclude'                 => true,
+			'inputType'               => 'text',
+			'eval'                    => array('rgxp'=>'datim', 'datepicker'=>true, 'tl_class'=>'w50 wizard')
+		),
+		'stop' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['stop'],
+			'exclude'                 => true,
+			'inputType'               => 'text',
+			'eval'                    => array('rgxp'=>'datim', 'datepicker'=>true, 'tl_class'=>'w50 wizard')
 		)
 	)
 );
@@ -407,10 +459,10 @@ class tl_photoalbums2_album extends Backend
 	public function listAlbums($arrRow)
 	{
 		// Import Pa2Photos
-		$this->import('Pa2Photos', 'Pa2');
+		$this->import('Pa2Photos');
 		
 		// Add photoalbums2 css file
-		$this->Pa2->addCssFile();
+		$this->Pa2Photos->addCssFile();
 		
 		// Deserialize vars
 		$arrRow['pictures'] = deserialize($arrRow['pictures']);
@@ -435,7 +487,7 @@ class tl_photoalbums2_album extends Backend
 		$arrVars['pa2ShowTeaser']		= true;
 		
 		// Add arrVars to Pa2
-		$this->Pa2->addArrVars($arrVars);
+		$this->Pa2Photos->addArrVars($arrVars);
 		
 		// Generate Template
 		$objTemplate = new FrontendTemplate('mod_photoalbums2');
@@ -444,10 +496,10 @@ class tl_photoalbums2_album extends Backend
 		$objTemplate->class = 'mod_photoalbums2';
 		
 		// Sort elements
-		$this->arrElements = ($arrRow['pic_sort_check'] == 'pic_sort_wizard') ? $arrRow['pic_sort'] : $this->Pa2->sortElements($arrRow['pictures'], $arrRow['pic_sort_check']);
+		$this->arrElements = ($arrRow['pic_sort_check'] == 'pic_sort_wizard') ? $arrRow['pic_sort'] : $this->Pa2Photos->sortElements($arrRow['pictures'], $arrRow['pic_sort_check']);
 		
 		// Parse photos
-		$objTemplate = $this->Pa2->parsePhotos($objTemplate, $arrRow, $this->arrElements);
+		$objTemplate = $this->Pa2Photos->parsePhotos($objTemplate, $arrRow, $this->arrElements);
 		
 		// Set key
 		$key = $arrRow['invisible'] ? 'unpublished' : 'published';
@@ -610,6 +662,52 @@ class tl_photoalbums2_album extends Backend
 		
 		// Update date
 		$this->Database->prepare("UPDATE tl_photoalbums2_album %s WHERE id=?")->set($arrSet)->execute($dc->id);
+	}
+
+
+	/**
+	 * Check for modified pa2 feeds and update the XML files if necessary
+	 */
+	public function generateFeed()
+	{
+		$session = $this->Session->get('pa2_feed_updater');
+
+		if (!is_array($session) || empty($session))
+		{
+			return;
+		}
+
+		$this->import('Pa2');
+
+		foreach ($session as $id)
+		{
+			$this->Pa2->generateFeed($id);
+		}
+
+		$this->Session->set('pa2_feed_updater', null);
+	}
+
+
+	/**
+	 * Schedule a pa2 feed update
+	 * 
+	 * This method is triggered when a single pa2 item or multiple pa2
+	 * items are modified (edit/editAll), moved (cut/cutAll) or deleted
+	 * (delete/deleteAll). Since duplicated items are unpublished by default,
+	 * it is not necessary to schedule updates on copyAll as well.
+	 */
+	public function scheduleUpdate()
+	{
+		// Return if there is no ID 
+		if (!CURRENT_ID || $this->Input->get('act') == 'copy')
+		{
+			return;
+		}
+
+		// Store the ID in the session
+		$session = $this->Session->get('pa2_feed_updater');
+		$session[] = CURRENT_ID;
+		$this->Session->set('pa2_feed_updater', array_unique($session));
 	}
 	
 	

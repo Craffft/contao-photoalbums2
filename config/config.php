@@ -35,8 +35,7 @@
 $GLOBALS['BE_MOD']['content']['photoalbums2'] = array
 (
 	'tables'		=> array('tl_photoalbums2_archive', 'tl_photoalbums2_album'),
-	'icon'			=> 'system/modules/photoalbums2/html/icon.gif',
-	'stylesheet'	=> 'system/modules/photoalbums2/html/style.css'
+	'icon'			=> 'system/modules/photoalbums2/html/icon.gif'
 );
 
 
@@ -50,6 +49,12 @@ $GLOBALS['FE_MOD']['photoalbums2_legend']['photoalbums2'] = 'ModulePhotoalbums2'
  * Content Elements
  */
 $GLOBALS['TL_CTE']['images']['photoalbums2'] = 'ContentPhotoalbums2';
+
+
+/**
+ * Cron jobs
+ */
+$GLOBALS['TL_CRON']['daily'][] = array('Pa2', 'generateFeeds');
 
 
 /**

@@ -117,7 +117,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsTemplate'] = array
     'flag'                    => 11,
     'inputType'               => 'select',
     'options_callback'        => array('tl_module_photoalbums2', 'getAlbumsTemplates'),
-    'eval'                    => array('tl_class'=>'w50')
+    'eval'                    => array('chosen'=>true, 'tl_class'=>'w50')
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['pa2PhotosTemplate'] = array
@@ -130,7 +130,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2PhotosTemplate'] = array
     'flag'                    => 11,
     'inputType'               => 'select',
     'options_callback'        => array('tl_module_photoalbums2', 'getPhotosTemplates'),
-    'eval'                    => array('tl_class'=>'w50')
+    'eval'                    => array('chosen'=>true, 'tl_class'=>'w50')
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['pa2NumberOfAlbums'] = array
@@ -176,7 +176,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsPerRow'] = array
     'inputType'               => 'select',
     'default'                 => 1,
     'options'                 => array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
-    'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50')
+    'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50')
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['pa2PhotosPerRow'] = array
@@ -186,7 +186,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2PhotosPerRow'] = array
     'inputType'               => 'select',
     'default'                 => 2,
     'options'                 => array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
-    'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50')
+    'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50')
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowHeadline'] = array

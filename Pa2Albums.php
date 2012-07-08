@@ -57,8 +57,11 @@ class Pa2Albums extends Pa2
 			return false;
 		}
 		
+		// Set var time
+		$time = time();
+		
 		// Get albums from archives
-		$objAlbums = $this->Database->execute("SELECT * FROM tl_photoalbums2_album WHERE pid IN(" . implode(',', array_map('intval', $arrArchives)) . ") ORDER BY pid, sorting");
+		$objAlbums = $this->Database->execute("SELECT * FROM tl_photoalbums2_album WHERE pid IN(" . implode(',', array_map('intval', $arrArchives)) . ") AND (start='' OR start<$time) AND (stop='' OR stop>$time) AND published=1 ORDER BY pid, sorting");
 		
 		return $this->fetchAlbums($objAlbums);
 	}
@@ -144,6 +147,7 @@ class Pa2Albums extends Pa2
 				
 				$arrLink['id'] = $objDetailPage->id;
 				$arrLink['alias'] = $objDetailPage->alias;
+				$arrLink['language'] = $objDetailPage->language;
 			}
 			
 			$objSubTemplate->title = $album['title'];
@@ -153,7 +157,8 @@ class Pa2Albums extends Pa2
 			$objSubTemplate->place = $album['place'];
 			$objSubTemplate->photographer = $album['photographer'];
 			$objSubTemplate->description = $album['description'];
-			$objSubTemplate->href = $this->generateFrontendUrl($arrLink, '/album/' . $album['alias']);
+			$objSubTemplate->href = $this->generateFrontendUrl($arrLink, sprintf(($GLOBALS['TL_CONFIG']['useAutoItem'] ?  '/%s' : '/album/%s'), $album['alias']), $objDetailPage->language);
+			$objSubTemplate->class = ($album['cssClass']=='') ? '' : ' ' . $album['cssClass'];
 			
 			// Check title
 			if($objSubTemplate->title == '')

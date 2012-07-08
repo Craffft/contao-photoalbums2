@@ -34,6 +34,7 @@
  */
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['title'] = array('Title', 'Enter the title of the photo album here.');
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['alias'] = array('Alias', 'The alias is generated automatically. It is a part of the URL.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['author'] = array('Author', 'Here you can change the author of the album.');
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['startdate'] = array('Start date', 'Enter the start date here.');
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['enddate'] = array('End date', 'Enter an end date here when the shooting takes several days. Otherwise, leave this field empty.');
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['pictures'] = array('Photos', 'Choose here the photos to display in this album.');
@@ -48,7 +49,11 @@ $GLOBALS['TL_LANG']['tl_photoalbums2_album']['description'] = array('Description
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['protected'] = array('Protect album', 'Limit here to access this photo album.');
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['users'] = array('Members', 'Choose the membes who have access to the photo album archive.');
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['groups'] = array('Member groups', 'Choose the member groups who have access to the photo album archive.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['cssClass'] = array('CSS class', 'Here you can enter one or more classes.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['noComments'] = array('Disable comments', 'Do not allow comments for this particular album.');
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['published'] = array('Publish', 'Set this checkbox to publish the photo album.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['start'] = array('Show from', 'Do not show the album on the website before this day.');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['stop'] = array('Show until', 'Do not show the album on the website on and after this day.');
 
 
 /**
@@ -59,6 +64,7 @@ $GLOBALS['TL_LANG']['tl_photoalbums2_album']['date_legend'] = 'Date';
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['pictures_legend'] = 'Photos';
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['info_legend'] = 'Info';
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['protected_legend'] = 'Protect album';
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['expert_legend'] = 'Expert settings';
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['published_legend'] = 'Publish';
 
 
@@ -68,6 +74,7 @@ $GLOBALS['TL_LANG']['tl_photoalbums2_album']['published_legend'] = 'Publish';
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['new']    = array('Create new photo album', 'Create a new photo album');
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['edit']   = array('Edit photo album', 'Edit the photo album ID %s');
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['copy']   = array('Copy photo album', 'Copy photo album ID %s');
+$GLOBALS['TL_LANG']['tl_photoalbums2_album']['cut']   = array('Cut photo album', 'Cut photo album ID %s');
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['delete'] = array('Delete photo album', 'Delete photo album ID %s');
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['show']   = array('Show details of the photo album', 'Show details of the photo album ID %s');
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['toggle'] = array('Publish/unpublish photo album', 'Publish/unpublish photo album ID %s');

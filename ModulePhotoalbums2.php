@@ -240,6 +240,9 @@ class ModulePhotoalbums2 extends Module
 		
 		// Empty text
 		$this->empty = $GLOBALS['TL_LANG']['MSC']['photosEmpty'];
+		
+		// Add comments module
+		$this->addComments($this->arrPhotos);
 	}
 	
 	
@@ -293,7 +296,7 @@ class ModulePhotoalbums2 extends Module
 			'alias' => $objDetailPage->alias
 		);
 		
-		$linkDetailPage = $this->generateFrontendUrl($arrDetailPage, '/album/' . $this->Input->get('album'));
+		$linkDetailPage = $this->generateFrontendUrl($arrDetailPage, sprintf(($GLOBALS['TL_CONFIG']['useAutoItem'] ?  '/%s' : '/album/%s'), $this->Input->get('album')), $objDetailPage->language);
 		
 		if(($this->Input->get('page') != '') && ($this->Input->get('page') != NULL) && is_numeric($this->Input->get('page')))
 		{
@@ -332,6 +335,74 @@ class ModulePhotoalbums2 extends Module
 		
 		// Locate to root page
 		$this->redirect($linkRootPage);
+	}
+	
+	
+	/**
+	 * addComments function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function addComments($arrAlbum)
+	{
+		// HOOK: comments extension required
+		if ($arrAlbum['noComments'] || !in_array('comments', $this->Config->getActiveModules()))
+		{
+			$this->Template->allowComments = false;
+			return;
+		}
+		
+		// Check whether comments are allowed
+		$objArchive = $this->Database->prepare("SELECT * FROM tl_photoalbums2_archive WHERE id=?")
+									 ->limit(1)
+									 ->execute($this->pid);
+
+		if ($objArchive->numRows < 1 || !$objArchive->allowComments)
+		{
+			$this->Template->allowComments = false;
+			return;
+		}
+
+		$this->Template->allowComments = true;
+
+		// Adjust the comments headline level
+		$intHl = min(intval(str_replace('h', '', $this->hl)), 5);
+		$this->Template->hlc = 'h' . ($intHl + 1);
+
+		$this->import('Comments');
+		$arrNotifies = array();
+		
+		// Notify system administrator
+		if ($objArchive->notify != 'notify_author')
+		{
+			$arrNotifies[] = $GLOBALS['TL_ADMIN_EMAIL'];
+		}
+
+		// Notify author
+		if ($objArchive->notify != 'notify_admin')
+		{
+			$objAuthor = $this->Database->prepare("SELECT email FROM tl_user WHERE id=?")
+										->limit(1)
+										->execute($arrAlbum['author']);
+
+			if ($objAuthor->numRows)
+			{
+				$arrNotifies[] = $objAuthor->email;
+			}
+		}
+
+		$objConfig = new stdClass();
+
+		$objConfig->perPage = $objArchive->perPage;
+		$objConfig->order = $objArchive->sortOrder;
+		$objConfig->template = $this->com_template;
+		$objConfig->requireLogin = $objArchive->requireLogin;
+		$objConfig->disableCaptcha = $objArchive->disableCaptcha;
+		$objConfig->bbcode = $objArchive->bbcode;
+		$objConfig->moderate = $objArchive->moderate;
+		
+		$this->Comments->addCommentsToTemplate($this->Template, $objConfig, 'tl_photoalbums2_album', $arrAlbum['id'], $arrNotifies);
 	}
 	
 	
