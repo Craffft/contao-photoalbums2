@@ -33,9 +33,8 @@
  * Table tl_module 
  */
 $GLOBALS['TL_DCA']['tl_module']['config']['onsubmit_callback'][] = array('Pa2Backend', 'checkTimeFilter');
-$GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][] = array('tl_module_photoalbums2', 'fixPa2FieldPosition');
+$GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][] = array('tl_module_photoalbums2', 'fixPa2Palette');
 $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][] = 'pa2TimeFilter';
-$GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][] = 'pa2Mode';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['photoalbums2']				 = '{title_legend},name,headline,type;
 																			{config_legend},pa2Mode';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_on_one_page']			 = '{title_legend},name,headline,type;
@@ -474,11 +473,16 @@ class tl_module_photoalbums2 extends Backend
 	}
 	
 	
-	public function fixPa2FieldPosition()
+	public function fixPa2Palette()
 	{
+		// Get pa2Mode
 		$objModule = $this->Database->prepare("SELECT pa2Mode FROM tl_module WHERE id=?")
 									->execute($this->Input->get('id'));
 		
+		// Fix pa2 palette
+		$GLOBALS['TL_DCA']['tl_module']['palettes']['photoalbums2'] = $GLOBALS['TL_DCA']['tl_module']['palettes'][$objModule->pa2Mode];
+		
+		// Fix pa2 field position
 		if($objModule->pa2Mode == 'pa2_only_album_view')
 		{
 			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsTemplate']['eval']['tl_class'] = 'w50,clr';
