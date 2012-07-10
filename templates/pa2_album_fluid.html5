@@ -1,40 +1,37 @@
 
 <!-- indexer::stop -->
 <?php if($this->picNum == $this->firstPageNum): ?><ul><?php endif; ?>
-<li class="album block<?php echo $this->class; ?>">
-
+<li class="album block<?php echo $this->class; ?>"<?php if($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
 <div class="albumInside">
-
 <?php if($this->showTitle): ?>
+
 <h2><a href="<?php echo $this->href; ?>" title="<?php echo $this->title; ?>"<?php if ($this->albumLightbox): ?> <?php if ($this->lbvCheck): ?>data-lightbox="pa2_<?php echo $this->albumID; ?>"<?php else: ?>rel="lightbox[pa2_<?php echo $this->albumID; ?>]"<?php endif; ?><?php endif; ?>><?php echo $this->title; ?></a></h2>
 <?php endif; ?>
-
 <?php if ($this->addImage): ?>
+
 <figure class="image_container"<?php if ($this->margin): ?> style="<?php echo $this->margin; ?>"<?php endif; ?>>
 <a href="<?php echo $this->href; ?>" title="<?php echo $this->title; ?>"<?php if ($this->albumLightbox): ?> <?php if ($this->lbvCheck): ?>data-lightbox="pa2_<?php echo $this->albumID; ?>"<?php else: ?>rel="lightbox[pa2_<?php echo $this->albumID; ?>]"<?php endif; ?><?php endif; ?>>
 <img src="<?php echo $this->src; ?>"<?php echo $this->imgSize; ?> alt="<?php echo $this->alt; ?>">
 </a>
 </figure>
 <?php endif; ?>
-
 <?php if ($this->metaFields): ?>
+
 <div class="info">
 <?php foreach ($this->metaFields as $metaField): ?>
 <div class="<?php echo $metaField; ?>"><?php echo $this->$metaField; ?></div>
 <?php endforeach; ?>
 </div>
 <?php endif; ?>
-
 </div>
-
 <?php if($this->albumLightbox): ?>
+
 <div class="hide albumLightboxPictures">
 <?php foreach($this->albumLightboxPictures as $lightboxPicture): ?>
 <?php echo $lightboxPicture; ?>
 <?php endforeach; ?>
 </div>
 <?php endif; ?>
-
 </li>
 <?php if($this->picNum == $this->lastPageNum): ?></ul><?php endif; ?>
 <!-- indexer::continue -->
