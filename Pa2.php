@@ -371,6 +371,46 @@ class Pa2 extends Frontend
 	
 	
 	/**
+	 * pa2AddSpecificClasses function.
+	 * 
+	 * @access protected
+	 * @param object $objTemplate
+	 * @param int $totalAll
+	 * @param int $i
+	 * @param int $pa2PerRow
+	 * @return object
+	 */
+	protected function pa2AddSpecificClasses($objTemplate, $totalAll, $i, $pa2PerRow)
+	{
+		// Set var page
+		$page = $this->Input->get('page');
+		$page = (is_numeric($page)) ? $page : 1;
+		
+		// Set numRow var
+		$picNum = (($page-1)*$pa2PerRow) + 1 + $i;
+		
+		// Set firstOfAll class
+		if($picNum == '1')
+		{
+			$objTemplate->class .= ($objTemplate->class == '') ? 'firstOfAll' : ' firstOfAll';
+		}
+		
+		// Set lastOfAll class
+		if($picNum == $totalAll)
+		{
+			$objTemplate->class .= ($objTemplate->class == '') ? 'lastOfAll' : ' lastOfAll';
+		}
+		
+		$objTemplate->class .= ($objTemplate->class == '') ? 'picnum_' . $picNum : ' picnum_' . $picNum;
+		
+		// Set numRow in template
+		$objTemplate->picNum = $picNum;
+		
+		return $objTemplate;
+	}
+	
+	
+	/**
 	 * pa2BuildDate function.
 	 * 
 	 * @access protected

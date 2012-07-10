@@ -186,6 +186,9 @@ class ModulePhotoalbums2 extends Module
 		$this->arrElements = $arrPa2Pagination['elements'];
 		$this->Template->pagination = $arrPa2Pagination['pagination'];
 		
+		// Set total var in template object
+		$this->Template->totalAll = $total;
+		
 		// Add arrVars to Pa2
 		$this->Pa2 = $this->addArrVars($this->Pa2);
 		

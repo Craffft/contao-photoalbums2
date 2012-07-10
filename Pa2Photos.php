@@ -150,6 +150,9 @@ class Pa2Photos extends Pa2
 			$objSubTemplate = new FrontendTemplate($this->arrVars['strSubtemplate']);
 			$objSubTemplate->setData($this->arrVars['arrData']);
 			
+			// Add totalAll to subtemplate
+			$objSubTemplate->totalAll = $objTemplate->totalAll;
+			
 			// Define show
 			$objSubTemplate->show = false;
 			
@@ -164,6 +167,9 @@ class Pa2Photos extends Pa2
 			{
 				// Define perRow
 				$objSubTemplate = $this->pa2PerRow($objSubTemplate, $paginationTotal, $pagiantionCount, $this->arrVars['pa2PerRow']);
+				
+				// Define firstOfAll an lastOfAll
+				$objSubTemplate = $this->pa2AddSpecificClasses($objSubTemplate, $objTemplate->totalAll, $i, $this->arrVars['pa2PerRow']);
 				
 				// Define show
 				$objSubTemplate->show = true;

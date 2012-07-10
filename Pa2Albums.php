@@ -120,6 +120,9 @@ class Pa2Albums extends Pa2
 			// Define metaFields
 			$objSubTemplate = $this->pa2MetaFields($objSubTemplate, $this->arrVars['pa2MetaFields']);
 			
+			// Define firstOfAll an lastOfAll
+			$objSubTemplate = $this->pa2AddSpecificClasses($objSubTemplate, $objTemplate->totalAll, $i, $this->arrVars['pa2PerRow']);
+			
 			// Add an image
 			if ($album['preview_pic']!='' && is_file(TL_ROOT . '/' . $album['preview_pic']))
 			{
