@@ -102,7 +102,7 @@ class Pa2Photos extends Pa2
 		$objTemplate->showTitle = $this->arrVars['pa2ShowTitle'];
 		$objTemplate->showTeaser = $this->arrVars['pa2ShowTeaser'];
 		$objTemplate->teaser = $this->cleanRteOutput($this->arrVars['pa2Teaser']);
-		$objTemplate->cssClass = ($arrAlbum['cssClass'] == '') ? '' : ' ' . $arrAlbum['cssClass'];
+		$objTemplate->cssClass .= ($objTemplate->cssClass == '') ? $arrAlbum['cssClass'] : ' ' . $arrAlbum['cssClass'];
 		
 		// Check headline
 		if($objTemplate->headline == '')

@@ -158,7 +158,7 @@ class Pa2Albums extends Pa2
 			$objSubTemplate->photographer = $album['photographer'];
 			$objSubTemplate->description = $album['description'];
 			$objSubTemplate->href = $this->generateFrontendUrl($arrLink, sprintf(($GLOBALS['TL_CONFIG']['useAutoItem'] ?  '/%s' : '/album/%s'), $album['alias']), $objDetailPage->language);
-			$objSubTemplate->class = ($album['cssClass']=='') ? '' : ' ' . $album['cssClass'];
+			$objSubTemplate->class .= ($objSubTemplate->class == '') ? $album['cssClass'] : ' ' . $album['cssClass'];
 			
 			// Check title
 			if($objSubTemplate->title == '')
