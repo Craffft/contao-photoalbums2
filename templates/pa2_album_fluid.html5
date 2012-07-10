@@ -1,7 +1,7 @@
 
 <!-- indexer::stop -->
-<?php if($this->picNum == 1): ?><ul><?php endif; ?>
-<li class="album block<?php echo $this->class; ?>"<?php if($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+<?php if($this->picNum == $this->firstPageNum): ?><ul><?php endif; ?>
+<li class="album block<?php echo $this->class; ?>">
 
 <div class="albumInside">
 
@@ -36,5 +36,5 @@
 <?php endif; ?>
 
 </li>
-<?php if($this->picNum == $this->totalAll): ?></ul><?php endif; ?>
+<?php if($this->picNum == $this->lastPageNum): ?></ul><?php endif; ?>
 <!-- indexer::continue -->

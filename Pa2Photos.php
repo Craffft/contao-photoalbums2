@@ -39,7 +39,7 @@
  */
 class Pa2Photos extends Pa2
 {
-	public static $pa2Type = 'photos';
+	public $pa2Type = 'photos';
 	
 	
 	/**
@@ -169,7 +169,7 @@ class Pa2Photos extends Pa2
 				$objSubTemplate = $this->pa2PerRow($objSubTemplate, $paginationTotal, $pagiantionCount, $this->arrVars['pa2PerRow']);
 				
 				// Define firstOfAll an lastOfAll
-				$objSubTemplate = $this->pa2AddSpecificClasses($objSubTemplate, $objTemplate->totalAll, $i, $this->arrVars['pa2PerRow']);
+				$objSubTemplate = $this->pa2AddSpecificClasses($objSubTemplate, $objTemplate->totalAll, $i, $this->arrVars['pa2PerPage'], $this->pa2Type);
 				
 				// Define show
 				$objSubTemplate->show = true;

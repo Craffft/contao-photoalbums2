@@ -38,7 +38,7 @@
  */
 class Pa2 extends Frontend
 {
-	public static $pa2Type;
+	public $pa2Type = 'pa2';
 	protected $arrVars = array();
 	
 	
@@ -377,17 +377,40 @@ class Pa2 extends Frontend
 	 * @param object $objTemplate
 	 * @param int $totalAll
 	 * @param int $i
-	 * @param int $pa2PerRow
+	 * @param int $pa2PerPage
 	 * @return object
 	 */
-	protected function pa2AddSpecificClasses($objTemplate, $totalAll, $i, $pa2PerRow)
+	protected function pa2AddSpecificClasses($objTemplate, $totalAll, $i, $pa2PerPage, $type)
 	{
+		// Set var maxPage
+		$maxPage = (int) ceil($totalAll/$pa2PerPage);
+		
 		// Set var page
 		$page = $this->Input->get('page');
 		$page = (is_numeric($page)) ? $page : 1;
+		$page = ($maxPage > $page) ? $page : $maxPage;
 		
 		// Set numRow var
-		$picNum = (($page-1)*$pa2PerRow) + 1 + $i;
+		if($type == 'albums')
+		{
+			$picNum = $i+1+(($page-1)*$pa2PerPage);
+		}
+		else if($type == 'photos')
+		{
+			$picNum = $i+1;
+		}
+		else
+		{
+			return false;
+		}
+		
+		// Set firstPageNum
+		$firstPageNum = (($page-1)*$pa2PerPage) + 1;
+		$firstPageNum = ($totalAll > $firstPageNum) ? $firstPageNum : $totalAll;
+		
+		// Set lastPageNum
+		$lastPageNum = ($page*$pa2PerPage);
+		$lastPageNum = ($totalAll > $lastPageNum) ? $lastPageNum : $totalAll;
 		
 		// Set firstOfAll class
 		if($picNum == '1')
@@ -403,8 +426,10 @@ class Pa2 extends Frontend
 		
 		$objTemplate->class .= ($objTemplate->class == '') ? 'picnum_' . $picNum : ' picnum_' . $picNum;
 		
-		// Set numRow in template
+		// Set vars in template
 		$objTemplate->picNum = $picNum;
+		$objTemplate->firstPageNum = $firstPageNum;
+		$objTemplate->lastPageNum = $lastPageNum;
 		
 		return $objTemplate;
 	}

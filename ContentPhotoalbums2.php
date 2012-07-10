@@ -188,6 +188,7 @@ class ContentPhotoalbums2 extends ContentElement
 		// Add to arrVars
 		$arrVars['pa2MetaFields']		= $this->pa2PhotosMetaFields;
 		$arrVars['pa2PerRow']			= $this->pa2PhotosPerRow;
+		$arrVars['pa2PerPage']			= $this->pa2PhotosPerPage;
 		$arrVars['pa2ImageSize']		= $this->pa2PhotosImageSize;
 		$arrVars['pa2ImageMargin']		= $this->pa2PhotosImageMargin;
 		$arrVars['pa2ShowHeadline']		= $this->pa2PhotosShowHeadline;
