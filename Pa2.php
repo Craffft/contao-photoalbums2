@@ -382,6 +382,12 @@ class Pa2 extends Frontend
 	 */
 	protected function pa2AddSpecificClasses($objTemplate, $totalAll, $i, $pa2PerPage, $type)
 	{
+		// Fix empty vars
+		if(!is_object($objTemplate) || $totalAll == NULL || $i == NULL || $pa2PerPage == NULL || $type == NULL)
+		{
+			return $objTemplate;
+		}
+		
 		// Set var maxPage
 		$maxPage = (int) ceil($totalAll/$pa2PerPage);
 		

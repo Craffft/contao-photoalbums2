@@ -19,4 +19,8 @@
 .ce_photoalbums2 .albumswrap .album.last .albumInside,
 .ce_photoalbums2 .photoswrap .photo.last .photoInside{margin-right: 0px;}
 .mod_photoalbums2 .hide,
-.ce_photoalbums2 .hide{display: none !important; position: absolute !important; top: 0px !important; left: 0px !important; width: 0px !important; height: 0px !important; overflow: hidden !important;} 
+.ce_photoalbums2 .hide{display: none !important; position: absolute !important; top: 0px !important; left: 0px !important; width: 0px !important; height: 0px !important; overflow: hidden !important;}
+.mod_photoalbums2.pa2_album_fluid ul,
+.mod_photoalbums2.pa2_album_fluid ul li,
+.ce_photoalbums2.pa2_album_fluid ul,
+.ce_photoalbums2.pa2_album_fluid ul li{padding: 0px; margin: 0px;}
