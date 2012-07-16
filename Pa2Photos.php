@@ -89,6 +89,11 @@ class Pa2Photos extends Pa2
 		// Check
 		if(!is_array($arrAlbum) || count($arrAlbum) < 1 || !is_array($arrPaginationPhotos) || count($arrPaginationPhotos) < 1)
 		{
+			if(TL_MODE == 'BE')
+			{
+				return $objTemplate;
+			}
+			
 			return false;
 		}
 		
