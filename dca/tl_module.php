@@ -67,6 +67,12 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_with_detail_page']		 = '{title_
 
 $GLOBALS['TL_DCA']['tl_module']['subpalettes']['pa2TimeFilter'] = 'pa2TimeFilterStart,pa2TimeFilterEnd';
 
+
+/**
+ * Fields
+ */
+$GLOBALS['TL_DCA']['tl_module']['fields']['name']['eval']['tl_class'] = 'w50';
+
 $GLOBALS['TL_DCA']['tl_module']['fields']['pa2Mode'] = array
 (
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2Mode'],
@@ -478,6 +484,12 @@ class tl_module_photoalbums2 extends Backend
 		// Get pa2Mode
 		$objModule = $this->Database->prepare("SELECT pa2Mode FROM tl_module WHERE id=?")
 									->execute($this->Input->get('id'));
+		
+		// If pa2Mode is not set
+		if($objModule->pa2Mode == '')
+		{
+			$objModule->pa2Mode = 'pa2_on_one_page';
+		}
 		
 		// Fix pa2 palette
 		$GLOBALS['TL_DCA']['tl_module']['palettes']['photoalbums2'] = $GLOBALS['TL_DCA']['tl_module']['palettes'][$objModule->pa2Mode];
