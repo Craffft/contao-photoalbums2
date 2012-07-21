@@ -89,7 +89,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2DetailPage'] = array
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2DetailPage'],
     'exclude'                 => true,
     'inputType'               => 'pageTree',
-    'eval'                    => array('mandatory'=>true, 'fieldType'=>'radio')
+    'eval'                    => array('fieldType'=>'radio')
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['pa2PreviewPic'] = array
@@ -486,7 +486,7 @@ class tl_module_photoalbums2 extends Backend
 									->execute($this->Input->get('id'));
 		
 		// If pa2Mode is not set
-		if($objModule->pa2Mode == '')
+		if($objModule->pa2Mode != 'pa2_on_one_page' && $objModule->pa2Mode != 'pa2_only_album_view' && $objModule->pa2Mode != 'pa2_with_detail_page')
 		{
 			$objModule->pa2Mode = 'pa2_on_one_page';
 		}
