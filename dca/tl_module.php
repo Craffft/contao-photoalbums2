@@ -22,7 +22,7 @@
  *
  * PHP version 5
  * @copyright  Daniel Kiesel 2012 
- * @author     Daniel Kiesel <http://www.daniel-kiesel.de/contao>
+ * @author     Daniel Kiesel
  * @package    photoalbums2 
  * @license    LGPL 
  * @filesource
@@ -80,7 +80,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2Mode'] = array
     'inputType'               => 'select',
     'options'                 => array('pa2_on_one_page', 'pa2_only_album_view', 'pa2_with_detail_page'),
     'reference'               => &$GLOBALS['TL_LANG']['pa2_mode_types'],
-	'default'                 => 'photoalbums2_on_one_page',
+	'default'                 => 'pa2_on_one_page',
     'eval'                    => array('submitOnChange'=>true, 'tl_class'=>'long')
 );
 
@@ -349,7 +349,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2Teaser'] = array
  * Class tl_module_photoalbums2
  *
  * @copyright	Daniel Kiesel 2012
- * @author		Daniel Kiesel <http://www.daniel-kiesel.de/contao>
+ * @author		Daniel Kiesel
  * @package    Controller
  */
 class tl_module_photoalbums2 extends Backend
@@ -479,6 +479,12 @@ class tl_module_photoalbums2 extends Backend
 	}
 	
 	
+	/**
+	 * fixPa2Palette function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
 	public function fixPa2Palette()
 	{
 		// Get pa2Mode

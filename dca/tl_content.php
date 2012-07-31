@@ -22,7 +22,7 @@
  *
  * PHP version 5
  * @copyright  Daniel Kiesel 2012 
- * @author     Daniel Kiesel <http://www.daniel-kiesel.de/contao>
+ * @author     Daniel Kiesel
  * @package    photoalbums2 
  * @license    LGPL 
  * @filesource
@@ -199,7 +199,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2Teaser'] = array
  * Class tl_content_photoalbums2
  *
  * @copyright	Daniel Kiesel 2012
- * @author		Daniel Kiesel <http://www.daniel-kiesel.de/contao>
+ * @author		Daniel Kiesel
  * @package    Controller
  */
 class tl_content_photoalbums2 extends Backend

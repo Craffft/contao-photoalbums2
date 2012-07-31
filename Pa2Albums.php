@@ -175,12 +175,32 @@ class Pa2Albums extends Pa2
 			// If album lightbox is activated the photos will be added to the album template
 			$objSubTemplate = $this->albumLightbox($objSubTemplate, $album, $this->arrVars['pa2AlbumLightbox']);
 			
+			// HOOK: pa2ParseAlbum callback
+			if ($objSubTemplate instanceof FrontendTemplate && isset($GLOBALS['TL_HOOKS']['pa2ParseAlbum']) && is_array($GLOBALS['TL_HOOKS']['pa2ParseAlbum']))
+			{
+				foreach ($GLOBALS['TL_HOOKS']['pa2ParseAlbum'] as $callback)
+				{
+					$this->import($callback[0]);
+					$objSubTemplate = $this->$callback[0]->$callback[1]($objSubTemplate, $this, $i);
+				}
+			}
+			
 			// Parse template
 			$arrElements[] = $objSubTemplate->parse();
 		}
 		
 		// Add items to template
 		$objTemplate->items = $arrElements;
+		
+		// HOOK: pa2ParseAlbums callback
+		if ($objTemplate instanceof FrontendTemplate && isset($GLOBALS['TL_HOOKS']['pa2ParseAlbums']) && is_array($GLOBALS['TL_HOOKS']['pa2ParseAlbums']))
+		{
+			foreach ($GLOBALS['TL_HOOKS']['pa2ParseAlbums'] as $callback)
+			{
+				$this->import($callback[0]);
+				$objTemplate = $this->$callback[0]->$callback[1]($objTemplate, $this);
+			}
+		}
 		
 		return $objTemplate;
 	}

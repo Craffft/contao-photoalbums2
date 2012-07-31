@@ -215,12 +215,32 @@ class Pa2Photos extends Pa2
 				$objSubTemplate->title = substr(strrchr($element, '/'), 1);
 			}
 			
+			// HOOK: pa2ParsePhoto callback
+			if ($objSubTemplate instanceof FrontendTemplate && isset($GLOBALS['TL_HOOKS']['pa2ParsePhoto']) && is_array($GLOBALS['TL_HOOKS']['pa2ParsePhoto']))
+			{
+				foreach ($GLOBALS['TL_HOOKS']['pa2ParsePhoto'] as $callback)
+				{
+					$this->import($callback[0]);
+					$objSubTemplate = $this->$callback[0]->$callback[1]($objSubTemplate, $this, $i);
+				}
+			}
+			
 			// Parse template
 			$arrElements[] = $objSubTemplate->parse();
 		}
 		
 		// Add items to template
 		$objTemplate->items = $arrElements;
+		
+		// HOOK: pa2ParsePhotos callback
+		if ($objTemplate instanceof FrontendTemplate && isset($GLOBALS['TL_HOOKS']['pa2ParsePhotos']) && is_array($GLOBALS['TL_HOOKS']['pa2ParsePhotos']))
+		{
+			foreach ($GLOBALS['TL_HOOKS']['pa2ParsePhotos'] as $callback)
+			{
+				$this->import($callback[0]);
+				$objTemplate = $this->$callback[0]->$callback[1]($objTemplate, $this);
+			}
+		}
 		
 		return $objTemplate;
 	}

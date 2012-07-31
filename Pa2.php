@@ -383,9 +383,15 @@ class Pa2 extends Frontend
 	protected function pa2AddSpecificClasses($objTemplate, $totalAll, $i, $pa2PerPage, $type)
 	{
 		// Fix empty vars
-		if(!is_object($objTemplate) || $totalAll == NULL || $i == NULL || $pa2PerPage == NULL || $type == NULL)
+		if(!is_object($objTemplate) || !is_numeric($totalAll) || !is_numeric($i) || !is_numeric($pa2PerPage))
 		{
 			return $objTemplate;
+		}
+		
+		// Fix division by zero problem
+		if($pa2PerPage < 1)
+		{
+			$pa2PerPage = $totalAll;
 		}
 		
 		// Set var maxPage
@@ -396,7 +402,7 @@ class Pa2 extends Frontend
 		$page = (is_numeric($page)) ? $page : 1;
 		$page = ($maxPage > $page) ? $page : $maxPage;
 		
-		// Set numRow var
+		// Set picNum var
 		if($type == 'albums')
 		{
 			$picNum = $i+1+(($page-1)*$pa2PerPage);
@@ -407,7 +413,7 @@ class Pa2 extends Frontend
 		}
 		else
 		{
-			return false;
+			return $objTemplate;
 		}
 		
 		// Set firstPageNum
