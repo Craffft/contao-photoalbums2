@@ -63,6 +63,16 @@ class Pa2Albums extends Pa2
 		// Get albums from archives
 		$objAlbums = $this->Database->execute("SELECT * FROM tl_photoalbums2_album WHERE pid IN(" . implode(',', array_map('intval', $arrArchives)) . ") AND (start='' OR start<$time) AND (stop='' OR stop>$time) AND published=1 ORDER BY pid, sorting");
 		
+		// HOOK: pa2GetAlbum callback
+		if (is_object($objAlbums) && isset($GLOBALS['TL_HOOKS']['pa2GetAlbums']) && is_array($GLOBALS['TL_HOOKS']['pa2GetAlbums']))
+		{
+			foreach ($GLOBALS['TL_HOOKS']['pa2GetAlbums'] as $callback)
+			{
+				$this->import($callback[0]);
+				$objAlbums = $this->$callback[0]->$callback[1]($objAlbums, $arrArchives);
+			}
+		}
+		
 		return $this->fetchAlbums($objAlbums);
 	}
 	

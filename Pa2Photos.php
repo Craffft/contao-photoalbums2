@@ -72,6 +72,16 @@ class Pa2Photos extends Pa2
 		$objAlbums = $this->Database->prepare("SELECT * FROM tl_photoalbums2_album WHERE (id=? OR alias=?) AND (start='' OR start<$time) AND (stop='' OR stop>$time) AND published=1 LIMIT 1")
 									->execute($id, $alias);
 		
+		// HOOK: pa2GetAlbum callback
+		if (is_object($objAlbums) && isset($GLOBALS['TL_HOOKS']['pa2GetAlbum']) && is_array($GLOBALS['TL_HOOKS']['pa2GetAlbum']))
+		{
+			foreach ($GLOBALS['TL_HOOKS']['pa2GetAlbum'] as $callback)
+			{
+				$this->import($callback[0]);
+				$objAlbums = $this->$callback[0]->$callback[1]($objAlbums);
+			}
+		}
+		
 		return $this->fetchAlbums($objAlbums);
 	}
 	
