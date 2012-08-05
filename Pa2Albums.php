@@ -82,6 +82,20 @@ class Pa2Albums extends Pa2
 			return false;
 		}
 		
+		// HOOK: pa2BeforeParsingAlbums callback
+		if ($objTemplate instanceof FrontendTemplate && isset($GLOBALS['TL_HOOKS']['pa2BeforeParsingAlbums']) && is_array($GLOBALS['TL_HOOKS']['pa2BeforeParsingAlbums']))
+		{
+			foreach ($GLOBALS['TL_HOOKS']['pa2BeforeParsingAlbums'] as $callback)
+			{
+				$this->import($callback[0]);
+				$arrReturn = $this->$callback[0]->$callback[1]($objTemplate, $arrAlbums, $this->arrVars);
+				
+				$objTemplate = $arrReturn[0];
+				$arrAlbums = $arrReturn[1];
+				$this->arrVars = $arrReturn[2];
+			}
+		}
+		
 		global $objPage;
 		
 		$arrElements = array();

@@ -97,6 +97,21 @@ class Pa2Photos extends Pa2
 			return false;
 		}
 		
+		// HOOK: pa2BeforeParsingPhotos callback
+		if ($objTemplate instanceof FrontendTemplate && isset($GLOBALS['TL_HOOKS']['pa2BeforeParsingPhotos']) && is_array($GLOBALS['TL_HOOKS']['pa2BeforeParsingPhotos']))
+		{
+			foreach ($GLOBALS['TL_HOOKS']['pa2BeforeParsingPhotos'] as $callback)
+			{
+				$this->import($callback[0]);
+				$arrReturn = $this->$callback[0]->$callback[1]($objTemplate, $arrAlbum, $arrPaginationPhotos, $this->arrVars);
+				
+				$objTemplate = $arrReturn[0];
+				$arrAlbum = $arrReturn[1];
+				$arrPaginationPhotos = $arrReturn[2];
+				$this->arrVars = $arrReturn[3];
+			}
+		}
+		
 		global $objPage;
 		
 		$arrElements = array();
@@ -138,7 +153,7 @@ class Pa2Photos extends Pa2
 		$objTemplate->description = $arrAlbum['description'];
 		
 		// Get only pictures as array
-		$arrPictures = ($arrAlbum['pic_sort_check'] == 'pic_sort_wizard') ? $arrAlbum['pic_sort'] : $this->sortElements($arrAlbum['pictures'], $arrAlbum['pic_sort_check']);;
+		$arrPictures = ($arrAlbum['pic_sort_check'] == 'pic_sort_wizard') ? $arrAlbum['pic_sort'] : $this->sortElements($arrAlbum['pictures'], $arrAlbum['pic_sort_check']);
 		
 		// Check arrElements
 		if(!is_array($arrPictures) || count($arrPictures) < 1)
