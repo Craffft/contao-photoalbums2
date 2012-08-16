@@ -143,6 +143,13 @@ class ContentPhotoalbums2 extends ContentElement
 		
 		$this->pa2NumberOf = $this->pa2NumberOfPhotos;
 		$this->pa2PerPage = $this->pa2PhotosPerPage;
+		
+		// Show all photos, if album is in BE shown
+		if(TL_MODE == 'BE')
+		{
+			$this->pa2PerPage = 0;
+		}
+		
 		$this->arrElements = $this->Pa2->getAlbum($this->pa2Album);
 		
 		$this->arrPhotos = $this->arrElements[0];

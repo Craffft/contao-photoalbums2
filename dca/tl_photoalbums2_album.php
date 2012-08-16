@@ -495,6 +495,10 @@ class tl_photoalbums2_album extends Backend
 		// Add class
 		$objTemplate->class = 'mod_photoalbums2';
 		
+		// Get pictures in array
+		$this->import('PicSortWizard');
+		$arrRow['pictures'] = $this->PicSortWizard->getUnsortedPictures($arrRow['pictures'], $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['pictures']['eval']['extensions']);
+		
 		// Sort elements
 		$this->arrElements = ($arrRow['pic_sort_check'] == 'pic_sort_wizard') ? $arrRow['pic_sort'] : $this->Pa2Photos->sortElements($arrRow['pictures'], $arrRow['pic_sort_check']);
 		
