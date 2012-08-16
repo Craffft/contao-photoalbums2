@@ -359,7 +359,7 @@ class ModulePhotoalbums2 extends Module
 		// Check whether comments are allowed
 		$objArchive = $this->Database->prepare("SELECT * FROM tl_photoalbums2_archive WHERE id=?")
 									 ->limit(1)
-									 ->execute($this->pid);
+									 ->execute($arrAlbum['pid']);
 
 		if ($objArchive->numRows < 1 || !$objArchive->allowComments)
 		{
