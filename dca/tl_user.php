@@ -45,7 +45,8 @@ $GLOBALS['TL_DCA']['tl_user']['fields']['photoalbums'] = array
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
 	'foreignKey'              => 'tl_photoalbums2_archive.title',
-	'eval'                    => array('multiple'=>true)
+	'eval'                    => array('multiple'=>true),
+	'sql'                     => "blob NULL"
 );
 
 $GLOBALS['TL_DCA']['tl_user']['fields']['photoalbump'] = array
@@ -55,7 +56,8 @@ $GLOBALS['TL_DCA']['tl_user']['fields']['photoalbump'] = array
 	'inputType'               => 'checkbox',
 	'options'                 => array('create', 'delete'),
 	'reference'               => &$GLOBALS['TL_LANG']['MSC'],
-	'eval'                    => array('multiple'=>true)
+	'eval'                    => array('multiple'=>true),
+	'sql'                     => "blob NULL"
 );
 
 ?>

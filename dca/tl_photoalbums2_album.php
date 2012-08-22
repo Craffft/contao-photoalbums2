@@ -59,6 +59,15 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 		(
 			array('tl_photoalbums2_album', 'adjustTime'),
 			array('tl_photoalbums2_album', 'scheduleUpdate')
+		),
+		'sql' => array
+		(
+			'keys' => array
+			(
+				'id' => 'primary',
+				'pid' => 'index',
+				'alias' => 'index'
+			)
 		)
 	),
 
@@ -143,13 +152,32 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 	// Fields
 	'fields' => array
 	(
+		'id' => array
+		(
+			'label'                   => array('ID'),
+			'search'                  => true,
+			'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+		),
+		'pid' => array
+		(
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
+		),
+		'sorting' => array
+		(
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
+		),
+		'tstamp' => array
+		(
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
+		),
 		'title' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['title'],
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'alias' => array
 		(
@@ -160,7 +188,8 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'save_callback' => array
 			(
 				array('tl_photoalbums2_album', 'generateAlias')
-			)
+			),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'author' => array
 		(
@@ -172,7 +201,8 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'flag'                    => 11,
 			'inputType'               => 'select',
 			'foreignKey'              => 'tl_user.name',
-			'eval'                    => array('doNotCopy'=>true, 'chosen'=>true, 'mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50')
+			'eval'                    => array('doNotCopy'=>true, 'chosen'=>true, 'mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50'),
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'startdate' => array
 		(
@@ -180,7 +210,8 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard')
+			'eval'                    => array('rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
+			'sql'                     => "varchar(10) NOT NULL default ''"
 		),
 		'enddate' => array
 		(
@@ -188,14 +219,16 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard')
+			'eval'                    => array('rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
+			'sql'                     => "varchar(10) NOT NULL default ''"
 		),
 		'pictures' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['pictures'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
-			'eval'                    => array('mandatory'=>true, 'fieldType'=>'checkbox', 'files'=>true, 'extensions'=>'png,jpg,jpeg,gif')
+			'eval'                    => array('mandatory'=>true, 'fieldType'=>'checkbox', 'files'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
+			'sql'                     => "blob NULL"
 		),
 		'preview_pic_check' => array
 		(
@@ -204,14 +237,16 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'inputType'               => 'select',
 			'options'				  => $GLOBALS['Pa2']['pa2_preview_pic_types'],
 			'reference'				  => &$GLOBALS['TL_LANG']['pa2_preview_pic_types'],
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "varchar(64) NOT NULL default ''"
 		),
 		'preview_pic' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['preview_pic'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
-			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'png,jpg,jpeg,gif')
+			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'pic_sort_check' => array
 		(
@@ -220,14 +255,16 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'inputType'               => 'select',
 			'options'				  => $GLOBALS['Pa2']['pa2_sort_types'],
 			'reference'				  => &$GLOBALS['TL_LANG']['pa2_sort_types'],
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "varchar(64) NOT NULL default ''"
 		),
 		'pic_sort' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['pic_sort'],
 			'exclude'                 => true,
 			'inputType'               => 'PicSortWizard',
-			'eval'                    => array('sortfiles'=>'pictures', 'extensions'=>'png,jpg,jpeg,gif')
+			'eval'                    => array('sortfiles'=>'pictures', 'extensions'=>'png,jpg,jpeg,gif'),
+			'sql'                     => "blob NULL"
 		),
 		'event' => array
 		(
@@ -235,7 +272,8 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'place' => array
 		(
@@ -243,7 +281,8 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'photographer' => array
 		(
@@ -251,7 +290,8 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255)
+			'eval'                    => array('maxlength'=>255),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'description' => array
 		(
@@ -259,14 +299,16 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'textarea',
-			'eval'                    => array('rte'=>'tinyFlash')
+			'eval'                    => array('rte'=>'tinyFlash'),
+			'sql'                     => "text NULL"
 		),
 		'protected' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['protected'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'users' => array
 		(
@@ -274,7 +316,8 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
 			'foreignKey'              => 'tl_member.username',
-			'eval'                    => array('multiple'=>true, 'tl_class'=>'w50')
+			'eval'                    => array('multiple'=>true, 'tl_class'=>'w50'),
+			'sql'                     => "blob NULL"
 		),
 		'groups' => array
 		(
@@ -282,13 +325,15 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
 			'foreignKey'              => 'tl_member_group.name',
-			'eval'                    => array('multiple'=>true, 'tl_class'=>'w50')
+			'eval'                    => array('multiple'=>true, 'tl_class'=>'w50'),
+			'sql'                     => "blob NULL"
 		),
 		'cssClass' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['cssClass'],
 			'exclude'                 => true,
-			'inputType'               => 'text'
+			'inputType'               => 'text',
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'noComments' => array
 		(
@@ -296,7 +341,8 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'exclude'                 => true,
 			'filter'                  => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('tl_class'=>'w50')
+			'eval'                    => array('tl_class'=>'w50'),
+			'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'published' => array
 		(
@@ -304,21 +350,24 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array()
+			'eval'                    => array(),
+			'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'start' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['start'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'datim', 'datepicker'=>true, 'tl_class'=>'w50 wizard')
+			'eval'                    => array('rgxp'=>'datim', 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
+			'sql'                     => "varchar(10) NOT NULL default ''"
 		),
 		'stop' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['stop'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'datim', 'datepicker'=>true, 'tl_class'=>'w50 wizard')
+			'eval'                    => array('rgxp'=>'datim', 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
+			'sql'                     => "varchar(10) NOT NULL default ''"
 		)
 	)
 );
