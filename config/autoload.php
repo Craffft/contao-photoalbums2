@@ -12,21 +12,34 @@
 
 
 /**
+ * Register the namespaces
+ */
+ClassLoader::addNamespaces(array
+(
+	'Photoalbums2',
+));
+
+
+/**
  * Register the classes
  */
 ClassLoader::addClasses(array
 (
 	// Classes
-	'Pa2'                 => 'system/modules/photoalbums2/classes/Pa2.php',
-	'Pa2Albums'           => 'system/modules/photoalbums2/classes/Pa2Albums.php',
-	'Pa2Backend'          => 'system/modules/photoalbums2/classes/Pa2Backend.php',
-	'Pa2Photos'           => 'system/modules/photoalbums2/classes/Pa2Photos.php',
+	'Photoalbums2\Pa2'                 => 'system/modules/photoalbums2/classes/Pa2.php',
+	'Photoalbums2\Pa2Albums'           => 'system/modules/photoalbums2/classes/Pa2Albums.php',
+	'Photoalbums2\Pa2Backend'          => 'system/modules/photoalbums2/classes/Pa2Backend.php',
+	'Photoalbums2\Pa2Photos'           => 'system/modules/photoalbums2/classes/Pa2Photos.php',
 
 	// Elements
-	'ContentPhotoalbums2' => 'system/modules/photoalbums2/elements/ContentPhotoalbums2.php',
+	'Photoalbums2\ContentPhotoalbums2' => 'system/modules/photoalbums2/elements/ContentPhotoalbums2.php',
+
+	// Models
+	'Photoalbums2\Pa2AlbumModel'       => 'system/modules/photoalbums2/models/Pa2AlbumModel.php',
+	'Photoalbums2\Pa2ArchiveModel'     => 'system/modules/photoalbums2/models/Pa2ArchiveModel.php',
 
 	// Modules
-	'ModulePhotoalbums2'  => 'system/modules/photoalbums2/modules/ModulePhotoalbums2.php',
+	'Photoalbums2\ModulePhotoalbums2'  => 'system/modules/photoalbums2/modules/ModulePhotoalbums2.php',
 ));
 
 

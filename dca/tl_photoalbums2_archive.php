@@ -1,31 +1,14 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php 
 
 /**
  * Contao Open Source CMS
+ * 
  * Copyright (C) 2005-2012 Leo Feyer
- *
- * Formerly known as TYPOlight Open Source CMS.
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation, either
- * version 3 of the License, or (at your option) any later version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program. If not, please visit the Free
- * Software Foundation website at <http://www.gnu.org/licenses/>.
- *
- * PHP version 5
- * @copyright  Daniel Kiesel 2012 
- * @author     Daniel Kiesel 
- * @package    photoalbums2 
- * @license    LGPL 
- * @filesource
+ * @package   photoalbums2 
+ * @author    Daniel Kiesel <https://github.com/icodr8> 
+ * @license   LGPL 
+ * @copyright Daniel Kiesel 2012 
  */
 
 
@@ -346,7 +329,9 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_archive'] = array
 /**
  * tl_photoalbums2_archive class.
  * 
- * @extends Backend
+ * @copyright Daniel Kiesel 2012 
+ * @author    Daniel Kiesel <https://github.com/icodr8> 
+ * @package   photoalbums2 
  */
 class tl_photoalbums2_archive extends Backend
 {
@@ -572,5 +557,3 @@ class tl_photoalbums2_archive extends Backend
 		return ($this->User->isAdmin || $this->User->hasAccess('delete', 'photoalbump')) ? '<a href="'.$this->addToUrl($href.'&amp;id='.$row['id']).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ' : $this->generateImage(preg_replace('/\.gif$/i', '_.gif', $icon)).' ';
 	}
 }
-
-?>
