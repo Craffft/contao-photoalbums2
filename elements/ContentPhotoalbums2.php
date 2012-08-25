@@ -91,7 +91,7 @@ class ContentPhotoalbums2 extends \ContentElement
 		if ($total < 1 || !$this->arrElements || $this->arrElements == false)
 		{
 			$this->strTemplate = 'mod_photoalbums2_empty';
-			$this->Template = new FrontendTemplate($this->strTemplate);
+			$this->Template = new \FrontendTemplate($this->strTemplate);
 			$this->Template->setData($this->arrData);
 			$this->Template->empty = $this->empty;
 			

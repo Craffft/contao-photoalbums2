@@ -18,13 +18,13 @@
 namespace Photoalbums2;
 
 /**
- * Class Pa2AlbumModel 
+ * Class Photoalbums2AlbumModel 
  *
  * @copyright  Daniel Kiesel 2012 
  * @author     Daniel Kiesel <https://github.com/icodr8> 
  * @package    photoalbums2
  */
-class Pa2AlbumModel extends \Model
+class Photoalbums2AlbumModel extends \Model
 {
 
 	/**
@@ -32,5 +32,26 @@ class Pa2AlbumModel extends \Model
 	 * @var string
 	 */
 	protected static $strTable = 'tl_photoalbums2_album';
+	
+	
+	public static function findMultipleByIds($arrIds)
+	{
+		if(!is_array($arrIds) || empty($arrIds))
+		{
+			return null;
+		}
+		
+		$arrIds = implode(',', array_map('intval', $arrIds));
+		
+		$t = static::$strTable;
+		$db = \Database::getInstance();
+		
+		return static::findBy
+		(
+			array("$t.id IN(" . $arrIds . ")"),
+			null,
+			array('order'=>$db->findInSet("$t.id", $arrIds))
+		);
+	}
 
 }

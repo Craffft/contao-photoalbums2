@@ -524,7 +524,7 @@ class tl_photoalbums2_album extends Backend
 		$this->Pa2Photos->addArrVars($arrVars);
 		
 		// Generate Template
-		$objTemplate = new FrontendTemplate('mod_photoalbums2');
+		$objTemplate = new \FrontendTemplate('mod_photoalbums2');
 		
 		// Add class
 		$objTemplate->class = 'mod_photoalbums2';

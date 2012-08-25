@@ -26,20 +26,20 @@ ClassLoader::addNamespaces(array
 ClassLoader::addClasses(array
 (
 	// Classes
-	'Photoalbums2\Pa2'                 => 'system/modules/photoalbums2/classes/Pa2.php',
-	'Photoalbums2\Pa2Albums'           => 'system/modules/photoalbums2/classes/Pa2Albums.php',
-	'Photoalbums2\Pa2Backend'          => 'system/modules/photoalbums2/classes/Pa2Backend.php',
-	'Photoalbums2\Pa2Photos'           => 'system/modules/photoalbums2/classes/Pa2Photos.php',
+	'Photoalbums2\Pa2'                      => 'system/modules/photoalbums2/classes/Pa2.php',
+	'Photoalbums2\Pa2Albums'                => 'system/modules/photoalbums2/classes/Pa2Albums.php',
+	'Photoalbums2\Pa2Backend'               => 'system/modules/photoalbums2/classes/Pa2Backend.php',
+	'Photoalbums2\Pa2Photos'                => 'system/modules/photoalbums2/classes/Pa2Photos.php',
 
 	// Elements
-	'Photoalbums2\ContentPhotoalbums2' => 'system/modules/photoalbums2/elements/ContentPhotoalbums2.php',
+	'Photoalbums2\ContentPhotoalbums2'      => 'system/modules/photoalbums2/elements/ContentPhotoalbums2.php',
 
 	// Models
-	'Photoalbums2\Pa2AlbumModel'       => 'system/modules/photoalbums2/models/Pa2AlbumModel.php',
-	'Photoalbums2\Pa2ArchiveModel'     => 'system/modules/photoalbums2/models/Pa2ArchiveModel.php',
+	'Photoalbums2\Photoalbums2AlbumModel'   => 'system/modules/photoalbums2/models/Photoalbums2AlbumModel.php',
+	'Photoalbums2\Photoalbums2ArchiveModel' => 'system/modules/photoalbums2/models/Photoalbums2ArchiveModel.php',
 
 	// Modules
-	'Photoalbums2\ModulePhotoalbums2'  => 'system/modules/photoalbums2/modules/ModulePhotoalbums2.php',
+	'Photoalbums2\ModulePhotoalbums2'       => 'system/modules/photoalbums2/modules/ModulePhotoalbums2.php',
 ));
 
 

@@ -164,7 +164,7 @@ class Pa2Photos extends \Pa2
 		
 		foreach($arrPictures as $i => $element)
 		{
-			$objSubTemplate = new FrontendTemplate($this->arrVars['strSubtemplate']);
+			$objSubTemplate = new \FrontendTemplate($this->arrVars['strSubtemplate']);
 			$objSubTemplate->setData($this->arrVars['arrData']);
 			
 			// Add totalAll to subtemplate

@@ -135,14 +135,15 @@ class Pa2 extends \Frontend
 		
 		// Check if album
 		$albumSQL = "";
-		if ($type=='album')
+		if ($type == 'archive')
 		{
-			$albumSQL = ", published, startdate, enddate";
+			$objElement = \Photoalbums2ArchiveModel::findMultipleByIds($arrElements);
 		}
-		dump(\Pa2ArchiveModel::findMultipleByIds($arrElements));
-		echo 'PENIS';
-		exit;
-		$objElement = $this->Database->execute("SELECT id, protected, users, groups" . $albumSQL . " FROM tl_photoalbums2_" . $type . " WHERE id IN(" . implode(',', array_map('intval', $arrElements)) . ")");
+		else if ($type == 'album')
+		{
+			$objElement = \Photoalbums2AlbumModel::findMultipleByIds($arrElements);
+		}
+		
 		$arrElements = array();
 
 		while ($objElement->next())
@@ -544,7 +545,7 @@ class Pa2 extends \Frontend
 			}
 
 			// Add the pagination menu
-			$objPagination = new Pagination($total, $pa2PerPage);
+			$objPagination = new \Pagination($total, $pa2PerPage);
 			$pagination = $objPagination->generate("\n  ");
 			
 			// Filter albums by pagination
@@ -687,11 +688,9 @@ class Pa2 extends \Frontend
 	 */
 	public function generateFeed($intId)
 	{
-		$objArchive = $this->Database->prepare("SELECT * FROM tl_photoalbums2_archive WHERE id=? AND makeFeed=?")
-									 ->limit(1)
-									 ->execute($intId, 1);
+		$objArchive = \Photoalbums2ArchiveModel::findOneBy(array('id=?', 'makeFeed=?'), array($intId, 1));
 
-		if ($objArchive->numRows < 1)
+		if ($objArchive == null)
 		{
 			return;
 		}
@@ -720,8 +719,8 @@ class Pa2 extends \Frontend
 	public function generateFeeds()
 	{
 		$this->removeOldFeeds();
-		$objArchive = $this->Database->execute("SELECT * FROM tl_photoalbums2_archive WHERE makeFeed=1 AND protected!=1");
-
+		$objArchive = \Photoalbums2ArchiveModel::findBy(array('makeFeed=1', 'protected!=1'), array());
+		
 		while ($objArchive->next())
 		{
 			$objArchive->feedName = ($objArchive->alias != '') ? $objArchive->alias : 'pa2' . $objArchive->id;
@@ -743,7 +742,7 @@ class Pa2 extends \Frontend
 		$strLink = ($arrArchive['feedBase'] != '') ? $arrArchive['feedBase'] : $this->Environment->base;
 		$strFile = $arrArchive['feedName'];
 
-		$objFeed = new Feed($strFile);
+		$objFeed = new \Feed($strFile);
 
 		$objFeed->link = $strLink;
 		$objFeed->title = $arrArchive['title'];
@@ -762,11 +761,9 @@ class Pa2 extends \Frontend
 		$objArticle = $objArticleStmt->execute($arrArchive['id']);
 
 		// Get the default URL
-		$objParent = $this->Database->prepare("SELECT id, alias FROM tl_page WHERE id=?")
-									->limit(1)
-									->execute($arrArchive['modulePage']);
+		$objParent = \PageModel::findByPk($arrArchive['modulePage']);
 
-		if ($objParent->numRows < 1)
+		if ($objParent != null)
 		{
 			return;
 		}
@@ -784,7 +781,7 @@ class Pa2 extends \Frontend
 			// Sort photos
 			$objArticle->arrPhotos = ($objArticle->pic_sort_check == 'pic_sort_wizard') ? $objArticle->pic_sort : $this->sortElements($objArticle->pictures, $objArticle->pic_sort_check);
 			
-			$objItem = new FeedItem();
+			$objItem = new \FeedItem();
 			
 			$objItem->title = $objArticle->title;
 			$objItem->link = sprintf($strLink . $strUrl, (($objArticle->alias != '' && !$GLOBALS['TL_CONFIG']['disableAlias']) ? $objArticle->alias : $objArticle->id));
@@ -809,7 +806,7 @@ class Pa2 extends \Frontend
 		}
 
 		// Create file
-		$objRss = new File($strFile . '.xml');
+		$objRss = new \File($strFile . '.xml');
 		$objRss->write($this->replaceInsertTags($objFeed->$strType()));
 		$objRss->close();
 	}

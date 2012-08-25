@@ -79,7 +79,7 @@ class ModulePhotoalbums2 extends \Module
 	{
 		if (TL_MODE == 'BE')
 		{
-			$objTemplate = new BackendTemplate('be_wildcard');
+			$objTemplate = new \BackendTemplate('be_wildcard');
 			$objTemplate->wildcard = '### PHOTOALBUMS 2 MODULE ###';
 
 			return $objTemplate->parse();
@@ -162,7 +162,7 @@ class ModulePhotoalbums2 extends \Module
 		if ($total < 1 || !$this->arrElements || $this->arrElements == false)
 		{
 			$this->strTemplate = 'mod_photoalbums2_empty';
-			$this->Template = new FrontendTemplate($this->strTemplate);
+			$this->Template = new \FrontendTemplate($this->strTemplate);
 			$this->Template->setData($this->arrData);
 			$this->Template->empty = $this->empty;
 			
@@ -383,7 +383,7 @@ class ModulePhotoalbums2 extends \Module
 			}
 		}
 
-		$objConfig = new stdClass();
+		$objConfig = new \stdClass();
 
 		$objConfig->perPage = $objArchive->perPage;
 		$objConfig->order = $objArchive->sortOrder;

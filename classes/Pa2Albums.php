@@ -119,7 +119,7 @@ class Pa2Albums extends \Pa2
 		
 		foreach($arrAlbums as $i => $album)
 		{
-			$objSubTemplate = new FrontendTemplate($this->arrVars['strSubtemplate']);
+			$objSubTemplate = new \FrontendTemplate($this->arrVars['strSubtemplate']);
 			$objSubTemplate->setData($this->arrVars['arrData']);
 			
 			// Add totalAll to subtemplate
@@ -240,7 +240,7 @@ class Pa2Albums extends \Pa2
 				else
 				{
 					// Define image template
-					$objImageTemplate = new FrontendTemplate('pa2_photo');
+					$objImageTemplate = new \FrontendTemplate('pa2_photo');
 									
 					// Set vars
 					$objImageTemplate->albumID = $album['id'];
