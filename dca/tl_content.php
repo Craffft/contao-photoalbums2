@@ -225,14 +225,13 @@ class tl_content_photoalbums2 extends Backend
 		}
 
 		$arrArchives = array();
-		$objArchives = $this->Database->execute("SELECT id, title FROM tl_photoalbums2_archive ORDER BY title");
+		$objArchives = \Photoalbums2ArchiveModel::findAll(array('order'=>'title'));
 
 		while ($objArchives->next())
 		{
 			if ($this->User->isAdmin || $this->User->hasAccess($objArchives->id, 'photoalbums2_archive'))
 			{
-				$objAlbums = $this->Database->prepare("SELECT id, title FROM tl_photoalbums2_album WHERE pid=? ORDER BY title")
-											->execute($objArchives->id);
+				$objAlbums = \Photoalbums2AlbumModel::findBy('pid', $objArchives->id, array('order'=>'title'));
 				
 				while ($objAlbums->next())
 				{

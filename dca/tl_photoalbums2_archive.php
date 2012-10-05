@@ -392,9 +392,7 @@ class tl_photoalbums2_archive extends Backend
 						// Add permissions on user level
 						if ($this->User->inherit == 'custom' || !$this->User->groups[0])
 						{
-							$objUser = $this->Database->prepare("SELECT photoalbums, photoalbump FROM tl_user WHERE id=?")
-													   ->limit(1)
-													   ->execute($this->User->id);
+							$objUser = \UserModel::findByPk($this->User->id);
 
 							$arrphotoalbump = deserialize($objUser->photoalbump);
 
@@ -403,17 +401,15 @@ class tl_photoalbums2_archive extends Backend
 								$arrPhotoalbums = deserialize($objUser->photoalbums);
 								$arrPhotoalbums[] = $this->Input->get('id');
 
-								$this->Database->prepare("UPDATE tl_user SET photoalbums=? WHERE id=?")
-											   ->execute(serialize($arrPhotoalbums), $this->User->id);
+								$objUser->photoalbums = serialize($arrPhotoalbums);
+								$objUser->save();
 							}
 						}
 
 						// Add permissions on group level
 						elseif ($this->User->groups[0] > 0)
 						{
-							$objGroup = $this->Database->prepare("SELECT photoalbums, photoalbump FROM tl_user_group WHERE id=?")
-													   ->limit(1)
-													   ->execute($this->User->groups[0]);
+							$objGroup = \UserGroupModel::findByPk($this->User->groups[0]);
 
 							$arrphotoalbump = deserialize($objGroup->photoalbump);
 
@@ -421,9 +417,9 @@ class tl_photoalbums2_archive extends Backend
 							{
 								$arrPhotoalbums = deserialize($objGroup->photoalbums);
 								$arrPhotoalbums[] = $this->Input->get('id');
-
-								$this->Database->prepare("UPDATE tl_user_group SET photoalbums=? WHERE id=?")
-											   ->execute(serialize($arrPhotoalbums), $this->User->groups[0]);
+								
+								$objGroup->photoalbums = serialize($arrPhotoalbums);
+								$objGroup->save();
 							}
 						}
 

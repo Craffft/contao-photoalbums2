@@ -26,7 +26,7 @@ namespace Photoalbums2;
  */
 class Pa2 extends \Frontend
 {
-	public $pa2Type = 'pa2';
+	public $type = 'pa2';
 	protected $arrVars = array();
 	
 	
@@ -65,6 +65,11 @@ class Pa2 extends \Frontend
 	 */
 	protected function fetchAlbums($objAlbums)
 	{
+		if (!is_object($objAlbums))
+		{
+			return false;
+		}
+		
 		$arrAlbums = array();
 		
 		while($objAlbums->next())
@@ -84,24 +89,24 @@ class Pa2 extends \Frontend
 		// Reset object
 		$objAlbums->reset();
 		
-		// Fetch all albums
-		$arrAlbumsFetch = $objAlbums->fetchAllAssoc();
-		
 		// Set array
 		$arrAlbums = array();
 		
-		// Import PicSortWizard
-		$this->import('PicSortWizard');
-		
 		// Filter data
-		foreach($arrAlbumsFetch as $album)
+		while($objAlbums->next())
 		{
-			if (in_array($album['id'], $arrSortedAlbums))
+			$album = $objAlbums->row();
+			
+			if (in_array($objAlbums->id, $arrSortedAlbums))
 			{
-				$album['pictures'] = $this->PicSortWizard->getUnsortedPictures(deserialize($album['pictures']), $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['pictures']['eval']['extensions']);
-				$album['preview_pic'] = deserialize($album['preview_pic']);
-				$album['preview_pic'] = $this->getPreviewPic($album, $this->arrVars['pa2PreviewPic']);
+				$album['pictures'] = deserialize($album['pictures']);
 				$album['pic_sort'] = deserialize($album['pic_sort']);
+				
+				$objPicSorter = new \PicSorter($album['pictures'], $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['pictures']['eval']['extensions']);
+				$album['pictures'] = $objPicSorter->getPicIds();
+				
+				$objPreviewPic = new \Pa2PreviewPic($objAlbums, $this->arrVars['pa2PreviewPic']);
+				$album['preview_pic'] = $objPreviewPic->getPreviewPic();
 				
 				$arrAlbums[] = $album;
 			}
@@ -189,68 +194,6 @@ class Pa2 extends \Frontend
 		}
 
 		return $arrElements;
-	}
-	
-	
-	/**
-	 * sortElements function.
-	 * 
-	 * @access public
-	 * @param array $arrImagePaths
-	 * @param string $sortType
-	 * @return array
-	 */
-	public function sortElements($arrImagePaths, $sortType)
-	{
-		// Sort by name
-		if($sortType == 'name_asc' || $sortType == 'name_desc')
-		{
-			$arrSort = array();
-			
-			foreach($arrImagePaths as $key => $imagePath)
-		    {
-		    	$arrSort[$key] = substr(strrchr($imagePath, '/'), 1);
-		    }
-		    
-		    if($sortType == 'name_asc')
-		    {
-		    	array_multisort($arrSort, SORT_ASC, $arrImagePaths, SORT_ASC);
-		    }
-		    
-		    if($sortType == 'name_desc')
-		    {
-		    	array_multisort($arrSort, SORT_DESC, $arrImagePaths, SORT_DESC);
-		    }
-		}
-		
-		// Sort by date
-		if($sortType == 'date_asc' || $sortType == 'date_desc')
-		{
-			$arrSort = array();
-			
-			foreach($arrImagePaths as $key => $imagePath)
-		    {
-		    	$arrSort[$key] = filemtime($imagePath);
-		    }
-		    
-		    if($sortType == 'date_asc')
-		    {
-		    	array_multisort($arrSort, SORT_NUMERIC, SORT_ASC, $arrImagePaths, SORT_ASC);
-		    }
-		    
-		    if($sortType == 'date_desc')
-		    {
-		    	array_multisort($arrSort, SORT_NUMERIC, SORT_DESC, $arrImagePaths, SORT_DESC);
-		    }
-		}
-		
-		// Sort random
-		if($sortType == 'random')
-		{
-			shuffle($arrImagePaths);
-		}
-		
-		return $arrImagePaths;
 	}
 	
 	
@@ -569,79 +512,6 @@ class Pa2 extends \Frontend
 	
 	
 	/**
-	 * getPreviewPic function.
-	 * 
-	 * @access public
-	 * @param array $album
-	 * @param string $pa2PreviewPic
-	 * @return string
-	 */
-	public function getPreviewPic($album, $pa2PreviewPic)
-	{
-		$previewPic = '';
-		
-		switch($pa2PreviewPic)
-		{
-			case 'use_album_options':
-				switch($album['preview_pic_check'])
-				{
-					case 'no_preview_pic':
-						$previewPic = '';
-					break;
-					
-					case 'random_preview_pic':
-						$previewPic = $this->getRandomPreviewPic($album);
-					break;
-					
-					case 'select_preview_pic':
-						$previewPic = $album['preview_pic'];
-					break;
-				}
-			break;
-			
-			case 'no_preview_pics':
-				$previewPic = '';
-			break;
-			
-			case 'random_pics':
-				$previewPic = $this->getRandomPreviewPic($album);
-			break;
-			
-			case 'random_pics_at_no_preview_pics':
-				if($album['preview_pic_check'] == 'select_preview_pic')
-				{
-					$previewPic = $album['preview_pic'];
-				}
-				else
-				{
-					$previewPic = $this->getRandomPreviewPic($album);
-				}
-			break;
-		}
-		
-		return $previewPic;
-	}
-	
-	
-	/**
-	 * getRandomPreviewPic function.
-	 * 
-	 * @access public
-	 * @param array $album
-	 * @return string
-	 */
-	public function getRandomPreviewPic($album)
-	{
-		if(count($album['pictures']) < 1)
-		{
-			return '';
-		}
-		
-		return $album['pictures'][mt_rand(0, count($album['pictures'])-1)];
-	}
-	
-	
-	/**
 	 * addArrVars function.
 	 * 
 	 * @access public
@@ -763,7 +633,7 @@ class Pa2 extends \Frontend
 		// Get the default URL
 		$objParent = \PageModel::findByPk($arrArchive['modulePage']);
 
-		if ($objParent != null)
+		if ($objParent == null)
 		{
 			return;
 		}
@@ -779,7 +649,8 @@ class Pa2 extends \Frontend
 			$objArticle->pic_sort = deserialize($objArticle->pic_sort);
 			
 			// Sort photos
-			$objArticle->arrPhotos = ($objArticle->pic_sort_check == 'pic_sort_wizard') ? $objArticle->pic_sort : $this->sortElements($objArticle->pictures, $objArticle->pic_sort_check);
+			$objPa2PicSorter = new \Pa2PicSorter($objArticle->pic_sort_check, $objArticle->pictures, $objArticle->pic_sort);
+			$this->arrPhotos = $objPa2PicSorter->getSortedIds();
 			
 			$objItem = new \FeedItem();
 			

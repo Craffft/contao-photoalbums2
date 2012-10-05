@@ -26,7 +26,7 @@ namespace Photoalbums2;
  */
 class Pa2Albums extends \Pa2
 {
-	public $pa2Type = 'albums';
+	public $type = 'albums';
 	
 	
 	/**
@@ -48,7 +48,7 @@ class Pa2Albums extends \Pa2
 		$time = time();
 		
 		// Get albums from archives
-		$objAlbums = $this->Database->execute("SELECT * FROM tl_photoalbums2_album WHERE pid IN(" . implode(',', array_map('intval', $arrArchives)) . ") AND (start='' OR start<$time) AND (stop='' OR stop>$time) AND published=1 ORDER BY pid, sorting");
+		$objAlbums = \Photoalbums2AlbumModel::findAlbumsByMultipleArchives($arrArchives);
 		
 		// HOOK: pa2GetAlbum callback
 		if (is_object($objAlbums) && isset($GLOBALS['TL_HOOKS']['pa2GetAlbums']) && is_array($GLOBALS['TL_HOOKS']['pa2GetAlbums']))
@@ -135,15 +135,15 @@ class Pa2Albums extends \Pa2
 			$objSubTemplate = $this->pa2MetaFields($objSubTemplate, $this->arrVars['pa2MetaFields']);
 			
 			// Define firstOfAll an lastOfAll
-			$objSubTemplate = $this->pa2AddSpecificClasses($objSubTemplate, $objTemplate->totalAll, $i, $this->arrVars['pa2PerPage'], $this->pa2Type);
+			$objSubTemplate = $this->pa2AddSpecificClasses($objSubTemplate, $objTemplate->totalAll, $i, $this->arrVars['pa2PerPage'], $this->type);
 			
 			// Add an image
-			if ($album['preview_pic']!='' && is_file(TL_ROOT . '/' . $album['preview_pic']))
+			if ($album['preview_pic'] !== null && is_file(TL_ROOT . '/' . $album['preview_pic']->path))
 			{
 				$arrImage = array();
 				$arrImage['size'] = $this->arrVars['pa2ImageSize'];
 				$arrImage['imagemargin'] = $this->arrVars['pa2ImageMargin'];
-				$arrImage['singleSRC'] = $album['preview_pic'];
+				$arrImage['singleSRC'] = $album['preview_pic']->path;
 				$arrImage['alt'] = strip_tags($album['title']);
 
 				$this->addImageToTemplate($objSubTemplate, $arrImage);
@@ -224,7 +224,8 @@ class Pa2Albums extends \Pa2
 		if($objTemplate->albumLightbox)
 		{
 			// Sort pictures
-			$arrElements = ($album['pic_sort_check'] == 'pic_sort_wizard') ? $album['pic_sort'] : $this->sortElements($album['pictures'], $album['pic_sort_check']);
+			$objPa2PicSorter = new \Pa2PicSorter($album['pic_sort_check'], $album['pictures'], $album['pic_sort']);
+			$arrElements = $objPa2PicSorter->getSortedIds();
 			
 			$albumLightboxPictures = array();
 			$i = 0;

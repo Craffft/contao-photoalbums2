@@ -104,9 +104,9 @@ class ModulePhotoalbums2 extends \Module
 		$this->pa2DetailPage = ($this->pa2Mode == 'pa2_with_detail_page') ? $this->pa2DetailPage : '';
 		
 		// Get unsorted pictures
-		$this->import('PicSortWizard');
 		$this->loadDataContainer('tl_photoalbums2_album');
-		$this->pictures = $this->PicSortWizard->getUnsortedPictures($this->pictures, $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['pictures']['eval']['extensions']);
+		$objPicSorter = new \PicSorter($this->pictures, $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['pictures']['eval']['extensions']);
+		$this->pictures = $objPicSorter->getPicIds();
 		
 		// Set the item from the auto_item parameter
 		if ($GLOBALS['TL_CONFIG']['useAutoItem'] && isset($_GET['auto_item']))
@@ -217,7 +217,8 @@ class ModulePhotoalbums2 extends \Module
 		
 		$this->arrPhotos = $this->arrElements[0];
 		
-		$this->arrElements = ($this->arrElements[0]['pic_sort_check'] == 'pic_sort_wizard') ? $this->arrElements[0]['pic_sort'] : $this->Pa2->sortElements($this->arrElements[0]['pictures'], $this->arrElements[0]['pic_sort_check']);
+		$objPa2PicSorter = new \Pa2PicSorter($this->arrElements[0]['pic_sort_check'], $this->arrElements[0]['pictures'], $this->arrElements[0]['pic_sort']);
+		$this->arrElements = $objPa2PicSorter->getSortedIds();
 		
 		// Save referer from albums page
 		if($this->Session->get('pa2_referer') == NULL)
@@ -345,9 +346,7 @@ class ModulePhotoalbums2 extends \Module
 		}
 		
 		// Check whether comments are allowed
-		$objArchive = $this->Database->prepare("SELECT * FROM tl_photoalbums2_archive WHERE id=?")
-									 ->limit(1)
-									 ->execute($arrAlbum['pid']);
+		$objArchive = \Photoalbums2ArchiveModel::findByPk($arrAlbum['pid']);
 
 		if ($objArchive->numRows < 1 || !$objArchive->allowComments)
 		{
@@ -373,11 +372,9 @@ class ModulePhotoalbums2 extends \Module
 		// Notify author
 		if ($objArchive->notify != 'notify_admin')
 		{
-			$objAuthor = $this->Database->prepare("SELECT email FROM tl_user WHERE id=?")
-										->limit(1)
-										->execute($arrAlbum['author']);
+			$objAuthor = \UserModel::findByPk($arrAlbum['author']);
 
-			if ($objAuthor->numRows)
+			if ($objAuthor != null)
 			{
 				$arrNotifies[] = $objAuthor->email;
 			}

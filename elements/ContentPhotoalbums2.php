@@ -61,9 +61,9 @@ class ContentPhotoalbums2 extends \ContentElement
 		$this->pa2PhotosShowTeaser = ($this->pa2PhotosShowTeaser == 1) ? true : false;
 		
 		// Get unsorted pictures
-		$this->import('PicSortWizard');
 		$this->loadDataContainer('tl_photoalbums2_album');
-		$this->pictures = $this->PicSortWizard->getUnsortedPictures($this->pictures, $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['pictures']['eval']['extensions']);
+		$objPicSorter = new \PicSorter($this->pictures, $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['pictures']['eval']['extensions']);
+		$this->pictures = $objPicSorter->getPicIds();
 		
 		return parent::generate();
 	}
@@ -141,7 +141,8 @@ class ContentPhotoalbums2 extends \ContentElement
 		
 		$this->arrPhotos = $this->arrElements[0];
 		
-		$this->arrElements = ($this->arrElements[0]['pic_sort_check'] == 'pic_sort_wizard') ? $this->arrElements[0]['pic_sort'] : $this->Pa2->sortElements($this->arrElements[0]['pictures'], $this->arrElements[0]['pic_sort_check']);
+		$objPa2PicSorter = new \Pa2PicSorter($this->arrElements[0]['pic_sort_check'], $this->arrElements[0]['pictures'], $this->arrElements[0]['pic_sort']);
+		$this->arrElements = $objPa2PicSorter->getSortedIds();
 		
 		// Save referer from albums page
 		if($this->Session->get('pa2_referer') == NULL)

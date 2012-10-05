@@ -30,13 +30,23 @@ ClassLoader::addClasses(array
 	'Photoalbums2\Pa2Albums'                => 'system/modules/photoalbums2/classes/Pa2Albums.php',
 	'Photoalbums2\Pa2Backend'               => 'system/modules/photoalbums2/classes/Pa2Backend.php',
 	'Photoalbums2\Pa2Photos'                => 'system/modules/photoalbums2/classes/Pa2Photos.php',
+	'Photoalbums2\Pa2PicSorter'             => 'system/modules/photoalbums2/classes/Pa2PicSorter.php',
+	'Photoalbums2\Pa2PreviewPic'            => 'system/modules/photoalbums2/classes/Pa2PreviewPic.php',
+	'Photoalbums2\Pa2XAlbum'                => 'system/modules/photoalbums2/classes/Pa2XAlbum.php',
+	'Photoalbums2\Pa2XArchive'              => 'system/modules/photoalbums2/classes/Pa2XArchive.php',
 
 	// Elements
 	'Photoalbums2\ContentPhotoalbums2'      => 'system/modules/photoalbums2/elements/ContentPhotoalbums2.php',
 
+	// Library
+	'Photoalbums2\Pa2Album'                 => 'system/modules/photoalbums2/library/Pa2Album.php',
+	'Photoalbums2\Pa2Archive'               => 'system/modules/photoalbums2/library/Pa2Archive.php',
+	'Photoalbums2\Pa2Picture'               => 'system/modules/photoalbums2/library/Pa2Picture.php',
+
 	// Models
 	'Photoalbums2\Photoalbums2AlbumModel'   => 'system/modules/photoalbums2/models/Photoalbums2AlbumModel.php',
 	'Photoalbums2\Photoalbums2ArchiveModel' => 'system/modules/photoalbums2/models/Photoalbums2ArchiveModel.php',
+	'Photoalbums2\UserGroupModel'           => 'system/modules/photoalbums2/models/UserGroupModel.php',
 
 	// Modules
 	'Photoalbums2\ModulePhotoalbums2'       => 'system/modules/photoalbums2/modules/ModulePhotoalbums2.php',

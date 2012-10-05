@@ -210,7 +210,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['pictures'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
-			'eval'                    => array('mandatory'=>true, 'fieldType'=>'checkbox', 'files'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
+			'eval'                    => array('mandatory'=>true, 'multiple'=>true, 'fieldType'=>'checkbox', 'files'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
 			'sql'                     => "blob NULL"
 		),
 		'preview_pic_check' => array
@@ -426,11 +426,9 @@ class tl_photoalbums2_album extends Backend
 			case 'delete':
 			case 'toggle':
 			case 'feature':
-				$objArchive = $this->Database->prepare("SELECT pid FROM tl_photoalbums2_album WHERE id=?")
-											 ->limit(1)
-											 ->execute($id);
+				$objArchive = \Photoalbums2AlbumModel::findByPk($id);
 
-				if ($objArchive->numRows < 1)
+				if ($objArchive == null)
 				{
 					$this->log('Invalid photoalbums item ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
 					$this->redirect('contao/main.php?act=error');
@@ -455,10 +453,9 @@ class tl_photoalbums2_album extends Backend
 					$this->redirect('contao/main.php?act=error');
 				}
 
-				$objArchive = $this->Database->prepare("SELECT id FROM tl_photoalbums2_album WHERE pid=?")
-											 ->execute($id);
+				$objArchive = \Photoalbums2AlbumModel::findByPid($id);
 
-				if ($objArchive->numRows < 1)
+				if ($objArchive == null)
 				{
 					$this->log('Invalid photoalbums archive ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
 					$this->redirect('contao/main.php?act=error');
@@ -530,11 +527,12 @@ class tl_photoalbums2_album extends Backend
 		$objTemplate->class = 'mod_photoalbums2';
 		
 		// Get pictures in array
-		$this->import('PicSortWizard');
-		$arrRow['pictures'] = $this->PicSortWizard->getUnsortedPictures($arrRow['pictures'], $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['pictures']['eval']['extensions']);
+		$objPicSorter = new PicSorter($arrRow['pictures'], $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['pictures']['eval']['extensions']);
+		$arrRow['pictures'] = $objPicSorter->getPicIds();
 		
 		// Sort elements
-		$this->arrElements = ($arrRow['pic_sort_check'] == 'pic_sort_wizard') ? $arrRow['pic_sort'] : $this->Pa2Photos->sortElements($arrRow['pictures'], $arrRow['pic_sort_check']);
+		$objPa2PicSorter = new \Pa2PicSorter($arrRow['pic_sort_check'], $arrRow['pictures'], $arrRow['pic_sort']);
+		$this->arrElements = $objPa2PicSorter->getSortedIds();
 		
 		// Parse photos
 		$objTemplate = $this->Pa2Photos->parsePhotos($objTemplate, $arrRow, $this->arrElements);
@@ -567,17 +565,16 @@ class tl_photoalbums2_album extends Backend
 			$varValue = standardize($dc->activeRecord->title);
 		}
 		
-		$objAlias = $this->Database->prepare("SELECT id FROM tl_photoalbums2_album WHERE id!=? AND alias=?")
-								   ->execute($dc->id, $varValue);
+		$objAlias = \Photoalbums2AlbumModel::findBy(array("id!=?", "alias=?"), array($dc->id, $varValue));
 
 		// Check whether the albums alias exists
-		if ($objAlias->numRows > 0 && !$autoAlias)
+		if ($objAlias != null && !$autoAlias)
 		{
 			throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $varValue));
 		}
 
 		// Add ID to alias
-		if ($objAlias->numRows && $autoAlias)
+		if ($objAlias != null && $autoAlias)
 		{
 			$varValue .= '-' . $dc->id;
 			$varValue = $this->generateAlias($varValue, $dc);
@@ -653,9 +650,11 @@ class tl_photoalbums2_album extends Backend
 			}
 		}
 
-		// Update the database
-		$this->Database->prepare("UPDATE tl_photoalbums2_album SET tstamp=". time() .", published='" . ($blnVisible ? 1 : '') . "' WHERE id=?")
-					   ->execute($intId);
+		// Update
+		$objAlbum = \Photoalbums2AlbumModel::findByPk($intId);
+		$objAlbum->tstamp = time();
+		$objAlbum->published = ($blnVisible ? 1 : '');
+		$objAlbum->save();
 
 		$this->createNewVersion('tl_photoalbums2_album', $intId);
 	}
@@ -677,11 +676,12 @@ class tl_photoalbums2_album extends Backend
 		}
 		
 		// Set arrSet
+		$arrSet = array();
 		$arrSet['startdate'] = $dc->activeRecord->startdate;
 		$arrSet['enddate'] = $dc->activeRecord->enddate;
 		
 		// Set startdate
-		if(empty($arrSet['startdate']) || $arrSet['startdate'] < 1)
+		if($arrSet['startdate'] == '' || $arrSet['startdate'] < 1)
 		{
 			$arrSet['startdate'] = mktime(0, 0, 0, date('n', time()), date('j', time()), date('Y', time()));
 		}
@@ -699,7 +699,7 @@ class tl_photoalbums2_album extends Backend
 		}
 		
 		// Update date
-		$this->Database->prepare("UPDATE tl_photoalbums2_album %s WHERE id=?")->set($arrSet)->execute($dc->id);
+		$this->Database->prepare("UPDATE tl_photoalbums2_album %s WHERE id=?")->set($arrSet)->execute($dc->activeRecord->id);
 	}
 
 
@@ -758,8 +758,7 @@ class tl_photoalbums2_album extends Backend
 	public function generatePalette()
 	{
 		// Get album
-		$objAlbum = $this->Database->prepare("SELECT * FROM tl_photoalbums2_album WHERE id=?")
-								   ->execute($this->Input->get('id'));
+		$objAlbum = \Photoalbums2AlbumModel::findByPk($this->Input->get('id'));
 		
 		// Remove from palette
 		if($objAlbum->preview_pic_check != 'select_preview_pic')

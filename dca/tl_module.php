@@ -235,7 +235,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowTeaser'] = array
     'exclude'                 => true,
     'inputType'               => 'checkbox',
 	'default'                 => 1,
-    'eval'                    => array('tl_class'=>'w50'),
+    'eval'                    => array('tl_class'=>'clr'),
     'sql'                     => "char(1) NOT NULL default ''"
 );
 
@@ -388,7 +388,7 @@ class tl_module_photoalbums2 extends Backend
 		}
 
 		$arrArchives = array();
-		$objArchives = $this->Database->execute("SELECT id, title FROM tl_photoalbums2_archive ORDER BY title");
+		$objArchives = \Photoalbums2ArchiveModel::findAll(array('order'=>'title'));
 
 		while ($objArchives->next())
 		{
@@ -399,58 +399,6 @@ class tl_module_photoalbums2 extends Backend
 		}
 
 		return $arrArchives;
-	}
-	
-	
-	/**
-	 * checkTimeFilter function.
-	 * 
-	 * @access public
-	 * @param DataContainer $dc
-	 * @return void
-	 */
-	public function checkTimeFilter(DataContainer $dc)
-	{
-		// Return if there is no active record (override all)
-		if (!$dc->activeRecord)
-		{
-			return;
-		}
-		
-		// Import Photoalbums2 class
-		$this->import('Pa2');
-		
-		// Set arrSet
-		$arrSet['pa2TimeFilterStart'] = deserialize($dc->activeRecord->pa2TimeFilterStart);
-		$arrSet['pa2TimeFilterEnd'] = deserialize($dc->activeRecord->pa2TimeFilterEnd);
-		
-		if ($dc->activeRecord->pa2TimeFilter == 1)
-		{
-			// Set pa2TimeFilterStart
-			if(empty($arrSet['pa2TimeFilterStart']['value']) || $arrSet['pa2TimeFilterStart']['value'] < 0)
-			{
-				$arrSet['pa2TimeFilterStart']['value'] = '0';
-			}
-			
-			// Set pa2TimeFilterEnd
-			if(empty($arrSet['pa2TimeFilterEnd']['value']) || $arrSet['pa2TimeFilterEnd']['value'] < 0)
-			{
-				$arrSet['pa2TimeFilterEnd']['value'] = '0';
-			}
-			
-			// Check startdate and enddate
-			if($this->Pa2->getTimeFilterData($arrSet['pa2TimeFilterStart']) > $this->Pa2->getTimeFilterData($arrSet['pa2TimeFilterEnd']))
-			{
-				$arrSet['pa2TimeFilterEnd'] = $arrSet['pa2TimeFilterStart'];
-			}
-			
-			// Serialize
-			$arrSet['pa2TimeFilterStart'] = serialize($arrSet['pa2TimeFilterStart']);
-			$arrSet['pa2TimeFilterEnd'] = serialize($arrSet['pa2TimeFilterEnd']);
-			
-			// Update date
-			$this->Database->prepare("UPDATE tl_module %s WHERE id=?")->set($arrSet)->execute($dc->id);
-		}
 	}
 
 
@@ -499,8 +447,7 @@ class tl_module_photoalbums2 extends Backend
 	public function fixPa2Palette()
 	{
 		// Get pa2Mode
-		$objModule = $this->Database->prepare("SELECT pa2Mode FROM tl_module WHERE id=?")
-									->execute($this->Input->get('id'));
+		$objModule = ModuleModel::findByPk($this->Input->get('id'));
 		
 		// If pa2Mode is not set
 		if($objModule->pa2Mode != 'pa2_on_one_page' && $objModule->pa2Mode != 'pa2_only_album_view' && $objModule->pa2Mode != 'pa2_with_detail_page')

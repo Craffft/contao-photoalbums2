@@ -30,10 +30,10 @@ class Pa2Backend extends \Backend
 	 * checkTimeFilter function.
 	 * 
 	 * @access public
-	 * @param DataContainer $dc
+	 * @param $dc
 	 * @return void
 	 */
-	public function checkTimeFilter(DataContainer $dc)
+	public function checkTimeFilter($dc)
 	{
 		// Return if there is no active record (override all)
 		if (!$dc->activeRecord)
@@ -44,36 +44,39 @@ class Pa2Backend extends \Backend
 		// Import Photoalbums2 class
 		$this->import('Pa2');
 		
+		// Get Object
+		$objModule = \ModuleModel::findByPk($dc->activeRecord->id);
+		
 		// Set arrSet
-		$arrSet['pa2TimeFilterStart'] = deserialize($dc->activeRecord->pa2TimeFilterStart);
-		$arrSet['pa2TimeFilterEnd'] = deserialize($dc->activeRecord->pa2TimeFilterEnd);
+		$objModule->pa2TimeFilterStart = deserialize($dc->activeRecord->pa2TimeFilterStart);
+		$objModule->pa2TimeFilterEnd = deserialize($dc->activeRecord->pa2TimeFilterEnd);
 		
 		if ($dc->activeRecord->pa2TimeFilter == 1)
 		{
 			// Set pa2TimeFilterStart
-			if(empty($arrSet['pa2TimeFilterStart']['value']) || $arrSet['pa2TimeFilterStart']['value'] < 0)
+			if($objModule->pa2TimeFilterStart['value'] == '' || $objModule->pa2TimeFilterStart['value'] < 0)
 			{
-				$arrSet['pa2TimeFilterStart']['value'] = '0';
+				$objModule->pa2TimeFilterStart['value'] = '0';
 			}
 			
 			// Set pa2TimeFilterEnd
-			if(empty($arrSet['pa2TimeFilterEnd']['value']) || $arrSet['pa2TimeFilterEnd']['value'] < 0)
+			if($objModule->pa2TimeFilterEnd['value'] == '' || $objModule->pa2TimeFilterEnd['value'] < 0)
 			{
-				$arrSet['pa2TimeFilterEnd']['value'] = '0';
+				$objModule->pa2TimeFilterEnd['value'] = '0';
 			}
 			
 			// Check startdate and enddate
-			if($this->Pa2->getTimeFilterData($arrSet['pa2TimeFilterStart']) > $this->Pa2->getTimeFilterData($arrSet['pa2TimeFilterEnd']))
+			if($this->Pa2->getTimeFilterData($objModule->pa2TimeFilterStart) > $this->Pa2->getTimeFilterData($objModule->pa2TimeFilterEnd))
 			{
-				$arrSet['pa2TimeFilterEnd'] = $arrSet['pa2TimeFilterStart'];
+				$objModule->pa2TimeFilterEnd = $objModule->pa2TimeFilterStart;
 			}
 			
 			// Serialize
-			$arrSet['pa2TimeFilterStart'] = serialize($arrSet['pa2TimeFilterStart']);
-			$arrSet['pa2TimeFilterEnd'] = serialize($arrSet['pa2TimeFilterEnd']);
+			$objModule->pa2TimeFilterStart = serialize($objModule->pa2TimeFilterStart);
+			$objModule->pa2TimeFilterEnd = serialize($objModule->pa2TimeFilterEnd);
 			
 			// Update date
-			$this->Database->prepare("UPDATE tl_module %s WHERE id=?")->set($arrSet)->execute($dc->id);
+			$objModule->save();
 		}
 	}
 }

@@ -26,7 +26,7 @@ namespace Photoalbums2;
  */
 class Pa2Photos extends \Pa2
 {
-	public $pa2Type = 'photos';
+	public $type = 'photos';
 	
 	
 	/**
@@ -56,8 +56,7 @@ class Pa2Photos extends \Pa2
 		
 		
 		// Get album by id or alias
-		$objAlbums = $this->Database->prepare("SELECT * FROM tl_photoalbums2_album WHERE (id=? OR alias=?) AND (start='' OR start<$time) AND (stop='' OR stop>$time) AND published=1 LIMIT 1")
-									->execute($id, $alias);
+		$objAlbums = \Photoalbums2AlbumModel::findPublishedByIdOrAlias($val);
 		
 		// HOOK: pa2GetAlbum callback
 		if (is_object($objAlbums) && isset($GLOBALS['TL_HOOKS']['pa2GetAlbum']) && is_array($GLOBALS['TL_HOOKS']['pa2GetAlbum']))
@@ -150,7 +149,8 @@ class Pa2Photos extends \Pa2
 		$objTemplate->description = $arrAlbum['description'];
 		
 		// Get only pictures as array
-		$arrPictures = ($arrAlbum['pic_sort_check'] == 'pic_sort_wizard') ? $arrAlbum['pic_sort'] : $this->sortElements($arrAlbum['pictures'], $arrAlbum['pic_sort_check']);
+		$objPa2PicSorter = new \Pa2PicSorter($arrAlbum['pic_sort_check'], $arrAlbum['pictures'], $arrAlbum['pic_sort']);
+		$arrPictures = $objPa2PicSorter->getSortedIds();
 		
 		// Check arrElements
 		if(!is_array($arrPictures) || count($arrPictures) < 1)
@@ -164,6 +164,8 @@ class Pa2Photos extends \Pa2
 		
 		foreach($arrPictures as $i => $element)
 		{
+			$objFile = \FilesModel::findByPk($element);
+			
 			$objSubTemplate = new \FrontendTemplate($this->arrVars['strSubtemplate']);
 			$objSubTemplate->setData($this->arrVars['arrData']);
 			
@@ -186,7 +188,7 @@ class Pa2Photos extends \Pa2
 				$objSubTemplate = $this->pa2PerRow($objSubTemplate, $paginationTotal, $pagiantionCount, $this->arrVars['pa2PerRow']);
 				
 				// Define firstOfAll an lastOfAll
-				$objSubTemplate = $this->pa2AddSpecificClasses($objSubTemplate, $objTemplate->totalAll, $i, $this->arrVars['pa2PerPage'], $this->pa2Type);
+				$objSubTemplate = $this->pa2AddSpecificClasses($objSubTemplate, $objTemplate->totalAll, $i, $this->arrVars['pa2PerPage'], $this->type);
 				
 				// Define show
 				$objSubTemplate->show = true;
@@ -194,7 +196,7 @@ class Pa2Photos extends \Pa2
 				// Set image
 			    $arrImage['size'] = $this->arrVars['pa2ImageSize'];
 			    $arrImage['imagemargin'] = $this->arrVars['pa2ImageMargin'];
-			    $arrImage['singleSRC'] = $element;
+			    $arrImage['singleSRC'] = $objFile->path;
 				
 				$pagiantionCount++;
 			}
@@ -213,18 +215,18 @@ class Pa2Photos extends \Pa2
 			$objSubTemplate->albumID = $this->arrVars['id'];
 			
 			// Set href
-			$objSubTemplate->href = str_replace(' ', '%20', $element);
+			$objSubTemplate->href = str_replace(' ', '%20', $objFile->path);
 			
 			// Add an image
-			if ($element!='' && is_file(TL_ROOT . '/' . $element))
+			if ($objFile->path != '' && is_file(TL_ROOT . '/' . $objFile->path))
 			{
 			    // Add alt tag
-			    $arrImage['alt'] = substr(strrchr($element, '/'), 1);
+			    $arrImage['alt'] = $objFile->name;
 			    
 			    $this->addImageToTemplate($objSubTemplate, $arrImage);
 			    
 			    // Add link title to template
-				$objSubTemplate->title = substr(strrchr($element, '/'), 1);
+				$objSubTemplate->title = $objFile->name;
 			}
 			
 			// HOOK: pa2ParsePhoto callback
