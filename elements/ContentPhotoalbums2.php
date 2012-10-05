@@ -99,9 +99,9 @@ class ContentPhotoalbums2 extends \ContentElement
 		}
 		
 		// Pagination
-		$arrPa2Pagination = $this->Pa2->pa2Pagination($this->arrElements, $this->pa2NumberOf, $this->pa2PerPage, $total);
-		$this->arrElements = $arrPa2Pagination['elements'];
-		$this->Template->pagination = $arrPa2Pagination['pagination'];
+		$objPa2Pagination = new \Pa2Pagination($this->arrElements, $this->pa2NumberOf, $this->pa2PerPage, $total);
+		$this->arrElements = $objPa2Pagination->getItems();
+		$this->Template->pagination = $objPa2Pagination->getPagination();
 		
 		// Add arrVars to Pa2
 		$this->Pa2 = $this->addArrVars($this->Pa2);

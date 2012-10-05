@@ -29,11 +29,10 @@ ClassLoader::addClasses(array
 	'Photoalbums2\Pa2'                      => 'system/modules/photoalbums2/classes/Pa2.php',
 	'Photoalbums2\Pa2Albums'                => 'system/modules/photoalbums2/classes/Pa2Albums.php',
 	'Photoalbums2\Pa2Backend'               => 'system/modules/photoalbums2/classes/Pa2Backend.php',
+	'Photoalbums2\Pa2Pagination'            => 'system/modules/photoalbums2/classes/Pa2Pagination.php',
 	'Photoalbums2\Pa2Photos'                => 'system/modules/photoalbums2/classes/Pa2Photos.php',
 	'Photoalbums2\Pa2PicSorter'             => 'system/modules/photoalbums2/classes/Pa2PicSorter.php',
 	'Photoalbums2\Pa2PreviewPic'            => 'system/modules/photoalbums2/classes/Pa2PreviewPic.php',
-	'Photoalbums2\Pa2XAlbum'                => 'system/modules/photoalbums2/classes/Pa2XAlbum.php',
-	'Photoalbums2\Pa2XArchive'              => 'system/modules/photoalbums2/classes/Pa2XArchive.php',
 
 	// Elements
 	'Photoalbums2\ContentPhotoalbums2'      => 'system/modules/photoalbums2/elements/ContentPhotoalbums2.php',

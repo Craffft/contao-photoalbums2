@@ -170,9 +170,9 @@ class ModulePhotoalbums2 extends \Module
 		}
 		
 		// Pagination
-		$arrPa2Pagination = $this->Pa2->pa2Pagination($this->arrElements, $this->pa2NumberOf, $this->pa2PerPage, $total);
-		$this->arrElements = $arrPa2Pagination['elements'];
-		$this->Template->pagination = $arrPa2Pagination['pagination'];
+		$objPa2Pagination = new \Pa2Pagination($this->arrElements, $this->pa2NumberOf, $this->pa2PerPage, $total);
+		$this->arrElements = $objPa2Pagination->getItems();
+		$this->Template->pagination = $objPa2Pagination->getPagination();
 		
 		// Set total var in template object
 		$this->Template->totalAll = $total;
