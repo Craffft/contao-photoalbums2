@@ -45,21 +45,21 @@ class ModulePhotoalbums2 extends \Module
 	 * Elements
 	 * @var array
 	 */
-	private $arrElements = array();
+	private $arrItems = array();
 
 
 	/**
 	 * Number of
 	 * @var int
 	 */
-	private $pa2NumberOf;
+	private $intMaxItems;
 
 
 	/**
 	 * Per page
 	 * @var int
 	 */
-	private $pa2PerPage;
+	private $intItemsPerPage;
 
 
 	/**
@@ -127,6 +127,10 @@ class ModulePhotoalbums2 extends \Module
 	protected function compile()
 	{
 		global $objPage;
+		$objPa2 = new \Pa2New();
+		
+		// Add photoalbums2 css file
+		$objPa2->addCssFile();
 		
 		// Show photos
 		if($this->Input->get('album') && (($this->pa2DetailPage == '') || ($this->pa2DetailPage != '' && ($this->pa2DetailPage == $objPage->id || ($objPage->languageMain != '' && $objPage->languageMain == $this->pa2DetailPage)))))
@@ -148,18 +152,11 @@ class ModulePhotoalbums2 extends \Module
 		{
 			$this->goToRootPage();
 		}
-		
-		// Add photoalbums2 css file
-		$this->Pa2->addCssFile();
-		
 		// Add Subtemplate to Template
 		$this->Template->strSubtemplate = $this->strSubtemplate;
 		
-		// Get albums
-		$total = count($this->arrElements);
-		
 		// If albums empty
-		if ($total < 1 || !$this->arrElements || $this->arrElements == false)
+		if (count($this->arrItems) < 1 || !$this->arrItems || $this->arrItems == false)
 		{
 			$this->strTemplate = 'mod_photoalbums2_empty';
 			$this->Template = new \FrontendTemplate($this->strTemplate);
@@ -170,12 +167,10 @@ class ModulePhotoalbums2 extends \Module
 		}
 		
 		// Pagination
-		$objPa2Pagination = new \Pa2Pagination($this->arrElements, $this->pa2NumberOf, $this->pa2PerPage, $total);
-		$this->arrElements = $objPa2Pagination->getItems();
+		$objPa2Pagination = new \Pa2Pagination($this->arrItems, $this->intMaxItems, $this->intItemsPerPage);
+		$this->arrItems = $objPa2Pagination->getItems();
 		$this->Template->pagination = $objPa2Pagination->getPagination();
-		
-		// Set total var in template object
-		$this->Template->totalAll = $total;
+		$this->Template->totalItems = $objPa2Pagination->getTotalItems();
 		
 		// Add arrVars to Pa2
 		$this->Pa2 = $this->addArrVars($this->Pa2);
@@ -184,7 +179,7 @@ class ModulePhotoalbums2 extends \Module
 		if ($this->Input->get('album'))
 		{
 			// Parse photos
-			$this->Template = $this->Pa2->parsePhotos($this->Template, $this->arrPhotos, $this->arrElements);
+			$this->Template = $this->Pa2->parsePhotos($this->Template, $this->arrPhotos, $this->arrItems);
 		}
 		else
 		{
@@ -211,14 +206,14 @@ class ModulePhotoalbums2 extends \Module
 		// Add arrVars to Pa2
 		$this->Pa2 = $this->addArrVars($this->Pa2);
 		
-		$this->pa2NumberOf = $this->pa2NumberOfPhotos;
-		$this->pa2PerPage = $this->pa2PhotosPerPage;
-		$this->arrElements = $this->Pa2->getAlbum($this->Input->get('album'));
+		$this->intMaxItems = $this->pa2NumberOfPhotos;
+		$this->intItemsPerPage = $this->pa2PhotosPerPage;
+		$this->arrItems = $this->Pa2->getAlbum($this->Input->get('album'));
 		
-		$this->arrPhotos = $this->arrElements[0];
+		$this->arrPhotos = $this->arrItems[0];
 		
-		$objPa2PicSorter = new \Pa2PicSorter($this->arrElements[0]['pic_sort_check'], $this->arrElements[0]['pictures'], $this->arrElements[0]['pic_sort']);
-		$this->arrElements = $objPa2PicSorter->getSortedIds();
+		$objPa2PicSorter = new \Pa2PicSorter($this->arrItems[0]['pic_sort_check'], $this->arrItems[0]['pictures'], $this->arrItems[0]['pic_sort']);
+		$this->arrItems = $objPa2PicSorter->getSortedIds();
 		
 		// Save referer from albums page
 		if($this->Session->get('pa2_referer') == NULL)
@@ -259,12 +254,12 @@ class ModulePhotoalbums2 extends \Module
 		$this->Pa2 = $this->addArrVars($this->Pa2);
 		
 		// Define vars
-		$this->pa2NumberOf = $this->pa2NumberOfAlbums;
-		$this->pa2PerPage = $this->pa2AlbumsPerPage;
+		$this->intMaxItems = $this->pa2NumberOfAlbums;
+		$this->intItemsPerPage = $this->pa2AlbumsPerPage;
 		
 		// Sort out 
 		$this->pa2Archives = $this->Pa2->sortOutElements($this->pa2Archives);
-		$this->arrElements = $this->Pa2->getAlbums($this->pa2Archives);
+		$this->arrItems = $this->Pa2->getAlbums($this->pa2Archives);
 		
 		// Empty text
 		$this->empty = $GLOBALS['TL_LANG']['MSC']['albumsEmpty'];
@@ -423,7 +418,7 @@ class ModulePhotoalbums2 extends \Module
 			// Add to arrVars
 			$arrVars['pa2MetaFields']		= $this->pa2PhotosMetaFields;
 			$arrVars['pa2PerRow']			= $this->pa2PhotosPerRow;
-			$arrVars['pa2PerPage']			= $this->pa2PhotosPerPage;
+			$arrVars['intItemsPerPage']		= $this->pa2PhotosPerPage;
 			$arrVars['pa2ImageSize']		= $this->pa2PhotosImageSize;
 			$arrVars['pa2ImageMargin']		= $this->pa2PhotosImageMargin;
 			$arrVars['pa2ShowHeadline']		= $this->pa2PhotosShowHeadline;
@@ -435,7 +430,7 @@ class ModulePhotoalbums2 extends \Module
 			// Add to arrVars
 			$arrVars['pa2MetaFields']		= $this->pa2AlbumsMetaFields;
 			$arrVars['pa2PerRow']			= $this->pa2AlbumsPerRow;
-			$arrVars['pa2PerPage']			= $this->pa2AlbumsPerPage;
+			$arrVars['intItemsPerPage']		= $this->pa2AlbumsPerPage;
 			$arrVars['pa2ImageSize']		= $this->pa2AlbumsImageSize;
 			$arrVars['pa2ImageMargin']		= $this->pa2AlbumsImageMargin;
 			$arrVars['pa2ShowHeadline']		= $this->pa2AlbumsShowHeadline;

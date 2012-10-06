@@ -489,11 +489,13 @@ class tl_photoalbums2_album extends Backend
 	 */
 	public function listAlbums($arrRow)
 	{
+		$objPa2 = new \Pa2New();
+		
 		// Import Pa2Photos
 		$this->import('Pa2Photos');
 		
 		// Add photoalbums2 css file
-		$this->Pa2Photos->addCssFile();
+		$objPa2->addCssFile();
 		
 		// Deserialize vars
 		$arrRow['pictures'] = deserialize($arrRow['pictures']);

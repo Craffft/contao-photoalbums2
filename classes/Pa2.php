@@ -31,32 +31,6 @@ class Pa2 extends \Frontend
 	
 	
 	/**
-	 * addCssFile function.
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function addCssFile()
-	{
-		// Get layout skipPhotoalbums2 to disable photoalbums css file
-		$objLayout = \LayoutModel::findByPk($objPage->layout);
-		
-		// Add css
-		if (TL_MODE=='FE' && $objLayout->skipPhotoalbums2 != '1')
-		{
-			$GLOBALS['TL_CSS'][] = TL_FILES_URL . 'system/modules/photoalbums2/html/photoalbums2.css';
-		}
-		
-		// Add css
-		if (TL_MODE=='BE')
-		{
-			$GLOBALS['TL_CSS'][] = TL_FILES_URL . 'system/modules/photoalbums2/html/photoalbums2.css';
-			$GLOBALS['TL_CSS'][] = TL_FILES_URL . 'system/modules/photoalbums2/html/photoalbums2_be.css';
-		}
-	}
-	
-	
-	/**
 	 * fetchAlbums function.
 	 * 
 	 * @access protected
@@ -307,27 +281,27 @@ class Pa2 extends \Frontend
 	 * 
 	 * @access protected
 	 * @param object $objTemplate
-	 * @param int $totalAll
+	 * @param int $totalItems
 	 * @param int $i
-	 * @param int $pa2PerPage
+	 * @param int $intItemsPerPage
 	 * @return object
 	 */
-	protected function pa2AddSpecificClasses($objTemplate, $totalAll, $i, $pa2PerPage, $type)
+	protected function pa2AddSpecificClasses($objTemplate, $totalItems, $i, $intItemsPerPage, $type)
 	{
 		// Fix empty vars
-		if(!is_object($objTemplate) || !is_numeric($totalAll) || !is_numeric($i) || !is_numeric($pa2PerPage))
+		if(!is_object($objTemplate) || !is_numeric($totalItems) || !is_numeric($i) || !is_numeric($intItemsPerPage))
 		{
 			return $objTemplate;
 		}
 		
 		// Fix division by zero problem
-		if($pa2PerPage < 1)
+		if($intItemsPerPage < 1)
 		{
-			$pa2PerPage = $totalAll;
+			$intItemsPerPage = $totalItems;
 		}
 		
 		// Set var maxPage
-		$maxPage = (int) ceil($totalAll/$pa2PerPage);
+		$maxPage = (int) ceil($totalItems/$intItemsPerPage);
 		
 		// Set var page
 		$page = $this->Input->get('page');
@@ -337,7 +311,7 @@ class Pa2 extends \Frontend
 		// Set picNum var
 		if($type == 'albums')
 		{
-			$picNum = $i+1+(($page-1)*$pa2PerPage);
+			$picNum = $i+1+(($page-1)*$intItemsPerPage);
 		}
 		else if($type == 'photos')
 		{
@@ -349,12 +323,12 @@ class Pa2 extends \Frontend
 		}
 		
 		// Set firstPageNum
-		$firstPageNum = (($page-1)*$pa2PerPage) + 1;
-		$firstPageNum = ($totalAll > $firstPageNum) ? $firstPageNum : $totalAll;
+		$firstPageNum = (($page-1)*$intItemsPerPage) + 1;
+		$firstPageNum = ($totalItems > $firstPageNum) ? $firstPageNum : $totalItems;
 		
 		// Set lastPageNum
-		$lastPageNum = ($page*$pa2PerPage);
-		$lastPageNum = ($totalAll > $lastPageNum) ? $lastPageNum : $totalAll;
+		$lastPageNum = ($page*$intItemsPerPage);
+		$lastPageNum = ($totalItems > $lastPageNum) ? $lastPageNum : $totalItems;
 		
 		// Set firstOfAll class
 		if($picNum == '1')
@@ -363,7 +337,7 @@ class Pa2 extends \Frontend
 		}
 		
 		// Set lastOfAll class
-		if($picNum == $totalAll)
+		if($picNum == $totalItems)
 		{
 			$objTemplate->class .= ($objTemplate->class == '') ? 'lastOfAll' : ' lastOfAll';
 		}

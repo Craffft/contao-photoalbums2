@@ -187,6 +187,18 @@ class Pa2Pagination extends \Controller
 	
 	
 	/**
+	 * getTotalItems function.
+	 * 
+	 * @access public
+	 * @return int
+	 */
+	public function getTotalItems()
+	{
+		return $this->intTotalItems;
+	}
+	
+	
+	/**
 	 * getPagination function.
 	 * 
 	 * @access public

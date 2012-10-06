@@ -75,11 +75,12 @@ class ContentPhotoalbums2 extends \ContentElement
 	protected function compile()
 	{
 		global $objPage;
+		$objPa2 = new \Pa2New();
 		
 		$this->preparePhotos();
 		
 		// Add photoalbums2 css file
-		$this->Pa2->addCssFile();
+		$objPa2->addCssFile();
 		
 		// Add Subtemplate to Template
 		$this->Template->strSubtemplate = $this->strSubtemplate;
@@ -99,7 +100,7 @@ class ContentPhotoalbums2 extends \ContentElement
 		}
 		
 		// Pagination
-		$objPa2Pagination = new \Pa2Pagination($this->arrElements, $this->pa2NumberOf, $this->pa2PerPage, $total);
+		$objPa2Pagination = new \Pa2Pagination($this->arrElements, $this->intMaxItems, $this->intItemsPerPage, $total);
 		$this->arrElements = $objPa2Pagination->getItems();
 		$this->Template->pagination = $objPa2Pagination->getPagination();
 		
@@ -128,13 +129,13 @@ class ContentPhotoalbums2 extends \ContentElement
 		// Add arrVars to Pa2
 		$this->Pa2 = $this->addArrVars($this->Pa2);
 		
-		$this->pa2NumberOf = $this->pa2NumberOfPhotos;
-		$this->pa2PerPage = $this->pa2PhotosPerPage;
+		$this->intMaxItems = $this->pa2NumberOfPhotos;
+		$this->intItemsPerPage = $this->pa2PhotosPerPage;
 		
 		// Show all photos, if album is in BE shown
 		if(TL_MODE == 'BE')
 		{
-			$this->pa2PerPage = 0;
+			$this->intItemsPerPage = 0;
 		}
 		
 		$this->arrElements = $this->Pa2->getAlbum($this->pa2Album);
@@ -183,7 +184,7 @@ class ContentPhotoalbums2 extends \ContentElement
 		// Add to arrVars
 		$arrVars['pa2MetaFields']		= $this->pa2PhotosMetaFields;
 		$arrVars['pa2PerRow']			= $this->pa2PhotosPerRow;
-		$arrVars['pa2PerPage']			= $this->pa2PhotosPerPage;
+		$arrVars['intItemsPerPage']		= $this->pa2PhotosPerPage;
 		$arrVars['pa2ImageSize']		= $this->pa2PhotosImageSize;
 		$arrVars['pa2ImageMargin']		= $this->pa2PhotosImageMargin;
 		$arrVars['pa2ShowHeadline']		= $this->pa2PhotosShowHeadline;

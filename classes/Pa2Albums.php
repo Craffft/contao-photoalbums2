@@ -122,8 +122,8 @@ class Pa2Albums extends \Pa2
 			$objSubTemplate = new \FrontendTemplate($this->arrVars['strSubtemplate']);
 			$objSubTemplate->setData($this->arrVars['arrData']);
 			
-			// Add totalAll to subtemplate
-			$objSubTemplate->totalAll = $objTemplate->totalAll;
+			// Add totalItems to subtemplate
+			$objSubTemplate->totalItems = $objTemplate->totalItems;
 			
 			// Define perRow
 			$objSubTemplate = $this->pa2PerRow($objSubTemplate, $total, $i, $this->arrVars['pa2PerRow']);
@@ -135,7 +135,7 @@ class Pa2Albums extends \Pa2
 			$objSubTemplate = $this->pa2MetaFields($objSubTemplate, $this->arrVars['pa2MetaFields']);
 			
 			// Define firstOfAll an lastOfAll
-			$objSubTemplate = $this->pa2AddSpecificClasses($objSubTemplate, $objTemplate->totalAll, $i, $this->arrVars['pa2PerPage'], $this->type);
+			$objSubTemplate = $this->pa2AddSpecificClasses($objSubTemplate, $objTemplate->totalItems, $i, $this->arrVars['intItemsPerPage'], $this->type);
 			
 			// Add an image
 			if ($album['preview_pic'] !== null && is_file(TL_ROOT . '/' . $album['preview_pic']->path))

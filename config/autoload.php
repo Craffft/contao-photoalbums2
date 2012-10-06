@@ -28,9 +28,13 @@ ClassLoader::addClasses(array
 	// Classes
 	'Photoalbums2\Pa2'                      => 'system/modules/photoalbums2/classes/Pa2.php',
 	'Photoalbums2\Pa2Albums'                => 'system/modules/photoalbums2/classes/Pa2Albums.php',
+	'Photoalbums2\Pa2AlbumViewParser'       => 'system/modules/photoalbums2/classes/Pa2AlbumViewParser.php',
 	'Photoalbums2\Pa2Backend'               => 'system/modules/photoalbums2/classes/Pa2Backend.php',
+	'Photoalbums2\Pa2EmptyViewParser'       => 'system/modules/photoalbums2/classes/Pa2EmptyViewParser.php',
+	'Photoalbums2\Pa2New'                   => 'system/modules/photoalbums2/classes/Pa2New.php',
 	'Photoalbums2\Pa2Pagination'            => 'system/modules/photoalbums2/classes/Pa2Pagination.php',
 	'Photoalbums2\Pa2Photos'                => 'system/modules/photoalbums2/classes/Pa2Photos.php',
+	'Photoalbums2\Pa2PhotoViewParser'       => 'system/modules/photoalbums2/classes/Pa2PhotoViewParser.php',
 	'Photoalbums2\Pa2PicSorter'             => 'system/modules/photoalbums2/classes/Pa2PicSorter.php',
 	'Photoalbums2\Pa2PreviewPic'            => 'system/modules/photoalbums2/classes/Pa2PreviewPic.php',
 
