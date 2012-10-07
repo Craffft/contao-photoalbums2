@@ -152,6 +152,7 @@ class ModulePhotoalbums2 extends \Module
 		{
 			$this->goToRootPage();
 		}
+		/*
 		// Add Subtemplate to Template
 		$this->Template->strSubtemplate = $this->strSubtemplate;
 		
@@ -184,8 +185,8 @@ class ModulePhotoalbums2 extends \Module
 		else
 		{
 			// Parse albums
-			$this->Template = $this->Pa2->parseAlbums($this->Template, $this->arrElements);
-		}
+			$this->Template = $this->Pa2->parseAlbums($this->Template, $this->arrItems);
+		}*/
 	}
 	
 	
@@ -241,6 +242,10 @@ class ModulePhotoalbums2 extends \Module
 	 */
 	protected function prepareAlbums()
 	{
+		$objAlbumViewParser = new \Pa2AlbumViewParser($this->Template);
+		$this->Template = $objAlbumViewParser->getAlbumTemplate();
+		
+		/*
 		// Import Photoalbums2 class
 		$this->import('Pa2Albums', 'Pa2');
 		
@@ -262,7 +267,7 @@ class ModulePhotoalbums2 extends \Module
 		$this->arrItems = $this->Pa2->getAlbums($this->pa2Archives);
 		
 		// Empty text
-		$this->empty = $GLOBALS['TL_LANG']['MSC']['albumsEmpty'];
+		$this->empty = $GLOBALS['TL_LANG']['MSC']['albumsEmpty'];*/
 	}
 	
 	
