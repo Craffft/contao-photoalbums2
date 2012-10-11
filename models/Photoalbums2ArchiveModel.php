@@ -36,22 +36,12 @@ class Photoalbums2ArchiveModel extends \Model
 	
 	public static function findMultipleByIds($arrIds)
 	{
-		if(!is_array($arrIds) || empty($arrIds))
+		if (!is_array($arrIds) || empty($arrIds))
 		{
 			return null;
 		}
-		
-		$arrIds = implode(',', array_map('intval', $arrIds));
-		
-		$t = static::$strTable;
-		$db = \Database::getInstance();
-		
-		return static::findBy
-		(
-			array("$t.id IN(" . $arrIds . ")"),
-			null,
-			array('order'=>$db->findInSet("$t.id", $arrIds))
-		);
-	}
 
+		$t = static::$strTable;
+		return static::findBy(array("$t.id IN(" . implode(',', array_map('intval', $arrIds)) . ")"), null, array('order'=>\Database::getInstance()->findInSet("$t.id", $arrIds)));
+	}
 }

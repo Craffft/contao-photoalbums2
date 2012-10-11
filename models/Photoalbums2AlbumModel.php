@@ -36,22 +36,13 @@ class Photoalbums2AlbumModel extends \Model
 	
 	public static function findMultipleByIds($arrIds)
 	{
-		if(!is_array($arrIds) || empty($arrIds))
+		if (!is_array($arrIds) || empty($arrIds))
 		{
 			return null;
 		}
-		
-		$arrIds = implode(',', array_map('intval', $arrIds));
-		
+
 		$t = static::$strTable;
-		$db = \Database::getInstance();
-		
-		return static::findBy
-		(
-			array("$t.id IN(" . $arrIds . ")"),
-			null,
-			array('order'=>$db->findInSet("$t.id", $arrIds))
-		);
+		return static::findBy(array("$t.id IN(" . implode(',', array_map('intval', $arrIds)) . ")"), null, array('order'=>\Database::getInstance()->findInSet("$t.id", $arrIds)));
 	}
 	
 	
@@ -70,7 +61,7 @@ class Photoalbums2AlbumModel extends \Model
 		
 		return static::findBy
 		(
-			array("$t.pid IN(" . $arrIds . ") AND (start='' OR start<$time) AND (stop='' OR stop>$time) AND published=1"),
+			array("$t.pid IN(" . $arrIds . ") AND (start='' OR start<'$time') AND (stop='' OR stop>'$time') AND published='1'"),
 			null,
 			array('order'=>"$t.pid, $t.sorting")
 		);

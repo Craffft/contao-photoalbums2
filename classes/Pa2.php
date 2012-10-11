@@ -178,7 +178,7 @@ class Pa2 extends \Frontend
 	 * @param array $arrData
 	 * @return int
 	 */
-	protected function getTimeFilterData($arrData, $typeEnd = false)
+	public function getTimeFilterData($arrData, $typeEnd = false)
 	{
 		// If use vars are not setted
 		if (!isset($arrData['unit']) || !isset($arrData['value']))

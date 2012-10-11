@@ -61,8 +61,8 @@ $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsMetaFields'] = array('Alben-Ansicht M
 $GLOBALS['TL_LANG']['tl_module']['pa2PhotosMetaFields'] = array('Foto-Ansicht Meta Felder', 'Bitte wählen Sie die Meta Felder aus, die in der Foto-Ansicht ausgegeben werden sollen.');
 
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter'] = array('Zeitfilter', 'Hier haben Sie die Möglichkeit, die Fotoalben über einen vergangenen Zeitraum zu filtern.');
-$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilterStart'] = array('Zeitraum von', 'Tragen Sie hier den Startwert des zu filternden Zeitraumes ein. Sollten Sie beispielsweise 10 Tage eintragen, so werden die Alben der vergangenen 10 Tage im Frontend angezeigt. Um von heute aus zu starten, tragen Sie die Zahl "0" ein.');
-$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilterEnd'] = array('Zeitraum bis', 'Tragen Sie hier den Endwert des zu filternden Zeitraumes ein. Sollten Sie beispielsweise im ersten Feld 10 Tage und in diesem Feld 5 Tage eintragen, so werden die Alben im Zeitraum von vor 10 Tagen bis von vor 5 Tagen im Frontend angezeigt. Um das Ende des Zeitraumes auf heute zu legen, tragen Sie die Zahl "0" ein.');
+$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilterStart'] = array('Zeitraum von vor', 'Tragen Sie hier den Startwert des zu filternden Zeitraumes ein. Sollten Sie beispielsweise 10 Tage eintragen, so werden die Alben der vergangenen 10 Tage im Frontend angezeigt. Um von heute aus zu starten, tragen Sie die Zahl "0" ein.');
+$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilterEnd'] = array('Zeitraum bis vor', 'Tragen Sie hier den Endwert des zu filternden Zeitraumes ein. Sollten Sie beispielsweise im ersten Feld 10 Tage und in diesem Feld 5 Tage eintragen, so werden die Alben im Zeitraum von vor 10 Tagen bis von vor 5 Tagen im Frontend angezeigt. Um das Ende des Zeitraumes auf heute zu legen, tragen Sie die Zahl "0" ein.');
 
 $GLOBALS['TL_LANG']['tl_module']['pa2Teaser'] = array('Teaser', 'Hier können Sie einen Teaser definieren. Achten Sie darauf, dass der Teaser nur angezeigt wird, wenn Sie im oberen Teil des Formulars die Ausgabe aktiviert haben.');
 

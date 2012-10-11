@@ -94,9 +94,9 @@ $GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options']['description'] = 'Beschreibu
 $GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['seconds'] = 'Sekunde(n)';
 $GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['minutes'] = 'Minute(n)';
 $GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['hours'] = 'Stunde(n)';
-$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['days'] = 'Tag(e)';
+$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['days'] = 'Tag(en)';
 $GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['weeks'] = 'Woche(n)';
-$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['months'] = 'Monat(e)';
-$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['years'] = 'Jahr(e)';
+$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['months'] = 'Monat(en)';
+$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['years'] = 'Jahr(en)';
 
 ?>

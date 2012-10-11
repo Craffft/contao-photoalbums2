@@ -41,9 +41,6 @@ class Pa2Backend extends \Backend
 			return;
 		}
 		
-		// Import Photoalbums2 class
-		$this->import('Pa2');
-		
 		// Get Object
 		$objModule = \ModuleModel::findByPk($dc->activeRecord->id);
 		
@@ -65,8 +62,11 @@ class Pa2Backend extends \Backend
 				$objModule->pa2TimeFilterEnd['value'] = '0';
 			}
 			
+			// Get TimeFilter object
+			$objPa2TimeFilter = new Pa2TimeFilter($objModule->pa2TimeFilterStart, $objModule->pa2TimeFilterEnd);
+			
 			// Check startdate and enddate
-			if($this->Pa2->getTimeFilterData($objModule->pa2TimeFilterStart) > $this->Pa2->getTimeFilterData($objModule->pa2TimeFilterEnd))
+			if($objPa2TimeFilter->getFilterStart() > $objPa2TimeFilter->getFilterEnd())
 			{
 				$objModule->pa2TimeFilterEnd = $objModule->pa2TimeFilterStart;
 			}
