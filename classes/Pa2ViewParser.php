@@ -299,4 +299,35 @@ abstract class Pa2ViewParser extends \Frontend
 		
 		return $objTemplate;
 	}
+	
+	
+	protected function addLinkToTemplate($objTemplate)
+	{
+		global $objPage;
+		
+		// Check
+		if(!is_object($objTemplate))
+		{
+			return $objTemplate;
+		}
+		
+		// Add array
+		$arrLink = array(
+			'id' => $objPage->id,
+			'alias' => $objPage->alias
+		);
+		
+		if(!empty($objTemplate->intDetailPage) && is_numeric($objTemplate->intDetailPage))
+		{
+			$objDetailPage = $this->getPageDetails($objTemplate->intDetailPage);
+			
+			$arrLink['id'] = $objDetailPage->id;
+			$arrLink['alias'] = $objDetailPage->alias;
+			$arrLink['language'] = $objDetailPage->language;
+		}
+		
+		$objTemplate->href = $this->generateFrontendUrl($arrLink, sprintf(($GLOBALS['TL_CONFIG']['useAutoItem'] ?  '/%s' : '/album/%s'), $objDetailPage->alias), $objDetailPage->language);
+		
+		return $objTemplate;
+	}
 }

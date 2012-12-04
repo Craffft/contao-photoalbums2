@@ -25,7 +25,7 @@ namespace Photoalbums2;
  * @package    photoalbums2
  */
 class Pa2Album extends \Pa2Lib
-{	
+{
 	/**
 	 * sortOut function.
 	 * 
@@ -112,9 +112,9 @@ class Pa2Album extends \Pa2Lib
 			{
 				while($objAlbum->next())
 				{
-					echo 'x';
-					dump($objAlbum->preview_pic);
-					exit;
+					// Get preview pic as Pa2Picture object
+					$objPicture = new \Pa2Picture($objAlbum->preview_pic);
+					$objAlbum->objPreviewPic = $objPicture->getPicture();
 				}
 				
 				$objAlbum->reset();

@@ -254,9 +254,9 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageSize'] = array
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsImageSize'],
     'exclude'                 => true,
     'inputType'               => 'imageSize',
-    'options'                 => array('crop', 'proportional', 'box'),
-    'reference'               => &$GLOBALS['TL_LANG']['MSC'],
-    'eval'                    => array('rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50'),
+	'options'                 => $GLOBALS['TL_CROP'],
+	'reference'               => &$GLOBALS['TL_LANG']['MSC'],
+	'eval'                    => array('rgxp'=>'digit', 'nospace'=>true, 'helpwizard'=>true, 'tl_class'=>'w50'),
     'sql'                     => "varchar(64) NOT NULL default ''"
 );
 
@@ -265,9 +265,9 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2PhotosImageSize'] = array
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2PhotosImageSize'],
     'exclude'                 => true,
     'inputType'               => 'imageSize',
-    'options'                 => array('crop', 'proportional', 'box'),
-    'reference'               => &$GLOBALS['TL_LANG']['MSC'],
-    'eval'                    => array('rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50'),
+	'options'                 => $GLOBALS['TL_CROP'],
+	'reference'               => &$GLOBALS['TL_LANG']['MSC'],
+	'eval'                    => array('rgxp'=>'digit', 'nospace'=>true, 'helpwizard'=>true, 'tl_class'=>'w50'),
     'sql'                     => "varchar(64) NOT NULL default ''"
 );
 

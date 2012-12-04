@@ -23,6 +23,8 @@ namespace Photoalbums2;
  * @copyright  Daniel Kiesel 2012 
  * @author     Daniel Kiesel <https://github.com/icodr8> 
  * @package    photoalbums2
+ * 
+ * DEPRECATED
  */
 class Pa2Photos extends \Pa2
 {

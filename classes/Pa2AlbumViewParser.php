@@ -49,9 +49,16 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 		$this->Template->intItemsPerPage  = $this->Template->pa2AlbumsPerPage;
 		$this->Template->intItemsPerRow   = $this->Template->pa2AlbumsPerRow;
 		$this->Template->strSubtemplate   = $this->Template->pa2AlbumsTemplate;
+		$this->Template->intDetailPage    = $this->Template->pa2DetailPage;
+		
+		// Image params 
+		$this->Template->size             = $this->Template->pa2AlbumsImageSize;
+		$this->Template->imagemargin      = $this->Template->pa2AlbumsImageMargin;
+		
 		$this->Template->metaFields       = ((is_array($this->Template->pa2AlbumsMetaFields) && count($this->Template->pa2AlbumsMetaFields) > 0) ? $this->Template->pa2AlbumsMetaFields : false);
 		
 		$this->Template->showHeadline     = $this->Template->pa2AlbumsShowHeadline;
+		$this->Template->showTitle  	  = $this->Template->pa2AlbumsShowTitle;
 		$this->Template->showTeaser       = $this->Template->pa2AlbumsShowTeaser;
 		$this->Template->teaser           = $this->cleanRteOutput($this->Template->pa2Teaser);
 		$this->Template->showHeadline     = ($this->Template->headline != '' ? $this->Template->showHeadline : false);
@@ -87,6 +94,7 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 		
 		// Get albums of this page as object
 		$objPa2Album = new \Pa2Album($arrAlbums, $this->Template->getData());
+		
 		$this->objAlbums = $objPa2Album->getAlbums();
 		
 		$this->parseAlbums();
@@ -112,87 +120,51 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 			$objSubtemplate = new \FrontendTemplate($this->Template->strSubtemplate);
 			$objSubtemplate->setData($this->Template->getData());
 			
+			// Set template variables
+			$objSubtemplate->title        = strip_tags($objAlbums->title);
+			$objSubtemplate->alt          = strip_tags($objAlbums->title);
+			$objSubtemplate->showTitle    = ($objSubtemplate->title != '' ? $objSubtemplate->showTitle : false);
+			$objSubtemplate->event        = $objAlbums->event;
+			$objSubtemplate->place        = $objAlbums->place;
+			$objSubtemplate->photographer = $objAlbums->photographer;
+			$objSubtemplate->description  = $objAlbums->description;
+			
+			// Call template methods
 			$objSubtemplate = $this->addClassesAndStyles($objSubtemplate, $total, $i);
 			$objSubtemplate = $this->buildDate($objSubtemplate, $objAlbums->startdate, $objAlbums->enddate);
 			$objSubtemplate = $this->addSpecificClasses($objSubtemplate, $i, 'overview');
+			$objSubtemplate = $this->addLinkToTemplate($objSubtemplate);
 			
-			dump($objAlbums->preview_pic);
-			exit;
+			// Add preview pic to template
+			$objPa2Picture = new \Pa2Picture($objAlbums->preview_pic);
+			$objPa2Picture->addPictureToTemplate($objSubtemplate);
 			
+			// Add album class to the class string
+			$objSubtemplate->class .= ($objSubtemplate->class == '') ? $objAlbums->cssClass : ' ' . $objAlbums->cssClass;
 			
-			$arrItems[] = $objSubTemplate->parse();
+			// If album lightbox is activated the photos will be added to the album template
+			$objSubtemplate = $this->albumLightbox($objSubtemplate, $objAlbums);
+			
+			$arrItems[] = $objSubtemplate->parse();
 			
 			$i++;
 		}
 		
-		$objTemplate->items = $arrItems;
-		
-		/*
-		foreach($arrAlbums as $i => $album)
-		{
-			// Add an image
-			if ($album['preview_pic'] !== null && is_file(TL_ROOT . '/' . $album['preview_pic']->path))
-			{
-				$arrImage = array();
-				$arrImage['size'] = $this->arrVars['pa2ImageSize'];
-				$arrImage['imagemargin'] = $this->arrVars['pa2ImageMargin'];
-				$arrImage['singleSRC'] = $album['preview_pic']->path;
-				$arrImage['alt'] = strip_tags($album['title']);
-
-				$this->addImageToTemplate($objSubTemplate, $arrImage);
-			}
-			
-			// Add link title to template
-			$objSubTemplate->title = strip_tags($album['title']);
-			
-			// Add array
-			$arrLink = array(
-				'id' => $objPage->id,
-				'alias' => $objPage->alias
-			);
-			
-			if(!empty($this->arrVars['pa2DetailPage']) && is_numeric($this->arrVars['pa2DetailPage']))
-			{
-				$objDetailPage = $this->getPageDetails($this->arrVars['pa2DetailPage']);
-				
-				$arrLink['id'] = $objDetailPage->id;
-				$arrLink['alias'] = $objDetailPage->alias;
-				$arrLink['language'] = $objDetailPage->language;
-			}
-			
-			$objSubTemplate->title = $album['title'];
-			$objSubTemplate->alias = $album['alias'];
-			$objSubTemplate->showTitle = $this->arrVars['pa2ShowTitle'];
-			$objSubTemplate->event = $album['event'];
-			$objSubTemplate->place = $album['place'];
-			$objSubTemplate->photographer = $album['photographer'];
-			$objSubTemplate->description = $album['description'];
-			$objSubTemplate->href = $this->generateFrontendUrl($arrLink, sprintf(($GLOBALS['TL_CONFIG']['useAutoItem'] ?  '/%s' : '/album/%s'), $album['alias']), $objDetailPage->language);
-			$objSubTemplate->class .= ($objSubTemplate->class == '') ? $album['cssClass'] : ' ' . $album['cssClass'];
-			
-			// Check title
-			if($objSubTemplate->title == '')
-			{
-				$objSubTemplate->showTitle = false;
-			}
-			
-			// If album lightbox is activated the photos will be added to the album template
-			$objSubTemplate = $this->albumLightbox($objSubTemplate, $album, $this->arrVars['pa2AlbumLightbox']);
-			
-			// HOOK: pa2ParseAlbum callback
-			if ($objSubTemplate instanceof FrontendTemplate && isset($GLOBALS['TL_HOOKS']['pa2ParseAlbum']) && is_array($GLOBALS['TL_HOOKS']['pa2ParseAlbum']))
-			{
-				foreach ($GLOBALS['TL_HOOKS']['pa2ParseAlbum'] as $callback)
-				{
-					$this->import($callback[0]);
-					$objSubTemplate = $this->$callback[0]->$callback[1]($objSubTemplate, $this, $i);
-				}
-			}
-			
-			// Parse template
-			$arrElements[] = $objSubTemplate->parse();
-		}
-		*/
+		$this->Template->items = $arrItems;
+	}
+	
+	
+	/**
+	 * pa2AlbumLightbox function.
+	 * 
+	 * @access protected
+	 * @param object $objTemplate
+	 * @param object $objAlbum
+	 * @return object
+	 */
+	protected function albumLightbox($objTemplate, $objAlbum)
+	{
+		return $objTemplate;
 	}
 	
 	
