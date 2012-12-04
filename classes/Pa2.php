@@ -82,7 +82,7 @@ class Pa2 extends \Frontend
 				$album['pictures'] = $objPicSorter->getPicIds();
 				
 				$objPreviewPic = new \Pa2PreviewPic($objAlbums, $this->arrVars['pa2PreviewPic']);
-				$album['preview_pic'] = $objPreviewPic->getPreviewPic();
+				$album['preview_pic'] = $objPreviewPic->getPreviewPicObject();
 				
 				$arrAlbums[] = $album;
 			}

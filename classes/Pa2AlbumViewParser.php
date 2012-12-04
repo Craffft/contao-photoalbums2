@@ -136,7 +136,8 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 			$objSubtemplate = $this->addLinkToTemplate($objSubtemplate);
 			
 			// Add preview pic to template
-			$objPa2Picture = new \Pa2Picture($objAlbums->preview_pic);
+			$objPa2PreviewPic = new \Pa2PreviewPic($objAlbums->current(), $objSubtemplate->pa2PreviewPic);
+			$objPa2Picture = new \Pa2Picture($objPa2PreviewPic->getPreviewPicId());
 			$objPa2Picture->addPictureToTemplate($objSubtemplate);
 			
 			// Add album class to the class string

@@ -75,23 +75,25 @@ class Pa2PreviewPic extends \Controller
 		
 		$this->objAlbum = $objAlbum;
 		$this->type = $type;
+		
+		$this->getPreviewPic();
 	}
 	
 	
 	/**
 	 * getPreviewPic function.
 	 * 
-	 * @access public
-	 * @return object
+	 * @access private
+	 * @return void
 	 */
-	public function getPreviewPic()
+	private function getPreviewPic()
 	{
 		if(is_object($this->objPreviewPic))
 		{
 			return $this->objPreviewPic;
 		}
 		
-		$intPreviewPicId = null;
+		$this->intId = null;
 		
 		switch($this->type)
 		{
@@ -99,41 +101,63 @@ class Pa2PreviewPic extends \Controller
 				switch($this->objAlbum->preview_pic_check)
 				{
 					case 'no_preview_pic':
-						$intPreviewPicId = null;
+						$this->intId = null;
 					break;
 					
 					case 'random_preview_pic':
-						$intPreviewPicId = $this->getRandomPreviewPic();
+						$this->intId = $this->getRandomPreviewPic();
 					break;
 					
 					case 'select_preview_pic':
-						$intPreviewPicId = $this->objAlbum->preview_pic;
+						$this->intId = $this->objAlbum->preview_pic;
 					break;
 				}
 			break;
 			
 			case 'no_preview_pics':
-				$intPreviewPicId = null;
+				$this->intId = null;
 			break;
 			
 			case 'random_pics':
-				$intPreviewPicId = $this->getRandomPreviewPic();
+				$this->intId = $this->getRandomPreviewPic();
 			break;
 			
 			case 'random_pics_at_no_preview_pics':
 				if($this->objAlbum->preview_pic_check == 'select_preview_pic')
 				{
-					$intPreviewPicId = $this->objAlbum->preview_pic;
+					$this->intId = $this->objAlbum->preview_pic;
 				}
 				else
 				{
-					$intPreviewPicId = $this->getRandomPreviewPic();
+					$this->intId = $this->getRandomPreviewPic();
 				}
 			break;
 		}
-		
+	}
+	
+	
+	/**
+	 * getPreviewPicId function.
+	 * 
+	 * @access public
+	 * @return int
+	 */
+	public function getPreviewPicId()
+	{
+		return $this->intId;
+	}
+	
+	
+	/**
+	 * getPreviewPicObject function.
+	 * 
+	 * @access public
+	 * @return object
+	 */
+	public function getPreviewPicObject()
+	{
 		// Get preview pic as FilesModel object
-		$this->objPreviewPic = \FilesModel::findByPk($intPreviewPicId);
+		$this->objPreviewPic = \FilesModel::findByPk($this->intId);
 		
 		return $this->objPreviewPic;
 	}
