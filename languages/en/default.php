@@ -45,12 +45,14 @@ $GLOBALS['TL_LANG']['MSC']['photosEmpty'] = 'The photo album could not be found!
 /**
  * Sort types
  */
+$GLOBALS['TL_LANG']['pa2_sort_types']['metatitle_asc'] = array('Meta title (ascending)', 'Meta title (ascending)');
+$GLOBALS['TL_LANG']['pa2_sort_types']['metatitle_desc'] = array('Meta title (descending)', 'Meta title (descending)');
 $GLOBALS['TL_LANG']['pa2_sort_types']['name_asc'] = array('Name (ascending)', 'Name (ascending)');
 $GLOBALS['TL_LANG']['pa2_sort_types']['name_desc'] = array('Name (descending)', 'Name (descending)');
 $GLOBALS['TL_LANG']['pa2_sort_types']['date_asc'] = array('Date (ascending)', 'Date (ascending)');
 $GLOBALS['TL_LANG']['pa2_sort_types']['date_desc'] = array('Date (descending)', 'Date (descending)');
 $GLOBALS['TL_LANG']['pa2_sort_types']['random'] = array('Random output', 'Random output');
-$GLOBALS['TL_LANG']['pa2_sort_types']['pic_sort_wizard'] = array('Own sorting', 'Own sorting');
+$GLOBALS['TL_LANG']['pa2_sort_types']['custom'] = array('Own sorting', 'Own sorting');
 
 
 /**

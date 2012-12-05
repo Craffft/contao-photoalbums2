@@ -66,9 +66,9 @@ class Pa2Picture extends \Controller
 	}
 	
 	
-	public function addPictureToTemplate($objTemplate)
+	public function addPictureToTemplate($objTemplate, $arrMergeData = array())
 	{
-		if (isset($this->intId))
+		if (isset($this->intId) && is_array($arrMergeData))
 		{
 			$objFile = $this->getPicture();
 			
@@ -76,6 +76,11 @@ class Pa2Picture extends \Controller
 			{
 				$arrData = $objTemplate->getData();
 				$arrData['singleSRC'] = $objFile->path;
+				
+				if(count($arrMergeData) > 0)
+				{
+					$arrData = array_merge($arrData, $arrMergeData);
+				}
 				
 				$this->addImageToTemplate($objTemplate, $arrData);
 			}

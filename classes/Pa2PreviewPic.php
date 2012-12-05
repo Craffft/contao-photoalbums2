@@ -76,7 +76,7 @@ class Pa2PreviewPic extends \Controller
 		$this->objAlbum = $objAlbum;
 		$this->type = $type;
 		
-		$this->getPreviewPic();
+		$this->setPreviewPicId();
 	}
 	
 	
@@ -86,13 +86,8 @@ class Pa2PreviewPic extends \Controller
 	 * @access private
 	 * @return void
 	 */
-	private function getPreviewPic()
+	private function setPreviewPicId()
 	{
-		if(is_object($this->objPreviewPic))
-		{
-			return $this->objPreviewPic;
-		}
-		
 		$this->intId = null;
 		
 		switch($this->type)
@@ -149,13 +144,18 @@ class Pa2PreviewPic extends \Controller
 	
 	
 	/**
-	 * getPreviewPicObject function.
+	 * getPreviewPic function.
 	 * 
 	 * @access public
 	 * @return object
 	 */
-	public function getPreviewPicObject()
+	public function getPreviewPic()
 	{
+		if(is_object($this->objPreviewPic))
+		{
+			return $this->objPreviewPic;
+		}
+		
 		// Get preview pic as FilesModel object
 		$this->objPreviewPic = \FilesModel::findByPk($this->intId);
 		

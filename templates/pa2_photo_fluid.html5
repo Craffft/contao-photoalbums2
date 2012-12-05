@@ -4,7 +4,7 @@
 <li class="photo block<?php echo $this->class; ?>">
 <?php if ($this->addImage): ?>
 <figure class="image_container"<?php if ($this->margin): ?> style="<?php echo $this->margin; ?>"<?php endif; ?>>
-<a href="<?php echo $this->href; ?>" title="<?php echo $this->title; ?>" <?php if ($this->lbvCheck): ?>data-lightbox="pa2_<?php echo $this->albumID; ?>"<?php else: ?>rel="lightbox[pa2_<?php echo $this->albumID; ?>]"<?php endif; ?>>
+<a href="<?php echo $this->href; ?>" title="<?php echo $this->title; ?>" data-lightbox="pa2_<?php echo $this->albumID; ?>">
 <img src="<?php echo $this->src; ?>"<?php echo $this->imgSize; ?> alt="<?php echo $this->alt; ?>">
 </a>
 </figure>
@@ -13,7 +13,7 @@
 <?php if($this->picNum == $this->lastPageNum): ?></ul><?php endif; ?>
 <?php else: ?>
 <div class="hide" style="display: none !important; position: absolute !important; top: 0px !important; left: 0px !important; width: 0px !important; height: 0px !important; overflow: hidden !important;">
-<a href="<?php echo $this->href; ?>" title="<?php echo $this->title; ?>" <?php if ($this->lbvCheck): ?>data-lightbox="pa2_<?php echo $this->albumID; ?>"<?php else: ?>rel="lightbox[pa2_<?php echo $this->albumID; ?>]"<?php endif; ?>>
+<a href="<?php echo $this->href; ?>" title="<?php echo $this->title; ?>" data-lightbox="pa2_<?php echo $this->albumID; ?>">
 <img src="<?php echo $this->src; ?>"<?php echo $this->imgSize; ?> alt="<?php echo $this->alt; ?>">
 </a>
 </div>

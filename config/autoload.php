@@ -68,6 +68,7 @@ TemplateLoader::addFiles(array
 	'mod_photoalbums2_empty' => 'system/modules/photoalbums2/templates',
 	'pa2_album'              => 'system/modules/photoalbums2/templates',
 	'pa2_album_fluid'        => 'system/modules/photoalbums2/templates',
+	'pa2_lightbox_photo'     => 'system/modules/photoalbums2/templates',
 	'pa2_photo'              => 'system/modules/photoalbums2/templates',
 	'pa2_photo_fluid'        => 'system/modules/photoalbums2/templates',
 ));

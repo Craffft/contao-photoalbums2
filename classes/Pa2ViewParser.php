@@ -301,12 +301,24 @@ abstract class Pa2ViewParser extends \Frontend
 	}
 	
 	
-	protected function addLinkToTemplate($objTemplate)
+	protected function addLinkToTemplate($objTemplate, $objAlbum)
 	{
 		global $objPage;
 		
 		// Check
 		if(!is_object($objTemplate))
+		{
+			return $objTemplate;
+		}
+		
+		if(is_numeric($objAlbum))
+		{
+			$objPa2Album = new \Pa2Album($objAlbum, $objTemplate->getData());
+			$objAlbum = $objPa2Album->getAlbums();
+			$objAlbum = $objAlbum->current();
+		}
+		
+		if(!is_object($objAlbum))
 		{
 			return $objTemplate;
 		}
@@ -326,7 +338,7 @@ abstract class Pa2ViewParser extends \Frontend
 			$arrLink['language'] = $objDetailPage->language;
 		}
 		
-		$objTemplate->href = $this->generateFrontendUrl($arrLink, sprintf(($GLOBALS['TL_CONFIG']['useAutoItem'] ?  '/%s' : '/album/%s'), $objDetailPage->alias), $objDetailPage->language);
+		$objTemplate->href = $this->generateFrontendUrl($arrLink, sprintf(($GLOBALS['TL_CONFIG']['useAutoItem'] ?  '/%s' : '/album/%s'), $objAlbum->alias), $objDetailPage->language);
 		
 		return $objTemplate;
 	}

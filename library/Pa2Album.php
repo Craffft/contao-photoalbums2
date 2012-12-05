@@ -115,6 +115,10 @@ class Pa2Album extends \Pa2Lib
 					// Get preview pic as Pa2Picture object
 					$objPicture = new \Pa2Picture($objAlbum->preview_pic);
 					$objAlbum->objPreviewPic = $objPicture->getPicture();
+					
+					// Deserialize arrays
+					$objAlbum->pictures = deserialize($objAlbum->pictures);
+					$objAlbum->pic_sort = deserialize($objAlbum->pic_sort);
 				}
 				
 				$objAlbum->reset();

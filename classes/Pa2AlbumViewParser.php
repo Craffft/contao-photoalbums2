@@ -50,6 +50,7 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 		$this->Template->intItemsPerRow   = $this->Template->pa2AlbumsPerRow;
 		$this->Template->strSubtemplate   = $this->Template->pa2AlbumsTemplate;
 		$this->Template->intDetailPage    = $this->Template->pa2DetailPage;
+		$this->Template->albumLightbox    = $this->Template->pa2AlbumLightbox;
 		
 		// Image params 
 		$this->Template->size             = $this->Template->pa2AlbumsImageSize;
@@ -133,7 +134,7 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 			$objSubtemplate = $this->addClassesAndStyles($objSubtemplate, $total, $i);
 			$objSubtemplate = $this->buildDate($objSubtemplate, $objAlbums->startdate, $objAlbums->enddate);
 			$objSubtemplate = $this->addSpecificClasses($objSubtemplate, $i, 'overview');
-			$objSubtemplate = $this->addLinkToTemplate($objSubtemplate);
+			$objSubtemplate = $this->addLinkToTemplate($objSubtemplate, $objAlbums->current());
 			
 			// Add preview pic to template
 			$objPa2PreviewPic = new \Pa2PreviewPic($objAlbums->current(), $objSubtemplate->pa2PreviewPic);
@@ -144,7 +145,7 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 			$objSubtemplate->class .= ($objSubtemplate->class == '') ? $objAlbums->cssClass : ' ' . $objAlbums->cssClass;
 			
 			// If album lightbox is activated the photos will be added to the album template
-			$objSubtemplate = $this->albumLightbox($objSubtemplate, $objAlbums);
+			$objSubtemplate = $this->albumLightbox($objSubtemplate, $objAlbums->current());
 			
 			$arrItems[] = $objSubtemplate->parse();
 			
@@ -165,6 +166,73 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 	 */
 	protected function albumLightbox($objTemplate, $objAlbum)
 	{
+		if($objTemplate->albumLightbox)
+		{
+			$arrLightboxPics = array();
+			$i = 0;
+			
+			// Generate individual pa2 ID
+			if(!isset($GLOBALS['pa2']['individualId']) || !is_numeric($GLOBALS['pa2']['individualId']))
+			{
+				$GLOBALS['pa2']['individualId'] = 1;
+			}
+			else
+			{
+				$GLOBALS['pa2']['individualId']++;
+			}
+			
+			// Set album id in template
+			$strAlbumIndividualId = $objAlbum->id . '_' . substr(md5('pa2_' . $GLOBALS['pa2']['individualId']), 1, 12);
+			$objTemplate->albumID = $strAlbumIndividualId;
+			
+			// Sort pictures
+			$objPa2PicSorter = new \Pa2PicSorter($objAlbum->pic_sort_check, $objAlbum->pictures, $objAlbum->pic_sort);
+			$arrIds = $objPa2PicSorter->getSortedIds();
+			
+			if($arrIds > 0)
+			{
+				foreach($arrIds as $intId)
+				{
+					$objPa2Picture = new \Pa2Picture($intId);
+					$objPicture = $objPa2Picture->getPicture();
+					
+					if($objPicture !== null)
+					{
+						if($i == 0)
+						{
+							$objTemplate->href = str_replace(' ', '%20', $objPicture->path);
+						}
+						
+						// Define image template
+						$objImageTemplate = new \FrontendTemplate('pa2_lightbox_photo');
+						
+						// Set vars
+						$objImageTemplate->albumID = $strAlbumIndividualId;
+						$objImageTemplate->href = str_replace(' ', '%20', $objPicture->path);
+						
+						// Add image to template
+						$arrImage = array();
+						$arrImage['size'] = serialize(array(0, 0, 'crop'));
+						$arrImage['imagemargin'] = serialize(array('bottom'=>'', 'left'=>'', 'right'=>'', 'top'=>'', 'unit'=>''));
+						$arrImage['singleSRC'] = 'system/modules/photoalbums2/html/blank.gif';
+						$arrImage['alt'] = substr(strrchr($element, '/'), 1);
+						
+						$objImageTemplate = $objPa2Picture->addPictureToTemplate($objImageTemplate, $arrImage);
+						
+						// Add link title to template
+						$objImageTemplate->title = substr(strrchr($objPicture->path, '/'), 1);
+						
+						// Add image template to parent template
+						$arrLightboxPics[] = $objImageTemplate->parse();
+					}
+					
+					$i++;
+				}
+				
+				$objTemplate->albumLightboxPictures = $arrLightboxPics;
+			}
+		}
+		
 		return $objTemplate;
 	}
 	

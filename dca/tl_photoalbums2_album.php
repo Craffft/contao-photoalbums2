@@ -769,7 +769,7 @@ class tl_photoalbums2_album extends Backend
 		}
 		
 		// Remove from palette
-		if($objAlbum->pic_sort_check != 'pic_sort_wizard')
+		if($objAlbum->pic_sort_check != 'custom')
 		{
 			$this->removeFromPalette('pic_sort');
 		}
