@@ -92,7 +92,7 @@ class Pa2Pagination extends \Controller
 	 */
 	public function __construct($arrItems, $intMaxItems = 0, $intItemsPerPage = 0)
 	{
-		if(!is_array($arrItems) || $arrItems < 1)
+		if(!is_array($arrItems) || count($arrItems) < 1)
 		{
 			return false;
 		}

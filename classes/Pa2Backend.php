@@ -44,6 +44,11 @@ class Pa2Backend extends \Backend
 		// Get Object
 		$objModule = \ModuleModel::findByPk($dc->activeRecord->id);
 		
+		if($objModule === null)
+		{
+			return;
+		}
+		
 		// Set arrSet
 		$objModule->pa2TimeFilterStart = deserialize($dc->activeRecord->pa2TimeFilterStart);
 		$objModule->pa2TimeFilterEnd = deserialize($dc->activeRecord->pa2TimeFilterEnd);

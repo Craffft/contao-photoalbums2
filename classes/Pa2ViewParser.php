@@ -137,6 +137,70 @@ abstract class Pa2ViewParser extends \Frontend
 	
 	
 	/**
+	 * addComments function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function addComments($objAlbum)
+	{
+		// HOOK: comments extension required
+		if ($objAlbum->noComments || !in_array('comments', $this->Template->Config->getActiveModules()))
+		{
+			$this->Template->allowComments = false;
+			return;
+		}
+		
+		// Check whether comments are allowed
+		$objArchive = \Photoalbums2ArchiveModel::findByPk($objAlbum->pid);
+
+		if ($objArchive->numRows < 1 || !$objArchive->allowComments)
+		{
+			$this->Template->allowComments = false;
+			return;
+		}
+
+		$this->Template->allowComments = true;
+
+		// Adjust the comments headline level
+		$intHl = min(intval(str_replace('h', '', $this->hl)), 5);
+		$this->Template->hlc = 'h' . ($intHl + 1);
+
+		$this->import('Comments');
+		$arrNotifies = array();
+		
+		// Notify system administrator
+		if ($objArchive->notify != 'notify_author')
+		{
+			$arrNotifies[] = $GLOBALS['TL_ADMIN_EMAIL'];
+		}
+
+		// Notify author
+		if ($objArchive->notify != 'notify_admin')
+		{
+			$objAuthor = \UserModel::findByPk($objAlbum->author);
+
+			if ($objAuthor != null)
+			{
+				$arrNotifies[] = $objAuthor->email;
+			}
+		}
+
+		$objConfig = new \stdClass();
+
+		$objConfig->perPage = $objArchive->perPage;
+		$objConfig->order = $objArchive->sortOrder;
+		$objConfig->template = $this->com_template;
+		$objConfig->requireLogin = $objArchive->requireLogin;
+		$objConfig->disableCaptcha = $objArchive->disableCaptcha;
+		$objConfig->bbcode = $objArchive->bbcode;
+		$objConfig->moderate = $objArchive->moderate;
+		
+		$this->Comments->addCommentsToTemplate($this->Template, $objConfig, 'tl_photoalbums2_album', $objAlbum->id, $arrNotifies);
+	}
+	
+	
+	/**
 	 * addClassesAndStyles function.
 	 * 
 	 * @access protected
@@ -196,7 +260,7 @@ abstract class Pa2ViewParser extends \Frontend
 	
 	
 	/**
-	 * buildDate function.
+	 * addDateToTemplate function.
 	 * 
 	 * @access protected
 	 * @param object $objTemplate
@@ -204,7 +268,7 @@ abstract class Pa2ViewParser extends \Frontend
 	 * @param int $intEnddate
 	 * @return object
 	 */
-	protected function buildDate($objTemplate, $intStartdate, $intEnddate)
+	protected function addDateToTemplate($objTemplate, $intStartdate, $intEnddate)
 	{
 		global $objPage;
 		
@@ -230,7 +294,41 @@ abstract class Pa2ViewParser extends \Frontend
 	}
 	
 	
-	protected function addSpecificClasses($objTemplate, $i, $type)
+	/**
+	 * addMetaFieldsToTemplate function.
+	 * 
+	 * @access protected
+	 * @param object $objTemplate
+	 * @param string $type
+	 * @return object
+	 */
+	protected function addMetaFieldsToTemplate($objTemplate)
+	{
+		// Check
+		if(is_object($objTemplate))
+		{
+			$objTemplate->metaFields = false;
+			
+			if(is_array($this->Template->pa2MetaFields) && count($this->Template->pa2MetaFields) > 0)
+			{
+				$objTemplate->metaFields = $this->Template->pa2MetaFields;
+			}
+		}
+		
+		return $objTemplate;
+	}
+	
+	
+	/**
+	 * addSpecificClassesToTemplate function.
+	 * 
+	 * @access protected
+	 * @param object $objTemplate
+	 * @param int $i
+	 * @param string $type
+	 * @return object
+	 */
+	protected function addSpecificClassesToTemplate($objTemplate, $i, $type)
 	{
 		// Do if vars are empty
 		if(!is_object($objTemplate) || !is_numeric($objTemplate->totalItems) || !is_numeric($objTemplate->intItemsPerPage) || !is_numeric($i))
@@ -301,6 +399,14 @@ abstract class Pa2ViewParser extends \Frontend
 	}
 	
 	
+	/**
+	 * addLinkToTemplate function.
+	 * 
+	 * @access protected
+	 * @param object $objTemplate
+	 * @param object $objAlbum
+	 * @return object
+	 */
 	protected function addLinkToTemplate($objTemplate, $objAlbum)
 	{
 		global $objPage;
@@ -341,5 +447,51 @@ abstract class Pa2ViewParser extends \Frontend
 		$objTemplate->href = $this->generateFrontendUrl($arrLink, sprintf(($GLOBALS['TL_CONFIG']['useAutoItem'] ?  '/%s' : '/album/%s'), $objAlbum->alias), $objDetailPage->language);
 		
 		return $objTemplate;
+	}
+	
+	
+	/**
+	 * generateIndividualId function.
+	 * 
+	 * @access protected
+	 * @return string
+	 */
+	protected function generateIndividualId()
+	{
+		// Set global variable
+		if(!isset($GLOBALS['pa2']['individualId']) || !is_array($GLOBALS['pa2']['individualId']))
+		{
+			$GLOBALS['pa2']['individualId'] = array();
+			$GLOBALS['pa2']['individualId']['count'] = 0;
+		}
+		
+		// Count up
+		$GLOBALS['pa2']['individualId']['count']++;
+		
+		// New id
+		$individualId = substr(md5('pa2_' . $GLOBALS['pa2']['individualId']['count']), 1, 12);
+		
+		// If new id already in id list exists
+		if(is_array($GLOBALS['pa2']['individualId']['id']) && in_array($individualId, $GLOBALS['pa2']['individualId']['id']))
+		{
+			return $this->generateIndividualId();
+		}
+		
+		// Add new id to id list
+		$GLOBALS['pa2']['individualId']['id'][] = $individualId;
+		
+		return $individualId;
+	}
+	
+	
+	/**
+	 * getViewParserTemplate function.
+	 * 
+	 * @access public
+	 * @return object
+	 */
+	public function getViewParserTemplate()
+	{
+		return $this->Template;
 	}
 }

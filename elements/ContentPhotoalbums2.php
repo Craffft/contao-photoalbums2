@@ -74,6 +74,7 @@ class ContentPhotoalbums2 extends \ContentElement
 	 */
 	protected function compile()
 	{
+		/*
 		global $objPage;
 		$objPa2 = new \Pa2New();
 		
@@ -109,6 +110,7 @@ class ContentPhotoalbums2 extends \ContentElement
 		
 		// Parse photos
 		$this->Template = $this->Pa2->parsePhotos($this->Template, $this->arrPhotos, $this->arrElements);
+		*/
 	}
 	
 	

@@ -56,14 +56,14 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 		$this->Template->size             = $this->Template->pa2AlbumsImageSize;
 		$this->Template->imagemargin      = $this->Template->pa2AlbumsImageMargin;
 		
-		$this->Template->metaFields       = ((is_array($this->Template->pa2AlbumsMetaFields) && count($this->Template->pa2AlbumsMetaFields) > 0) ? $this->Template->pa2AlbumsMetaFields : false);
-		
 		$this->Template->showHeadline     = $this->Template->pa2AlbumsShowHeadline;
 		$this->Template->showTitle  	  = $this->Template->pa2AlbumsShowTitle;
 		$this->Template->showTeaser       = $this->Template->pa2AlbumsShowTeaser;
 		$this->Template->teaser           = $this->cleanRteOutput($this->Template->pa2Teaser);
 		$this->Template->showHeadline     = ($this->Template->headline != '' ? $this->Template->showHeadline : false);
 		$this->Template->showTeaser       = ($this->Template->teaser != '' ? $this->Template->showTeaser : false);
+		
+		$this->Template->metaFields       = ((is_array($this->Template->pa2AlbumsMetaFields) && count($this->Template->pa2AlbumsMetaFields) > 0) ? $this->Template->pa2AlbumsMetaFields : false);
 		
 		parent::generate();
 	}
@@ -98,11 +98,18 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 		
 		$this->objAlbums = $objPa2Album->getAlbums();
 		
+		// Call parseAlbums
 		$this->parseAlbums();
 	}
 	
 	
-	protected function parseAlbums()
+	/**
+	 * parseAlbums function.
+	 * 
+	 * @access private
+	 * @return void
+	 */
+	private function parseAlbums()
 	{
 		if(!is_object($this->objAlbums) || $this->objAlbums->count() < 1)
 		{
@@ -110,6 +117,7 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 			return;
 		}
 		
+		// Define useful vars
 		$arrItems = array();
 		$objAlbums = $this->objAlbums;
 		$total = $objAlbums->count();
@@ -132,8 +140,8 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 			
 			// Call template methods
 			$objSubtemplate = $this->addClassesAndStyles($objSubtemplate, $total, $i);
-			$objSubtemplate = $this->buildDate($objSubtemplate, $objAlbums->startdate, $objAlbums->enddate);
-			$objSubtemplate = $this->addSpecificClasses($objSubtemplate, $i, 'overview');
+			$objSubtemplate = $this->addDateToTemplate($objSubtemplate, $objAlbums->startdate, $objAlbums->enddate);
+			$objSubtemplate = $this->addSpecificClassesToTemplate($objSubtemplate, $i, 'overview');
 			$objSubtemplate = $this->addLinkToTemplate($objSubtemplate, $objAlbums->current());
 			
 			// Add preview pic to template
@@ -147,6 +155,7 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 			// If album lightbox is activated the photos will be added to the album template
 			$objSubtemplate = $this->albumLightbox($objSubtemplate, $objAlbums->current());
 			
+			// Parse subtemplate
 			$arrItems[] = $objSubtemplate->parse();
 			
 			$i++;
@@ -171,19 +180,8 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 			$arrLightboxPics = array();
 			$i = 0;
 			
-			// Generate individual pa2 ID
-			if(!isset($GLOBALS['pa2']['individualId']) || !is_numeric($GLOBALS['pa2']['individualId']))
-			{
-				$GLOBALS['pa2']['individualId'] = 1;
-			}
-			else
-			{
-				$GLOBALS['pa2']['individualId']++;
-			}
-			
 			// Set album id in template
-			$strAlbumIndividualId = $objAlbum->id . '_' . substr(md5('pa2_' . $GLOBALS['pa2']['individualId']), 1, 12);
-			$objTemplate->albumID = $strAlbumIndividualId;
+			$objTemplate->albumID = $objAlbum->id . '_' . $this->generateIndividualId();
 			
 			// Sort pictures
 			$objPa2PicSorter = new \Pa2PicSorter($objAlbum->pic_sort_check, $objAlbum->pictures, $objAlbum->pic_sort);
@@ -234,17 +232,5 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 		}
 		
 		return $objTemplate;
-	}
-	
-	
-	/**
-	 * getAlbumTemplate function.
-	 * 
-	 * @access public
-	 * @return object
-	 */
-	public function getAlbumTemplate()
-	{
-		return $this->Template;
 	}
 }

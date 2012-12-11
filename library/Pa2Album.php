@@ -85,6 +85,29 @@ class Pa2Album extends \Pa2Lib
 	
 	
 	/**
+	 * getIdByAlias function.
+	 * 
+	 * @access protected
+	 * @param string $strAlias
+	 * @return string
+	 */
+	protected function getIdByAlias($strAlias)
+	{
+		$objPhotoalbums2AlbumModel = \Photoalbums2AlbumModel::findPublishedByIdOrAlias($strAlias);
+		
+		if($objPhotoalbums2AlbumModel !== null)
+		{
+			if(is_numeric($objPhotoalbums2AlbumModel->id))
+			{
+				return $objPhotoalbums2AlbumModel->id;
+			}
+		}
+		
+		return $strAlias;
+	}
+	
+	
+	/**
 	 * getAlbumIds function.
 	 * 
 	 * @access public
@@ -119,6 +142,10 @@ class Pa2Album extends \Pa2Lib
 					// Deserialize arrays
 					$objAlbum->pictures = deserialize($objAlbum->pictures);
 					$objAlbum->pic_sort = deserialize($objAlbum->pic_sort);
+					
+					// Set sortedPicIds
+					$objPa2PicSorter = new \Pa2PicSorter($objAlbum->pic_sort_check, $objAlbum->pictures, $objAlbum->pic_sort);
+					$objAlbum->arrSortedPicIds = $objPa2PicSorter->getSortedIds();
 				}
 				
 				$objAlbum->reset();
