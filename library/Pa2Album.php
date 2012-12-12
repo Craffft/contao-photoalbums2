@@ -27,6 +27,53 @@ namespace Photoalbums2;
 class Pa2Album extends \Pa2Lib
 {
 	/**
+	 * __construct function.
+	 * 
+	 * @access public
+	 * @param mixed $varValue
+	 * @param array $arrData
+	 * @return void
+	 */
+	public function __construct($varValue, $arrData)
+	{
+		if(!is_array($varValue) && !is_numeric($varValue))
+		{
+			$varValue = $this->getIdByAlias($varValue);
+		}
+		
+		parent::__construct($varValue, $arrData);
+	}
+	
+	
+	/**
+	 * getIdByAlias function.
+	 * 
+	 * @access protected
+	 * @param string $strAlias
+	 * @return string
+	 */
+	protected function getIdByAlias($strAlias)
+	{
+		$objAlbum = \Photoalbums2AlbumModel::findPublishedByIdOrAlias($strAlias);
+		
+		if($objAlbum !== null)
+		{
+			if(is_numeric($objAlbum->id))
+			{
+				if($objAlbum->id < 1)
+				{
+					return 0;
+				}
+				
+				return $objAlbum->id;
+			}
+		}
+		
+		return $strAlias;
+	}
+	
+	
+	/**
 	 * sortOut function.
 	 * 
 	 * @access protected
@@ -81,29 +128,6 @@ class Pa2Album extends \Pa2Lib
 			
 			$this->arrItems = $arrItems;
 		}
-	}
-	
-	
-	/**
-	 * getIdByAlias function.
-	 * 
-	 * @access protected
-	 * @param string $strAlias
-	 * @return string
-	 */
-	protected function getIdByAlias($strAlias)
-	{
-		$objPhotoalbums2AlbumModel = \Photoalbums2AlbumModel::findPublishedByIdOrAlias($strAlias);
-		
-		if($objPhotoalbums2AlbumModel !== null)
-		{
-			if(is_numeric($objPhotoalbums2AlbumModel->id))
-			{
-				return $objPhotoalbums2AlbumModel->id;
-			}
-		}
-		
-		return $strAlias;
 	}
 	
 	

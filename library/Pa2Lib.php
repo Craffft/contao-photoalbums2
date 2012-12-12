@@ -52,23 +52,19 @@ abstract class Pa2Lib extends \Controller
 	 * __construct function.
 	 * 
 	 * @access public
-	 * @param array or id $arrItems
+	 * @param mixed $varValue
+	 * @param array $arrData
 	 * @return void
 	 */
-	public function __construct($arrItems, $arrData)
+	public function __construct($varValue, $arrData)
 	{
-		if(!is_array($arrItems) && !is_numeric($arrItems))
+		if(is_numeric($varValue))
 		{
-			$arrItems = $this->getIdByAlias($arrItems);
+			$this->arrItems = array($varValue);
 		}
-		
-		if(is_numeric($arrItems))
+		else if(is_array($varValue))
 		{
-			$this->arrItems = array($arrItems);
-		}
-		else if(is_array($arrItems))
-		{
-			$this->arrItems = $arrItems;
+			$this->arrItems = $varValue;
 		}
 		
 		if(is_array($arrData))
@@ -88,17 +84,4 @@ abstract class Pa2Lib extends \Controller
 	 * @return void
 	 */
 	abstract protected function sortOut();
-	
-	
-	/**
-	 * getIdByAlias function.
-	 * 
-	 * @access protected
-	 * @param string $strAlias
-	 * @return string
-	 */
-	protected function getIdByAlias($strAlias)
-	{
-		return $strAlias;
-	}
 }
