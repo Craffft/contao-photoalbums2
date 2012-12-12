@@ -489,10 +489,8 @@ class tl_photoalbums2_album extends Backend
 	 */
 	public function listAlbums($arrRow)
 	{
+		/*
 		$objPa2 = new \Pa2New();
-		
-		// Import Pa2Photos
-		$this->import('Pa2Photos');
 		
 		// Add photoalbums2 css file
 		$objPa2->addCssFile();
@@ -546,7 +544,7 @@ class tl_photoalbums2_album extends Backend
 <div class="cte_type ' . $key . '">' . $arrRow['title'] . '</div>
 <div class="limit_height' . (!$GLOBALS['TL_CONFIG']['doNotCollapse'] ? ' h64' : '') . '">
 ' . $objTemplate->parse() . '
-</div>' . "\n";
+</div>' . "\n";*/
 	}
 
 

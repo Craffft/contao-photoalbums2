@@ -60,11 +60,6 @@ class ContentPhotoalbums2 extends \ContentElement
 		$this->pa2PhotosShowTitle = ($this->pa2PhotosShowTitle == 1) ? true : false;
 		$this->pa2PhotosShowTeaser = ($this->pa2PhotosShowTeaser == 1) ? true : false;
 		
-		// Get unsorted pictures
-		$this->loadDataContainer('tl_photoalbums2_album');
-		$objPicSorter = new \PicSorter($this->pictures, $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['pictures']['eval']['extensions']);
-		$this->pictures = $objPicSorter->getPicIds();
-		
 		return parent::generate();
 	}
 
@@ -74,128 +69,7 @@ class ContentPhotoalbums2 extends \ContentElement
 	 */
 	protected function compile()
 	{
-		/*
-		global $objPage;
-		$objPa2 = new \Pa2New();
-		
-		$this->preparePhotos();
-		
-		// Add photoalbums2 css file
-		$objPa2->addCssFile();
-		
-		// Add Subtemplate to Template
-		$this->Template->strSubtemplate = $this->strSubtemplate;
-		
-		// Get albums
-		$total = count($this->arrElements);
-		
-		// If albums empty
-		if ($total < 1 || !$this->arrElements || $this->arrElements == false)
-		{
-			$this->strTemplate = 'mod_photoalbums2_empty';
-			$this->Template = new \FrontendTemplate($this->strTemplate);
-			$this->Template->setData($this->arrData);
-			$this->Template->empty = $this->empty;
-			
-			return;
-		}
-		
-		// Pagination
-		$objPa2Pagination = new \Pa2Pagination($this->arrElements, $this->intMaxItems, $this->intItemsPerPage, $total);
-		$this->arrElements = $objPa2Pagination->getItems();
-		$this->Template->pagination = $objPa2Pagination->getPagination();
-		
-		// Add arrVars to Pa2
-		$this->Pa2 = $this->addArrVars($this->Pa2);
-		
-		// Parse photos
-		$this->Template = $this->Pa2->parsePhotos($this->Template, $this->arrPhotos, $this->arrElements);
-		*/
-	}
-	
-	
-	/**
-	 * preparePhotos function.
-	 * 
-	 * @access protected
-	 * @return void
-	 */
-	protected function preparePhotos()
-	{
-		// Import Photoalbums2 class
-		$this->import('Pa2Photos', 'Pa2');
-		
-		// Set Subtemplate
-		$this->strSubtemplate = $this->pa2PhotosTemplate;
-		
-		// Add arrVars to Pa2
-		$this->Pa2 = $this->addArrVars($this->Pa2);
-		
-		$this->intMaxItems = $this->pa2NumberOfPhotos;
-		$this->intItemsPerPage = $this->pa2PhotosPerPage;
-		
-		// Show all photos, if album is in BE shown
-		if(TL_MODE == 'BE')
-		{
-			$this->intItemsPerPage = 0;
-		}
-		
-		$this->arrElements = $this->Pa2->getAlbum($this->pa2Album);
-		
-		$this->arrPhotos = $this->arrElements[0];
-		
-		$objPa2PicSorter = new \Pa2PicSorter($this->arrElements[0]['pic_sort_check'], $this->arrElements[0]['pictures'], $this->arrElements[0]['pic_sort']);
-		$this->arrElements = $objPa2PicSorter->getSortedIds();
-		
-		// Save referer from albums page
-		if($this->Session->get('pa2_referer') == NULL)
-		{
-			$referer = $this->Session->get('referer');
-			$this->Session->set('pa2_referer', $referer['current']);
-		}
-		
-		$this->Template->referer = $this->Session->get('pa2_referer');
-		
-		// Empty text
-		$this->empty = $GLOBALS['TL_LANG']['MSC']['photosEmpty'];
-	}
-	
-	
-	/**
-	 * addArrVars function.
-	 * 
-	 * @access public
-	 * @param obj $objPa2
-	 * @return obj
-	 */
-	public function addArrVars($objPa2)
-	{
-		if(!is_object($objPa2))
-		{
-			return $objPa2;
-		}
-		
-		// Define arrVars
-		$arrVars = array(
-			'id'				=> $this->id,
-			'strSubtemplate'	=> $this->strSubtemplate,
-			'arrData'			=> $this->arrData,
-			'pa2Teaser'			=> $this->pa2Teaser
-		);
-		
-		// Add to arrVars
-		$arrVars['pa2MetaFields']		= $this->pa2PhotosMetaFields;
-		$arrVars['pa2PerRow']			= $this->pa2PhotosPerRow;
-		$arrVars['intItemsPerPage']		= $this->pa2PhotosPerPage;
-		$arrVars['pa2ImageSize']		= $this->pa2PhotosImageSize;
-		$arrVars['pa2ImageMargin']		= $this->pa2PhotosImageMargin;
-		$arrVars['pa2ShowHeadline']		= $this->pa2PhotosShowHeadline;
-		$arrVars['pa2ShowTitle']		= $this->pa2PhotosShowTitle;
-		$arrVars['pa2ShowTeaser']		= $this->pa2PhotosShowTeaser;
-		
-		// Add arrVars to Pa2
-		$objPa2->addArrVars($arrVars);
-		
-		return $objPa2;
+		$objPhotoViewParser = new \Pa2PhotoViewParser($this->Template, $this->pa2Album);
+		$this->Template = $objPhotoViewParser->getViewParserTemplate();
 	}
 }

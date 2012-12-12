@@ -27,6 +27,15 @@ namespace Photoalbums2;
 class Pa2PhotoViewParser extends \Pa2ViewParser
 {
 	/**
+	 * intAlbumId
+	 * 
+	 * @var mixed
+	 * @access private
+	 */
+	private $intAlbumId;
+	
+	
+	/**
 	 * objAlbum
 	 * 
 	 * @var object
@@ -51,6 +60,25 @@ class Pa2PhotoViewParser extends \Pa2ViewParser
 	 * @access private
 	 */
 	private $arrAllItems = array();
+	
+	
+	/**
+	 * __construct function.
+	 * 
+	 * @access public
+	 * @param object $objTemplate
+	 * @param int $intAlbumId
+	 * @return void
+	 */
+	public function __construct($objTemplate, $intAlbumId = 0)
+	{
+		if(is_numeric($intAlbumId) && $intAlbumId > 0)
+		{
+			$this->intAlbumId = $intAlbumId;
+		}
+		
+		parent::__construct($objTemplate);
+	}
 	
 	
 	/**
@@ -92,12 +120,12 @@ class Pa2PhotoViewParser extends \Pa2ViewParser
 	protected function compile()
 	{
 		// Get album id
-		$objPa2Album = new \Pa2Album($this->Input->get('album'), $this->Template->getData());
+		$objPa2Album = new \Pa2Album($this->getAlbumIdOrAlias(), $this->Template->getData());
 		$objAlbum = $objPa2Album->getAlbums();
 		$objAlbum = $objAlbum->current();
 		
-		// If there are no photos, show empty template with a message
-		if(count($objAlbum->arrSortedPicIds) < 1)
+		// If there are no album or photos, show empty template with a message
+		if(!is_object($objAlbum) || count($objAlbum->arrSortedPicIds) < 1)
 		{
 			$this->setEmptyTemplate();
 			return;
@@ -119,6 +147,25 @@ class Pa2PhotoViewParser extends \Pa2ViewParser
 		
 		// Call parsePhotos
 		$this->parsePhotos();
+	}
+	
+	
+	/**
+	 * getAlbumIdOrAlias function.
+	 * 
+	 * @access protected
+	 * @return mixed
+	 */
+	protected function getAlbumIdOrAlias()
+	{
+		$varValue = $this->intAlbumId;
+		
+		if(!is_numeric($varValue) || $varValue < 1)
+		{
+			$varValue = $this->Input->get('album');
+		}
+		
+		return $varValue;
 	}
 	
 	
