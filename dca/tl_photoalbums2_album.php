@@ -122,8 +122,8 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'__selector__'                => array('preview_pic_check', 'pic_sort_check', 'protected'),
-		'default'                     => '{title_legend},title,alias,author;{date_legend},startdate,enddate;{pictures_legend},pictures,preview_pic_check,preview_pic,pic_sort_check,pic_sort;{info_legend},event,place,photographer,description;{protected_legend},protected;{expert_legend:hide},cssClass,noComments;{published_legend},published,start,stop'
+		'__selector__'                => array('preview_image_check', 'image_sort_check', 'protected'),
+		'default'                     => '{title_legend},title,alias,author;{date_legend},startdate,enddate;{images_legend},images,preview_image_check,preview_image,image_sort_check,image_sort;{info_legend},event,place,photographer,description;{protected_legend},protected;{expert_legend:hide},cssClass,noComments;{published_legend},published,start,stop'
 	),
 
 	// Subpalettes
@@ -205,35 +205,35 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'eval'                    => array('rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
 			'sql'                     => "varchar(10) NOT NULL default ''"
 		),
-		'pictures' => array
+		'images' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['pictures'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['images'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
 			'eval'                    => array('mandatory'=>true, 'multiple'=>true, 'fieldType'=>'checkbox', 'files'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
 			'sql'                     => "blob NULL"
 		),
-		'preview_pic_check' => array
+		'preview_image_check' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['preview_pic_check'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['preview_image_check'],
 			'exclude'                 => true,
 			'inputType'               => 'select',
-			'options'				  => $GLOBALS['Pa2']['pa2_preview_pic_types'],
-			'reference'				  => &$GLOBALS['TL_LANG']['pa2_preview_pic_types'],
+			'options'				  => $GLOBALS['Pa2']['pa2_preview_image_types'],
+			'reference'				  => &$GLOBALS['TL_LANG']['pa2_preview_image_types'],
 			'eval'                    => array('submitOnChange'=>true),
 			'sql'                     => "varchar(64) NOT NULL default ''"
 		),
-		'preview_pic' => array
+		'preview_image' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['preview_pic'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['preview_image'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
 			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
 			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
-		'pic_sort_check' => array
+		'image_sort_check' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['pic_sort_check'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['image_sort_check'],
 			'exclude'                 => true,
 			'inputType'               => 'select',
 			'options'				  => $GLOBALS['Pa2']['pa2_sort_types'],
@@ -241,12 +241,12 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'eval'                    => array('submitOnChange'=>true),
 			'sql'                     => "varchar(64) NOT NULL default ''"
 		),
-		'pic_sort' => array
+		'image_sort' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['pic_sort'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['image_sort'],
 			'exclude'                 => true,
-			'inputType'               => 'PicSortWizard',
-			'eval'                    => array('sortfiles'=>'pictures', 'extensions'=>'png,jpg,jpeg,gif'),
+			'inputType'               => 'ImageSortWizard',
+			'eval'                    => array('sortfiles'=>'images', 'extensions'=>'png,jpg,jpeg,gif'),
 			'sql'                     => "blob NULL"
 		),
 		'event' => array
@@ -386,13 +386,13 @@ class tl_photoalbums2_album extends Backend
 		}
 
 		// Set root IDs
-		if (!is_array($this->User->photoalbums) || empty($this->User->photoalbums))
+		if (!is_array($this->User->photoalbums2s) || empty($this->User->photoalbums2s))
 		{
 			$root = array(0);
 		}
 		else
 		{
-			$root = $this->User->photoalbums;
+			$root = $this->User->photoalbums2s;
 		}
 
 		$id = strlen($this->Input->get('id')) ? $this->Input->get('id') : CURRENT_ID;
@@ -407,7 +407,7 @@ class tl_photoalbums2_album extends Backend
 			case 'create':
 				if (!strlen($this->Input->get('pid')) || !in_array($this->Input->get('pid'), $root))
 				{
-					$this->log('Not enough permissions to create photoalbums items in photoalbums archive ID "'.$this->Input->get('pid').'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
+					$this->log('Not enough permissions to create photoalbums2 items in photoalbums2 archive ID "'.$this->Input->get('pid').'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
 					$this->redirect('contao/main.php?act=error');
 				}
 				break;
@@ -416,7 +416,7 @@ class tl_photoalbums2_album extends Backend
 			case 'copy':
 				if (!in_array($this->Input->get('pid'), $root))
 				{
-					$this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums item ID "'.$id.'" to photoalbums archive ID "'.$this->Input->get('pid').'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
+					$this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums2 item ID "'.$id.'" to photoalbums2 archive ID "'.$this->Input->get('pid').'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
 					$this->redirect('contao/main.php?act=error');
 				}
 				// NO BREAK STATEMENT HERE
@@ -430,13 +430,13 @@ class tl_photoalbums2_album extends Backend
 
 				if ($objArchive == null)
 				{
-					$this->log('Invalid photoalbums item ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
+					$this->log('Invalid photoalbums2 item ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
 					$this->redirect('contao/main.php?act=error');
 				}
 
 				if (!in_array($objArchive->pid, $root))
 				{
-					$this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums item ID "'.$id.'" of photoalbums archive ID "'.$objArchive->pid.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
+					$this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums2 item ID "'.$id.'" of photoalbums2 archive ID "'.$objArchive->pid.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
 					$this->redirect('contao/main.php?act=error');
 				}
 				break;
@@ -449,7 +449,7 @@ class tl_photoalbums2_album extends Backend
 			case 'copyAll':
 				if (!in_array($id, $root))
 				{
-					$this->log('Not enough permissions to access photoalbums archive ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
+					$this->log('Not enough permissions to access photoalbums2 archive ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
 					$this->redirect('contao/main.php?act=error');
 				}
 
@@ -457,7 +457,7 @@ class tl_photoalbums2_album extends Backend
 
 				if ($objArchive == null)
 				{
-					$this->log('Invalid photoalbums archive ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
+					$this->log('Invalid photoalbums2 archive ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
 					$this->redirect('contao/main.php?act=error');
 				}
 
@@ -474,7 +474,7 @@ class tl_photoalbums2_album extends Backend
 				}
 				elseif (!in_array($id, $root))
 				{
-					$this->log('Not enough permissions to access photoalbums archive ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
+					$this->log('Not enough permissions to access photoalbums2 archive ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
 					$this->redirect('contao/main.php?act=error');
 				}
 				break;
@@ -489,53 +489,33 @@ class tl_photoalbums2_album extends Backend
 	 */
 	public function listAlbums($arrRow)
 	{
-		/*
+		// Import CSS files
 		$objPa2 = new \Pa2New();
-		
-		// Add photoalbums2 css file
 		$objPa2->addCssFile();
 		
 		// Deserialize vars
-		$arrRow['pictures'] = deserialize($arrRow['pictures']);
-		$arrRow['pic_sort'] = deserialize($arrRow['pic_sort']);
+		$arrRow['images'] = deserialize($arrRow['images']);
+		$arrRow['image_sort'] = deserialize($arrRow['image_sort']);
 		$arrRow['users'] = deserialize($arrRow['users']);
-		
-		// Define arrVars
-		$arrVars = array(
-			'id'				=> $arrRow['id'],
-			'strSubtemplate'	=> 'pa2_photo',
-			'arrData'			=> $arrRow,
-			'pa2Teaser'			=> ''
-		);
-		
-		// Add to arrVars
-		$arrVars['pa2MetaFields']		= '';
-		$arrVars['pa2PerRow']			= 1;
-		$arrVars['pa2ImageSize']		= serialize(array(100, 100, 'crop'));
-		$arrVars['pa2ImageMargin']		= 0;
-		$arrVars['pa2ShowHeadline']		= true;
-		$arrVars['pa2ShowTitle']		= false;
-		$arrVars['pa2ShowTeaser']		= true;
-		
-		// Add arrVars to Pa2
-		$this->Pa2Photos->addArrVars($arrVars);
 		
 		// Generate Template
 		$objTemplate = new \FrontendTemplate('mod_photoalbums2');
+		$objTemplate->setData($arrRow);
 		
-		// Add class
-		$objTemplate->class = 'mod_photoalbums2';
+		// Set template vars
+		$objTemplate->pa2ImagesShowHeadline = false;
+		$objTemplate->pa2ImagesShowTitle    = false;
+		$objTemplate->pa2ImagesShowTeaser   = false;
+		$objTemplate->pa2ImageMargin        = 0;
+		$objTemplate->pa2NumberOfImages     = 0;
+		$objTemplate->pa2ImagesPerPage      = 0;
+		$objTemplate->pa2ImagesPerRow       = 1;
+		$objTemplate->pa2ImagesTemplate     = 'pa2_image';
+		$objTemplate->arrImage              = array('size' => array(100, 100, 'crop'));
 		
-		// Get pictures in array
-		$objPicSorter = new PicSorter($arrRow['pictures'], $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['pictures']['eval']['extensions']);
-		$arrRow['pictures'] = $objPicSorter->getPicIds();
-		
-		// Sort elements
-		$objPa2PicSorter = new \Pa2PicSorter($arrRow['pic_sort_check'], $arrRow['pictures'], $arrRow['pic_sort']);
-		$this->arrElements = $objPa2PicSorter->getSortedIds();
-		
-		// Parse photos
-		$objTemplate = $this->Pa2Photos->parsePhotos($objTemplate, $arrRow, $this->arrElements);
+		// Render image view
+		$objImageViewParser = new \Pa2ImageViewParser($objTemplate, $arrRow['id']);
+		$objTemplate = $objImageViewParser->getViewParserTemplate();
 		
 		// Set key
 		$key = $arrRow['invisible'] ? 'unpublished' : 'published';
@@ -544,7 +524,7 @@ class tl_photoalbums2_album extends Backend
 <div class="cte_type ' . $key . '">' . $arrRow['title'] . '</div>
 <div class="limit_height' . (!$GLOBALS['TL_CONFIG']['doNotCollapse'] ? ' h64' : '') . '">
 ' . $objTemplate->parse() . '
-</div>' . "\n";*/
+</div>' . "\n";
 	}
 
 
@@ -761,15 +741,15 @@ class tl_photoalbums2_album extends Backend
 		$objAlbum = \Photoalbums2AlbumModel::findByPk($this->Input->get('id'));
 		
 		// Remove from palette
-		if($objAlbum->preview_pic_check != 'select_preview_pic')
+		if($objAlbum->preview_image_check != 'select_preview_image')
 		{
-			$this->removeFromPalette('preview_pic');
+			$this->removeFromPalette('preview_image');
 		}
 		
 		// Remove from palette
-		if($objAlbum->pic_sort_check != 'custom')
+		if($objAlbum->image_sort_check != 'custom')
 		{
-			$this->removeFromPalette('pic_sort');
+			$this->removeFromPalette('image_sort');
 		}
 	}
 	

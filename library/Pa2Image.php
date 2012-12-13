@@ -18,13 +18,13 @@
 namespace Photoalbums2;
 
 /**
- * Class Pa2Picture 
+ * Class Pa2Image 
  *
  * @copyright  Daniel Kiesel 2012 
  * @author     Daniel Kiesel <https://github.com/icodr8> 
  * @package    photoalbums2
  */
-class Pa2Picture extends \Controller
+class Pa2Image extends \Controller
 {
 	/**
 	 * arrItems
@@ -55,7 +55,7 @@ class Pa2Picture extends \Controller
 	}
 	
 	
-	public function getPicture()
+	public function getPa2Image()
 	{
 		$objFile = \FilesModel::findByPk($this->intId);
 		
@@ -66,11 +66,11 @@ class Pa2Picture extends \Controller
 	}
 	
 	
-	public function addPictureToTemplate($objTemplate, $arrMergeData = array())
+	public function addPa2ImageToTemplate($objTemplate, $arrMergeData = array())
 	{
 		if (isset($this->intId) && is_array($arrMergeData))
 		{
-			$objFile = $this->getPicture();
+			$objFile = $this->getPa2Image();
 			
 			if ($objFile !== null && is_file(TL_ROOT . '/' . $objFile->path))
 			{

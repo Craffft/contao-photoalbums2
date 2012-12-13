@@ -38,8 +38,8 @@ $GLOBALS['TL_LANG']['CTE']['photoalbums2']  = array('Photoalbum', 'Generates a p
 /**
  * Miscellaneous
  */
-$GLOBALS['TL_LANG']['MSC']['albumsEmpty'] = 'No photo albums available!';
-$GLOBALS['TL_LANG']['MSC']['photosEmpty'] = 'The photo album could not be found!';
+$GLOBALS['TL_LANG']['MSC']['albumsEmpty'] = 'No image albums available!';
+$GLOBALS['TL_LANG']['MSC']['imagesEmpty'] = 'The image album could not be found!';
 
 
 /**
@@ -56,20 +56,20 @@ $GLOBALS['TL_LANG']['pa2_sort_types']['custom'] = array('Own sorting', 'Own sort
 
 
 /**
- * Pic preview types
+ * Image preview types
  */
-$GLOBALS['TL_LANG']['pa2_preview_pic_types']['no_preview_pic'] = array('No preview photo', 'No preview photo');
-$GLOBALS['TL_LANG']['pa2_preview_pic_types']['random_preview_pic'] = array('Random preview photo', 'Random preview photo');
-$GLOBALS['TL_LANG']['pa2_preview_pic_types']['select_preview_pic'] = array('Select preview photo', 'Select preview photo');
+$GLOBALS['TL_LANG']['pa2_preview_image_types']['no_preview_image'] = array('No preview image', 'No preview image');
+$GLOBALS['TL_LANG']['pa2_preview_image_types']['random_preview_image'] = array('Random preview image', 'Random preview image');
+$GLOBALS['TL_LANG']['pa2_preview_image_types']['select_preview_image'] = array('Select preview image', 'Select preview image');
 
 
 /**
- * Pic preview types
+ * Image preview types
  */
-$GLOBALS['TL_LANG']['pa2_preview_pic_module_types']['use_album_options'] = array('Settings of album take over', 'Settings of album take over');
-$GLOBALS['TL_LANG']['pa2_preview_pic_module_types']['no_preview_pics'] = array('No preview photos', 'No preview photos');
-$GLOBALS['TL_LANG']['pa2_preview_pic_module_types']['random_pics'] = array('Random preview photos', 'Random preview photos');
-$GLOBALS['TL_LANG']['pa2_preview_pic_module_types']['random_pics_at_no_preview_pics'] = array('Random preview pictures at an undefined use preview photo', 'Random preview pictures at an undefined use preview photo');
+$GLOBALS['TL_LANG']['pa2_preview_image_module_types']['use_album_options'] = array('Settings of album take over', 'Settings of album take over');
+$GLOBALS['TL_LANG']['pa2_preview_image_module_types']['no_preview_images'] = array('No preview images', 'No preview images');
+$GLOBALS['TL_LANG']['pa2_preview_image_module_types']['random_images'] = array('Random preview images', 'Random preview images');
+$GLOBALS['TL_LANG']['pa2_preview_image_module_types']['random_images_at_no_preview_images'] = array('Random preview images at an undefined use preview image', 'Random preview images at an undefined use preview image');
 
 
 /**

@@ -89,14 +89,14 @@ class ModulePhotoalbums2 extends \Module
 		$this->groups = deserialize($this->groups);
 		$this->pa2Archives = deserialize($this->pa2Archives);
 		$this->pa2AlbumsMetaFields = deserialize($this->pa2AlbumsMetaFields);
-		$this->pa2PhotosMetaFields = deserialize($this->pa2PhotosMetaFields);
+		$this->pa2ImagesMetaFields = deserialize($this->pa2ImagesMetaFields);
 		$this->pa2TimeFilterStart = deserialize($this->pa2TimeFilterStart);
 		$this->pa2TimeFilterEnd = deserialize($this->pa2TimeFilterEnd);
 		
 		// Set true and false on checkboxes
-		$this->pa2PhotosShowHeadline = ($this->pa2PhotosShowHeadline == 1) ? true : false;
-		$this->pa2PhotosShowTitle = ($this->pa2PhotosShowTitle == 1) ? true : false;
-		$this->pa2PhotosShowTeaser = ($this->pa2PhotosShowTeaser == 1) ? true : false;
+		$this->pa2ImagesShowHeadline = ($this->pa2ImagesShowHeadline == 1) ? true : false;
+		$this->pa2ImagesShowTitle = ($this->pa2ImagesShowTitle == 1) ? true : false;
+		$this->pa2ImagesShowTeaser = ($this->pa2ImagesShowTeaser == 1) ? true : false;
 		$this->pa2AlbumsShowHeadline = ($this->pa2AlbumsShowHeadline == 1) ? true : false;
 		$this->pa2AlbumsShowTitle = ($this->pa2AlbumsShowTitle == 1) ? true : false;
 		$this->pa2AlbumsShowTeaser = ($this->pa2AlbumsShowTeaser == 1) ? true : false;
@@ -122,22 +122,22 @@ class ModulePhotoalbums2 extends \Module
 	protected function compile()
 	{
 		global $objPage;
-		$objPa2 = new \Pa2New();
 		
-		// Add photoalbums2 css file
+		// Import CSS files
+		$objPa2 = new \Pa2New();
 		$objPa2->addCssFile();
 		
-		// Show photos
+		// Show images
 		if($this->Input->get('album') && (($this->pa2DetailPage == '') || ($this->pa2DetailPage != '' && ($this->pa2DetailPage == $objPage->id || ($objPage->languageMain != '' && $objPage->languageMain == $this->pa2DetailPage)))))
 		{
-			$this->preparePhotos();
+			$this->prepareImages();
 		}
 		// Show albums
 		else if(!$this->Input->get('album') && ($this->pa2DetailPage == '' || ($this->pa2DetailPage != '' && $this->pa2DetailPage != $objPage->id)))
 		{
 			$this->prepareAlbums();
 		}
-		// Go to detail page (photos)
+		// Go to detail page (images)
 		else if($this->Input->get('album'))
 		{
 			$this->goToDetailPage();
@@ -151,15 +151,15 @@ class ModulePhotoalbums2 extends \Module
 	
 	
 	/**
-	 * preparePhotos function.
+	 * prepareImages function.
 	 * 
 	 * @access protected
 	 * @return void
 	 */
-	protected function preparePhotos()
+	protected function prepareImages()
 	{
-		$objPhotoViewParser = new \Pa2PhotoViewParser($this->Template);
-		$this->Template = $objPhotoViewParser->getViewParserTemplate();
+		$objImageViewParser = new \Pa2ImageViewParser($this->Template);
+		$this->Template = $objImageViewParser->getViewParserTemplate();
 	}
 	
 	

@@ -39,7 +39,7 @@ $GLOBALS['TL_LANG']['CTE']['photoalbums2']  = array('Fotoalbum', 'Erzeugt ein Fo
  * Miscellaneous
  */
 $GLOBALS['TL_LANG']['MSC']['albumsEmpty'] = 'Es sind keine Fotoalben vorhanden!';
-$GLOBALS['TL_LANG']['MSC']['photosEmpty'] = 'Das Fotoalbum konnte nicht gefunden werden!';
+$GLOBALS['TL_LANG']['MSC']['imagesEmpty'] = 'Das Fotoalbum konnte nicht gefunden werden!';
 
 
 /**
@@ -56,20 +56,20 @@ $GLOBALS['TL_LANG']['pa2_sort_types']['custom'] = array('Eigene Sortierung', 'Ei
 
 
 /**
- * Pic preview types
+ * Image preview types
  */
-$GLOBALS['TL_LANG']['pa2_preview_pic_types']['no_preview_pic'] = array('Kein Vorschau Foto', 'Kein Vorschau Foto');
-$GLOBALS['TL_LANG']['pa2_preview_pic_types']['random_preview_pic'] = array('Zufälliges Vorschau Foto', 'Zufälliges Vorschau Foto');
-$GLOBALS['TL_LANG']['pa2_preview_pic_types']['select_preview_pic'] = array('Vorschau Foto auswählen', 'Vorschau Foto auswählen');
+$GLOBALS['TL_LANG']['pa2_preview_image_types']['no_preview_image'] = array('Kein Vorschau Foto', 'Kein Vorschau Foto');
+$GLOBALS['TL_LANG']['pa2_preview_image_types']['random_preview_image'] = array('Zufälliges Vorschau Foto', 'Zufälliges Vorschau Foto');
+$GLOBALS['TL_LANG']['pa2_preview_image_types']['select_preview_image'] = array('Vorschau Foto auswählen', 'Vorschau Foto auswählen');
 
 
 /**
- * Pic preview types
+ * Image preview types
  */
-$GLOBALS['TL_LANG']['pa2_preview_pic_module_types']['use_album_options'] = array('Einstellungen von Album übernehmen', 'Einstellungen von Album übernehmen');
-$GLOBALS['TL_LANG']['pa2_preview_pic_module_types']['no_preview_pics'] = array('Keine Vorschau Fotos anzeigen', 'Keine Vorschau Fotos anzeigen');
-$GLOBALS['TL_LANG']['pa2_preview_pic_module_types']['random_pics'] = array('Zufällige Vorschau Fotos anzeigen', 'Zufällige Vorschau Fotos anzeigen');
-$GLOBALS['TL_LANG']['pa2_preview_pic_module_types']['random_pics_at_no_preview_pics'] = array('Zufällige Vorschau Fotos bei nicht definiertem Vorschau Foto verwenden', 'Zufällige Vorschau Fotos bei nicht definiertem Vorschau Foto verwenden');
+$GLOBALS['TL_LANG']['pa2_preview_image_module_types']['use_album_options'] = array('Einstellungen von Album übernehmen', 'Einstellungen von Album übernehmen');
+$GLOBALS['TL_LANG']['pa2_preview_image_module_types']['no_preview_images'] = array('Keine Vorschau Fotos anzeigen', 'Keine Vorschau Fotos anzeigen');
+$GLOBALS['TL_LANG']['pa2_preview_image_module_types']['random_images'] = array('Zufällige Vorschau Fotos anzeigen', 'Zufällige Vorschau Fotos anzeigen');
+$GLOBALS['TL_LANG']['pa2_preview_image_module_types']['random_images_at_no_preview_images'] = array('Zufällige Vorschau Fotos bei nicht definiertem Vorschau Foto verwenden', 'Zufällige Vorschau Fotos bei nicht definiertem Vorschau Foto verwenden');
 
 
 /**

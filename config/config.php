@@ -60,8 +60,8 @@ $GLOBALS['TL_CRON']['daily'][] = array('Pa2', 'generateFeeds');
 /**
  * Add permissions
  */
-$GLOBALS['TL_PERMISSIONS'][] = 'photoalbums';
-$GLOBALS['TL_PERMISSIONS'][] = 'photoalbump';
+$GLOBALS['TL_PERMISSIONS'][] = 'photoalbums2s';
+$GLOBALS['TL_PERMISSIONS'][] = 'photoalbums2p';
 
 
 /**
@@ -81,25 +81,25 @@ $GLOBALS['Pa2']['pa2_sort_types'] = array
 
 
 /**
- * Preview pic types
+ * Preview image types
  */
-$GLOBALS['Pa2']['pa2_preview_pic_types'] = array
+$GLOBALS['Pa2']['pa2_preview_image_types'] = array
 (
-	'no_preview_pic' => 'no_preview_pic',
-	'random_preview_pic' => 'random_preview_pic',
-	'select_preview_pic' => 'select_preview_pic'
+	'no_preview_image' => 'no_preview_image',
+	'random_preview_image' => 'random_preview_image',
+	'select_preview_image' => 'select_preview_image'
 );
 
 
 /**
- * Preview pic module types
+ * Preview image module types
  */
-$GLOBALS['Pa2']['pa2_preview_pic_module_types'] = array
+$GLOBALS['Pa2']['pa2_preview_image_module_types'] = array
 (
 	'use_album_options' => 'use_album_options',
-	'no_preview_pics' => 'no_preview_pics',
-	'random_pics' => 'random_pics',
-	'random_pics_at_no_preview_pics' => 'random_pics_at_no_preview_pics'
+	'no_preview_images' => 'no_preview_images',
+	'random_images' => 'random_images',
+	'random_images_at_no_preview_images' => 'random_images_at_no_preview_images'
 );
 
 

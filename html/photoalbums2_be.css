@@ -1,14 +1,4 @@
-.mod_photoalbums2,
-.ce_photoalbums2{line-height: 0px !important;}
-.mod_photoalbums2 .albumswrap .album,
-.mod_photoalbums2 .photoswrap .photo,
-.ce_photoalbums2 .albumswrap .album,
-.ce_photoalbums2 .photoswrap .photo{width: auto !important;}
-.mod_photoalbums2 .albumswrap,
-.mod_photoalbums2 .photoswrap,
-.ce_photoalbums2 .albumswrap,
-.ce_photoalbums2 .photoswrap{float: left !important; clear: none !important; width: auto !important;}
-.mod_photoalbums2 .albumswrap .album .albumInside,
-.mod_photoalbums2 .photoswrap .photo .photoInside,
-.ce_photoalbums2 .albumswrap .album .albumInside,
-.ce_photoalbums2 .photoswrap .photo .photoInside{margin: 0px !important;}
+.pa2_image{line-height: 0px !important;}
+.pa2_image .imagewrap{float: left !important; clear: none !important; width: auto !important;}
+.pa2_image .imagewrap .image{width: auto !important;}
+.pa2_image .imagewrap .image .imageInside{margin: 0px !important;}

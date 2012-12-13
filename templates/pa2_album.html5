@@ -26,9 +26,9 @@
 </div>
 <?php if($this->albumLightbox): ?>
 
-<div class="hide albumLightboxPictures">
-<?php foreach($this->albumLightboxPictures as $lightboxPicture): ?>
-<?php echo $lightboxPicture; ?>
+<div class="hide albumLightboxImages">
+<?php foreach($this->albumLightboxImages as $lightboxImage): ?>
+<?php echo $lightboxImage; ?>
 <?php endforeach; ?>
 </div>
 <?php endif; ?>

@@ -38,7 +38,7 @@ class ContentPhotoalbums2 extends \ContentElement
 	 * Subtemplate
 	 * @var string
 	 */
-	protected $strSubtemplate = 'pa2_photo';
+	protected $strSubtemplate = 'pa2_image';
 	
 	
 	/**
@@ -51,14 +51,14 @@ class ContentPhotoalbums2 extends \ContentElement
 	{
 		// Deserialize vars
 		$this->groups = deserialize($this->groups);
-		$this->pa2PhotosMetaFields = deserialize($this->pa2PhotosMetaFields);
+		$this->pa2ImagesMetaFields = deserialize($this->pa2ImagesMetaFields);
 		$this->pa2TimeFilterStart = deserialize($this->pa2TimeFilterStart);
 		$this->pa2TimeFilterEnd = deserialize($this->pa2TimeFilterEnd);
 		
 		// Set true and false on checkboxes
-		$this->pa2PhotosShowHeadline = ($this->pa2PhotosShowHeadline == 1) ? true : false;
-		$this->pa2PhotosShowTitle = ($this->pa2PhotosShowTitle == 1) ? true : false;
-		$this->pa2PhotosShowTeaser = ($this->pa2PhotosShowTeaser == 1) ? true : false;
+		$this->pa2ImagesShowHeadline = ($this->pa2ImagesShowHeadline == 1) ? true : false;
+		$this->pa2ImagesShowTitle = ($this->pa2ImagesShowTitle == 1) ? true : false;
+		$this->pa2ImagesShowTeaser = ($this->pa2ImagesShowTeaser == 1) ? true : false;
 		
 		return parent::generate();
 	}
@@ -69,7 +69,12 @@ class ContentPhotoalbums2 extends \ContentElement
 	 */
 	protected function compile()
 	{
-		$objPhotoViewParser = new \Pa2PhotoViewParser($this->Template, $this->pa2Album);
-		$this->Template = $objPhotoViewParser->getViewParserTemplate();
+		// Import CSS files
+		$objPa2 = new \Pa2New();
+		$objPa2->addCssFile();
+		
+		// Import view parser
+		$objImageViewParser = new \Pa2ImageViewParser($this->Template, $this->pa2Album);
+		$this->Template = $objImageViewParser->getViewParserTemplate();
 	}
 }

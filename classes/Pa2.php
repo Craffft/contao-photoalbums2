@@ -124,13 +124,13 @@ class Pa2 extends \Frontend
 		// Parse items
 		while ($objArticle->next())
 		{
-			// Deserialize picture arrays
-			$objArticle->pictures = deserialize($objArticle->pictures);
-			$objArticle->pic_sort = deserialize($objArticle->pic_sort);
+			// Deserialize image arrays
+			$objArticle->images = deserialize($objArticle->images);
+			$objArticle->image_sort = deserialize($objArticle->image_sort);
 			
-			// Sort photos
-			$objPa2PicSorter = new \Pa2PicSorter($objArticle->pic_sort_check, $objArticle->pictures, $objArticle->pic_sort);
-			$this->arrPhotos = $objPa2PicSorter->getSortedIds();
+			// Sort images
+			$objPa2ImageSorter = new \Pa2ImageSorter($objArticle->image_sort_check, $objArticle->images, $objArticle->image_sort);
+			$this->arrImages = $objPa2ImageSorter->getSortedIds();
 			
 			$objItem = new \FeedItem();
 			
@@ -139,13 +139,13 @@ class Pa2 extends \Frontend
 			$objItem->published = $objArticle->startdate;
 			$objItem->author = $objArticle->authorName;
 			
-			if(is_array($objArticle->arrPhotos) && count($objArticle->arrPhotos) > 0)
+			if(is_array($objArticle->arrImages) && count($objArticle->arrImages) > 0)
 			{
-				foreach($objArticle->arrPhotos as $photo)
+				foreach($objArticle->arrImages as $image)
 				{
-					if (is_file(TL_ROOT . '/' . $photo))
+					if (is_file(TL_ROOT . '/' . $image))
 					{
-						$objItem->addEnclosure($photo);
+						$objItem->addEnclosure($image);
 					}
 				}
 			}

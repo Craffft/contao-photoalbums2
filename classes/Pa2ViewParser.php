@@ -239,7 +239,7 @@ abstract class Pa2ViewParser extends \Frontend
 		    $objTemplate->rowEnd = true;
 		}
 		
-		// Set even and odd in photos
+		// Set even and odd in images
 		$objTemplate->class .= ' ' . ((($i % 2) == 0) ? 'even' : 'odd');
 		
 		// Set even and odd in rows
@@ -354,14 +354,14 @@ abstract class Pa2ViewParser extends \Frontend
 		$page = (is_numeric($page)) ? $page : 1;
 		$page = ($maxPage > $page) ? $page : $maxPage;
 		
-		// Set picNum var
+		// Set imageNum var
 		if($type == 'overview')
 		{
-			$picNum = $i+1+(($page-1)*$intItemsPerPage);
+			$imageNum = $i+1+(($page-1)*$intItemsPerPage);
 		}
 		else if($type == 'detail')
 		{
-			$picNum = $i+1;
+			$imageNum = $i+1;
 		}
 		else
 		{
@@ -377,21 +377,21 @@ abstract class Pa2ViewParser extends \Frontend
 		$lastPageNum = ($totalItems > $lastPageNum) ? $lastPageNum : $totalItems;
 		
 		// Set firstOfAll class
-		if($picNum == '1')
+		if($imageNum == '1')
 		{
 			$objTemplate->class .= ($objTemplate->class == '') ? 'firstOfAll' : ' firstOfAll';
 		}
 		
 		// Set lastOfAll class
-		if($picNum == $totalItems)
+		if($imageNum == $totalItems)
 		{
 			$objTemplate->class .= ($objTemplate->class == '') ? 'lastOfAll' : ' lastOfAll';
 		}
 		
-		$objTemplate->class .= ($objTemplate->class == '') ? 'picnum_' . $picNum : ' picnum_' . $picNum;
+		$objTemplate->class .= ($objTemplate->class == '') ? 'imagenum_' . $imageNum : ' imagenum_' . $imageNum;
 		
 		// Set vars in template
-		$objTemplate->picNum = $picNum;
+		$objTemplate->imageNum = $imageNum;
 		$objTemplate->firstPageNum = $firstPageNum;
 		$objTemplate->lastPageNum = $lastPageNum;
 		

@@ -19,9 +19,9 @@ $GLOBALS['TL_DCA']['tl_content']['config']['onsubmit_callback'][] = array('Pa2Ba
 $GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'pa2TimeFilter';
 $GLOBALS['TL_DCA']['tl_content']['palettes']['photoalbums2']			 = '{type_legend},type,headline;
 																			{config_legend},pa2Album;
-																			{pa2Template_legend},pa2PhotosTemplate,pa2NumberOfPhotos,pa2PhotosPerPage,pa2PhotosShowHeadline,pa2PhotosShowTitle,pa2PhotosShowTeaser;
-																			{pa2Image_legend},pa2PhotosPerRow,pa2PhotosImageSize,pa2PhotosImageMargin;
-																			{pa2Meta_legend:hide},pa2PhotosMetaFields;
+																			{pa2Template_legend},pa2ImagesTemplate,pa2NumberOfImages,pa2ImagesPerPage,pa2ImagesShowHeadline,pa2ImagesShowTitle,pa2ImagesShowTeaser;
+																			{pa2Image_legend},pa2ImagesPerRow,pa2ImagesImageSize,pa2ImagesImageMargin;
+																			{pa2Meta_legend:hide},pa2ImagesMetaFields;
 																			{pa2TimeFilter_legend:hide},pa2TimeFilter;
 																			{pa2Other_legend:hide},pa2Teaser;
 																			{protected_legend:hide},protected;
@@ -43,23 +43,23 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2Album'] = array
 	'sql'                     => "int(10) unsigned NOT NULL default '0'"
 );
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosTemplate'] = array
+$GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesTemplate'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2PhotosTemplate'],
+    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesTemplate'],
     'exclude'                 => true,
     'filter'                  => true,
     'search'                  => true,
     'sorting'                 => true,
     'flag'                    => 11,
     'inputType'               => 'select',
-    'options_callback'        => array('tl_content_photoalbums2', 'getPhotosTemplates'),
+    'options_callback'        => array('tl_content_photoalbums2', 'getImagesTemplates'),
     'eval'                    => array('tl_class'=>'long', 'chosen'=>true),
 	'sql'                     => "varchar(64) NOT NULL default ''"
 );
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['pa2NumberOfPhotos'] = array
+$GLOBALS['TL_DCA']['tl_content']['fields']['pa2NumberOfImages'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2NumberOfPhotos'],
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2NumberOfImages'],
 	'default'                 => 0,
 	'exclude'                 => true,
 	'inputType'               => 'text',
@@ -67,9 +67,9 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2NumberOfPhotos'] = array
 	'sql'                     => "smallint(5) unsigned NOT NULL default '0'"
 );
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosPerPage'] = array
+$GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesPerPage'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2PhotosPerPage'],
+    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesPerPage'],
     'default'                 => 24,
     'exclude'                 => true,
     'inputType'               => 'text',
@@ -77,9 +77,9 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosPerPage'] = array
 	'sql'                     => "smallint(5) unsigned NOT NULL default '24'"
 );
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosPerRow'] = array
+$GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesPerRow'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2PhotosPerRow'],
+    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesPerRow'],
     'exclude'                 => true,
     'inputType'               => 'select',
     'default'                 => 2,
@@ -88,9 +88,9 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosPerRow'] = array
 	'sql'                     => "smallint(5) unsigned NOT NULL default '2'"
 );
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosShowHeadline'] = array
+$GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesShowHeadline'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2PhotosShowHeadline'],
+    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesShowHeadline'],
     'exclude'                 => true,
     'inputType'               => 'checkbox',
 	'default'                 => 1,
@@ -98,9 +98,9 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosShowHeadline'] = array
 	'sql'                     => "char(1) NOT NULL default ''"
 );
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosShowTitle'] = array
+$GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesShowTitle'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2PhotosShowTitle'],
+    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesShowTitle'],
     'exclude'                 => true,
     'inputType'               => 'checkbox',
 	'default'                 => 1,
@@ -108,9 +108,9 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosShowTitle'] = array
 	'sql'                     => "char(1) NOT NULL default ''"
 );
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosShowTeaser'] = array
+$GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesShowTeaser'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2PhotosShowTeaser'],
+    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesShowTeaser'],
     'exclude'                 => true,
     'inputType'               => 'checkbox',
 	'default'                 => 1,
@@ -118,9 +118,9 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosShowTeaser'] = array
 	'sql'                     => "char(1) NOT NULL default ''"
 );
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosImageSize'] = array
+$GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesImageSize'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2PhotosImageSize'],
+    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesImageSize'],
     'exclude'                 => true,
     'inputType'               => 'imageSize',
     'options'                 => array('crop', 'proportional', 'box'),
@@ -129,9 +129,9 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosImageSize'] = array
 	'sql'                     => "varchar(64) NOT NULL default ''"
 );
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosImageMargin'] = array
+$GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesImageMargin'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2PhotosImageMargin'],
+    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesImageMargin'],
     'exclude'                 => true,
     'inputType'               => 'trbl',
     'options'                 => array('px', '%', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
@@ -139,9 +139,9 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosImageMargin'] = array
 	'sql'                     => "varchar(128) NOT NULL default ''"
 );
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['pa2PhotosMetaFields'] = array
+$GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesMetaFields'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2PhotosMetaFields'],
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesMetaFields'],
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
 	'options'                 => $GLOBALS['Pa2']['metaFields'],
@@ -249,7 +249,7 @@ class tl_content_photoalbums2 extends Backend
 	 * @param DataContainer
 	 * @return array
 	 */
-	public function getPhotosTemplates(DataContainer $dc)
+	public function getImagesTemplates(DataContainer $dc)
 	{
 		$intPid = $dc->activeRecord->pid;
 
@@ -258,7 +258,7 @@ class tl_content_photoalbums2 extends Backend
 			$intPid = $this->Input->get('id');
 		}
 
-		return $this->getTemplateGroup('pa2_photo', $intPid);
+		return $this->getTemplateGroup('pa2_image', $intPid);
 	}
 
 

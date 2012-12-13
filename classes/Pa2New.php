@@ -36,7 +36,7 @@ class Pa2New extends \Controller
 	{
 		global $objPage;
 		
-		// Get layout skipPhotoalbums2 to disable photoalbums css file
+		// Get layout skipPhotoalbums2 to disable photoalbums2 css file
 		$objLayout = \LayoutModel::findByPk($objPage->layout);
 		
 		// Add css

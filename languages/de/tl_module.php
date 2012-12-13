@@ -34,31 +34,31 @@
  */
 $GLOBALS['TL_LANG']['tl_module']['pa2Mode'] = array('Ansichtsmodus wählen', 'Hier können Sie den Ansichtsmodus des Moduls auswählen.');
 $GLOBALS['TL_LANG']['tl_module']['pa2DetailPage'] = array('Foto-Ansicht auf einer anderen Seite anzeigen', 'Im Normalfall wird die Alben-Ansicht und die Foto-Ansicht auf der gleichen Seite dargestellt. Manchmal ist es jedoch nötig diese Beiden Seitenansichten auf zwei verschiedenen Seiten darzustellen. Damit Sie dies tun können, wählen Sie hier einfach die Seite aus, auf der die Foto-Ansicht dargestellt werden soll. Danach fügen Sie dieses Modul einmal auf der ausgewählten Seite und einmal auf einer anderen Seite ein. Auf der anderen Seite ist dann die Alben-Ansicht zu sehen.<br>Kleiner Tipp: Es empfiehlt sich den "auto_item-Parameter" zu verwenden.');
-$GLOBALS['TL_LANG']['tl_module']['pa2PreviewPic'] = array('Vorschau Foto', 'Hier können Sie die Ausgabe des Vorschau Fotos definieren.');
+$GLOBALS['TL_LANG']['tl_module']['pa2PreviewImage'] = array('Vorschau Foto', 'Hier können Sie die Ausgabe des Vorschau Fotos definieren.');
 $GLOBALS['TL_LANG']['tl_module']['pa2Archives'] = array('Fotoalben-Archive', 'Bitte wählen Sie ein oder mehrere Fotoalben-Archive.');
 
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsTemplate'] = array('Alben Template', 'Wählen Sie hier das Template für die Alben aus.');
-$GLOBALS['TL_LANG']['tl_module']['pa2PhotosTemplate'] = array('Fotos Template', 'Wählen Sie hier das Template für die Fotos aus.');
+$GLOBALS['TL_LANG']['tl_module']['pa2ImagesTemplate'] = array('Fotos Template', 'Wählen Sie hier das Template für die Fotos aus.');
 $GLOBALS['TL_LANG']['tl_module']['pa2NumberOfAlbums'] = array('Gesamtzahl der Alben', 'Hier können Sie die Gesamtzahl der Alben festlegen. Geben Sie 0 ein, um alle anzuzeigen.');
-$GLOBALS['TL_LANG']['tl_module']['pa2NumberOfPhotos'] = array('Gesamtzahl der Fotos', 'Hier können Sie die Gesamtzahl der Fotos festlegen. Geben Sie 0 ein, um alle anzuzeigen.');
+$GLOBALS['TL_LANG']['tl_module']['pa2NumberOfImages'] = array('Gesamtzahl der Fotos', 'Hier können Sie die Gesamtzahl der Fotos festlegen. Geben Sie 0 ein, um alle anzuzeigen.');
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsPerPage'] = array('Alben pro Seite', 'Die Anzahl an Alben pro Seite. Geben Sie 0 ein, um den automatischen Seitenumbruch zu deaktivieren.');
-$GLOBALS['TL_LANG']['tl_module']['pa2PhotosPerPage'] = array('Fotos pro Seite', 'Die Anzahl an Fotos pro Seite. Geben Sie 0 ein, um den automatischen Seitenumbruch zu deaktivieren.');
+$GLOBALS['TL_LANG']['tl_module']['pa2ImagesPerPage'] = array('Fotos pro Seite', 'Die Anzahl an Fotos pro Seite. Geben Sie 0 ein, um den automatischen Seitenumbruch zu deaktivieren.');
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowHeadline'] = array('Modul Überschrift in Alben-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um die Modul Überschrift in der Alben-Ansicht anzuzeigen.');
-$GLOBALS['TL_LANG']['tl_module']['pa2PhotosShowHeadline'] = array('Modul Überschrift in Foto-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um die Modul Überschrift in der Foto-Ansicht anzuzeigen.');
+$GLOBALS['TL_LANG']['tl_module']['pa2ImagesShowHeadline'] = array('Modul Überschrift in Foto-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um die Modul Überschrift in der Foto-Ansicht anzuzeigen.');
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowTitle'] = array('Alben Titel in Alben-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um den Titel der Alben in der Alben-Ansicht anzuzeigen.');
-$GLOBALS['TL_LANG']['tl_module']['pa2PhotosShowTitle'] = array('Alben Titel in Foto-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um den Titel des Albums in der Foto-Ansicht anzuzeigen.');
+$GLOBALS['TL_LANG']['tl_module']['pa2ImagesShowTitle'] = array('Alben Titel in Foto-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um den Titel des Albums in der Foto-Ansicht anzuzeigen.');
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowTeaser'] = array('Teaser in Alben-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um den Teaser in der Alben-Ansicht anzuzeigen.');
-$GLOBALS['TL_LANG']['tl_module']['pa2PhotosShowTeaser'] = array('Teaser in Foto-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um den Teaser in der Foto-Ansicht anzuzeigen.');
+$GLOBALS['TL_LANG']['tl_module']['pa2ImagesShowTeaser'] = array('Teaser in Foto-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um den Teaser in der Foto-Ansicht anzuzeigen.');
 
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsImageSize'] = array('Alben-Ansicht Bildbreite und Bildhöhe', 'Hier können Sie die Abmessungen des Bildes und den Skalierungsmodus festlegen.');
-$GLOBALS['TL_LANG']['tl_module']['pa2PhotosImageSize'] = array('Foto-Ansicht Bildbreite und Bildhöhe', 'Hier können Sie die Abmessungen des Bildes und den Skalierungsmodus festlegen.');
+$GLOBALS['TL_LANG']['tl_module']['pa2ImagesImageSize'] = array('Foto-Ansicht Bildbreite und Bildhöhe', 'Hier können Sie die Abmessungen des Bildes und den Skalierungsmodus festlegen.');
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsImageMargin'] = array('Alben-Ansicht Bildabstand', 'Hier können Sie den oberen, rechten, unteren und linken Bildabstand eingeben.');
-$GLOBALS['TL_LANG']['tl_module']['pa2PhotosImageMargin'] = array('Foto-Ansicht Bildabstand', 'Hier können Sie den oberen, rechten, unteren und linken Bildabstand eingeben.');
+$GLOBALS['TL_LANG']['tl_module']['pa2ImagesImageMargin'] = array('Foto-Ansicht Bildabstand', 'Hier können Sie den oberen, rechten, unteren und linken Bildabstand eingeben.');
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsPerRow'] = array('Alben pro Zeile', 'Bitte legen Sie fest, wie viele Alben pro Zeile angezeigt werden sollen.');
-$GLOBALS['TL_LANG']['tl_module']['pa2PhotosPerRow'] = array('Fotos pro Zeile', 'Bitte legen Sie fest, wie viele Fotos pro Zeile angezeigt werden sollen.');
+$GLOBALS['TL_LANG']['tl_module']['pa2ImagesPerRow'] = array('Fotos pro Zeile', 'Bitte legen Sie fest, wie viele Fotos pro Zeile angezeigt werden sollen.');
 
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsMetaFields'] = array('Alben-Ansicht Meta Felder', 'Bitte wählen Sie die Meta Felder aus, die in der Alben-Ansicht ausgegeben werden sollen.');
-$GLOBALS['TL_LANG']['tl_module']['pa2PhotosMetaFields'] = array('Foto-Ansicht Meta Felder', 'Bitte wählen Sie die Meta Felder aus, die in der Foto-Ansicht ausgegeben werden sollen.');
+$GLOBALS['TL_LANG']['tl_module']['pa2ImagesMetaFields'] = array('Foto-Ansicht Meta Felder', 'Bitte wählen Sie die Meta Felder aus, die in der Foto-Ansicht ausgegeben werden sollen.');
 
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter'] = array('Zeitfilter', 'Hier haben Sie die Möglichkeit, die Fotoalben über einen vergangenen Zeitraum zu filtern.');
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilterStart'] = array('Zeitraum von vor', 'Tragen Sie hier den Startwert des zu filternden Zeitraumes ein. Sollten Sie beispielsweise 10 Tage eintragen, so werden die Alben der vergangenen 10 Tage im Frontend angezeigt. Um von heute aus zu starten, tragen Sie die Zahl "0" ein.');

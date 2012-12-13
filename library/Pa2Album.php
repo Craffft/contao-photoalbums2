@@ -159,17 +159,17 @@ class Pa2Album extends \Pa2Lib
 			{
 				while($objAlbum->next())
 				{
-					// Get preview pic as Pa2Picture object
-					$objPicture = new \Pa2Picture($objAlbum->preview_pic);
-					$objAlbum->objPreviewPic = $objPicture->getPicture();
+					// Get preview image as Pa2Image object
+					$objImage = new \Pa2Image($objAlbum->preview_image);
+					$objAlbum->objPreviewImage = $objImage->getPa2Image();
 					
 					// Deserialize arrays
-					$objAlbum->pictures = deserialize($objAlbum->pictures);
-					$objAlbum->pic_sort = deserialize($objAlbum->pic_sort);
+					$objAlbum->images = deserialize($objAlbum->images);
+					$objAlbum->image_sort = deserialize($objAlbum->image_sort);
 					
-					// Set sortedPicIds
-					$objPa2PicSorter = new \Pa2PicSorter($objAlbum->pic_sort_check, $objAlbum->pictures, $objAlbum->pic_sort);
-					$objAlbum->arrSortedPicIds = $objPa2PicSorter->getSortedIds();
+					// Set sortedImageIds
+					$objPa2ImageSorter = new \Pa2ImageSorter($objAlbum->image_sort_check, $objAlbum->images, $objAlbum->image_sort);
+					$objAlbum->arrSortedImageIds = $objPa2ImageSorter->getSortedIds();
 				}
 				
 				$objAlbum->reset();

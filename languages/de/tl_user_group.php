@@ -32,8 +32,8 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_user_group']['photoalbums'] = array('Erlaubte Archive', 'Hier können Sie den Zugriff auf ein oder mehrere Fotoalben-Archive erlauben.');
-$GLOBALS['TL_LANG']['tl_user_group']['photoalbump'] = array('Archivrechte', 'Hier können Sie die Archivrechte festlegen.');
+$GLOBALS['TL_LANG']['tl_user_group']['photoalbums2s'] = array('Erlaubte Archive', 'Hier können Sie den Zugriff auf ein oder mehrere Fotoalben-Archive erlauben.');
+$GLOBALS['TL_LANG']['tl_user_group']['photoalbums2p'] = array('Archivrechte', 'Hier können Sie die Archivrechte festlegen.');
 
 
 /**

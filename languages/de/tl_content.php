@@ -34,18 +34,18 @@
  */
 $GLOBALS['TL_LANG']['tl_content']['pa2Album'] = array('Fotoalbum wählen', 'Bitte wählen Sie Ihr gewünschtes Fotoalbum aus.');
 
-$GLOBALS['TL_LANG']['tl_content']['pa2PhotosTemplate'] = array('Fotos Template', 'Wählen Sie hier das Template für die Fotos aus.');
-$GLOBALS['TL_LANG']['tl_content']['pa2NumberOfPhotos'] = array('Gesamtzahl der Fotos', 'Hier können Sie die Gesamtzahl der Fotos festlegen. Geben Sie 0 ein, um alle anzuzeigen.');
-$GLOBALS['TL_LANG']['tl_content']['pa2PhotosPerPage'] = array('Fotos pro Seite', 'Die Anzahl an Fotos pro Seite. Geben Sie 0 ein, um den automatischen Seitenumbruch zu deaktivieren.');
-$GLOBALS['TL_LANG']['tl_content']['pa2PhotosShowHeadline'] = array('Modul Überschrift in Foto-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um die Modul Überschrift in der Foto-Ansicht anzuzeigen.');
-$GLOBALS['TL_LANG']['tl_content']['pa2PhotosShowTitle'] = array('Alben Titel in Foto-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um den Titel des Albums in der Foto-Ansicht anzuzeigen.');
-$GLOBALS['TL_LANG']['tl_content']['pa2PhotosShowTeaser'] = array('Teaser in Foto-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um den Teaser in der Foto-Ansicht anzuzeigen.');
+$GLOBALS['TL_LANG']['tl_content']['pa2ImagesTemplate'] = array('Fotos Template', 'Wählen Sie hier das Template für die Fotos aus.');
+$GLOBALS['TL_LANG']['tl_content']['pa2NumberOfImages'] = array('Gesamtzahl der Fotos', 'Hier können Sie die Gesamtzahl der Fotos festlegen. Geben Sie 0 ein, um alle anzuzeigen.');
+$GLOBALS['TL_LANG']['tl_content']['pa2ImagesPerPage'] = array('Fotos pro Seite', 'Die Anzahl an Fotos pro Seite. Geben Sie 0 ein, um den automatischen Seitenumbruch zu deaktivieren.');
+$GLOBALS['TL_LANG']['tl_content']['pa2ImagesShowHeadline'] = array('Modul Überschrift in Foto-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um die Modul Überschrift in der Foto-Ansicht anzuzeigen.');
+$GLOBALS['TL_LANG']['tl_content']['pa2ImagesShowTitle'] = array('Alben Titel in Foto-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um den Titel des Albums in der Foto-Ansicht anzuzeigen.');
+$GLOBALS['TL_LANG']['tl_content']['pa2ImagesShowTeaser'] = array('Teaser in Foto-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um den Teaser in der Foto-Ansicht anzuzeigen.');
 
-$GLOBALS['TL_LANG']['tl_content']['pa2PhotosImageSize'] = array('Foto-Ansicht Bildbreite und Bildhöhe', 'Hier können Sie die Abmessungen des Bildes und den Skalierungsmodus festlegen.');
-$GLOBALS['TL_LANG']['tl_content']['pa2PhotosImageMargin'] = array('Foto-Ansicht Bildabstand', 'Hier können Sie den oberen, rechten, unteren und linken Bildabstand eingeben.');
-$GLOBALS['TL_LANG']['tl_content']['pa2PhotosPerRow'] = array('Fotos pro Zeile', 'Bitte legen Sie fest, wie viele Fotos pro Zeile angezeigt werden sollen.');
+$GLOBALS['TL_LANG']['tl_content']['pa2ImagesImageSize'] = array('Foto-Ansicht Bildbreite und Bildhöhe', 'Hier können Sie die Abmessungen des Bildes und den Skalierungsmodus festlegen.');
+$GLOBALS['TL_LANG']['tl_content']['pa2ImagesImageMargin'] = array('Foto-Ansicht Bildabstand', 'Hier können Sie den oberen, rechten, unteren und linken Bildabstand eingeben.');
+$GLOBALS['TL_LANG']['tl_content']['pa2ImagesPerRow'] = array('Fotos pro Zeile', 'Bitte legen Sie fest, wie viele Fotos pro Zeile angezeigt werden sollen.');
 
-$GLOBALS['TL_LANG']['tl_content']['pa2PhotosMetaFields'] = array('Foto-Ansicht Meta Felder', 'Bitte wählen Sie die Meta Felder aus, die in der Foto-Ansicht ausgegeben werden sollen.');
+$GLOBALS['TL_LANG']['tl_content']['pa2ImagesMetaFields'] = array('Foto-Ansicht Meta Felder', 'Bitte wählen Sie die Meta Felder aus, die in der Foto-Ansicht ausgegeben werden sollen.');
 
 $GLOBALS['TL_LANG']['tl_content']['pa2TimeFilter'] = array('Zeitfilter', 'Hier haben Sie die Möglichkeit, die Fotoalben über einen vergangenen Zeitraum zu filtern.');
 $GLOBALS['TL_LANG']['tl_content']['pa2TimeFilterStart'] = array('Zeitraum von', 'Tragen Sie hier den Startwert des zu filternden Zeitraumes ein. Sollten Sie beispielsweise 10 Tage eintragen, so werden die Alben der vergangenen 10 Tage im Frontend angezeigt. Um von heute aus zu starten, tragen Sie die Zahl "0" ein.');

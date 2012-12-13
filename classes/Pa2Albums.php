@@ -140,15 +140,15 @@ class Pa2Albums extends \Pa2
 			$objSubTemplate = $this->pa2AddSpecificClasses($objSubTemplate, $objTemplate->totalItems, $i, $this->arrVars['intItemsPerPage'], $this->type);
 			
 			// Add an image
-			if ($album['preview_pic'] !== null && is_file(TL_ROOT . '/' . $album['preview_pic']->path))
+			if ($album['preview_image'] !== null && is_file(TL_ROOT . '/' . $album['preview_image']->path))
 			{
 				$arrImage = array();
 				$arrImage['size'] = $this->arrVars['pa2ImageSize'];
 				$arrImage['imagemargin'] = $this->arrVars['pa2ImageMargin'];
-				$arrImage['singleSRC'] = $album['preview_pic']->path;
+				$arrImage['singleSRC'] = $album['preview_image']->path;
 				$arrImage['alt'] = strip_tags($album['title']);
 
-				$this->addImageToTemplate($objSubTemplate, $arrImage);
+				$this->addPa2ImageToTemplate($objSubTemplate, $arrImage);
 			}
 			
 			// Add link title to template
@@ -185,7 +185,7 @@ class Pa2Albums extends \Pa2
 				$objSubTemplate->showTitle = false;
 			}
 			
-			// If album lightbox is activated the photos will be added to the album template
+			// If album lightbox is activated the images will be added to the album template
 			$objSubTemplate = $this->albumLightbox($objSubTemplate, $album, $this->arrVars['pa2AlbumLightbox']);
 			
 			// HOOK: pa2ParseAlbum callback
@@ -225,11 +225,11 @@ class Pa2Albums extends \Pa2
 		
 		if($objTemplate->albumLightbox)
 		{
-			// Sort pictures
-			$objPa2PicSorter = new \Pa2PicSorter($album['pic_sort_check'], $album['pictures'], $album['pic_sort']);
-			$arrElements = $objPa2PicSorter->getSortedIds();
+			// Sort images
+			$objPa2ImageSorter = new \Pa2ImageSorter($album['image_sort_check'], $album['images'], $album['image_sort']);
+			$arrElements = $objPa2ImageSorter->getSortedIds();
 			
-			$albumLightboxPictures = array();
+			$albumLightboxImages = array();
 			$i = 0;
 			
 			foreach($arrElements as $element)
@@ -243,7 +243,7 @@ class Pa2Albums extends \Pa2
 				else
 				{
 					// Define image template
-					$objImageTemplate = new \FrontendTemplate('pa2_photo');
+					$objImageTemplate = new \FrontendTemplate('pa2_image');
 									
 					// Set vars
 					$objImageTemplate->albumID = $album['id'];
@@ -261,20 +261,20 @@ class Pa2Albums extends \Pa2
 						$arrImage['singleSRC'] = 'system/modules/photoalbums2/html/blank.gif';
 						$arrImage['alt'] = substr(strrchr($element, '/'), 1);
 						
-						$this->addImageToTemplate($objImageTemplate, $arrImage);
+						$this->addPa2ImageToTemplate($objImageTemplate, $arrImage);
 						
 						// Add link title to template
 						$objImageTemplate->title = substr(strrchr($element, '/'), 1);
 					}
 					
 					// Add image template to parent template
-					$albumLightboxPictures[] = $objImageTemplate->parse();
+					$albumLightboxImages[] = $objImageTemplate->parse();
 				}
 				
 				$i++;
 			}
 			
-			$objTemplate->albumLightboxPictures = $albumLightboxPictures;
+			$objTemplate->albumLightboxImages = $albumLightboxImages;
 		}
 		
 		return $objTemplate;

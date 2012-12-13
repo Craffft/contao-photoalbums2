@@ -18,13 +18,13 @@
 namespace Photoalbums2;
 
 /**
- * Class Pa2PhotoViewParser
+ * Class Pa2ImageViewParser
  *
  * @copyright  Daniel Kiesel 2012 
  * @author     Daniel Kiesel <https://github.com/icodr8> 
  * @package    photoalbums2
  */
-class Pa2PhotoViewParser extends \Pa2ViewParser
+class Pa2ImageViewParser extends \Pa2ViewParser
 {
 	/**
 	 * intAlbumId
@@ -89,20 +89,20 @@ class Pa2PhotoViewParser extends \Pa2ViewParser
 	 */
 	protected function generate()
 	{
-		$this->strEmptyText = $GLOBALS['TL_LANG']['MSC']['photosEmpty'];
+		$this->strEmptyText = $GLOBALS['TL_LANG']['MSC']['imagesEmpty'];
 		
-		$this->Template->intMaxItems      = $this->Template->pa2NumberOfPhotos;
-		$this->Template->intItemsPerPage  = $this->Template->pa2PhotosPerPage;
-		$this->Template->intItemsPerRow   = $this->Template->pa2PhotosPerRow;
-		$this->Template->strSubtemplate   = $this->Template->pa2PhotosTemplate;
+		$this->Template->intMaxItems      = $this->Template->pa2NumberOfImages;
+		$this->Template->intItemsPerPage  = $this->Template->pa2ImagesPerPage;
+		$this->Template->intItemsPerRow   = $this->Template->pa2ImagesPerRow;
+		$this->Template->strSubtemplate   = $this->Template->pa2ImagesTemplate;
 		
 		// Image params 
-		$this->Template->size             = $this->Template->pa2PhotosImageSize;
-		$this->Template->imagemargin      = $this->Template->pa2PhotosImageMargin;
+		$this->Template->size             = $this->Template->pa2ImagesImageSize;
+		$this->Template->imagemargin      = $this->Template->pa2ImagesImageMargin;
 		
-		$this->Template->showHeadline     = $this->Template->pa2PhotosShowHeadline;
-		$this->Template->showTitle  	  = $this->Template->pa2PhotosShowTitle;
-		$this->Template->showTeaser       = $this->Template->pa2PhotosShowTeaser;
+		$this->Template->showHeadline     = $this->Template->pa2ImagesShowHeadline;
+		$this->Template->showTitle  	  = $this->Template->pa2ImagesShowTitle;
+		$this->Template->showTeaser       = $this->Template->pa2ImagesShowTeaser;
 		$this->Template->teaser           = $this->cleanRteOutput($this->Template->pa2Teaser);
 		$this->Template->showHeadline     = ($this->Template->headline != '' ? $this->Template->showHeadline : false);
 		$this->Template->showTeaser       = ($this->Template->teaser != '' ? $this->Template->showTeaser : false);
@@ -122,31 +122,35 @@ class Pa2PhotoViewParser extends \Pa2ViewParser
 		// Get album id
 		$objPa2Album = new \Pa2Album($this->getAlbumIdOrAlias(), $this->Template->getData());
 		$objAlbum = $objPa2Album->getAlbums();
-		$objAlbum = $objAlbum->current();
 		
-		// If there are no album or photos, show empty template with a message
-		if(!is_object($objAlbum) || count($objAlbum->arrSortedPicIds) < 1)
+		if($objAlbum !== null)
 		{
-			$this->setEmptyTemplate();
-			return;
+			$objAlbum = $objAlbum->current();
+			
+			// If there are no album or images, show empty template with a message
+			if(!is_object($objAlbum) || count($objAlbum->arrSortedImageIds) < 1)
+			{
+				$this->setEmptyTemplate();
+				return;
+			}
+			
+			// Add comments module
+			$this->addComments($objAlbum);
+			
+			// Set arrItems and objAlbum
+			$this->arrItems = $objAlbum->arrSortedImageIds;
+			$this->objAlbum = $objAlbum;
+			
+			// Pagination
+			$objPa2Pagination = new \Pa2Pagination($this->arrItems, $this->Template->intMaxItems, $this->Template->intItemsPerPage);
+			$this->arrAllItems = $this->arrItems;
+			$this->arrItems = $objPa2Pagination->getItems();
+			$this->Template->pagination = $objPa2Pagination->getPagination();
+			$this->Template->totalItems = $objPa2Pagination->getTotalItems();
+			
+			// Call parseImages
+			$this->parseImages();
 		}
-		
-		// Add comments module
-		$this->addComments($objAlbum);
-		
-		// Set arrItems and objAlbum
-		$this->arrItems = $objAlbum->arrSortedPicIds;
-		$this->objAlbum = $objAlbum;
-		
-		// Pagination
-		$objPa2Pagination = new \Pa2Pagination($this->arrItems, $this->Template->intMaxItems, $this->Template->intItemsPerPage);
-		$this->arrAllItems = $this->arrItems;
-		$this->arrItems = $objPa2Pagination->getItems();
-		$this->Template->pagination = $objPa2Pagination->getPagination();
-		$this->Template->totalItems = $objPa2Pagination->getTotalItems();
-		
-		// Call parsePhotos
-		$this->parsePhotos();
 	}
 	
 	
@@ -170,12 +174,12 @@ class Pa2PhotoViewParser extends \Pa2ViewParser
 	
 	
 	/**
-	 * parsePhotos function.
+	 * parseImages function.
 	 * 
 	 * @access private
 	 * @return void
 	 */
-	private function parsePhotos()
+	private function parseImages()
 	{
 		if(!is_object($this->objAlbum) || !is_array($this->arrItems) || count($this->arrItems) < 1)
 		{
@@ -214,27 +218,33 @@ class Pa2PhotoViewParser extends \Pa2ViewParser
 			$objSubtemplate = new \FrontendTemplate($this->Template->strSubtemplate);
 			$objSubtemplate->setData($this->Template->getData());
 			
-			// Get new object from Pa2Picture
-			$objPa2Picture = new \Pa2Picture($v);
-			$objPicture = $objPa2Picture->getPicture();
+			// Get new object from Pa2Image
+			$objPa2Image = new \Pa2Image($v);
+			$objImage = $objPa2Image->getPa2Image();
 			
-			// Show this image not in the photoalbum
-			$objSubtemplate->title       = $objPicture->name;
-			$objSubtemplate->alt         = $objPicture->name;
+			// Show this image not in the album
+			$objSubtemplate->title       = $objImage->name;
+			$objSubtemplate->alt         = $objImage->name;
 			$objSubtemplate->show        = false;
 			$objSubtemplate->elementID   = $i;
 			$objSubtemplate->albumID     = $objAlbum->id . '_' . $strIndividualId;
-			$objSubtemplate->href        = str_replace(' ', '%20', $objPicture->path);
+			$objSubtemplate->href        = str_replace(' ', '%20', $objImage->path);
 			
 			// If show element
 			if (in_array($v, $this->arrItems))
 			{
+				// Set arrImage if is not set or no array
+				if(!is_array($objSubtemplate->arrImage))
+				{
+					$objSubtemplate->arrImage = array();
+				}
+				
 				// Call template methods
-				$objSubtemplate = $objPa2Picture->addPictureToTemplate($objSubtemplate);
+				$objSubtemplate = $objPa2Image->addPa2ImageToTemplate($objSubtemplate, $objSubtemplate->arrImage);
 				$objSubtemplate = $this->addClassesAndStyles($objSubtemplate, $total, $i);
 				$objSubtemplate = $this->addSpecificClassesToTemplate($objSubtemplate, $i, 'detail');
 				
-				// Show this image in the photoalbum
+				// Show this image in the album
 				$objSubtemplate->show = true;
 				
 				$i++;
@@ -248,8 +258,8 @@ class Pa2PhotoViewParser extends \Pa2ViewParser
 			    $arrImage['singleSRC'] = 'system/modules/photoalbums2/html/blank.gif';
 				$arrImage['alt'] = substr(strrchr($element, '/'), 1);
 				
-				// Add picture to template
-				$objSubtemplate = $objPa2Picture->addPictureToTemplate($objSubtemplate, $arrImage);
+				// Add image to template
+				$objSubtemplate = $objPa2Image->addPa2ImageToTemplate($objSubtemplate, $arrImage);
 			}
 			
 			// Parse subtemplate

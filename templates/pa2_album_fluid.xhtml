@@ -1,6 +1,6 @@
 
 <!-- indexer::stop -->
-<?php if($this->picNum == $this->firstPageNum): ?><ul><?php endif; ?>
+<?php if($this->imageNum == $this->firstPageNum): ?><ul><?php endif; ?>
 <li class="album block<?php echo $this->class; ?>">
 <div class="albumInside">
 <?php if($this->showTitle): ?>
@@ -26,12 +26,12 @@
 </div>
 <?php if($this->albumLightbox): ?>
 
-<div class="hide albumLightboxPictures">
-<?php foreach($this->albumLightboxPictures as $lightboxPicture): ?>
-<?php echo $lightboxPicture; ?>
+<div class="hide albumLightboxImages">
+<?php foreach($this->albumLightboxImages as $lightboxImage): ?>
+<?php echo $lightboxImage; ?>
 <?php endforeach; ?>
 </div>
 <?php endif; ?>
 </li>
-<?php if($this->picNum == $this->lastPageNum): ?></ul><?php endif; ?>
+<?php if($this->imageNum == $this->lastPageNum): ?></ul><?php endif; ?>
 <!-- indexer::continue -->

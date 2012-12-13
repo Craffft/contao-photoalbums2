@@ -18,7 +18,7 @@
 namespace Photoalbums2;
 
 /**
- * Class Pa2Photos 
+ * Class Pa2Images 
  *
  * @copyright  Daniel Kiesel 2012 
  * @author     Daniel Kiesel <https://github.com/icodr8> 
@@ -26,9 +26,9 @@ namespace Photoalbums2;
  * 
  * DEPRECATED
  */
-class Pa2Photos extends \Pa2
+class Pa2Images extends \Pa2
 {
-	public $type = 'photos';
+	public $type = 'images';
 	
 	
 	/**
@@ -75,17 +75,17 @@ class Pa2Photos extends \Pa2
 	
 	
 	/**
-	 * parsePhotos function.
+	 * parseImages function.
 	 * 
 	 * @access public
 	 * @param array $arrAlbum
-	 * @param array $arrPaginationPhotos
+	 * @param array $arrPaginationImages
 	 * @return array
 	 */
-	public function parsePhotos($objTemplate, $arrAlbum, $arrPaginationPhotos)
+	public function parseImages($objTemplate, $arrAlbum, $arrPaginationImages)
 	{
 		// Check
-		if(!is_array($arrAlbum) || count($arrAlbum) < 1 || !is_array($arrPaginationPhotos) || count($arrPaginationPhotos) < 1)
+		if(!is_array($arrAlbum) || count($arrAlbum) < 1 || !is_array($arrPaginationImages) || count($arrPaginationImages) < 1)
 		{
 			if(TL_MODE == 'BE')
 			{
@@ -95,17 +95,17 @@ class Pa2Photos extends \Pa2
 			return false;
 		}
 		
-		// HOOK: pa2BeforeParsingPhotos callback
-		if ($objTemplate instanceof FrontendTemplate && isset($GLOBALS['TL_HOOKS']['pa2BeforeParsingPhotos']) && is_array($GLOBALS['TL_HOOKS']['pa2BeforeParsingPhotos']))
+		// HOOK: pa2BeforeParsingImages callback
+		if ($objTemplate instanceof FrontendTemplate && isset($GLOBALS['TL_HOOKS']['pa2BeforeParsingImages']) && is_array($GLOBALS['TL_HOOKS']['pa2BeforeParsingImages']))
 		{
-			foreach ($GLOBALS['TL_HOOKS']['pa2BeforeParsingPhotos'] as $callback)
+			foreach ($GLOBALS['TL_HOOKS']['pa2BeforeParsingImages'] as $callback)
 			{
 				$this->import($callback[0]);
-				$arrReturn = $this->$callback[0]->$callback[1]($objTemplate, $arrAlbum, $arrPaginationPhotos, $this->arrVars);
+				$arrReturn = $this->$callback[0]->$callback[1]($objTemplate, $arrAlbum, $arrPaginationImages, $this->arrVars);
 				
 				$objTemplate = $arrReturn[0];
 				$arrAlbum = $arrReturn[1];
-				$arrPaginationPhotos = $arrReturn[2];
+				$arrPaginationImages = $arrReturn[2];
 				$this->arrVars = $arrReturn[3];
 			}
 		}
@@ -150,21 +150,21 @@ class Pa2Photos extends \Pa2
 		$objTemplate->photographer = $arrAlbum['photographer'];
 		$objTemplate->description = $arrAlbum['description'];
 		
-		// Get only pictures as array
-		$objPa2PicSorter = new \Pa2PicSorter($arrAlbum['pic_sort_check'], $arrAlbum['pictures'], $arrAlbum['pic_sort']);
-		$arrPictures = $objPa2PicSorter->getSortedIds();
+		// Get only images as array
+		$objPa2ImageSorter = new \Pa2ImageSorter($arrAlbum['image_sort_check'], $arrAlbum['images'], $arrAlbum['image_sort']);
+		$arrImages = $objPa2ImageSorter->getSortedIds();
 		
 		// Check arrElements
-		if(!is_array($arrPictures) || count($arrPictures) < 1)
+		if(!is_array($arrImages) || count($arrImages) < 1)
 		{
 			return false;
 		}
 		
 		// Define pagination helper vars
 		$pagiantionCount = 0;
-		$paginationTotal = count($arrPaginationPhotos);
+		$paginationTotal = count($arrPaginationImages);
 		
-		foreach($arrPictures as $i => $element)
+		foreach($arrImages as $i => $element)
 		{
 			$objFile = \FilesModel::findByPk($element);
 			
@@ -184,7 +184,7 @@ class Pa2Photos extends \Pa2
 			$arrImage = array();
 			
 			// If show element
-			if (in_array($element, $arrPaginationPhotos))
+			if (in_array($element, $arrPaginationImages))
 			{
 				// Define perRow
 				$objSubTemplate = $this->pa2PerRow($objSubTemplate, $paginationTotal, $pagiantionCount, $this->arrVars['pa2PerRow']);
@@ -225,16 +225,16 @@ class Pa2Photos extends \Pa2
 			    // Add alt tag
 			    $arrImage['alt'] = $objFile->name;
 			    
-			    $this->addImageToTemplate($objSubTemplate, $arrImage);
+			    $this->addPa2ImageToTemplate($objSubTemplate, $arrImage);
 			    
 			    // Add link title to template
 				$objSubTemplate->title = $objFile->name;
 			}
 			
-			// HOOK: pa2ParsePhoto callback
-			if ($objSubTemplate instanceof FrontendTemplate && isset($GLOBALS['TL_HOOKS']['pa2ParsePhoto']) && is_array($GLOBALS['TL_HOOKS']['pa2ParsePhoto']))
+			// HOOK: pa2ParseImage callback
+			if ($objSubTemplate instanceof FrontendTemplate && isset($GLOBALS['TL_HOOKS']['pa2ParseImage']) && is_array($GLOBALS['TL_HOOKS']['pa2ParseImage']))
 			{
-				foreach ($GLOBALS['TL_HOOKS']['pa2ParsePhoto'] as $callback)
+				foreach ($GLOBALS['TL_HOOKS']['pa2ParseImage'] as $callback)
 				{
 					$this->import($callback[0]);
 					$objSubTemplate = $this->$callback[0]->$callback[1]($objSubTemplate, $this, $i);
@@ -248,10 +248,10 @@ class Pa2Photos extends \Pa2
 		// Add items to template
 		$objTemplate->items = $arrElements;
 		
-		// HOOK: pa2ParsePhotos callback
-		if ($objTemplate instanceof FrontendTemplate && isset($GLOBALS['TL_HOOKS']['pa2ParsePhotos']) && is_array($GLOBALS['TL_HOOKS']['pa2ParsePhotos']))
+		// HOOK: pa2ParseImages callback
+		if ($objTemplate instanceof FrontendTemplate && isset($GLOBALS['TL_HOOKS']['pa2ParseImages']) && is_array($GLOBALS['TL_HOOKS']['pa2ParseImages']))
 		{
-			foreach ($GLOBALS['TL_HOOKS']['pa2ParsePhotos'] as $callback)
+			foreach ($GLOBALS['TL_HOOKS']['pa2ParseImages'] as $callback)
 			{
 				$this->import($callback[0]);
 				$objTemplate = $this->$callback[0]->$callback[1]($objTemplate, $this);

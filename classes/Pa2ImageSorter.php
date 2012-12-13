@@ -18,13 +18,13 @@
 namespace Photoalbums2;
 
 /**
- * Class Pa2PicSorter 
+ * Class Pa2ImageSorter 
  *
  * @copyright  Daniel Kiesel 2012 
  * @author     Daniel Kiesel <https://github.com/icodr8> 
  * @package    photoalbums2
  */
-class Pa2PicSorter extends \Controller
+class Pa2ImageSorter extends \Controller
 {
 	/**
 	 * __construct function.
@@ -81,9 +81,9 @@ class Pa2PicSorter extends \Controller
 			$arrIds = $this->arrCustomIds;
 		}
 		
-		$objPicSorter = new \PicSorter($arrIds);
-		$objPicSorter->sortPicsBy($strSortKey, $strSortDirection);
-		$arrIds = $objPicSorter->getPicIds();
+		$objImageSorter = new \ImageSorter($arrIds);
+		$objImageSorter->sortImagesBy($strSortKey, $strSortDirection);
+		$arrIds = $objImageSorter->getImageIds();
 		
 		return $arrIds;
 	}

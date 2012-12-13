@@ -33,10 +33,10 @@ ClassLoader::addClasses(array
 	'Photoalbums2\Pa2Empty'                 => 'system/modules/photoalbums2/classes/Pa2Empty.php',
 	'Photoalbums2\Pa2New'                   => 'system/modules/photoalbums2/classes/Pa2New.php',
 	'Photoalbums2\Pa2Pagination'            => 'system/modules/photoalbums2/classes/Pa2Pagination.php',
-	'Photoalbums2\Pa2Photos'                => 'system/modules/photoalbums2/classes/Pa2Photos.php',
-	'Photoalbums2\Pa2PhotoViewParser'       => 'system/modules/photoalbums2/classes/Pa2PhotoViewParser.php',
-	'Photoalbums2\Pa2PicSorter'             => 'system/modules/photoalbums2/classes/Pa2PicSorter.php',
-	'Photoalbums2\Pa2PreviewPic'            => 'system/modules/photoalbums2/classes/Pa2PreviewPic.php',
+	'Photoalbums2\Pa2Images'                => 'system/modules/photoalbums2/classes/Pa2Images.php',
+	'Photoalbums2\Pa2ImageViewParser'       => 'system/modules/photoalbums2/classes/Pa2ImageViewParser.php',
+	'Photoalbums2\Pa2ImageSorter'           => 'system/modules/photoalbums2/classes/Pa2ImageSorter.php',
+	'Photoalbums2\Pa2PreviewImage'          => 'system/modules/photoalbums2/classes/Pa2PreviewImage.php',
 	'Photoalbums2\Pa2TimeFilter'            => 'system/modules/photoalbums2/classes/Pa2TimeFilter.php',
 	'Photoalbums2\Pa2ViewParser'            => 'system/modules/photoalbums2/classes/Pa2ViewParser.php',
 
@@ -47,7 +47,7 @@ ClassLoader::addClasses(array
 	'Photoalbums2\Pa2Album'                 => 'system/modules/photoalbums2/library/Pa2Album.php',
 	'Photoalbums2\Pa2Archive'               => 'system/modules/photoalbums2/library/Pa2Archive.php',
 	'Photoalbums2\Pa2Lib'                   => 'system/modules/photoalbums2/library/Pa2Lib.php',
-	'Photoalbums2\Pa2Picture'               => 'system/modules/photoalbums2/library/Pa2Picture.php',
+	'Photoalbums2\Pa2Image'                 => 'system/modules/photoalbums2/library/Pa2Image.php',
 
 	// Models
 	'Photoalbums2\Photoalbums2AlbumModel'   => 'system/modules/photoalbums2/models/Photoalbums2AlbumModel.php',
@@ -68,7 +68,7 @@ TemplateLoader::addFiles(array
 	'mod_photoalbums2_empty' => 'system/modules/photoalbums2/templates',
 	'pa2_album'              => 'system/modules/photoalbums2/templates',
 	'pa2_album_fluid'        => 'system/modules/photoalbums2/templates',
-	'pa2_lightbox_photo'     => 'system/modules/photoalbums2/templates',
-	'pa2_photo'              => 'system/modules/photoalbums2/templates',
-	'pa2_photo_fluid'        => 'system/modules/photoalbums2/templates',
+	'pa2_lightbox_image'     => 'system/modules/photoalbums2/templates',
+	'pa2_image'              => 'system/modules/photoalbums2/templates',
+	'pa2_image_fluid'        => 'system/modules/photoalbums2/templates',
 ));

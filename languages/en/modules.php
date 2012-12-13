@@ -32,13 +32,13 @@
 /**
  * Back end modules
  */
-$GLOBALS['TL_LANG']['MOD']['photoalbums2'] = array('Photo album', 'With this module, photo albums can be created and issued on a front-end module on the website.');
+$GLOBALS['TL_LANG']['MOD']['photoalbums2'] = array('Image album', 'With this module, image albums can be created and issued on a front-end module on the website.');
 
 
 /**
  * Front end modules
  */
-$GLOBALS['TL_LANG']['FMD']['photoalbums2_legend'] = 'Photo album';
-$GLOBALS['TL_LANG']['FMD']['photoalbums2'] = array('Photo album', 'With this module you can display your photo albums in the frontend.');
+$GLOBALS['TL_LANG']['FMD']['photoalbums2_legend'] = 'Image album';
+$GLOBALS['TL_LANG']['FMD']['photoalbums2'] = array('Image album', 'With this module you can display your image albums in the frontend.');
 
 ?>

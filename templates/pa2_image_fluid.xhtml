@@ -1,7 +1,7 @@
 
 <?php if ($this->show): ?>
-<?php if($this->picNum == $this->firstPageNum): ?><ul><?php endif; ?>
-<li class="photo block<?php echo $this->class; ?>">
+<?php if($this->imageNum == $this->firstPageNum): ?><ul><?php endif; ?>
+<li class="image block<?php echo $this->class; ?>">
 <?php if ($this->addImage): ?>
 <div class="image_container"<?php if ($this->margin): ?> style="<?php echo $this->margin; ?>"<?php endif; ?>>
 <a href="<?php echo $this->href; ?>" title="<?php echo $this->title; ?>" rel="lightbox[pa2_<?php echo $this->albumID; ?>]">
@@ -10,7 +10,7 @@
 </div>
 <?php endif; ?>
 </li>
-<?php if($this->picNum == $this->lastPageNum): ?></ul><?php endif; ?>
+<?php if($this->imageNum == $this->lastPageNum): ?></ul><?php endif; ?>
 <?php else: ?>
 <div class="hide" style="display: none !important; position: absolute !important; top: 0px !important; left: 0px !important; width: 0px !important; height: 0px !important; overflow: hidden !important;">
 <a href="<?php echo $this->href; ?>" title="<?php echo $this->title; ?>" rel="lightbox[pa2_<?php echo $this->albumID; ?>]">

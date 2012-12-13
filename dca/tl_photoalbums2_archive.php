@@ -356,19 +356,19 @@ class tl_photoalbums2_archive extends Backend
 		}
 
 		// Set root IDs
-		if (!is_array($this->User->photoalbums) || empty($this->User->photoalbums))
+		if (!is_array($this->User->photoalbums2s) || empty($this->User->photoalbums2s))
 		{
 			$root = array(0);
 		}
 		else
 		{
-			$root = $this->User->photoalbums;
+			$root = $this->User->photoalbums2s;
 		}
 
 		$GLOBALS['TL_DCA']['tl_photoalbums2_archive']['list']['sorting']['root'] = $root;
 
 		// Check permissions to add archives
-		if (!$this->User->hasAccess('create', 'photoalbump'))
+		if (!$this->User->hasAccess('create', 'photoalbums2p'))
 		{
 			$GLOBALS['TL_DCA']['tl_photoalbums2_archive']['config']['closed'] = true;
 		}
@@ -394,14 +394,14 @@ class tl_photoalbums2_archive extends Backend
 						{
 							$objUser = \UserModel::findByPk($this->User->id);
 
-							$arrphotoalbump = deserialize($objUser->photoalbump);
+							$arrPhotoalbums2p = deserialize($objUser->photoalbums2p);
 
-							if (is_array($arrphotoalbump) && in_array('create', $arrphotoalbump))
+							if (is_array($arrPhotoalbums2p) && in_array('create', $arrPhotoalbums2p))
 							{
-								$arrPhotoalbums = deserialize($objUser->photoalbums);
-								$arrPhotoalbums[] = $this->Input->get('id');
+								$arrPhotoalbums2s = deserialize($objUser->photoalbums2s);
+								$arrPhotoalbums2s[] = $this->Input->get('id');
 
-								$objUser->photoalbums = serialize($arrPhotoalbums);
+								$objUser->photoalbums2s = serialize($arrPhotoalbums2s);
 								$objUser->save();
 							}
 						}
@@ -411,21 +411,21 @@ class tl_photoalbums2_archive extends Backend
 						{
 							$objGroup = \UserGroupModel::findByPk($this->User->groups[0]);
 
-							$arrphotoalbump = deserialize($objGroup->photoalbump);
+							$arrPhotoalbums2p = deserialize($objGroup->photoalbums2p);
 
-							if (is_array($arrphotoalbump) && in_array('create', $arrphotoalbump))
+							if (is_array($arrPhotoalbums2p) && in_array('create', $arrPhotoalbums2p))
 							{
-								$arrPhotoalbums = deserialize($objGroup->photoalbums);
-								$arrPhotoalbums[] = $this->Input->get('id');
+								$arrPhotoalbums2s = deserialize($objGroup->photoalbums2s);
+								$arrPhotoalbums2s[] = $this->Input->get('id');
 								
-								$objGroup->photoalbums = serialize($arrPhotoalbums);
+								$objGroup->photoalbums2s = serialize($arrPhotoalbums2s);
 								$objGroup->save();
 							}
 						}
 
 						// Add new element to the user object
 						$root[] = $this->Input->get('id');
-						$this->User->photoalbums = $root;
+						$this->User->photoalbums2s = $root;
 					}
 				}
 				// No break;
@@ -433,9 +433,9 @@ class tl_photoalbums2_archive extends Backend
 			case 'copy':
 			case 'delete':
 			case 'show':
-				if (!in_array($this->Input->get('id'), $root) || ($this->Input->get('act') == 'delete' && !$this->User->hasAccess('delete', 'photoalbump')))
+				if (!in_array($this->Input->get('id'), $root) || ($this->Input->get('act') == 'delete' && !$this->User->hasAccess('delete', 'photoalbums2p')))
 				{
-					$this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums archive ID "'.$this->Input->get('id').'"', 'tl_photoalbums2_archive checkPermission', TL_ERROR);
+					$this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums2 archive ID "'.$this->Input->get('id').'"', 'tl_photoalbums2_archive checkPermission', TL_ERROR);
 					$this->redirect('contao/main.php?act=error');
 				}
 				break;
@@ -444,7 +444,7 @@ class tl_photoalbums2_archive extends Backend
 			case 'deleteAll':
 			case 'overrideAll':
 				$session = $this->Session->getData();
-				if ($this->Input->get('act') == 'deleteAll' && !$this->User->hasAccess('delete', 'photoalbump'))
+				if ($this->Input->get('act') == 'deleteAll' && !$this->User->hasAccess('delete', 'photoalbums2p'))
 				{
 					$session['CURRENT']['IDS'] = array();
 				}
@@ -458,7 +458,7 @@ class tl_photoalbums2_archive extends Backend
 			default:
 				if (strlen($this->Input->get('act')))
 				{
-					$this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums archives', 'tl_photoalbums2_archive checkPermission', TL_ERROR);
+					$this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums2 archives', 'tl_photoalbums2_archive checkPermission', TL_ERROR);
 					$this->redirect('contao/main.php?act=error');
 				}
 				break;
@@ -550,6 +550,6 @@ class tl_photoalbums2_archive extends Backend
 	 */
 	public function deleteArchive($row, $href, $label, $title, $icon, $attributes)
 	{
-		return ($this->User->isAdmin || $this->User->hasAccess('delete', 'photoalbump')) ? '<a href="'.$this->addToUrl($href.'&amp;id='.$row['id']).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ' : $this->generateImage(preg_replace('/\.gif$/i', '_.gif', $icon)).' ';
+		return ($this->User->isAdmin || $this->User->hasAccess('delete', 'photoalbums2p')) ? '<a href="'.$this->addToUrl($href.'&amp;id='.$row['id']).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ' : $this->generateImage(preg_replace('/\.gif$/i', '_.gif', $icon)).' ';
 	}
 }

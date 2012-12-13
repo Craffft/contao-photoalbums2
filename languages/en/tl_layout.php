@@ -32,6 +32,6 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_layout']['skipPhotoalbums2'] = array('Ignore photo album stylesheet', 'By checking this box, you ignore the photoalbums2 default stylesheet.');
+$GLOBALS['TL_LANG']['tl_layout']['skipPhotoalbums2'] = array('Ignore image album stylesheet', 'By checking this box, you ignore the photoalbums2 default stylesheet.');
 
 ?>
