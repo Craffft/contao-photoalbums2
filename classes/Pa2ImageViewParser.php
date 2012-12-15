@@ -123,34 +123,32 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 		$objPa2Album = new \Pa2Album($this->getAlbumIdOrAlias(), $this->Template->getData());
 		$objAlbum = $objPa2Album->getAlbums();
 		
-		if($objAlbum !== null)
+		// If there are no album or images, show empty template with a message
+		if(!is_object($objAlbum) || $objAlbum === null || count($objAlbum->arrSortedImageIds) < 1)
 		{
-			$objAlbum = $objAlbum->current();
-			
-			// If there are no album or images, show empty template with a message
-			if(!is_object($objAlbum) || count($objAlbum->arrSortedImageIds) < 1)
-			{
-				$this->setEmptyTemplate();
-				return;
-			}
-			
-			// Add comments module
-			$this->addComments($objAlbum);
-			
-			// Set arrItems and objAlbum
-			$this->arrItems = $objAlbum->arrSortedImageIds;
-			$this->objAlbum = $objAlbum;
-			
-			// Pagination
-			$objPa2Pagination = new \Pa2Pagination($this->arrItems, $this->Template->intMaxItems, $this->Template->intItemsPerPage);
-			$this->arrAllItems = $this->arrItems;
-			$this->arrItems = $objPa2Pagination->getItems();
-			$this->Template->pagination = $objPa2Pagination->getPagination();
-			$this->Template->totalItems = $objPa2Pagination->getTotalItems();
-			
-			// Call parseImages
-			$this->parseImages();
+			$this->setEmptyTemplate();
+			return;
 		}
+		
+		// Get only the current object
+		$objAlbum = $objAlbum->current();
+		
+		// Add comments module
+		$this->addComments($objAlbum);
+		
+		// Set arrItems and objAlbum
+		$this->arrItems = $objAlbum->arrSortedImageIds;
+		$this->objAlbum = $objAlbum;
+		
+		// Pagination
+		$objPa2Pagination = new \Pa2Pagination($this->arrItems, $this->Template->intMaxItems, $this->Template->intItemsPerPage);
+		$this->arrAllItems = $this->arrItems;
+		$this->arrItems = $objPa2Pagination->getItems();
+		$this->Template->pagination = $objPa2Pagination->getPagination();
+		$this->Template->totalItems = $objPa2Pagination->getTotalItems();
+		
+		// Call parseImages
+		$this->parseImages();
 	}
 	
 	

@@ -218,7 +218,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['preview_image_check'],
 			'exclude'                 => true,
 			'inputType'               => 'select',
-			'options'				  => $GLOBALS['Pa2']['pa2_preview_image_types'],
+			'options'				  => $GLOBALS['Pa2']['preview_image_types'],
 			'reference'				  => &$GLOBALS['TL_LANG']['pa2_preview_image_types'],
 			'eval'                    => array('submitOnChange'=>true),
 			'sql'                     => "varchar(64) NOT NULL default ''"
@@ -236,7 +236,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['image_sort_check'],
 			'exclude'                 => true,
 			'inputType'               => 'select',
-			'options'				  => $GLOBALS['Pa2']['pa2_sort_types'],
+			'options'				  => $GLOBALS['Pa2']['sort_types'],
 			'reference'				  => &$GLOBALS['TL_LANG']['pa2_sort_types'],
 			'eval'                    => array('submitOnChange'=>true),
 			'sql'                     => "varchar(64) NOT NULL default ''"
@@ -490,7 +490,7 @@ class tl_photoalbums2_album extends Backend
 	public function listAlbums($arrRow)
 	{
 		// Import CSS files
-		$objPa2 = new \Pa2New();
+		$objPa2 = new \Pa2();
 		$objPa2->addCssFile();
 		
 		// Deserialize vars
@@ -689,19 +689,19 @@ class tl_photoalbums2_album extends Backend
 	public function generateFeed()
 	{
 		$session = $this->Session->get('pa2_feed_updater');
-
+		
 		if (!is_array($session) || empty($session))
 		{
 			return;
 		}
-
-		$this->import('Pa2');
-
+		
+		$objPa2 = new \Pa2();
+		
 		foreach ($session as $id)
 		{
-			$this->Pa2->generateFeed($id);
+			$objPa2->generateFeed($id);
 		}
-
+		
 		$this->Session->set('pa2_feed_updater', null);
 	}
 

@@ -478,11 +478,11 @@ class tl_photoalbums2_archive extends Backend
 			return;
 		}
 
-		$this->import('Pa2');
+		$objPa2 = new \Pa2();
 
 		foreach ($session as $id)
 		{
-			$this->Pa2->generateFeed($id);
+			$objPa2->generateFeed($id);
 		}
 
 		$this->Session->set('pa2_feed_updater', null);

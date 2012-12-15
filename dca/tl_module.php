@@ -83,7 +83,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2PreviewImage'] = array
     'exclude'                 => true,
     'inputType'               => 'select',
     'default'                 => 'use_album_options',
-	'options'				  => $GLOBALS['Pa2']['pa2_preview_image_module_types'],
+	'options'				  => $GLOBALS['Pa2']['preview_image_types_in_module'],
 	'reference'				  => &$GLOBALS['TL_LANG']['pa2_preview_image_module_types'],
 	'eval'                    => array('tl_class'=>'long'),
     'sql'                     => "varchar(64) NOT NULL default ''"

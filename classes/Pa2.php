@@ -23,13 +23,35 @@ namespace Photoalbums2;
  * @copyright  Daniel Kiesel 2012 
  * @author     Daniel Kiesel <https://github.com/icodr8> 
  * @package    photoalbums2
- * 
- * DEPRECATED
  */
-class Pa2 extends \Frontend
+class Pa2 extends \Controller
 {
-	public $type = 'pa2';
-	protected $arrVars = array();
+	/**
+	 * addCssFile function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function addCssFile()
+	{
+		global $objPage;
+		
+		// Get layout skipPhotoalbums2 to disable photoalbums2 css file
+		$objLayout = \LayoutModel::findByPk($objPage->layout);
+		
+		// Add css
+		if (TL_MODE=='FE' && $objLayout->skipPhotoalbums2 != '1')
+		{
+			$GLOBALS['TL_CSS'][] = TL_FILES_URL . 'system/modules/photoalbums2/html/photoalbums2.css';
+		}
+		
+		// Add css
+		if (TL_MODE=='BE')
+		{
+			$GLOBALS['TL_CSS'][] = TL_FILES_URL . 'system/modules/photoalbums2/html/photoalbums2.css';
+			$GLOBALS['TL_CSS'][] = TL_FILES_URL . 'system/modules/photoalbums2/html/photoalbums2_be.css';
+		}
+	}
 	
 	
 	/**
@@ -87,6 +109,8 @@ class Pa2 extends \Frontend
 	 */
 	protected function generateFiles($arrArchive)
 	{
+		$this->import('Database');
+		
 		$time = time();
 		$strType = ($arrArchive['format'] == 'atom') ? 'generateAtom' : 'generateRss';
 		$strLink = ($arrArchive['feedBase'] != '') ? $arrArchive['feedBase'] : $this->Environment->base;

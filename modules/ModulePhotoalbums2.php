@@ -124,7 +124,7 @@ class ModulePhotoalbums2 extends \Module
 		global $objPage;
 		
 		// Import CSS files
-		$objPa2 = new \Pa2New();
+		$objPa2 = new \Pa2();
 		$objPa2->addCssFile();
 		
 		// Show images

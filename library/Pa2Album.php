@@ -94,32 +94,9 @@ class Pa2Album extends \Pa2Lib
 				// If album is published
 				if ($objItems->published == 1)
 				{
-					if ($objItems->protected)
+					if(TL_MODE == 'FE' && $this->hasAccess($objItems->current()) === false)
 					{
-						if (!FE_USER_LOGGED_IN)
-						{
-							continue;
-						}
-						
-						$arrUsers = deserialize($objItems->users);
-						$arrGroups = deserialize($objItems->groups);
-						
-						// Check users and groups
-						if ((!is_array($arrUsers) || count($arrUsers) < 1 || count(array_intersect($arrUsers, array($this->User->id))) < 1) && (!is_array($arrGroups) || count($arrGroups) < 1 || count(array_intersect($arrGroups, $this->User->groups)) < 1))
-						{
-							continue;
-						}
-					}
-					
-					// Timefilter
-					if ($this->arrData['pa2TimeFilter'])
-					{
-						$objTimeFilter = new Pa2TimeFilter($this->arrData['pa2TimeFilterStart'], $this->arrData['pa2TimeFilterEnd']);
-						
-						if($objTimeFilter->doFilter($objItems->startdate, $objItems->enddate))
-						{
-							continue;
-						}
+						continue;
 					}
 					
 					$arrItems[] = $objItems->id;
@@ -128,6 +105,55 @@ class Pa2Album extends \Pa2Lib
 			
 			$this->arrItems = $arrItems;
 		}
+	}
+	
+	
+	protected function hasAccess($objItems)
+	{
+		if(!is_object($objItems))
+		{
+			return false;
+		}
+		
+		// Check album access
+		if ($objItems->protected)
+		{
+			if (!FE_USER_LOGGED_IN)
+			{
+				return false;
+			}
+			
+			$arrUsers = deserialize($objItems->users);
+			$arrGroups = deserialize($objItems->groups);
+			
+			// Check users and groups
+			if ((!is_array($arrUsers) || count($arrUsers) < 1 || count(array_intersect($arrUsers, array($this->User->id))) < 1) && (!is_array($arrGroups) || count($arrGroups) < 1 || count(array_intersect($arrGroups, $this->User->groups)) < 1))
+			{
+				return false;
+			}
+		}
+		
+		// Check if user has no access to archive (parent)
+		$objPa2Archive = new \Pa2Archive($objItems->pid, $this->arrData);
+		$arrArchiveIds = $objPa2Archive->getArchiveIds();
+		
+		if(!is_array($arrArchiveIds) || count($arrArchiveIds) < 1 || !in_array($objItems->pid, $arrArchiveIds))
+		{
+			return false;
+		}
+		
+		// Timefilter
+		if ($this->arrData['pa2TimeFilter'])
+		{
+			$objTimeFilter = new Pa2TimeFilter($this->arrData['pa2TimeFilterStart'], $this->arrData['pa2TimeFilterEnd']);
+			
+			if($objTimeFilter->doFilter($objItems->startdate, $objItems->enddate))
+			{
+				return false;
+			}
+		}
+		
+		return true;
 	}
 	
 	

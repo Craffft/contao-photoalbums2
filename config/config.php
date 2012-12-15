@@ -29,83 +29,58 @@
  */
 
 
-/**
- * Backend Modules
- */
+// Backend Modules
 $GLOBALS['BE_MOD']['content']['photoalbums2'] = array
 (
 	'tables'		=> array('tl_photoalbums2_archive', 'tl_photoalbums2_album'),
 	'icon'			=> 'system/modules/photoalbums2/html/icon.gif'
 );
 
-
-/**
- * Frontend Modules
- */
+// Frontend Modules
 $GLOBALS['FE_MOD']['photoalbums2_legend']['photoalbums2'] = 'ModulePhotoalbums2';
 
-
-/**
- * Content Elements
- */
+// Content Elements
 $GLOBALS['TL_CTE']['images']['photoalbums2'] = 'ContentPhotoalbums2';
 
-
-/**
- * Cron jobs
- */
+// Cron jobs
 $GLOBALS['TL_CRON']['daily'][] = array('Pa2', 'generateFeeds');
 
-
-/**
- * Add permissions
- */
+// Add permissions
 $GLOBALS['TL_PERMISSIONS'][] = 'photoalbums2s';
 $GLOBALS['TL_PERMISSIONS'][] = 'photoalbums2p';
 
+// Define global Pa2
+$GLOBALS['Pa2'] = array();
 
-/**
- * Sort types
- */
-$GLOBALS['Pa2']['pa2_sort_types'] = array
+// Sort types
+$GLOBALS['Pa2']['sort_types'] = array
 (
-	'metatitle_asc' => 'metatitle_asc',
-	'metatitle_desc' => 'metatitle_desc',
-	'name_asc' => 'name_asc',
-	'name_desc' => 'name_desc',
-	'date_asc' => 'date_asc',
-	'date_desc' => 'date_desc',
-	'random' => 'random',
-	'custom' => 'custom'
+	'metatitle_asc'                      => 'metatitle_asc',
+	'metatitle_desc'                     => 'metatitle_desc',
+	'name_asc'                           => 'name_asc',
+	'name_desc'                          => 'name_desc',
+	'date_asc'                           => 'date_asc',
+	'date_desc'                          => 'date_desc',
+	'random'                             => 'random',
+	'custom'                             => 'custom'
 );
 
-
-/**
- * Preview image types
- */
-$GLOBALS['Pa2']['pa2_preview_image_types'] = array
+// Preview image types
+$GLOBALS['Pa2']['preview_image_types'] = array
 (
-	'no_preview_image' => 'no_preview_image',
-	'random_preview_image' => 'random_preview_image',
-	'select_preview_image' => 'select_preview_image'
+	'no_preview_image'                   => 'no_preview_image',
+	'random_preview_image'               => 'random_preview_image',
+	'select_preview_image'               => 'select_preview_image'
 );
 
-
-/**
- * Preview image module types
- */
-$GLOBALS['Pa2']['pa2_preview_image_module_types'] = array
+// Preview image types in module
+$GLOBALS['Pa2']['preview_image_types_in_module'] = array
 (
-	'use_album_options' => 'use_album_options',
-	'no_preview_images' => 'no_preview_images',
-	'random_images' => 'random_images',
+	'use_album_options'                  => 'use_album_options',
+	'no_preview_images'                  => 'no_preview_images',
+	'random_images'                      => 'random_images',
 	'random_images_at_no_preview_images' => 'random_images_at_no_preview_images'
 );
 
-
-/**
- * Meta fields
- */
+// Meta fields
 $GLOBALS['Pa2']['metaFields'] = array('date', 'event', 'place', 'photographer', 'description');
-
-?>
