@@ -1,19 +1,19 @@
-<?php 
+<?php
 
 /**
  * Contao Open Source CMS
- * 
+ *
  * Copyright (C) 2005-2012 Leo Feyer
- * 
- * @package   photoalbums2 
- * @author    Daniel Kiesel <https://github.com/icodr8> 
- * @license   LGPL 
- * @copyright Daniel Kiesel 2012 
+ *
+ * @package   photoalbums2
+ * @author    Daniel Kiesel <https://github.com/icodr8>
+ * @license   LGPL
+ * @copyright Daniel Kiesel 2012
  */
 
 
 /**
- * Table tl_photoalbums2_album 
+ * Table tl_photoalbums2_album
  */
 $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 (
@@ -23,7 +23,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 	(
 		'dataContainer'               => 'Table',
 		'enableVersioning'            => true,
-		'ptable'					  => 'tl_photoalbums2_archive',
+		'ptable'       => 'tl_photoalbums2_archive',
 		'onload_callback' => array
 		(
 			array('tl_photoalbums2_album', 'checkPermission'),
@@ -218,8 +218,8 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['preview_image_check'],
 			'exclude'                 => true,
 			'inputType'               => 'select',
-			'options'				  => $GLOBALS['Pa2']['preview_image_types'],
-			'reference'				  => &$GLOBALS['TL_LANG']['pa2_preview_image_types'],
+			'options'      => $GLOBALS['Pa2']['preview_image_types'],
+			'reference'      => &$GLOBALS['TL_LANG']['pa2_preview_image_types'],
 			'eval'                    => array('submitOnChange'=>true),
 			'sql'                     => "varchar(64) NOT NULL default ''"
 		),
@@ -236,8 +236,8 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['image_sort_check'],
 			'exclude'                 => true,
 			'inputType'               => 'select',
-			'options'				  => $GLOBALS['Pa2']['sort_types'],
-			'reference'				  => &$GLOBALS['TL_LANG']['pa2_sort_types'],
+			'options'      => $GLOBALS['Pa2']['sort_types'],
+			'reference'      => &$GLOBALS['TL_LANG']['pa2_sort_types'],
 			'eval'                    => array('submitOnChange'=>true),
 			'sql'                     => "varchar(64) NOT NULL default ''"
 		),
@@ -358,10 +358,10 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 
 /**
  * tl_photoalbums2_album class.
- * 
- * @copyright Daniel Kiesel 2012 
- * @author    Daniel Kiesel <https://github.com/icodr8> 
- * @package   photoalbums2 
+ *
+ * @copyright Daniel Kiesel 2012
+ * @author    Daniel Kiesel <https://github.com/icodr8>
+ * @package   photoalbums2
  */
 class tl_photoalbums2_album extends Backend
 {
@@ -400,88 +400,88 @@ class tl_photoalbums2_album extends Backend
 		// Check current action
 		switch ($this->Input->get('act'))
 		{
-			case 'paste':
-				// Allow
-				break;
+		case 'paste':
+			// Allow
+			break;
 
-			case 'create':
-				if (!strlen($this->Input->get('pid')) || !in_array($this->Input->get('pid'), $root))
-				{
-					$this->log('Not enough permissions to create photoalbums2 items in photoalbums2 archive ID "'.$this->Input->get('pid').'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
-					$this->redirect('contao/main.php?act=error');
-				}
-				break;
+		case 'create':
+			if (!strlen($this->Input->get('pid')) || !in_array($this->Input->get('pid'), $root))
+			{
+				$this->log('Not enough permissions to create photoalbums2 items in photoalbums2 archive ID "'.$this->Input->get('pid').'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
+				$this->redirect('contao/main.php?act=error');
+			}
+			break;
 
-			case 'cut':
-			case 'copy':
-				if (!in_array($this->Input->get('pid'), $root))
-				{
-					$this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums2 item ID "'.$id.'" to photoalbums2 archive ID "'.$this->Input->get('pid').'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
-					$this->redirect('contao/main.php?act=error');
-				}
-				// NO BREAK STATEMENT HERE
+		case 'cut':
+		case 'copy':
+			if (!in_array($this->Input->get('pid'), $root))
+			{
+				$this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums2 item ID "'.$id.'" to photoalbums2 archive ID "'.$this->Input->get('pid').'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
+				$this->redirect('contao/main.php?act=error');
+			}
+			// NO BREAK STATEMENT HERE
 
-			case 'edit':
-			case 'show':
-			case 'delete':
-			case 'toggle':
-			case 'feature':
-				$objArchive = \Photoalbums2AlbumModel::findByPk($id);
+		case 'edit':
+		case 'show':
+		case 'delete':
+		case 'toggle':
+		case 'feature':
+			$objArchive = \Photoalbums2AlbumModel::findByPk($id);
 
-				if ($objArchive == null)
-				{
-					$this->log('Invalid photoalbums2 item ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
-					$this->redirect('contao/main.php?act=error');
-				}
+			if ($objArchive == null)
+			{
+				$this->log('Invalid photoalbums2 item ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
+				$this->redirect('contao/main.php?act=error');
+			}
 
-				if (!in_array($objArchive->pid, $root))
-				{
-					$this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums2 item ID "'.$id.'" of photoalbums2 archive ID "'.$objArchive->pid.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
-					$this->redirect('contao/main.php?act=error');
-				}
-				break;
+			if (!in_array($objArchive->pid, $root))
+			{
+				$this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums2 item ID "'.$id.'" of photoalbums2 archive ID "'.$objArchive->pid.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
+				$this->redirect('contao/main.php?act=error');
+			}
+			break;
 
-			case 'select':
-			case 'editAll':
-			case 'deleteAll':
-			case 'overrideAll':
-			case 'cutAll':
-			case 'copyAll':
-				if (!in_array($id, $root))
-				{
-					$this->log('Not enough permissions to access photoalbums2 archive ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
-					$this->redirect('contao/main.php?act=error');
-				}
+		case 'select':
+		case 'editAll':
+		case 'deleteAll':
+		case 'overrideAll':
+		case 'cutAll':
+		case 'copyAll':
+			if (!in_array($id, $root))
+			{
+				$this->log('Not enough permissions to access photoalbums2 archive ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
+				$this->redirect('contao/main.php?act=error');
+			}
 
-				$objArchive = \Photoalbums2AlbumModel::findByPid($id);
+			$objArchive = \Photoalbums2AlbumModel::findByPid($id);
 
-				if ($objArchive == null)
-				{
-					$this->log('Invalid photoalbums2 archive ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
-					$this->redirect('contao/main.php?act=error');
-				}
+			if ($objArchive == null)
+			{
+				$this->log('Invalid photoalbums2 archive ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
+				$this->redirect('contao/main.php?act=error');
+			}
 
-				$session = $this->Session->getData();
-				$session['CURRENT']['IDS'] = array_intersect($session['CURRENT']['IDS'], $objArchive->fetchEach('id'));
-				$this->Session->setData($session);
-				break;
+			$session = $this->Session->getData();
+			$session['CURRENT']['IDS'] = array_intersect($session['CURRENT']['IDS'], $objArchive->fetchEach('id'));
+			$this->Session->setData($session);
+			break;
 
-			default:
-				if (strlen($this->Input->get('act')))
-				{
-					$this->log('Invalid command "'.$this->Input->get('act').'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
-					$this->redirect('contao/main.php?act=error');
-				}
-				elseif (!in_array($id, $root))
-				{
-					$this->log('Not enough permissions to access photoalbums2 archive ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
-					$this->redirect('contao/main.php?act=error');
-				}
-				break;
+		default:
+			if (strlen($this->Input->get('act')))
+			{
+				$this->log('Invalid command "'.$this->Input->get('act').'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
+				$this->redirect('contao/main.php?act=error');
+			}
+			elseif (!in_array($id, $root))
+			{
+				$this->log('Not enough permissions to access photoalbums2 archive ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
+				$this->redirect('contao/main.php?act=error');
+			}
+			break;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Add the type of input field
 	 * @param array
@@ -492,16 +492,16 @@ class tl_photoalbums2_album extends Backend
 		// Import CSS files
 		$objPa2 = new \Pa2();
 		$objPa2->addCssFile();
-		
+
 		// Deserialize vars
 		$arrRow['images'] = deserialize($arrRow['images']);
 		$arrRow['image_sort'] = deserialize($arrRow['image_sort']);
 		$arrRow['users'] = deserialize($arrRow['users']);
-		
+
 		// Generate Template
 		$objTemplate = new \FrontendTemplate('mod_photoalbums2');
 		$objTemplate->setData($arrRow);
-		
+
 		// Set template vars
 		$objTemplate->pa2ImagesShowHeadline = false;
 		$objTemplate->pa2ImagesShowTitle    = false;
@@ -512,14 +512,14 @@ class tl_photoalbums2_album extends Backend
 		$objTemplate->pa2ImagesPerRow       = 1;
 		$objTemplate->pa2ImagesTemplate     = 'pa2_image';
 		$objTemplate->arrImage              = array('size' => array(100, 100, 'crop'));
-		
+
 		// Render image view
 		$objImageViewParser = new \Pa2ImageViewParser($objTemplate, $arrRow['id']);
 		$objTemplate = $objImageViewParser->getViewParserTemplate();
-		
+
 		// Set key
 		$key = $arrRow['invisible'] ? 'unpublished' : 'published';
-		
+
 		return '
 <div class="cte_type ' . $key . '">' . $arrRow['title'] . '</div>
 <div class="limit_height' . (!$GLOBALS['TL_CONFIG']['doNotCollapse'] ? ' h64' : '') . '">
@@ -544,7 +544,7 @@ class tl_photoalbums2_album extends Backend
 			$autoAlias = true;
 			$varValue = standardize($dc->activeRecord->title);
 		}
-		
+
 		$objAlias = \Photoalbums2AlbumModel::findBy(array("id!=?", "alias=?"), array($dc->id, $varValue));
 
 		// Check whether the albums alias exists
@@ -559,7 +559,7 @@ class tl_photoalbums2_album extends Backend
 			$varValue .= '-' . $dc->id;
 			$varValue = $this->generateAlias($varValue, $dc);
 		}
-		
+
 		return $varValue;
 	}
 
@@ -593,7 +593,7 @@ class tl_photoalbums2_album extends Backend
 		if (!$row['published'])
 		{
 			$icon = 'invisible.gif';
-		}		
+		}
 
 		return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
 	}
@@ -638,11 +638,11 @@ class tl_photoalbums2_album extends Backend
 
 		$this->createNewVersion('tl_photoalbums2_album', $intId);
 	}
-	
-	
+
+
 	/**
 	 * adjustTime function.
-	 * 
+	 *
 	 * @access public
 	 * @param DataContainer $dc
 	 * @return void
@@ -654,30 +654,30 @@ class tl_photoalbums2_album extends Backend
 		{
 			return;
 		}
-		
+
 		// Set arrSet
 		$arrSet = array();
 		$arrSet['startdate'] = $dc->activeRecord->startdate;
 		$arrSet['enddate'] = $dc->activeRecord->enddate;
-		
+
 		// Set startdate
-		if($arrSet['startdate'] == '' || $arrSet['startdate'] < 1)
+		if ($arrSet['startdate'] == '' || $arrSet['startdate'] < 1)
 		{
 			$arrSet['startdate'] = mktime(0, 0, 0, date('n', time()), date('j', time()), date('Y', time()));
 		}
-		
+
 		// Set enddate
-		if(empty($arrSet['enddate']) || $arrSet['enddate'] < 1)
+		if (empty($arrSet['enddate']) || $arrSet['enddate'] < 1)
 		{
 			$arrSet['enddate'] = 0;
 		}
-		
+
 		// Check startdate and enddate
-		if($arrSet['startdate'] > $arrSet['enddate'])
+		if ($arrSet['startdate'] > $arrSet['enddate'])
 		{
 			$arrSet['enddate'] = $arrSet['startdate'];
 		}
-		
+
 		// Update date
 		$this->Database->prepare("UPDATE tl_photoalbums2_album %s WHERE id=?")->set($arrSet)->execute($dc->activeRecord->id);
 	}
@@ -689,26 +689,26 @@ class tl_photoalbums2_album extends Backend
 	public function generateFeed()
 	{
 		$session = $this->Session->get('pa2_feed_updater');
-		
+
 		if (!is_array($session) || empty($session))
 		{
 			return;
 		}
-		
+
 		$objPa2 = new \Pa2();
-		
+
 		foreach ($session as $id)
 		{
 			$objPa2->generateFeed($id);
 		}
-		
+
 		$this->Session->set('pa2_feed_updater', null);
 	}
 
 
 	/**
 	 * Schedule a pa2 feed update
-	 * 
+	 *
 	 * This method is triggered when a single pa2 item or multiple pa2
 	 * items are modified (edit/editAll), moved (cut/cutAll) or deleted
 	 * (delete/deleteAll). Since duplicated items are unpublished by default,
@@ -716,7 +716,7 @@ class tl_photoalbums2_album extends Backend
 	 */
 	public function scheduleUpdate()
 	{
-		// Return if there is no ID 
+		// Return if there is no ID
 		if (!CURRENT_ID || $this->Input->get('act') == 'copy')
 		{
 			return;
@@ -727,11 +727,11 @@ class tl_photoalbums2_album extends Backend
 		$session[] = CURRENT_ID;
 		$this->Session->set('pa2_feed_updater', array_unique($session));
 	}
-	
-	
+
+
 	/**
 	 * generatePalette function.
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 */
@@ -739,24 +739,24 @@ class tl_photoalbums2_album extends Backend
 	{
 		// Get album
 		$objAlbum = \Photoalbums2AlbumModel::findByPk($this->Input->get('id'));
-		
+
 		// Remove from palette
-		if($objAlbum->preview_image_check != 'select_preview_image')
+		if ($objAlbum->preview_image_check != 'select_preview_image')
 		{
 			$this->removeFromPalette('preview_image');
 		}
-		
+
 		// Remove from palette
-		if($objAlbum->image_sort_check != 'custom')
+		if ($objAlbum->image_sort_check != 'custom')
 		{
 			$this->removeFromPalette('image_sort');
 		}
 	}
-	
-	
+
+
 	/**
 	 * removeFromPalette function.
-	 * 
+	 *
 	 * @access private
 	 * @param string $value
 	 * @return void

@@ -21,11 +21,11 @@
 </div>
 <?php endif; ?>
 
-<?php foreach($this->items as $item) echo $item; ?>
+<?php foreach ($this->items as $item) echo $item; ?>
 
 <?php echo $this->pagination; ?>
 
-<?php if($this->back): ?>
+<?php if ($this->back): ?>
 <!-- indexer::stop -->
 <p class="back"><a href="<?php echo $this->referer; ?>" title="<?php echo $this->back; ?>"><?php echo $this->back; ?></a></p>
 <!-- indexer::continue -->

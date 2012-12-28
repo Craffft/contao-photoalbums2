@@ -1,23 +1,23 @@
-<?php 
+<?php
 
 /**
  * Contao Open Source CMS
- * 
+ *
  * Copyright (C) 2005-2012 Leo Feyer
- * 
- * @package   photoalbums2 
- * @author    Daniel Kiesel <https://github.com/icodr8> 
- * @license   LGPL 
- * @copyright Daniel Kiesel 2012 
+ *
+ * @package   photoalbums2
+ * @author    Daniel Kiesel <https://github.com/icodr8>
+ * @license   LGPL
+ * @copyright Daniel Kiesel 2012
  */
 
 
 /**
- * Table tl_content 
+ * Table tl_content
  */
 $GLOBALS['TL_DCA']['tl_content']['config']['onsubmit_callback'][] = array('Pa2Backend', 'checkTimeFilter');
-$GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'pa2TimeFilter';
-$GLOBALS['TL_DCA']['tl_content']['palettes']['photoalbums2']			 = '{type_legend},type,headline;
+$GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][]    = 'pa2TimeFilter';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['photoalbums2']      = '{type_legend},type,headline;
 																			{config_legend},pa2Album;
 																			{pa2Template_legend},pa2ImagesTemplate,pa2NumberOfImages,pa2ImagesPerPage,pa2ImagesShowHeadline,pa2ImagesShowTitle,pa2ImagesShowTeaser;
 																			{pa2Image_legend},pa2ImagesPerRow,pa2ImagesImageSize,pa2ImagesImageMargin;
@@ -31,29 +31,29 @@ $GLOBALS['TL_DCA']['tl_content']['subpalettes']['pa2TimeFilter'] = 'pa2TimeFilte
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['pa2Album'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2Album'],
-    'exclude'                 => true,
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2Album'],
+	'exclude'                 => true,
 	'inputType'               => 'select',
 	'options_callback'        => array('tl_content_photoalbums2', 'getPhotoalbums2Albums'),
 	'eval'                    => array('mandatory'=>true, 'chosen'=>true),
 	'wizard' => array
 	(
-	    array('tl_content_photoalbums2', 'editAlbum')
+		array('tl_content_photoalbums2', 'editAlbum')
 	),
 	'sql'                     => "int(10) unsigned NOT NULL default '0'"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesTemplate'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesTemplate'],
-    'exclude'                 => true,
-    'filter'                  => true,
-    'search'                  => true,
-    'sorting'                 => true,
-    'flag'                    => 11,
-    'inputType'               => 'select',
-    'options_callback'        => array('tl_content_photoalbums2', 'getImagesTemplates'),
-    'eval'                    => array('tl_class'=>'long', 'chosen'=>true),
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesTemplate'],
+	'exclude'                 => true,
+	'filter'                  => true,
+	'search'                  => true,
+	'sorting'                 => true,
+	'flag'                    => 11,
+	'inputType'               => 'select',
+	'options_callback'        => array('tl_content_photoalbums2', 'getImagesTemplates'),
+	'eval'                    => array('tl_class'=>'long', 'chosen'=>true),
 	'sql'                     => "varchar(64) NOT NULL default ''"
 );
 
@@ -69,73 +69,73 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2NumberOfImages'] = array
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesPerPage'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesPerPage'],
-    'default'                 => 24,
-    'exclude'                 => true,
-    'inputType'               => 'text',
-    'eval'                    => array('rgxp'=>'digit'),
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesPerPage'],
+	'default'                 => 24,
+	'exclude'                 => true,
+	'inputType'               => 'text',
+	'eval'                    => array('rgxp'=>'digit'),
 	'sql'                     => "smallint(5) unsigned NOT NULL default '24'"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesPerRow'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesPerRow'],
-    'exclude'                 => true,
-    'inputType'               => 'select',
-    'default'                 => 2,
-    'options'                 => array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
-    'eval'                    => array('mandatory'=>true, 'chosen'=>true),
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesPerRow'],
+	'exclude'                 => true,
+	'inputType'               => 'select',
+	'default'                 => 2,
+	'options'                 => array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
+	'eval'                    => array('mandatory'=>true, 'chosen'=>true),
 	'sql'                     => "smallint(5) unsigned NOT NULL default '2'"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesShowHeadline'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesShowHeadline'],
-    'exclude'                 => true,
-    'inputType'               => 'checkbox',
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesShowHeadline'],
+	'exclude'                 => true,
+	'inputType'               => 'checkbox',
 	'default'                 => 1,
-    'eval'                    => array('tl_class'=>'long'),
+	'eval'                    => array('tl_class'=>'long'),
 	'sql'                     => "char(1) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesShowTitle'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesShowTitle'],
-    'exclude'                 => true,
-    'inputType'               => 'checkbox',
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesShowTitle'],
+	'exclude'                 => true,
+	'inputType'               => 'checkbox',
 	'default'                 => 1,
-    'eval'                    => array('tl_class'=>'long'),
+	'eval'                    => array('tl_class'=>'long'),
 	'sql'                     => "char(1) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesShowTeaser'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesShowTeaser'],
-    'exclude'                 => true,
-    'inputType'               => 'checkbox',
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesShowTeaser'],
+	'exclude'                 => true,
+	'inputType'               => 'checkbox',
 	'default'                 => 1,
-    'eval'                    => array('tl_class'=>'long'),
+	'eval'                    => array('tl_class'=>'long'),
 	'sql'                     => "char(1) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesImageSize'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesImageSize'],
-    'exclude'                 => true,
-    'inputType'               => 'imageSize',
-    'options'                 => array('crop', 'proportional', 'box'),
-    'reference'               => &$GLOBALS['TL_LANG']['MSC'],
-    'eval'                    => array('rgxp'=>'digit', 'nospace'=>true),
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesImageSize'],
+	'exclude'                 => true,
+	'inputType'               => 'imageSize',
+	'options'                 => array('crop', 'proportional', 'box'),
+	'reference'               => &$GLOBALS['TL_LANG']['MSC'],
+	'eval'                    => array('rgxp'=>'digit', 'nospace'=>true),
 	'sql'                     => "varchar(64) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesImageMargin'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesImageMargin'],
-    'exclude'                 => true,
-    'inputType'               => 'trbl',
-    'options'                 => array('px', '%', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
-    'eval'                    => array('includeBlankOption'=>true),
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesImageMargin'],
+	'exclude'                 => true,
+	'inputType'               => 'trbl',
+	'options'                 => array('px', '%', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
+	'eval'                    => array('includeBlankOption'=>true),
 	'sql'                     => "varchar(128) NOT NULL default ''"
 );
 
@@ -161,11 +161,11 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2TimeFilter'] = array
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['pa2TimeFilterStart'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2TimeFilterStart'],
-    'exclude'                 => true,
-    'inputType'               => 'timePeriod',
-    'default'				  => 'days',
-    'options'                 => array(/*'seconds', 'minutes', 'hours', */'days', 'weeks', 'months', 'years'),
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2TimeFilterStart'],
+	'exclude'                 => true,
+	'inputType'               => 'timePeriod',
+	'default'                 => 'days',
+	'options'                 => array(/*'seconds', 'minutes', 'hours', */'days', 'weeks', 'months', 'years'),
 	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options'],
 	'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
@@ -173,11 +173,11 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2TimeFilterStart'] = array
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['pa2TimeFilterEnd'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2TimeFilterEnd'],
-    'exclude'                 => true,
-    'inputType'               => 'timePeriod',
-    'default'				  => 'days',
-    'options'                 => array(/*'seconds', 'minutes', 'hours', */'days', 'weeks', 'months', 'years'),
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2TimeFilterEnd'],
+	'exclude'                 => true,
+	'inputType'               => 'timePeriod',
+	'default'                 => 'days',
+	'options'                 => array(/*'seconds', 'minutes', 'hours', */'days', 'weeks', 'months', 'years'),
 	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options'],
 	'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
@@ -185,9 +185,9 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2TimeFilterEnd'] = array
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['pa2Teaser'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2Teaser'],
-    'exclude'                 => true,
-    'inputType'               => 'textarea',
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2Teaser'],
+	'exclude'                 => true,
+	'inputType'               => 'textarea',
 	'eval'                    => array('rte'=>'tinyFlash', 'tl_class'=>'long'),
 	'sql'                     => "text NULL"
 );
@@ -196,9 +196,9 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2Teaser'] = array
 /**
  * Class tl_content_photoalbums2
  *
- * @copyright Daniel Kiesel 2012 
- * @author    Daniel Kiesel <https://github.com/icodr8> 
- * @package   photoalbums2 
+ * @copyright Daniel Kiesel 2012
+ * @author    Daniel Kiesel <https://github.com/icodr8>
+ * @package   photoalbums2
  */
 class tl_content_photoalbums2 extends Backend
 {
@@ -232,14 +232,14 @@ class tl_content_photoalbums2 extends Backend
 			if ($this->User->isAdmin || $this->User->hasAccess($objArchives->id, 'photoalbums2_archive'))
 			{
 				$objAlbums = \Photoalbums2AlbumModel::findBy('pid', $objArchives->id, array('order'=>'title'));
-				
+
 				while ($objAlbums->next())
 				{
 					$arrArchives[$objArchives->title][$objAlbums->id] = $objAlbums->title;
 				}
 			}
 		}
-		
+
 		return $arrArchives;
 	}
 

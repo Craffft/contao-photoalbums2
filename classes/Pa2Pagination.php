@@ -1,14 +1,14 @@
-<?php 
+<?php
 
 /**
  * Contao Open Source CMS
- * 
+ *
  * Copyright (C) 2005-2012 Leo Feyer
- * 
- * @package   photoalbums2 
- * @author    Daniel Kiesel <https://github.com/icodr8> 
- * @license   LGPL 
- * @copyright Daniel Kiesel 2012 
+ *
+ * @package   photoalbums2
+ * @author    Daniel Kiesel <https://github.com/icodr8>
+ * @license   LGPL
+ * @copyright Daniel Kiesel 2012
  */
 
 
@@ -18,72 +18,72 @@
 namespace Photoalbums2;
 
 /**
- * Class Pa2Pagination 
+ * Class Pa2Pagination
  *
- * @copyright  Daniel Kiesel 2012 
- * @author     Daniel Kiesel <https://github.com/icodr8> 
+ * @copyright  Daniel Kiesel 2012
+ * @author     Daniel Kiesel <https://github.com/icodr8>
  * @package    photoalbums2
  */
 class Pa2Pagination extends \Controller
 {
 	/**
 	 * arrItems
-	 * 
+	 *
 	 * (default value: array())
-	 * 
+	 *
 	 * @var array
 	 * @access public
 	 */
 	public $arrItems = array();
-	
-	
+
+
 	/**
 	 * intMaxItems
-	 * 
+	 *
 	 * (default value: 0)
-	 * 
+	 *
 	 * @var int
 	 * @access public
 	 */
 	public $intMaxItems = 0;
-	
-	
+
+
 	/**
 	 * intItemsPerPage
-	 * 
+	 *
 	 * (default value: 0)
-	 * 
+	 *
 	 * @var int
 	 * @access public
 	 */
 	public $intItemsPerPage = 0;
-	
-	
+
+
 	/**
 	 * intTotalItems
-	 * 
+	 *
 	 * (default value: 0)
-	 * 
+	 *
 	 * @var int
 	 * @access public
 	 */
 	public $intTotalItems = 0;
-	
-	
+
+
 	/**
 	 * varPagination
-	 * 
+	 *
 	 * (default value: '')
-	 * 
+	 *
 	 * @var string
 	 * @access public
 	 */
 	public $varPagination = '';
-	
-	
+
+
 	/**
 	 * __construct function.
-	 * 
+	 *
 	 * @access public
 	 * @param array $arrItems
 	 * @param int $intMaxItems (default: 0)
@@ -92,36 +92,36 @@ class Pa2Pagination extends \Controller
 	 */
 	public function __construct($arrItems, $intMaxItems = 0, $intItemsPerPage = 0)
 	{
-		if(!is_array($arrItems) || count($arrItems) < 1)
+		if (!is_array($arrItems) || count($arrItems) < 1)
 		{
 			return false;
 		}
-		
-		if(!is_numeric($intMaxItems))
+
+		if (!is_numeric($intMaxItems))
 		{
 			return false;
 		}
-		
-		if(!is_numeric($intItemsPerPage))
+
+		if (!is_numeric($intItemsPerPage))
 		{
 			return false;
 		}
-		
+
 		$intTotalItems = count($arrItems);
-		
+
 		$this->arrItems = $arrItems;
 		$this->intMaxItems = $intMaxItems;
 		$this->intItemsPerPage = $intItemsPerPage;
 		$this->intTotalItems = $intTotalItems;
 		$this->page = $this->Input->get('page') ? $this->Input->get('page') : 1;
-		
+
 		$this->compile();
 	}
-	
-	
+
+
 	/**
 	 * compile function.
-	 * 
+	 *
 	 * @access protected
 	 * @return void
 	 */
@@ -132,7 +132,7 @@ class Pa2Pagination extends \Controller
 		{
 			$limit = $this->intMaxItems;
 		}
-		
+
 		if ($this->intItemsPerPage > 0 && (!isset($limit) || $this->intMaxItems > $this->intItemsPerPage))
 		{
 			// Adjust the overall limit
@@ -160,23 +160,23 @@ class Pa2Pagination extends \Controller
 			// Add the pagination menu
 			$objPagination = new \Pagination($this->intTotalItems, $this->intItemsPerPage);
 			$this->varPagination = $objPagination->generate("\n  ");
-			
+
 			// Filter albums by pagination
 			$arrItemFilter = array();
-			
-			for($i=$offset; ($offset+$limit) > $i; $i++)
+
+			for ($i=$offset; ($offset+$limit) > $i; $i++)
 			{
 				$arrItemFilter[] = $this->arrItems[$i];
 			}
-			
+
 			$this->arrItems = $arrItemFilter;
 		}
 	}
-	
-	
+
+
 	/**
 	 * getItems function.
-	 * 
+	 *
 	 * @access public
 	 * @return array
 	 */
@@ -184,11 +184,11 @@ class Pa2Pagination extends \Controller
 	{
 		return $this->arrItems;
 	}
-	
-	
+
+
 	/**
 	 * getTotalItems function.
-	 * 
+	 *
 	 * @access public
 	 * @return int
 	 */
@@ -196,11 +196,11 @@ class Pa2Pagination extends \Controller
 	{
 		return $this->intTotalItems;
 	}
-	
-	
+
+
 	/**
 	 * getPagination function.
-	 * 
+	 *
 	 * @access public
 	 * @return mixed
 	 */

@@ -1,14 +1,14 @@
-<?php 
+<?php
 
 /**
  * Contao Open Source CMS
- * 
+ *
  * Copyright (C) 2005-2012 Leo Feyer
- * 
- * @package   photoalbums2 
- * @author    Daniel Kiesel <https://github.com/icodr8> 
- * @license   LGPL 
- * @copyright Daniel Kiesel 2012 
+ *
+ * @package   photoalbums2
+ * @author    Daniel Kiesel <https://github.com/icodr8>
+ * @license   LGPL
+ * @copyright Daniel Kiesel 2012
  */
 
 
@@ -18,39 +18,39 @@
 namespace Photoalbums2;
 
 /**
- * Class Pa2Archive 
+ * Class Pa2Archive
  *
- * @copyright  Daniel Kiesel 2012 
- * @author     Daniel Kiesel <https://github.com/icodr8> 
+ * @copyright  Daniel Kiesel 2012
+ * @author     Daniel Kiesel <https://github.com/icodr8>
  * @package    photoalbums2
  */
 abstract class Pa2Lib extends \Controller
 {
 	/**
 	 * arrItems
-	 * 
+	 *
 	 * (default value: array())
-	 * 
+	 *
 	 * @var array
 	 * @access protected
 	 */
 	protected $arrItems = array();
-	
-	
+
+
 	/**
 	 * arrData
-	 * 
+	 *
 	 * (default value: array())
-	 * 
+	 *
 	 * @var array
 	 * @access protected
 	 */
 	protected $arrData = array();
-	
-	
+
+
 	/**
 	 * __construct function.
-	 * 
+	 *
 	 * @access public
 	 * @param mixed $varValue
 	 * @param array $arrData
@@ -58,27 +58,27 @@ abstract class Pa2Lib extends \Controller
 	 */
 	public function __construct($varValue, $arrData)
 	{
-		if(is_numeric($varValue))
+		if (is_numeric($varValue))
 		{
 			$this->arrItems = array($varValue);
 		}
-		else if(is_array($varValue))
-		{
-			$this->arrItems = $varValue;
-		}
-		
-		if(is_array($arrData))
+		else if (is_array($varValue))
+			{
+				$this->arrItems = $varValue;
+			}
+
+		if (is_array($arrData))
 		{
 			$this->arrData = $arrData;
 		}
-		
+
 		$this->sortOut();
 	}
-	
-	
+
+
 	/**
 	 * sortOut function.
-	 * 
+	 *
 	 * @access protected
 	 * @abstract
 	 * @return void

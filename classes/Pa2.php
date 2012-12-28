@@ -1,14 +1,14 @@
-<?php 
+<?php
 
 /**
  * Contao Open Source CMS
- * 
+ *
  * Copyright (C) 2005-2012 Leo Feyer
- * 
- * @package   photoalbums2 
- * @author    Daniel Kiesel <https://github.com/icodr8> 
- * @license   LGPL 
- * @copyright Daniel Kiesel 2012 
+ *
+ * @package   photoalbums2
+ * @author    Daniel Kiesel <https://github.com/icodr8>
+ * @license   LGPL
+ * @copyright Daniel Kiesel 2012
  */
 
 
@@ -18,33 +18,33 @@
 namespace Photoalbums2;
 
 /**
- * Class Pa2 
+ * Class Pa2
  *
- * @copyright  Daniel Kiesel 2012 
- * @author     Daniel Kiesel <https://github.com/icodr8> 
+ * @copyright  Daniel Kiesel 2012
+ * @author     Daniel Kiesel <https://github.com/icodr8>
  * @package    photoalbums2
  */
 class Pa2 extends \Controller
 {
 	/**
 	 * addCssFile function.
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 */
 	public function addCssFile()
 	{
 		global $objPage;
-		
+
 		// Get layout skipPhotoalbums2 to disable photoalbums2 css file
 		$objLayout = \LayoutModel::findByPk($objPage->layout);
-		
+
 		// Add css
 		if (TL_MODE=='FE' && $objLayout->skipPhotoalbums2 != '1')
 		{
 			$GLOBALS['TL_CSS'][] = TL_FILES_URL . 'system/modules/photoalbums2/html/photoalbums2.css';
 		}
-		
+
 		// Add css
 		if (TL_MODE=='BE')
 		{
@@ -52,8 +52,8 @@ class Pa2 extends \Controller
 			$GLOBALS['TL_CSS'][] = TL_FILES_URL . 'system/modules/photoalbums2/html/photoalbums2_be.css';
 		}
 	}
-	
-	
+
+
 	/**
 	 * Update a particular RSS feed
 	 * @param integer
@@ -68,7 +68,7 @@ class Pa2 extends \Controller
 		}
 
 		$objArchive->feedName = ($objArchive->alias != '') ? $objArchive->alias : 'pa2' . $objArchive->id;
-		
+
 		// Delete XML file
 		if ($this->Input->get('act') == 'delete' || $objArchive->protected)
 		{
@@ -92,7 +92,7 @@ class Pa2 extends \Controller
 	{
 		$this->removeOldFeeds();
 		$objArchive = \Photoalbums2ArchiveModel::findBy(array('makeFeed=1', 'protected!=1'), array());
-		
+
 		while ($objArchive->next())
 		{
 			$objArchive->feedName = ($objArchive->alias != '') ? $objArchive->alias : 'pa2' . $objArchive->id;
@@ -110,7 +110,7 @@ class Pa2 extends \Controller
 	protected function generateFiles($arrArchive)
 	{
 		$this->import('Database');
-		
+
 		$time = time();
 		$strType = ($arrArchive['format'] == 'atom') ? 'generateAtom' : 'generateRss';
 		$strLink = ($arrArchive['feedBase'] != '') ? $arrArchive['feedBase'] : $this->Environment->base;
@@ -144,28 +144,28 @@ class Pa2 extends \Controller
 
 		$objParent = $this->getPageDetails($objParent->id);
 		$strUrl = $this->generateFrontendUrl($objParent->row(), ($GLOBALS['TL_CONFIG']['useAutoItem'] ?  '/%s' : '/album/%s'), $objParent->language);
-		
+
 		// Parse items
 		while ($objArticle->next())
 		{
 			// Deserialize image arrays
 			$objArticle->images = deserialize($objArticle->images);
 			$objArticle->image_sort = deserialize($objArticle->image_sort);
-			
+
 			// Sort images
 			$objPa2ImageSorter = new \Pa2ImageSorter($objArticle->image_sort_check, $objArticle->images, $objArticle->image_sort);
 			$this->arrImages = $objPa2ImageSorter->getSortedIds();
-			
+
 			$objItem = new \FeedItem();
-			
+
 			$objItem->title = $objArticle->title;
 			$objItem->link = sprintf($strLink . $strUrl, (($objArticle->alias != '' && !$GLOBALS['TL_CONFIG']['disableAlias']) ? $objArticle->alias : $objArticle->id));
 			$objItem->published = $objArticle->startdate;
 			$objItem->author = $objArticle->authorName;
-			
-			if(is_array($objArticle->arrImages) && count($objArticle->arrImages) > 0)
+
+			if (is_array($objArticle->arrImages) && count($objArticle->arrImages) > 0)
 			{
-				foreach($objArticle->arrImages as $image)
+				foreach ($objArticle->arrImages as $image)
 				{
 					if (is_file(TL_ROOT . '/' . $image))
 					{
@@ -181,7 +181,7 @@ class Pa2 extends \Controller
 		}
 
 		// Create file
-		$objRss = new \File($strFile . '.xml');
+		$objRss = new \file($strFile . '.xml');
 		$objRss->write($this->replaceInsertTags($objFeed->$strType()));
 		$objRss->close();
 	}

@@ -1,14 +1,14 @@
-<?php 
+<?php
 
 /**
  * Contao Open Source CMS
- * 
+ *
  * Copyright (C) 2005-2012 Leo Feyer
- * 
- * @package   photoalbums2 
- * @author    Daniel Kiesel <https://github.com/icodr8> 
- * @license   LGPL 
- * @copyright Daniel Kiesel 2012 
+ *
+ * @package   photoalbums2
+ * @author    Daniel Kiesel <https://github.com/icodr8>
+ * @license   LGPL
+ * @copyright Daniel Kiesel 2012
  */
 
 
@@ -22,9 +22,9 @@ $GLOBALS['TL_DCA']['tl_layout']['palettes']['default'] = str_replace('skipTinymc
 // Define field
 $GLOBALS['TL_DCA']['tl_layout']['fields']['skipPhotoalbums2'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_layout']['skipPhotoalbums2'],
-    'default'                 => '',
-    'exclude'                 => true,
-    'inputType'               => 'checkbox',
-    'sql'                     => "char(1) NOT NULL default ''"
+	'label'                   => &$GLOBALS['TL_LANG']['tl_layout']['skipPhotoalbums2'],
+	'default'                 => '',
+	'exclude'                 => true,
+	'inputType'               => 'checkbox',
+	'sql'                     => "char(1) NOT NULL default ''"
 );

@@ -1,14 +1,14 @@
-<?php 
+<?php
 
 /**
  * Contao Open Source CMS
- * 
+ *
  * Copyright (C) 2005-2012 Leo Feyer
- * 
- * @package   photoalbums2 
- * @author    Daniel Kiesel <https://github.com/icodr8> 
- * @license   LGPL 
- * @copyright Daniel Kiesel 2012 
+ *
+ * @package   photoalbums2
+ * @author    Daniel Kiesel <https://github.com/icodr8>
+ * @license   LGPL
+ * @copyright Daniel Kiesel 2012
  */
 
 
@@ -18,17 +18,17 @@
 namespace Photoalbums2;
 
 /**
- * Class Pa2Album 
+ * Class Pa2Album
  *
- * @copyright  Daniel Kiesel 2012 
- * @author     Daniel Kiesel <https://github.com/icodr8> 
+ * @copyright  Daniel Kiesel 2012
+ * @author     Daniel Kiesel <https://github.com/icodr8>
  * @package    photoalbums2
  */
 class Pa2Album extends \Pa2Lib
 {
 	/**
 	 * __construct function.
-	 * 
+	 *
 	 * @access public
 	 * @param mixed $varValue
 	 * @param array $arrData
@@ -36,18 +36,18 @@ class Pa2Album extends \Pa2Lib
 	 */
 	public function __construct($varValue, $arrData)
 	{
-		if(!is_array($varValue) && !is_numeric($varValue))
+		if (!is_array($varValue) && !is_numeric($varValue))
 		{
 			$varValue = $this->getIdByAlias($varValue);
 		}
-		
+
 		parent::__construct($varValue, $arrData);
 	}
-	
-	
+
+
 	/**
 	 * getIdByAlias function.
-	 * 
+	 *
 	 * @access protected
 	 * @param string $strAlias
 	 * @return string
@@ -55,27 +55,27 @@ class Pa2Album extends \Pa2Lib
 	protected function getIdByAlias($strAlias)
 	{
 		$objAlbum = \Photoalbums2AlbumModel::findPublishedByIdOrAlias($strAlias);
-		
-		if($objAlbum !== null)
+
+		if ($objAlbum !== null)
 		{
-			if(is_numeric($objAlbum->id))
+			if (is_numeric($objAlbum->id))
 			{
-				if($objAlbum->id < 1)
+				if ($objAlbum->id < 1)
 				{
 					return 0;
 				}
-				
+
 				return $objAlbum->id;
 			}
 		}
-		
+
 		return $strAlias;
 	}
-	
-	
+
+
 	/**
 	 * sortOut function.
-	 * 
+	 *
 	 * @access protected
 	 * @return void
 	 */
@@ -84,37 +84,37 @@ class Pa2Album extends \Pa2Lib
 		if (count($this->arrItems) > 0)
 		{
 			$this->import('FrontendUser', 'User');
-			
+
 			$objItems = \Photoalbums2AlbumModel::findMultipleByIds($this->arrItems);
-			
+
 			$arrItems = array();
-	
+
 			while ($objItems->next())
 			{
 				// If album is published
 				if ($objItems->published == 1)
 				{
-					if(TL_MODE == 'FE' && $this->hasAccess($objItems->current()) === false)
+					if (TL_MODE == 'FE' && $this->hasAccess($objItems->current()) === false)
 					{
 						continue;
 					}
-					
+
 					$arrItems[] = $objItems->id;
 				}
 			}
-			
+
 			$this->arrItems = $arrItems;
 		}
 	}
-	
-	
+
+
 	protected function hasAccess($objItems)
 	{
-		if(!is_object($objItems))
+		if (!is_object($objItems))
 		{
 			return false;
 		}
-		
+
 		// Check album access
 		if ($objItems->protected)
 		{
@@ -122,44 +122,44 @@ class Pa2Album extends \Pa2Lib
 			{
 				return false;
 			}
-			
+
 			$arrUsers = deserialize($objItems->users);
 			$arrGroups = deserialize($objItems->groups);
-			
+
 			// Check users and groups
 			if ((!is_array($arrUsers) || count($arrUsers) < 1 || count(array_intersect($arrUsers, array($this->User->id))) < 1) && (!is_array($arrGroups) || count($arrGroups) < 1 || count(array_intersect($arrGroups, $this->User->groups)) < 1))
 			{
 				return false;
 			}
 		}
-		
+
 		// Check if user has no access to archive (parent)
 		$objPa2Archive = new \Pa2Archive($objItems->pid, $this->arrData);
 		$arrArchiveIds = $objPa2Archive->getArchiveIds();
-		
-		if(!is_array($arrArchiveIds) || count($arrArchiveIds) < 1 || !in_array($objItems->pid, $arrArchiveIds))
+
+		if (!is_array($arrArchiveIds) || count($arrArchiveIds) < 1 || !in_array($objItems->pid, $arrArchiveIds))
 		{
 			return false;
 		}
-		
+
 		// Timefilter
 		if ($this->arrData['pa2TimeFilter'])
 		{
 			$objTimeFilter = new Pa2TimeFilter($this->arrData['pa2TimeFilterStart'], $this->arrData['pa2TimeFilterEnd']);
-			
-			if($objTimeFilter->doFilter($objItems->startdate, $objItems->enddate))
+
+			if ($objTimeFilter->doFilter($objItems->startdate, $objItems->enddate))
 			{
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
-	
-	
+
+
 	/**
 	 * getAlbumIds function.
-	 * 
+	 *
 	 * @access public
 	 * @return array
 	 */
@@ -167,43 +167,43 @@ class Pa2Album extends \Pa2Lib
 	{
 		return $this->arrItems;
 	}
-	
-	
+
+
 	/**
 	 * getAlbums function.
-	 * 
+	 *
 	 * @access public
 	 * @return object
 	 */
 	public function getAlbums()
 	{
-		if(count($this->arrItems) > 0)
+		if (count($this->arrItems) > 0)
 		{
 			$objAlbum = \Photoalbums2AlbumModel::findMultipleByIds($this->arrItems);
-			
-			if($objAlbum !== null)
+
+			if ($objAlbum !== null)
 			{
-				while($objAlbum->next())
+				while ($objAlbum->next())
 				{
 					// Get preview image as Pa2Image object
 					$objImage = new \Pa2Image($objAlbum->preview_image);
 					$objAlbum->objPreviewImage = $objImage->getPa2Image();
-					
+
 					// Deserialize arrays
 					$objAlbum->images = deserialize($objAlbum->images);
 					$objAlbum->image_sort = deserialize($objAlbum->image_sort);
-					
+
 					// Set sortedImageIds
 					$objPa2ImageSorter = new \Pa2ImageSorter($objAlbum->image_sort_check, $objAlbum->images, $objAlbum->image_sort);
 					$objAlbum->arrSortedImageIds = $objPa2ImageSorter->getSortedIds();
 				}
-				
+
 				$objAlbum->reset();
 			}
-			
+
 			return $objAlbum;
 		}
-		
+
 		return null;
 	}
 }

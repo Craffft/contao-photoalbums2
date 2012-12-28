@@ -10,21 +10,21 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
  * version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Fabian Eisele 2012 
- * @author     Fabian Eisele 
- * @package    photoalbums2 - Language pack 
- * @license    LGPL 
+ * @copyright  Fabian Eisele 2012
+ * @author     Fabian Eisele
+ * @package    photoalbums2 - Language pack
+ * @license    LGPL
  * @filesource
  */
 
@@ -58,7 +58,7 @@ $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsPerRow'] = array('Albums per row', 'P
 $GLOBALS['TL_LANG']['tl_module']['pa2ImagesPerRow'] = array('Images per row', 'Please enter the number of images to display per row');
 
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsMetaFields'] = array('Album view meta fields', 'Please select the meta fields to display in the album view.');
-$GLOBALS['TL_LANG']['tl_module']['pa2ImagesMetaFields'] = array('Foto-Ansicht Meta Felder', 'Please select the meta fields to display in the image view.');
+$GLOBALS['TL_LANG']['tl_module']['pa2ImagesMetaFields'] = array('Image view meta fields', 'Please select the meta fields to display in the image view.');
 
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter'] = array('Time filter', 'Here you have the option of the image albums for a period previous filter.');
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilterStart'] = array('Period of', 'Enter the starting value of the period to be filtered. Example, if you enter 10 days, so the albums of the past 10 days are shown in the frontend. To start from today, enter the number "0".');

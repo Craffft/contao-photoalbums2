@@ -1,19 +1,19 @@
-<?php 
+<?php
 
 /**
  * Contao Open Source CMS
- * 
+ *
  * Copyright (C) 2005-2012 Leo Feyer
- * 
- * @package   photoalbums2 
- * @author    Daniel Kiesel <https://github.com/icodr8> 
- * @license   LGPL 
- * @copyright Daniel Kiesel 2012 
+ *
+ * @package   photoalbums2
+ * @author    Daniel Kiesel <https://github.com/icodr8>
+ * @license   LGPL
+ * @copyright Daniel Kiesel 2012
  */
 
 
 /**
- * Table tl_photoalbums2_archive 
+ * Table tl_photoalbums2_archive
  */
 $GLOBALS['TL_DCA']['tl_photoalbums2_archive'] = array
 (
@@ -21,11 +21,11 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_archive'] = array
 	// Config
 	'config' => array
 	(
-		'dataContainer'               => 'Table',
-		'enableVersioning'            => true,
-		'switchToEdit'                => true,
-		'ctable'					  => array('tl_photoalbums2_album'),
-		'onload_callback' => array
+		'dataContainer'    => 'Table',
+		'enableVersioning' => true,
+		'switchToEdit'     => true,
+		'ctable'           => array('tl_photoalbums2_album'),
+		'onload_callback'  => array
 		(
 			array('tl_photoalbums2_archive', 'checkPermission'),
 			array('tl_photoalbums2_archive', 'generateFeed')
@@ -53,7 +53,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_archive'] = array
 			'mode'                    => 1,
 			'fields'                  => array('title'),
 			'panelLayout'             => 'search,limit',
-			'flag'                    => 1 
+			'flag'                    => 1
 		),
 		'label' => array
 		(
@@ -328,10 +328,10 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_archive'] = array
 
 /**
  * tl_photoalbums2_archive class.
- * 
- * @copyright Daniel Kiesel 2012 
- * @author    Daniel Kiesel <https://github.com/icodr8> 
- * @package   photoalbums2 
+ *
+ * @copyright Daniel Kiesel 2012
+ * @author    Daniel Kiesel <https://github.com/icodr8>
+ * @package   photoalbums2
  */
 class tl_photoalbums2_archive extends Backend
 {
@@ -376,92 +376,92 @@ class tl_photoalbums2_archive extends Backend
 		// Check current action
 		switch ($this->Input->get('act'))
 		{
-			case 'create':
-			case 'select':
-				// Allow
-				break;
+		case 'create':
+		case 'select':
+			// Allow
+			break;
 
-			case 'edit':
-				// Dynamically add the record to the user profile
-				if (!in_array($this->Input->get('id'), $root))
+		case 'edit':
+			// Dynamically add the record to the user profile
+			if (!in_array($this->Input->get('id'), $root))
+			{
+				$arrNew = $this->Session->get('new_records');
+
+				if (is_array($arrNew['tl_photoalbums2_archive']) && in_array($this->Input->get('id'), $arrNew['tl_photoalbums2_archive']))
 				{
-					$arrNew = $this->Session->get('new_records');
-
-					if (is_array($arrNew['tl_photoalbums2_archive']) && in_array($this->Input->get('id'), $arrNew['tl_photoalbums2_archive']))
+					// Add permissions on user level
+					if ($this->User->inherit == 'custom' || !$this->User->groups[0])
 					{
-						// Add permissions on user level
-						if ($this->User->inherit == 'custom' || !$this->User->groups[0])
+						$objUser = \UserModel::findByPk($this->User->id);
+
+						$arrPhotoalbums2p = deserialize($objUser->photoalbums2p);
+
+						if (is_array($arrPhotoalbums2p) && in_array('create', $arrPhotoalbums2p))
 						{
-							$objUser = \UserModel::findByPk($this->User->id);
+							$arrPhotoalbums2s = deserialize($objUser->photoalbums2s);
+							$arrPhotoalbums2s[] = $this->Input->get('id');
 
-							$arrPhotoalbums2p = deserialize($objUser->photoalbums2p);
-
-							if (is_array($arrPhotoalbums2p) && in_array('create', $arrPhotoalbums2p))
-							{
-								$arrPhotoalbums2s = deserialize($objUser->photoalbums2s);
-								$arrPhotoalbums2s[] = $this->Input->get('id');
-
-								$objUser->photoalbums2s = serialize($arrPhotoalbums2s);
-								$objUser->save();
-							}
+							$objUser->photoalbums2s = serialize($arrPhotoalbums2s);
+							$objUser->save();
 						}
-
-						// Add permissions on group level
-						elseif ($this->User->groups[0] > 0)
-						{
-							$objGroup = \UserGroupModel::findByPk($this->User->groups[0]);
-
-							$arrPhotoalbums2p = deserialize($objGroup->photoalbums2p);
-
-							if (is_array($arrPhotoalbums2p) && in_array('create', $arrPhotoalbums2p))
-							{
-								$arrPhotoalbums2s = deserialize($objGroup->photoalbums2s);
-								$arrPhotoalbums2s[] = $this->Input->get('id');
-								
-								$objGroup->photoalbums2s = serialize($arrPhotoalbums2s);
-								$objGroup->save();
-							}
-						}
-
-						// Add new element to the user object
-						$root[] = $this->Input->get('id');
-						$this->User->photoalbums2s = $root;
 					}
-				}
-				// No break;
 
-			case 'copy':
-			case 'delete':
-			case 'show':
-				if (!in_array($this->Input->get('id'), $root) || ($this->Input->get('act') == 'delete' && !$this->User->hasAccess('delete', 'photoalbums2p')))
-				{
-					$this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums2 archive ID "'.$this->Input->get('id').'"', 'tl_photoalbums2_archive checkPermission', TL_ERROR);
-					$this->redirect('contao/main.php?act=error');
-				}
-				break;
+					// Add permissions on group level
+					elseif ($this->User->groups[0] > 0)
+					{
+						$objGroup = \UserGroupModel::findByPk($this->User->groups[0]);
 
-			case 'editAll':
-			case 'deleteAll':
-			case 'overrideAll':
-				$session = $this->Session->getData();
-				if ($this->Input->get('act') == 'deleteAll' && !$this->User->hasAccess('delete', 'photoalbums2p'))
-				{
-					$session['CURRENT']['IDS'] = array();
-				}
-				else
-				{
-					$session['CURRENT']['IDS'] = array_intersect($session['CURRENT']['IDS'], $root);
-				}
-				$this->Session->setData($session);
-				break;
+						$arrPhotoalbums2p = deserialize($objGroup->photoalbums2p);
 
-			default:
-				if (strlen($this->Input->get('act')))
-				{
-					$this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums2 archives', 'tl_photoalbums2_archive checkPermission', TL_ERROR);
-					$this->redirect('contao/main.php?act=error');
+						if (is_array($arrPhotoalbums2p) && in_array('create', $arrPhotoalbums2p))
+						{
+							$arrPhotoalbums2s = deserialize($objGroup->photoalbums2s);
+							$arrPhotoalbums2s[] = $this->Input->get('id');
+
+							$objGroup->photoalbums2s = serialize($arrPhotoalbums2s);
+							$objGroup->save();
+						}
+					}
+
+					// Add new element to the user object
+					$root[] = $this->Input->get('id');
+					$this->User->photoalbums2s = $root;
 				}
-				break;
+			}
+			// No break;
+
+		case 'copy':
+		case 'delete':
+		case 'show':
+			if (!in_array($this->Input->get('id'), $root) || ($this->Input->get('act') == 'delete' && !$this->User->hasAccess('delete', 'photoalbums2p')))
+			{
+				$this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums2 archive ID "'.$this->Input->get('id').'"', 'tl_photoalbums2_archive checkPermission', TL_ERROR);
+				$this->redirect('contao/main.php?act=error');
+			}
+			break;
+
+		case 'editAll':
+		case 'deleteAll':
+		case 'overrideAll':
+			$session = $this->Session->getData();
+			if ($this->Input->get('act') == 'deleteAll' && !$this->User->hasAccess('delete', 'photoalbums2p'))
+			{
+				$session['CURRENT']['IDS'] = array();
+			}
+			else
+			{
+				$session['CURRENT']['IDS'] = array_intersect($session['CURRENT']['IDS'], $root);
+			}
+			$this->Session->setData($session);
+			break;
+
+		default:
+			if (strlen($this->Input->get('act')))
+			{
+				$this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums2 archives', 'tl_photoalbums2_archive checkPermission', TL_ERROR);
+				$this->redirect('contao/main.php?act=error');
+			}
+			break;
 		}
 	}
 
@@ -491,14 +491,14 @@ class tl_photoalbums2_archive extends Backend
 
 	/**
 	 * Schedule a pa2 feed update
-	 * 
+	 *
 	 * This method is triggered when a single pa2 archive or multiple pa2
 	 * archives are modified (edit/editAll).
 	 * @param DataContainer
 	 */
 	public function scheduleUpdate(DataContainer $dc)
 	{
-		// Return if there is no ID 
+		// Return if there is no ID
 		if (!$dc->id)
 		{
 			return;

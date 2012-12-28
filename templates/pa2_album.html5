@@ -1,9 +1,9 @@
 
 <!-- indexer::stop -->
-<?php if($this->rowStart): ?><div class="albumswrap <?php echo $this->rowClass; ?>"><?php endif; ?>
-<section class="album block<?php echo $this->class; ?>"<?php if($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+<?php if ($this->rowStart): ?><div class="albumswrap <?php echo $this->rowClass; ?>"><?php endif; ?>
+<section class="album block<?php echo $this->class; ?>"<?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
 <div class="albumInside">
-<?php if($this->showTitle): ?>
+<?php if ($this->showTitle): ?>
 
 <h2><a href="<?php echo $this->href; ?>" title="<?php echo $this->title; ?>"<?php if ($this->albumLightbox): ?> data-lightbox="pa2_<?php echo $this->albumID; ?>"<?php endif; ?>><?php echo $this->title; ?></a></h2>
 <?php endif; ?>
@@ -24,14 +24,14 @@
 </div>
 <?php endif; ?>
 </div>
-<?php if($this->albumLightbox): ?>
+<?php if ($this->albumLightbox): ?>
 
 <div class="hide albumLightboxImages">
-<?php foreach($this->albumLightboxImages as $lightboxImage): ?>
+<?php foreach ($this->albumLightboxImages as $lightboxImage): ?>
 <?php echo $lightboxImage; ?>
 <?php endforeach; ?>
 </div>
 <?php endif; ?>
 </section>
-<?php if($this->rowEnd): ?></div><?php endif; ?>
+<?php if ($this->rowEnd): ?></div><?php endif; ?>
 <!-- indexer::continue -->
