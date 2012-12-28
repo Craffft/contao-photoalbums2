@@ -1,5 +1,4 @@
 
-<!-- indexer::stop -->
 <?php if ($this->rowStart): ?><div class="albumswrap <?php echo $this->rowClass; ?>"><?php endif; ?>
 <section class="album block<?php echo $this->class; ?>"<?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
 <div class="albumInside">
@@ -34,4 +33,3 @@
 <?php endif; ?>
 </section>
 <?php if ($this->rowEnd): ?></div><?php endif; ?>
-<!-- indexer::continue -->
