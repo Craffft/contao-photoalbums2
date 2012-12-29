@@ -235,7 +235,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowTeaser'] = array
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
 	'default'                 => 1,
-	'eval'                    => array('tl_class'=>'clr'),
+	'eval'                    => array('tl_class'=>'w50'),
 	'sql'                     => "char(1) NOT NULL default ''"
 );
 
@@ -448,18 +448,19 @@ class tl_module_photoalbums2 extends Backend
 	{
 		// Get pa2Mode
 		$objModule = ModuleModel::findByPk($this->Input->get('id'));
+		$pa2Mode = $objModule->pa2Mode;
 
 		// If pa2Mode is not set
-		if ($objModule->pa2Mode != 'pa2_on_one_page' && $objModule->pa2Mode != 'pa2_only_album_view' && $objModule->pa2Mode != 'pa2_with_detail_page')
+		if ($pa2Mode != 'pa2_on_one_page' && $pa2Mode != 'pa2_only_album_view' && $pa2Mode != 'pa2_with_detail_page')
 		{
-			$objModule->pa2Mode = 'pa2_on_one_page';
+			$pa2Mode = 'pa2_on_one_page';
 		}
 
 		// Fix pa2 palette
 		$GLOBALS['TL_DCA']['tl_module']['palettes']['photoalbums2'] = $GLOBALS['TL_DCA']['tl_module']['palettes'][$objModule->pa2Mode];
 
 		// Fix pa2 field position
-		if ($objModule->pa2Mode == 'pa2_only_album_view')
+		if ($pa2Mode == 'pa2_only_album_view')
 		{
 			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsTemplate']['eval']['tl_class'] = 'w50,clr';
 			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2NumberOfAlbums']['eval']['tl_class'] = 'w50,clr';

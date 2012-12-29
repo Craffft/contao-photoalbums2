@@ -81,7 +81,9 @@ class Pa2Backend extends \Backend
 			$objModule->pa2TimeFilterEnd = serialize($objModule->pa2TimeFilterEnd);
 
 			// Update date
-			$objModule->save();
+			$db = \Database::getInstance();
+			$stmt = $db->prepare("UPDATE tl_module SET pa2TimeFilterStart=?, pa2TimeFilterEnd=? WHERE id=?");
+			$res = $stmt->execute($objModule->pa2TimeFilterStart, $objModule->pa2TimeFilterEnd, $objModule->id);
 		}
 	}
 }
