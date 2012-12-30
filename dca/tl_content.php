@@ -8,7 +8,7 @@
  * @package   photoalbums2
  * @author    Daniel Kiesel <https://github.com/icodr8>
  * @license   LGPL
- * @copyright Daniel Kiesel 2012
+ * @copyright Daniel Kiesel 2012-2013
  */
 
 
@@ -196,7 +196,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2Teaser'] = array
 /**
  * Class tl_content_photoalbums2
  *
- * @copyright Daniel Kiesel 2012
+ * @copyright Daniel Kiesel 2012-2013
  * @author    Daniel Kiesel <https://github.com/icodr8>
  * @package   photoalbums2
  */
