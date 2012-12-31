@@ -85,7 +85,7 @@ class Photoalbums2Runonce extends \Controller
 			
 			"ALTER TABLE  `tl_user` CHANGE  `photoalbums`  `photoalbums2s` blob NULL",
 			"ALTER TABLE  `tl_user` CHANGE  `photoalbump`  `photoalbums2p` blob NULL",
-		)
+		);
 		
 		foreach($arrSqlStatements as $strSqlStatement)
 		{
