@@ -49,7 +49,7 @@ class Pa2ImageSorter extends \Controller
 
 		if (!is_array($arrCustomIds))
 		{
-			return false;
+			$arrCustomIds = $arrIds;
 		}
 
 		// Set vars
@@ -77,9 +77,9 @@ class Pa2ImageSorter extends \Controller
 			$strSortDirection = $arrMatches[2];
 		}
 		else if ($this->strSortKey == 'custom')
-			{
-				$arrIds = $this->arrCustomIds;
-			}
+		{
+			$arrIds = $this->arrCustomIds;
+		}
 
 		$objImageSorter = new \ImageSorter($arrIds);
 		$objImageSorter->sortImagesBy($strSortKey, $strSortDirection);
