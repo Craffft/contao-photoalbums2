@@ -91,16 +91,22 @@ class Pa2Album extends \Pa2Lib
 
 			while ($objItems->next())
 			{
-				// If album is published
-				if ($objItems->published == 1)
+				if(TL_MODE == 'FE')
 				{
-					if (TL_MODE == 'FE' && $this->hasAccess($objItems->current()) === false)
+					// If not published
+					if($objItems->published != 1)
 					{
 						continue;
 					}
 
-					$arrItems[] = $objItems->id;
+					// If has access
+					if ($this->hasAccess($objItems->current()) === false)
+					{
+						continue;
+					}
 				}
+
+				$arrItems[] = $objItems->id;
 			}
 
 			$this->arrItems = $arrItems;
