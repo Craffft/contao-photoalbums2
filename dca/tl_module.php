@@ -457,7 +457,7 @@ class tl_module_photoalbums2 extends Backend
 		}
 
 		// Fix pa2 palette
-		$GLOBALS['TL_DCA']['tl_module']['palettes']['photoalbums2'] = $GLOBALS['TL_DCA']['tl_module']['palettes'][$objModule->pa2Mode];
+		$GLOBALS['TL_DCA']['tl_module']['palettes']['photoalbums2'] = $GLOBALS['TL_DCA']['tl_module']['palettes'][$pa2Mode];
 
 		// Fix pa2 field position
 		if ($pa2Mode == 'pa2_only_album_view')
