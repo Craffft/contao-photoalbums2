@@ -269,6 +269,6 @@ class tl_content_photoalbums2 extends Backend
 	 */
 	public function editAlbum(DataContainer $dc)
 	{
-		return ($dc->value < 1) ? '' : ' <a href="contao/main.php?do=photoalbums2&amp;table=tl_photoalbums2_album&amp;act=edit&amp;id=' . $dc->value . '" title="'.sprintf(specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $dc->value).'" style="padding-left:3px">' . $this->generateImage('alias.gif', $GLOBALS['TL_LANG']['tl_content']['editalias'][0], 'style="vertical-align:top"') . '</a>';
+		return ($dc->value < 1) ? '' : ' <a href="contao/main.php?do=photoalbums2&amp;table=tl_photoalbums2_album&amp;act=edit&amp;id=' . $dc->value . '&amp;rt=' . REQUEST_TOKEN . '" title="'.sprintf(specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $dc->value).'" style="padding-left:3px">' . $this->generateImage('alias.gif', $GLOBALS['TL_LANG']['tl_content']['editalias'][0], 'style="vertical-align:top"') . '</a>';
 	}
 }
