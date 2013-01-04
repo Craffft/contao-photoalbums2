@@ -40,7 +40,7 @@ $GLOBALS['BE_MOD']['content']['photoalbums2'] = array
 $GLOBALS['FE_MOD']['photoalbums2_legend']['photoalbums2'] = 'ModulePhotoalbums2';
 
 // Content Elements
-$GLOBALS['TL_CTE']['images']['photoalbums2'] = 'ContentPhotoalbums2';
+$GLOBALS['TL_CTE']['media']['photoalbums2'] = 'ContentPhotoalbums2';
 
 // Cron jobs
 $GLOBALS['TL_CRON']['daily'][] = array('Pa2', 'generateFeeds');
