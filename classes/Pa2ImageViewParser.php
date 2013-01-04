@@ -202,6 +202,9 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 		$this->Template->place           = $objAlbum->place;
 		$this->Template->photographer    = $objAlbum->photographer;
 		$this->Template->description     = $objAlbum->description;
+		
+		// Generate the backlink
+		$this->generateBacklink();
 
 		// Call template methods
 		$this->Template = $this->addDateToTemplate($this->Template, $objAlbum->startdate, $objAlbum->enddate);
@@ -267,5 +270,36 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 		}
 
 		$this->Template->items = $arrItems;
+	}
+
+
+	/**
+	 * generateBacklink function.
+	 * 
+	 * @access protected
+	 * @return void
+	 */
+	protected function generateBacklink()
+	{
+		global $objPage;
+
+		// Import
+		$this->Import('Session');
+
+		// Get session vars
+		$intPageNumber = $this->Session->get('pa2PageNumber_' . $this->Template->id);
+		$intPageId     = $this->Session->get('pa2PageId_' . $this->Template->id);
+
+		// Check and correct session vars
+		$intPageNumber = (is_numeric($intPageNumber) ? $intPageNumber : 1);
+		$intPageId     = (is_numeric($intPageId) ? $intPageId : $objPage->id);
+
+		// Get page object by id
+		$objPage = \PageModel::findByPk($intPageId);
+		$objPageDetails = $this->getPageDetails($objPage->id);
+
+		// Set template vars
+		$this->Template->referer = $this->generateFrontendUrl($objPage->row(), '', $objPageDetails->language) . ($intPageNumber > 1 ? '?page=' . $intPageNumber : '');
+		$this->Template->back    = $GLOBALS['TL_LANG']['MSC']['goBack'];
 	}
 }
