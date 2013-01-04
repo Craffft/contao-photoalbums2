@@ -89,24 +89,27 @@ class Pa2Album extends \Pa2Lib
 
 			$arrItems = array();
 
-			while ($objItems->next())
+			if($objItems !== null)
 			{
-				if(TL_MODE == 'FE')
+				while ($objItems->next())
 				{
-					// If not published
-					if($objItems->published != 1)
+					if(TL_MODE == 'FE')
 					{
-						continue;
+						// If not published
+						if($objItems->published != 1)
+						{
+							continue;
+						}
+	
+						// If has access
+						if ($this->hasAccess($objItems->current()) === false)
+						{
+							continue;
+						}
 					}
-
-					// If has access
-					if ($this->hasAccess($objItems->current()) === false)
-					{
-						continue;
-					}
+	
+					$arrItems[] = $objItems->id;
 				}
-
-				$arrItems[] = $objItems->id;
 			}
 
 			$this->arrItems = $arrItems;
