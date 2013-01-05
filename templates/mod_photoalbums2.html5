@@ -1,21 +1,22 @@
 
 <section class="<?php echo $this->class; ?> <?php echo $this->strSubtemplate; ?><?php if ($this->cssClass): ?><?php echo $this->cssClass; ?><?php endif; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
 <?php if ($this->showHeadline): ?>
-	<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
-<?php endif; ?>
 
+<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+<?php endif; ?>
 <?php if ($this->showTeaser): ?>
+
 <div class="teaser"><?php echo $this->teaser; ?></div>
 <?php endif; ?>
-
 <?php if ($this->showTitle): ?>
+
 <h2><?php echo $this->title; ?></h2>
 <?php endif; ?>
-
 <?php if ($this->metaFields): ?>
+
 <div class="info">
 <?php foreach ($this->metaFields as $metaField): ?>
-<div class="<?php echo $metaField; ?>"><?php echo $this->$metaField; ?></div>
+<div class="<?php echo $metaField['key']; ?>"><?php echo $metaField['value']; ?></div>
 <?php endforeach; ?>
 </div>
 <?php endif; ?>

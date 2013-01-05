@@ -51,19 +51,18 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 		$this->Template->strSubtemplate   = $this->Template->pa2AlbumsTemplate;
 		$this->Template->intDetailPage    = $this->Template->pa2DetailPage;
 		$this->Template->albumLightbox    = $this->Template->pa2AlbumLightbox;
+		$this->Template->arrMetaFields    = $this->Template->pa2AlbumsMetaFields;
 
 		// Image params
 		$this->Template->size             = $this->Template->pa2AlbumsImageSize;
 		$this->Template->imagemargin      = $this->Template->pa2AlbumsImageMargin;
 
 		$this->Template->showHeadline     = $this->Template->pa2AlbumsShowHeadline;
-		$this->Template->showTitle     = $this->Template->pa2AlbumsShowTitle;
+		$this->Template->showTitle        = $this->Template->pa2AlbumsShowTitle;
 		$this->Template->showTeaser       = $this->Template->pa2AlbumsShowTeaser;
 		$this->Template->teaser           = $this->cleanRteOutput($this->Template->pa2Teaser);
 		$this->Template->showHeadline     = ($this->Template->headline != '' ? $this->Template->showHeadline : false);
 		$this->Template->showTeaser       = ($this->Template->teaser != '' ? $this->Template->showTeaser : false);
-
-		$this->Template->metaFields       = ((is_array($this->Template->pa2AlbumsMetaFields) && count($this->Template->pa2AlbumsMetaFields) > 0) ? $this->Template->pa2AlbumsMetaFields : false);
 
 		parent::generate();
 	}
@@ -138,18 +137,20 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 			$objSubtemplate->setData($this->Template->getData());
 
 			// Set template variables
-			$objSubtemplate->title        = strip_tags($objAlbums->title);
-			$objSubtemplate->alt          = strip_tags($objAlbums->title);
-			$objSubtemplate->showTitle    = ($objSubtemplate->title != '' ? $objSubtemplate->showTitle : false);
-			$objSubtemplate->event        = $objAlbums->event;
-			$objSubtemplate->place        = $objAlbums->place;
-			$objSubtemplate->photographer = $objAlbums->photographer;
-			$objSubtemplate->description  = $objAlbums->description;
+			$objSubtemplate->title              = strip_tags($objAlbums->title);
+			$objSubtemplate->alt                = strip_tags($objAlbums->title);
+			$objSubtemplate->showTitle          = ($objSubtemplate->title != '' ? $objSubtemplate->showTitle : false);
+			$objSubtemplate->event              = $objAlbums->event;
+			$objSubtemplate->place              = $objAlbums->place;
+			$objSubtemplate->photographer       = $objAlbums->photographer;
+			$objSubtemplate->description        = $objAlbums->description;
+			$objSubtemplate->numberOfAllImages  = count($objAlbums->images);
 
 			// Call template methods
 			$objSubtemplate = $this->addDateToTemplate($objSubtemplate, $objAlbums->startdate, $objAlbums->enddate);
 			$objSubtemplate = $this->addSpecificClassesToTemplate($objSubtemplate, $i);
 			$objSubtemplate = $this->addLinkToTemplate($objSubtemplate, $objAlbums->current());
+			$objSubtemplate = $this->addMetaFieldsToTemplate($objSubtemplate);
 
 			// Add preview image to template
 			$objPa2PreviewImage = new \Pa2PreviewImage($objAlbums->current(), $objSubtemplate->pa2PreviewImage);

@@ -247,11 +247,26 @@ abstract class Pa2ViewParser extends \Frontend
 		// Check
 		if (is_object($objTemplate))
 		{
-			$objTemplate->metaFields = false;
-
-			if (is_array($this->Template->pa2MetaFields) && count($this->Template->pa2MetaFields) > 0)
+			if (is_array($objTemplate->arrMetaFields) && count($objTemplate->arrMetaFields) > 0)
 			{
-				$objTemplate->metaFields = $this->Template->pa2MetaFields;
+				$metaFields = array();
+
+				foreach($objTemplate->arrMetaFields as $metaField)
+				{
+					if ($objTemplate->$metaField != '')
+					{
+						$metaFields[] = array
+						(
+							'key'      => $metaField,
+							'value'    => sprintf($GLOBALS['TL_LANG']['pa2']['pa2MetaField_description'][$metaField], $objTemplate->$metaField)
+						);
+					}
+				}
+
+				if (count($metaFields) > 0)
+				{
+					$objTemplate->metaFields = $metaFields;
+				}
 			}
 		}
 

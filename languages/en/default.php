@@ -88,6 +88,13 @@ $GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options']['event'] = 'Event';
 $GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options']['place'] = 'Place';
 $GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options']['photographer'] = 'Photographer';
 $GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options']['description'] = 'Description';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options']['numberOfAllImages'] = 'Number of images';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaField_description']['date'] = 'Capture date: %s';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaField_description']['event'] = 'Event: %s';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaField_description']['place'] = 'Place: %s';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaField_description']['photographer'] = 'Photographer: %s';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaField_description']['description'] = 'Description: %s';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaField_description']['numberOfAllImages'] = 'Quantity: %s Fotos';
 
 
 /**

@@ -18,7 +18,7 @@
 
 <div class="info">
 <?php foreach ($this->metaFields as $metaField): ?>
-<div class="<?php echo $metaField; ?>"><?php echo $this->$metaField; ?></div>
+<div class="<?php echo $metaField['key']; ?>"><?php echo $metaField['value']; ?></div>
 <?php endforeach; ?>
 </div>
 <?php endif; ?>

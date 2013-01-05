@@ -95,13 +95,14 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 		$this->Template->intItemsPerPage  = $this->Template->pa2ImagesPerPage;
 		$this->Template->intItemsPerRow   = $this->Template->pa2ImagesPerRow;
 		$this->Template->strSubtemplate   = $this->Template->pa2ImagesTemplate;
+		$this->Template->arrMetaFields    = $this->Template->pa2ImagesMetaFields;
 
 		// Image params
 		$this->Template->size             = $this->Template->pa2ImagesImageSize;
 		$this->Template->imagemargin      = $this->Template->pa2ImagesImageMargin;
 
 		$this->Template->showHeadline     = $this->Template->pa2ImagesShowHeadline;
-		$this->Template->showTitle     = $this->Template->pa2ImagesShowTitle;
+		$this->Template->showTitle        = $this->Template->pa2ImagesShowTitle;
 		$this->Template->showTeaser       = $this->Template->pa2ImagesShowTeaser;
 		$this->Template->teaser           = $this->cleanRteOutput($this->Template->pa2Teaser);
 		$this->Template->showHeadline     = ($this->Template->headline != '' ? $this->Template->showHeadline : false);
@@ -194,14 +195,15 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 		$objAlbum = $this->objAlbum;
 
 		// Add to template
-		$this->Template->title           = strip_tags($objAlbum->title);
-		$this->Template->alt             = strip_tags($objAlbum->title);
-		$this->Template->showTitle       = ($this->Template->title != '' ? $this->Template->showTitle : false);
-		$this->Template->cssClass       .= ($this->Template->cssClass == '') ? $objAlbum->cssClass : ' ' . $objAlbum->cssClass;
-		$this->Template->event           = $objAlbum->event;
-		$this->Template->place           = $objAlbum->place;
-		$this->Template->photographer    = $objAlbum->photographer;
-		$this->Template->description     = $objAlbum->description;
+		$this->Template->title              = strip_tags($objAlbum->title);
+		$this->Template->alt                = strip_tags($objAlbum->title);
+		$this->Template->showTitle          = ($this->Template->title != '' ? $this->Template->showTitle : false);
+		$this->Template->cssClass          .= ($this->Template->cssClass == '') ? $objAlbum->cssClass : ' ' . $objAlbum->cssClass;
+		$this->Template->event              = $objAlbum->event;
+		$this->Template->place              = $objAlbum->place;
+		$this->Template->photographer       = $objAlbum->photographer;
+		$this->Template->description        = $objAlbum->description;
+		$this->Template->numberOfAllImages  = count($objAlbum->images);
 		
 		// Generate the backlink
 		$this->generateBacklink();

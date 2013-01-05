@@ -83,4 +83,4 @@ $GLOBALS['Pa2']['preview_image_types_in_module'] = array
 );
 
 // Meta fields
-$GLOBALS['Pa2']['metaFields'] = array('date', 'event', 'place', 'photographer', 'description');
+$GLOBALS['Pa2']['metaFields'] = array('date', 'event', 'place', 'photographer', 'description', 'numberOfAllImages');
