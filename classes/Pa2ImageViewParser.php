@@ -281,6 +281,11 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 	 */
 	protected function generateBacklink()
 	{
+		if(TL_MODE != 'FE')
+		{
+			return;
+		}
+		
 		global $objPage;
 
 		// Import
