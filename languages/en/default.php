@@ -83,12 +83,12 @@ $GLOBALS['TL_LANG']['pa2_mode_types']['pa2_with_detail_page'] = array('Foto-Ansi
 /**
  * Meta fields
  */
-$GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options']['date'] = 'Capture date';
-$GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options']['event'] = 'Event';
-$GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options']['place'] = 'Place';
-$GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options']['photographer'] = 'Photographer';
-$GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options']['description'] = 'Description';
-$GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options']['numberOfAllImages'] = 'Number of images';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaField_options']['date'] = 'Capture date';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaField_options']['event'] = 'Event';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaField_options']['place'] = 'Place';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaField_options']['photographer'] = 'Photographer';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaField_options']['description'] = 'Description';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaField_options']['numberOfAllImages'] = 'Number of images';
 $GLOBALS['TL_LANG']['pa2']['pa2MetaField_description']['date'] = 'Capture date: %s';
 $GLOBALS['TL_LANG']['pa2']['pa2MetaField_description']['event'] = 'Event: %s';
 $GLOBALS['TL_LANG']['pa2']['pa2MetaField_description']['place'] = 'Place: %s';

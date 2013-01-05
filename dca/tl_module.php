@@ -297,7 +297,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsMetaFields'] = array
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
 	'options'                 => $GLOBALS['Pa2']['metaFields'],
-	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options'],
+	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2MetaField_options'],
 	'eval'                    => array('multiple'=>true),
 	'sql'                     => "blob NULL"
 );
@@ -308,7 +308,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesMetaFields'] = array
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
 	'options'                 => $GLOBALS['Pa2']['metaFields'],
-	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2MetaFields_options'],
+	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2MetaField_options'],
 	'eval'                    => array('multiple'=>true),
 	'sql'                     => "blob NULL"
 );
