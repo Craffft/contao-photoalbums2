@@ -763,6 +763,6 @@ class tl_photoalbums2_album extends Backend
 	 */
 	private function removeFromPalette($value)
 	{
-		$GLOBALS['TL_DCA']['tl_photoalbums2_album']['palettes']['default'] = preg_replace('#[,]{1}(' . $value . ')[,;]{1}#', ',', $GLOBALS['TL_DCA']['tl_photoalbums2_album']['palettes']['default']);
+		$GLOBALS['TL_DCA']['tl_photoalbums2_album']['palettes']['default'] = preg_replace('#[,]{1}(' . $value . ')([,;]{1})#', '$2', $GLOBALS['TL_DCA']['tl_photoalbums2_album']['palettes']['default']);
 	}
 }
