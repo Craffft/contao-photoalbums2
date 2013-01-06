@@ -150,10 +150,10 @@ class Pa2 extends \Controller
 		{
 			// Deserialize image arrays
 			$objArticle->images = deserialize($objArticle->images);
-			$objArticle->image_sort = deserialize($objArticle->image_sort);
+			$objArticle->imageSort = deserialize($objArticle->imageSort);
 
 			// Sort images
-			$objPa2ImageSorter = new \Pa2ImageSorter($objArticle->image_sort_type, $objArticle->images, $objArticle->image_sort);
+			$objPa2ImageSorter = new \Pa2ImageSorter($objArticle->imageSortType, $objArticle->images, $objArticle->imageSort);
 			$this->arrImages = $objPa2ImageSorter->getSortedIds();
 
 			$objItem = new \FeedItem();

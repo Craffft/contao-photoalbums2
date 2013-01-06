@@ -62,7 +62,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2Mode'] = array
 	'exclude'                 => true,
 	'inputType'               => 'select',
 	'options'                 => array('pa2_on_one_page', 'pa2_only_album_view', 'pa2_with_detail_page'),
-	'reference'               => &$GLOBALS['TL_LANG']['pa2']['mode_types'],
+	'reference'               => &$GLOBALS['TL_LANG']['pa2']['moduleModeTypes'],
 	'default'                 => 'pa2_on_one_page',
 	'eval'                    => array('submitOnChange'=>true, 'tl_class'=>'long'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
@@ -83,8 +83,8 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2PreviewImage'] = array
 	'exclude'                 => true,
 	'inputType'               => 'select',
 	'default'                 => 'use_album_options',
-	'options'                 => $GLOBALS['pa2']['module_preview_image_types'],
-	'reference'               => &$GLOBALS['TL_LANG']['pa2']['preview_image_module_types'],
+	'options'                 => $GLOBALS['pa2']['modulePreviewImageTypes'],
+	'reference'               => &$GLOBALS['TL_LANG']['pa2']['previewImageModuleTypes'],
 	'eval'                    => array('tl_class'=>'long'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
 );
@@ -297,7 +297,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsMetaFields'] = array
 	'exclude'                 => true,
 	'inputType'               => 'checkboxWizard',
 	'options'                 => $GLOBALS['pa2']['metaFields'],
-	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2MetaField_options'],
+	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldOptions'],
 	'eval'                    => array('multiple'=>true),
 	'sql'                     => "blob NULL"
 );
@@ -308,7 +308,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesMetaFields'] = array
 	'exclude'                 => true,
 	'inputType'               => 'checkboxWizard',
 	'options'                 => $GLOBALS['pa2']['metaFields'],
-	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2MetaField_options'],
+	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldOptions'],
 	'eval'                    => array('multiple'=>true),
 	'sql'                     => "blob NULL"
 );
@@ -329,7 +329,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2TimeFilterStart'] = array
 	'inputType'               => 'timePeriod',
 	'default'                 => 'days',
 	'options'                 => array(/*'seconds', 'minutes', 'hours', */'days', 'weeks', 'months', 'years'),
-	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options'],
+	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2TimeFilterOptions'],
 	'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
 );
@@ -341,7 +341,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2TimeFilterEnd'] = array
 	'inputType'               => 'timePeriod',
 	'default'                 => 'days',
 	'options'                 => array(/*'seconds', 'minutes', 'hours', */'days', 'weeks', 'months', 'years'),
-	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options'],
+	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2TimeFilterOptions'],
 	'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
 );

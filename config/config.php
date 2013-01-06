@@ -54,7 +54,7 @@ $GLOBALS['TL_PERMISSIONS'][] = 'photoalbums2p';
 $GLOBALS['pa2'] = array();
 
 // Image sort types
-$GLOBALS['pa2']['image_sort_types'] = array
+$GLOBALS['pa2']['imageSortTypes'] = array
 (
 	'metatitle_asc'                      => 'metatitle_asc',
 	'metatitle_desc'                     => 'metatitle_desc',
@@ -67,7 +67,7 @@ $GLOBALS['pa2']['image_sort_types'] = array
 );
 
 // Album image preview types
-$GLOBALS['pa2']['album_preview_image_types'] = array
+$GLOBALS['pa2']['albumPreviewImageTypes'] = array
 (
 	'no_preview_image'                   => 'no_preview_image',
 	'random_preview_image'               => 'random_preview_image',
@@ -75,7 +75,7 @@ $GLOBALS['pa2']['album_preview_image_types'] = array
 );
 
 // Module image preview types
-$GLOBALS['pa2']['module_preview_image_types'] = array
+$GLOBALS['pa2']['modulePreviewImageTypes'] = array
 (
 	'use_album_options'                  => 'use_album_options',
 	'no_preview_images'                  => 'no_preview_images',

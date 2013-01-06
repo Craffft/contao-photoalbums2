@@ -93,7 +93,7 @@ class Pa2PreviewImage extends \Controller
 		switch($this->type)
 		{
 		case 'use_album_options':
-			switch($this->objAlbum->preview_image_type)
+			switch($this->objAlbum->previewImageType)
 			{
 			case 'no_preview_image':
 				$this->intId = null;
@@ -104,7 +104,7 @@ class Pa2PreviewImage extends \Controller
 				break;
 
 			case 'select_preview_image':
-				$this->intId = $this->objAlbum->preview_image;
+				$this->intId = $this->objAlbum->previewImage;
 				break;
 			}
 			break;
@@ -118,9 +118,9 @@ class Pa2PreviewImage extends \Controller
 			break;
 
 		case 'random_images_at_no_preview_images':
-			if ($this->objAlbum->preview_image_type == 'select_preview_image')
+			if ($this->objAlbum->previewImageType == 'select_preview_image')
 			{
-				$this->intId = $this->objAlbum->preview_image;
+				$this->intId = $this->objAlbum->previewImage;
 			}
 			else
 			{

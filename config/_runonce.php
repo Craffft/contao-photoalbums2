@@ -75,12 +75,18 @@ class Photoalbums2Runonce extends \Controller
 			"ALTER TABLE  `tl_module` CHANGE  `pa2PhotosMetaFields`  `pa2ImagesMetaFields` blob NULL",
 			
 			"ALTER TABLE  `tl_photoalbums2_album` CHANGE  `pictures`  `images` blob NULL",
+			
 			"ALTER TABLE  `tl_photoalbums2_album` CHANGE  `preview_pic_check`  `preview_image_check` varchar(64) NOT NULL default ''",
-			"ALTER TABLE  `tl_photoalbums2_album` CHANGE  `preview_image_check`  `preview_image_type` varchar(64) NOT NULL default ''",
+			"ALTER TABLE  `tl_photoalbums2_album` CHANGE  `preview_image_check`  `previewImageType` varchar(64) NOT NULL default ''",
+			
 			"ALTER TABLE  `tl_photoalbums2_album` CHANGE  `preview_pic`  `preview_image` varchar(255) NOT NULL default ''",
+			"ALTER TABLE  `tl_photoalbums2_album` CHANGE  `preview_image`  `previewImage` varchar(255) NOT NULL default ''",
+			
 			"ALTER TABLE  `tl_photoalbums2_album` CHANGE  `pic_sort_check`  `image_sort_check` varchar(64) NOT NULL default ''",
-			"ALTER TABLE  `tl_photoalbums2_album` CHANGE  `image_sort_check`  `image_sort_type` varchar(64) NOT NULL default ''",
+			"ALTER TABLE  `tl_photoalbums2_album` CHANGE  `image_sort_check`  `imageSortType` varchar(64) NOT NULL default ''",
+			
 			"ALTER TABLE  `tl_photoalbums2_album` CHANGE  `pic_sort`  `image_sort` blob NULL",
+			"ALTER TABLE  `tl_photoalbums2_album` CHANGE  `image_sort`  `imageSort` blob NULL",
 			
 			"ALTER TABLE  `tl_user_group` CHANGE  `photoalbums`  `photoalbums2s` blob NULL",
 			"ALTER TABLE  `tl_user_group` CHANGE  `photoalbump`  `photoalbums2p` blob NULL",

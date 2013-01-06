@@ -258,7 +258,7 @@ abstract class Pa2ViewParser extends \Frontend
 						$metaFields[] = array
 						(
 							'key'      => $metaField,
-							'value'    => sprintf($GLOBALS['TL_LANG']['pa2']['pa2MetaField_description'][$metaField], $objTemplate->$metaField)
+							'value'    => sprintf($GLOBALS['TL_LANG']['pa2']['pa2MetaFieldDescription'][$metaField], $objTemplate->$metaField)
 						);
 					}
 				}

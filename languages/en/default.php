@@ -45,67 +45,67 @@ $GLOBALS['TL_LANG']['MSC']['imagesEmpty'] = 'The image album could not be found!
 /**
  * Sort types
  */
-$GLOBALS['TL_LANG']['pa2']['image_sort_types']['metatitle_asc'] = array('Meta title (ascending)', 'Meta title (ascending)');
-$GLOBALS['TL_LANG']['pa2']['image_sort_types']['metatitle_desc'] = array('Meta title (descending)', 'Meta title (descending)');
-$GLOBALS['TL_LANG']['pa2']['image_sort_types']['name_asc'] = array('Name (ascending)', 'Name (ascending)');
-$GLOBALS['TL_LANG']['pa2']['image_sort_types']['name_desc'] = array('Name (descending)', 'Name (descending)');
-$GLOBALS['TL_LANG']['pa2']['image_sort_types']['date_asc'] = array('Date (ascending)', 'Date (ascending)');
-$GLOBALS['TL_LANG']['pa2']['image_sort_types']['date_desc'] = array('Date (descending)', 'Date (descending)');
-$GLOBALS['TL_LANG']['pa2']['image_sort_types']['random'] = array('Random output', 'Random output');
-$GLOBALS['TL_LANG']['pa2']['image_sort_types']['custom'] = array('Own sorting', 'Own sorting');
+$GLOBALS['TL_LANG']['pa2']['imageSortTypes']['metatitle_asc'] = array('Meta title (ascending)', 'Meta title (ascending)');
+$GLOBALS['TL_LANG']['pa2']['imageSortTypes']['metatitle_desc'] = array('Meta title (descending)', 'Meta title (descending)');
+$GLOBALS['TL_LANG']['pa2']['imageSortTypes']['name_asc'] = array('Name (ascending)', 'Name (ascending)');
+$GLOBALS['TL_LANG']['pa2']['imageSortTypes']['name_desc'] = array('Name (descending)', 'Name (descending)');
+$GLOBALS['TL_LANG']['pa2']['imageSortTypes']['date_asc'] = array('Date (ascending)', 'Date (ascending)');
+$GLOBALS['TL_LANG']['pa2']['imageSortTypes']['date_desc'] = array('Date (descending)', 'Date (descending)');
+$GLOBALS['TL_LANG']['pa2']['imageSortTypes']['random'] = array('Random output', 'Random output');
+$GLOBALS['TL_LANG']['pa2']['imageSortTypes']['custom'] = array('Own sorting', 'Own sorting');
 
 
 /**
  * Image preview types
  */
-$GLOBALS['TL_LANG']['pa2']['album_preview_image_types']['no_preview_image'] = array('No preview image', 'No preview image');
-$GLOBALS['TL_LANG']['pa2']['album_preview_image_types']['random_preview_image'] = array('Random preview image', 'Random preview image');
-$GLOBALS['TL_LANG']['pa2']['album_preview_image_types']['select_preview_image'] = array('Select preview image', 'Select preview image');
+$GLOBALS['TL_LANG']['pa2']['albumPreviewImageTypes']['no_preview_image'] = array('No preview image', 'No preview image');
+$GLOBALS['TL_LANG']['pa2']['albumPreviewImageTypes']['random_preview_image'] = array('Random preview image', 'Random preview image');
+$GLOBALS['TL_LANG']['pa2']['albumPreviewImageTypes']['select_preview_image'] = array('Select preview image', 'Select preview image');
 
 
 /**
  * Image preview types
  */
-$GLOBALS['TL_LANG']['pa2']['preview_image_module_types']['use_album_options'] = array('Settings of album take over', 'Settings of album take over');
-$GLOBALS['TL_LANG']['pa2']['preview_image_module_types']['no_preview_images'] = array('No preview images', 'No preview images');
-$GLOBALS['TL_LANG']['pa2']['preview_image_module_types']['random_images'] = array('Random preview images', 'Random preview images');
-$GLOBALS['TL_LANG']['pa2']['preview_image_module_types']['random_images_at_no_preview_images'] = array('Random preview images at an undefined use preview image', 'Random preview images at an undefined use preview image');
+$GLOBALS['TL_LANG']['pa2']['previewImageModuleTypes']['use_album_options'] = array('Settings of album take over', 'Settings of album take over');
+$GLOBALS['TL_LANG']['pa2']['previewImageModuleTypes']['no_preview_images'] = array('No preview images', 'No preview images');
+$GLOBALS['TL_LANG']['pa2']['previewImageModuleTypes']['random_images'] = array('Random preview images', 'Random preview images');
+$GLOBALS['TL_LANG']['pa2']['previewImageModuleTypes']['random_images_at_no_preview_images'] = array('Random preview images at an undefined use preview image', 'Random preview images at an undefined use preview image');
 
 
 /**
  * Mode types
  */
-$GLOBALS['TL_LANG']['pa2']['mode_types']['pa2_on_one_page'] = array('Foto-Ansicht und Alben-Ansicht auf gleicher Seite darstellen (Standard)', 'Wählen Sie diese Einstellung, damit beide Ansichtsarten auf der gleichen Seite dargestellt werden.');
-$GLOBALS['TL_LANG']['pa2']['mode_types']['pa2_only_album_view'] = array('Nur Album-Ansicht verwenden und Lightbox direkt einbinden', 'Wählen Sie diese Einstellung um nur die Alben-Ansicht zu verwenden. Bei einem Klick auf ein Album öffnet sich dann direkt die Ligabox mit den Bildern aus dem Fotoalbum.');
-$GLOBALS['TL_LANG']['pa2']['mode_types']['pa2_with_detail_page'] = array('Foto-Ansicht auf einer anderen Seite anzeigen', 'Wählen Sie diese Einstellung, damit die Foto-Ansicht und die Alben-Ansicht auf zwei verschiedenen Seiten dargestellt werden kann.');
+$GLOBALS['TL_LANG']['pa2']['moduleModeTypes']['pa2_on_one_page'] = array('Foto-Ansicht und Alben-Ansicht auf gleicher Seite darstellen (Standard)', 'Wählen Sie diese Einstellung, damit beide Ansichtsarten auf der gleichen Seite dargestellt werden.');
+$GLOBALS['TL_LANG']['pa2']['moduleModeTypes']['pa2_only_album_view'] = array('Nur Album-Ansicht verwenden und Lightbox direkt einbinden', 'Wählen Sie diese Einstellung um nur die Alben-Ansicht zu verwenden. Bei einem Klick auf ein Album öffnet sich dann direkt die Ligabox mit den Bildern aus dem Fotoalbum.');
+$GLOBALS['TL_LANG']['pa2']['moduleModeTypes']['pa2_with_detail_page'] = array('Foto-Ansicht auf einer anderen Seite anzeigen', 'Wählen Sie diese Einstellung, damit die Foto-Ansicht und die Alben-Ansicht auf zwei verschiedenen Seiten dargestellt werden kann.');
 
 
 /**
  * Meta fields
  */
-$GLOBALS['TL_LANG']['pa2']['pa2MetaField_options']['date'] = 'Capture date';
-$GLOBALS['TL_LANG']['pa2']['pa2MetaField_options']['event'] = 'Event';
-$GLOBALS['TL_LANG']['pa2']['pa2MetaField_options']['place'] = 'Place';
-$GLOBALS['TL_LANG']['pa2']['pa2MetaField_options']['photographer'] = 'Photographer';
-$GLOBALS['TL_LANG']['pa2']['pa2MetaField_options']['description'] = 'Description';
-$GLOBALS['TL_LANG']['pa2']['pa2MetaField_options']['numberOfAllImages'] = 'Number of images';
-$GLOBALS['TL_LANG']['pa2']['pa2MetaField_description']['date'] = 'Capture date: %s';
-$GLOBALS['TL_LANG']['pa2']['pa2MetaField_description']['event'] = 'Event: %s';
-$GLOBALS['TL_LANG']['pa2']['pa2MetaField_description']['place'] = 'Place: %s';
-$GLOBALS['TL_LANG']['pa2']['pa2MetaField_description']['photographer'] = 'Photographer: %s';
-$GLOBALS['TL_LANG']['pa2']['pa2MetaField_description']['description'] = 'Description: %s';
-$GLOBALS['TL_LANG']['pa2']['pa2MetaField_description']['numberOfAllImages'] = 'Quantity: %s Fotos';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldOptions']['date'] = 'Capture date';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldOptions']['event'] = 'Event';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldOptions']['place'] = 'Place';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldOptions']['photographer'] = 'Photographer';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldOptions']['description'] = 'Description';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldOptions']['numberOfAllImages'] = 'Number of images';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldDescription']['date'] = 'Capture date: %s';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldDescription']['event'] = 'Event: %s';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldDescription']['place'] = 'Place: %s';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldDescription']['photographer'] = 'Photographer: %s';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldDescription']['description'] = 'Description: %s';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldDescription']['numberOfAllImages'] = 'Quantity: %s Fotos';
 
 
 /**
  * Time filter
  */
-$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['seconds'] = 'second(s)';
-$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['minutes'] = 'minute(s)';
-$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['hours'] = 'hour(s)';
-$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['days'] = 'day(s)';
-$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['weeks'] = 'week(s)';
-$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['months'] = 'month(s)';
-$GLOBALS['TL_LANG']['pa2']['pa2TimeFilter_options']['years'] = 'year(s)';
+$GLOBALS['TL_LANG']['pa2']['pa2TimeFilterOptions']['seconds'] = 'second(s)';
+$GLOBALS['TL_LANG']['pa2']['pa2TimeFilterOptions']['minutes'] = 'minute(s)';
+$GLOBALS['TL_LANG']['pa2']['pa2TimeFilterOptions']['hours'] = 'hour(s)';
+$GLOBALS['TL_LANG']['pa2']['pa2TimeFilterOptions']['days'] = 'day(s)';
+$GLOBALS['TL_LANG']['pa2']['pa2TimeFilterOptions']['weeks'] = 'week(s)';
+$GLOBALS['TL_LANG']['pa2']['pa2TimeFilterOptions']['months'] = 'month(s)';
+$GLOBALS['TL_LANG']['pa2']['pa2TimeFilterOptions']['years'] = 'year(s)';
 
 ?>

@@ -122,8 +122,8 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'__selector__'                => array('image_sort_type', 'preview_image_type', 'protected'),
-		'default'                     => '{title_legend},title,alias,author;{date_legend},startdate,enddate;{images_legend},images,image_sort_type,image_sort,preview_image_type,preview_image;{info_legend},event,place,photographer,description;{protected_legend},protected;{expert_legend:hide},cssClass,noComments;{published_legend},published,start,stop'
+		'__selector__'                => array('imageSortType', 'previewImageType', 'protected'),
+		'default'                     => '{title_legend},title,alias,author;{date_legend},startdate,enddate;{images_legend},images,imageSortType,imageSort,previewImageType,previewImage;{info_legend},event,place,photographer,description;{protected_legend},protected;{expert_legend:hide},cssClass,noComments;{published_legend},published,start,stop'
 	),
 
 	// Subpalettes
@@ -213,37 +213,37 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'eval'                    => array('mandatory'=>true, 'multiple'=>true, 'fieldType'=>'checkbox', 'files'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
 			'sql'                     => "blob NULL"
 		),
-		'image_sort_type' => array
+		'imageSortType' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['image_sort_type'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['imageSortType'],
 			'exclude'                 => true,
 			'inputType'               => 'select',
-			'options'                 => $GLOBALS['pa2']['image_sort_types'],
-			'reference'               => &$GLOBALS['TL_LANG']['pa2']['image_sort_types'],
+			'options'                 => $GLOBALS['pa2']['imageSortTypes'],
+			'reference'               => &$GLOBALS['TL_LANG']['pa2']['imageSortTypes'],
 			'eval'                    => array('submitOnChange'=>true),
 			'sql'                     => "varchar(64) NOT NULL default ''"
 		),
-		'image_sort' => array
+		'imageSort' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['image_sort'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['imageSort'],
 			'exclude'                 => true,
 			'inputType'               => 'ImageSortWizard',
 			'eval'                    => array('sortfiles'=>'images', 'extensions'=>'png,jpg,jpeg,gif'),
 			'sql'                     => "blob NULL"
 		),
-		'preview_image_type' => array
+		'previewImageType' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['preview_image_type'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['previewImageType'],
 			'exclude'                 => true,
 			'inputType'               => 'select',
-			'options'                 => $GLOBALS['pa2']['album_preview_image_types'],
-			'reference'               => &$GLOBALS['TL_LANG']['pa2']['album_preview_image_types'],
+			'options'                 => $GLOBALS['pa2']['albumPreviewImageTypes'],
+			'reference'               => &$GLOBALS['TL_LANG']['pa2']['albumPreviewImageTypes'],
 			'eval'                    => array('submitOnChange'=>true),
 			'sql'                     => "varchar(64) NOT NULL default ''"
 		),
-		'preview_image' => array
+		'previewImage' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['preview_image'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['previewImage'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
 			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
@@ -495,7 +495,7 @@ class tl_photoalbums2_album extends Backend
 
 		// Deserialize vars
 		$arrRow['images'] = deserialize($arrRow['images']);
-		$arrRow['image_sort'] = deserialize($arrRow['image_sort']);
+		$arrRow['imageSort'] = deserialize($arrRow['imageSort']);
 		$arrRow['users'] = deserialize($arrRow['users']);
 
 		// Generate Template
@@ -741,15 +741,15 @@ class tl_photoalbums2_album extends Backend
 		$objAlbum = \Photoalbums2AlbumModel::findByPk($this->Input->get('id'));
 
 		// Remove from palette
-		if ($objAlbum->preview_image_type != 'select_preview_image')
+		if ($objAlbum->previewImageType != 'select_preview_image')
 		{
-			$this->removeFromPalette('preview_image');
+			$this->removeFromPalette('previewImage');
 		}
 
 		// Remove from palette
-		if ($objAlbum->image_sort_type != 'custom')
+		if ($objAlbum->imageSortType != 'custom')
 		{
-			$this->removeFromPalette('image_sort');
+			$this->removeFromPalette('imageSort');
 		}
 	}
 
