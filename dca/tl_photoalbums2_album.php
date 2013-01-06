@@ -122,8 +122,8 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'__selector__'                => array('preview_image_type', 'image_sort_type', 'protected'),
-		'default'                     => '{title_legend},title,alias,author;{date_legend},startdate,enddate;{images_legend},images,preview_image_type,preview_image,image_sort_type,image_sort;{info_legend},event,place,photographer,description;{protected_legend},protected;{expert_legend:hide},cssClass,noComments;{published_legend},published,start,stop'
+		'__selector__'                => array('image_sort_type', 'preview_image_type', 'protected'),
+		'default'                     => '{title_legend},title,alias,author;{date_legend},startdate,enddate;{images_legend},images,image_sort_type,image_sort,preview_image_type,preview_image;{info_legend},event,place,photographer,description;{protected_legend},protected;{expert_legend:hide},cssClass,noComments;{published_legend},published,start,stop'
 	),
 
 	// Subpalettes
@@ -213,24 +213,6 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'eval'                    => array('mandatory'=>true, 'multiple'=>true, 'fieldType'=>'checkbox', 'files'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
 			'sql'                     => "blob NULL"
 		),
-		'preview_image_type' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['preview_image_type'],
-			'exclude'                 => true,
-			'inputType'               => 'select',
-			'options'                 => $GLOBALS['pa2']['album_preview_image_types'],
-			'reference'               => &$GLOBALS['TL_LANG']['pa2']['album_preview_image_types'],
-			'eval'                    => array('submitOnChange'=>true),
-			'sql'                     => "varchar(64) NOT NULL default ''"
-		),
-		'preview_image' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['preview_image'],
-			'exclude'                 => true,
-			'inputType'               => 'fileTree',
-			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
-			'sql'                     => "varchar(255) NOT NULL default ''"
-		),
 		'image_sort_type' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['image_sort_type'],
@@ -248,6 +230,24 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'inputType'               => 'ImageSortWizard',
 			'eval'                    => array('sortfiles'=>'images', 'extensions'=>'png,jpg,jpeg,gif'),
 			'sql'                     => "blob NULL"
+		),
+		'preview_image_type' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['preview_image_type'],
+			'exclude'                 => true,
+			'inputType'               => 'select',
+			'options'                 => $GLOBALS['pa2']['album_preview_image_types'],
+			'reference'               => &$GLOBALS['TL_LANG']['pa2']['album_preview_image_types'],
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "varchar(64) NOT NULL default ''"
+		),
+		'preview_image' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['preview_image'],
+			'exclude'                 => true,
+			'inputType'               => 'fileTree',
+			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'event' => array
 		(
