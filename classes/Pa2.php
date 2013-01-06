@@ -153,7 +153,7 @@ class Pa2 extends \Controller
 			$objArticle->image_sort = deserialize($objArticle->image_sort);
 
 			// Sort images
-			$objPa2ImageSorter = new \Pa2ImageSorter($objArticle->image_sort_check, $objArticle->images, $objArticle->image_sort);
+			$objPa2ImageSorter = new \Pa2ImageSorter($objArticle->image_sort_type, $objArticle->images, $objArticle->image_sort);
 			$this->arrImages = $objPa2ImageSorter->getSortedIds();
 
 			$objItem = new \FeedItem();

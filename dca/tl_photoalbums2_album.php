@@ -122,8 +122,8 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'__selector__'                => array('preview_image_check', 'image_sort_check', 'protected'),
-		'default'                     => '{title_legend},title,alias,author;{date_legend},startdate,enddate;{images_legend},images,preview_image_check,preview_image,image_sort_check,image_sort;{info_legend},event,place,photographer,description;{protected_legend},protected;{expert_legend:hide},cssClass,noComments;{published_legend},published,start,stop'
+		'__selector__'                => array('preview_image_type', 'image_sort_type', 'protected'),
+		'default'                     => '{title_legend},title,alias,author;{date_legend},startdate,enddate;{images_legend},images,preview_image_type,preview_image,image_sort_type,image_sort;{info_legend},event,place,photographer,description;{protected_legend},protected;{expert_legend:hide},cssClass,noComments;{published_legend},published,start,stop'
 	),
 
 	// Subpalettes
@@ -213,13 +213,13 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'eval'                    => array('mandatory'=>true, 'multiple'=>true, 'fieldType'=>'checkbox', 'files'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
 			'sql'                     => "blob NULL"
 		),
-		'preview_image_check' => array
+		'preview_image_type' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['preview_image_check'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['preview_image_type'],
 			'exclude'                 => true,
 			'inputType'               => 'select',
-			'options'      => $GLOBALS['Pa2']['preview_image_types'],
-			'reference'      => &$GLOBALS['TL_LANG']['pa2_preview_image_types'],
+			'options'                 => $GLOBALS['pa2']['album_preview_image_types'],
+			'reference'               => &$GLOBALS['TL_LANG']['pa2']['album_preview_image_types'],
 			'eval'                    => array('submitOnChange'=>true),
 			'sql'                     => "varchar(64) NOT NULL default ''"
 		),
@@ -231,13 +231,13 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
 			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
-		'image_sort_check' => array
+		'image_sort_type' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['image_sort_check'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['image_sort_type'],
 			'exclude'                 => true,
 			'inputType'               => 'select',
-			'options'      => $GLOBALS['Pa2']['sort_types'],
-			'reference'      => &$GLOBALS['TL_LANG']['pa2_sort_types'],
+			'options'                 => $GLOBALS['pa2']['image_sort_types'],
+			'reference'               => &$GLOBALS['TL_LANG']['pa2']['image_sort_types'],
 			'eval'                    => array('submitOnChange'=>true),
 			'sql'                     => "varchar(64) NOT NULL default ''"
 		),
@@ -741,13 +741,13 @@ class tl_photoalbums2_album extends Backend
 		$objAlbum = \Photoalbums2AlbumModel::findByPk($this->Input->get('id'));
 
 		// Remove from palette
-		if ($objAlbum->preview_image_check != 'select_preview_image')
+		if ($objAlbum->preview_image_type != 'select_preview_image')
 		{
 			$this->removeFromPalette('preview_image');
 		}
 
 		// Remove from palette
-		if ($objAlbum->image_sort_check != 'custom')
+		if ($objAlbum->image_sort_type != 'custom')
 		{
 			$this->removeFromPalette('image_sort');
 		}

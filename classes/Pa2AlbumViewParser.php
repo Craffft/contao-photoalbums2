@@ -192,7 +192,7 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 			$objTemplate->albumID = $objAlbum->id . '_' . $this->generateIndividualId();
 
 			// Sort images
-			$objPa2ImageSorter = new \Pa2ImageSorter($objAlbum->image_sort_check, $objAlbum->images, $objAlbum->image_sort);
+			$objPa2ImageSorter = new \Pa2ImageSorter($objAlbum->image_sort_type, $objAlbum->images, $objAlbum->image_sort);
 			$arrIds = $objPa2ImageSorter->getSortedIds();
 
 			if ($arrIds > 0)

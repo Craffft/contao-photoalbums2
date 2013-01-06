@@ -358,14 +358,14 @@ abstract class Pa2ViewParser extends \Frontend
 		// Set even and odd in rows
 		if ($intItemNumberInRow == 0)
 		{
-			if (!isset($GLOBALS['Pa2']['pa2RowEvenOdd']))
+			if (!isset($GLOBALS['pa2']['pa2RowEvenOdd']))
 			{
-				$GLOBALS['Pa2']['pa2RowEvenOdd'] = 0;
+				$GLOBALS['pa2']['pa2RowEvenOdd'] = 0;
 			}
 
-			$objTemplate->rowClass = ((($GLOBALS['Pa2']['pa2RowEvenOdd'] % 2) == 0) ? 'even' : 'odd');
+			$objTemplate->rowClass = ((($GLOBALS['pa2']['pa2RowEvenOdd'] % 2) == 0) ? 'even' : 'odd');
 
-			$GLOBALS['Pa2']['pa2RowEvenOdd']++;
+			$GLOBALS['pa2']['pa2RowEvenOdd']++;
 		}
 
 

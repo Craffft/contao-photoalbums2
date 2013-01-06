@@ -62,7 +62,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2Mode'] = array
 	'exclude'                 => true,
 	'inputType'               => 'select',
 	'options'                 => array('pa2_on_one_page', 'pa2_only_album_view', 'pa2_with_detail_page'),
-	'reference'               => &$GLOBALS['TL_LANG']['pa2_mode_types'],
+	'reference'               => &$GLOBALS['TL_LANG']['pa2']['mode_types'],
 	'default'                 => 'pa2_on_one_page',
 	'eval'                    => array('submitOnChange'=>true, 'tl_class'=>'long'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
@@ -83,8 +83,8 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2PreviewImage'] = array
 	'exclude'                 => true,
 	'inputType'               => 'select',
 	'default'                 => 'use_album_options',
-	'options'                 => $GLOBALS['Pa2']['preview_image_types_in_module'],
-	'reference'               => &$GLOBALS['TL_LANG']['pa2_preview_image_module_types'],
+	'options'                 => $GLOBALS['pa2']['module_preview_image_types'],
+	'reference'               => &$GLOBALS['TL_LANG']['pa2']['preview_image_module_types'],
 	'eval'                    => array('tl_class'=>'long'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
 );
@@ -296,7 +296,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsMetaFields'] = array
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsMetaFields'],
 	'exclude'                 => true,
 	'inputType'               => 'checkboxWizard',
-	'options'                 => $GLOBALS['Pa2']['metaFields'],
+	'options'                 => $GLOBALS['pa2']['metaFields'],
 	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2MetaField_options'],
 	'eval'                    => array('multiple'=>true),
 	'sql'                     => "blob NULL"
@@ -307,7 +307,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesMetaFields'] = array
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImagesMetaFields'],
 	'exclude'                 => true,
 	'inputType'               => 'checkboxWizard',
-	'options'                 => $GLOBALS['Pa2']['metaFields'],
+	'options'                 => $GLOBALS['pa2']['metaFields'],
 	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2MetaField_options'],
 	'eval'                    => array('multiple'=>true),
 	'sql'                     => "blob NULL"

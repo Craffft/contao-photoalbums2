@@ -49,11 +49,12 @@ $GLOBALS['TL_CRON']['daily'][] = array('Pa2', 'generateFeeds');
 $GLOBALS['TL_PERMISSIONS'][] = 'photoalbums2s';
 $GLOBALS['TL_PERMISSIONS'][] = 'photoalbums2p';
 
-// Define global Pa2
-$GLOBALS['Pa2'] = array();
 
-// Sort types
-$GLOBALS['Pa2']['sort_types'] = array
+// Define global pa2
+$GLOBALS['pa2'] = array();
+
+// Image sort types
+$GLOBALS['pa2']['image_sort_types'] = array
 (
 	'metatitle_asc'                      => 'metatitle_asc',
 	'metatitle_desc'                     => 'metatitle_desc',
@@ -65,16 +66,16 @@ $GLOBALS['Pa2']['sort_types'] = array
 	'custom'                             => 'custom'
 );
 
-// Preview image types
-$GLOBALS['Pa2']['preview_image_types'] = array
+// Album image preview types
+$GLOBALS['pa2']['album_preview_image_types'] = array
 (
 	'no_preview_image'                   => 'no_preview_image',
 	'random_preview_image'               => 'random_preview_image',
 	'select_preview_image'               => 'select_preview_image'
 );
 
-// Preview image types in module
-$GLOBALS['Pa2']['preview_image_types_in_module'] = array
+// Module image preview types
+$GLOBALS['pa2']['module_preview_image_types'] = array
 (
 	'use_album_options'                  => 'use_album_options',
 	'no_preview_images'                  => 'no_preview_images',
@@ -83,4 +84,4 @@ $GLOBALS['Pa2']['preview_image_types_in_module'] = array
 );
 
 // Meta fields
-$GLOBALS['Pa2']['metaFields'] = array('date', 'event', 'place', 'photographer', 'description', 'numberOfAllImages');
+$GLOBALS['pa2']['metaFields'] = array('date', 'event', 'place', 'photographer', 'description', 'numberOfAllImages');

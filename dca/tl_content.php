@@ -144,7 +144,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesMetaFields'] = array
 	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesMetaFields'],
 	'exclude'                 => true,
 	'inputType'               => 'checkboxWizard',
-	'options'                 => $GLOBALS['Pa2']['metaFields'],
+	'options'                 => $GLOBALS['pa2']['metaFields'],
 	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2MetaField_options'],
 	'eval'                    => array('multiple'=>true),
 	'sql'                     => "blob NULL"

@@ -203,7 +203,7 @@ class Pa2Album extends \Pa2Lib
 					$objAlbum->image_sort = deserialize($objAlbum->image_sort);
 
 					// Set sortedImageIds
-					$objPa2ImageSorter = new \Pa2ImageSorter($objAlbum->image_sort_check, $objAlbum->images, $objAlbum->image_sort);
+					$objPa2ImageSorter = new \Pa2ImageSorter($objAlbum->image_sort_type, $objAlbum->images, $objAlbum->image_sort);
 					$objAlbum->arrSortedImageIds = $objPa2ImageSorter->getSortedIds();
 				}
 
