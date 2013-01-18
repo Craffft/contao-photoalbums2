@@ -81,6 +81,21 @@ $GLOBALS['TL_LANG']['pa2']['moduleModeTypes']['pa2_with_detail_page'] = array('F
 
 
 /**
+ * Album sort types
+ */
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['name_asc'] = array('Name (ascending)', 'Name (ascending)');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['name_desc'] = array('Name (descending)', 'Name (descending)');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['startdate_asc'] = array('Startdate (ascending)', 'Startdate (ascending)');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['startdate_desc'] = array('Startdate (descending)', 'Startdate (descending)');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['enddate_asc'] = array('Enddate (ascending)', 'Enddate (ascending)');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['enddate_desc'] = array('Enddate (descending)', 'Enddate (descending)');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['numberOfImages_asc'] = array('Number of images (ascending)', 'Number of images (ascending)');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['numberOfImages_desc'] = array('Number of images (descending)', 'Number of images (descending)');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['random'] = array('Random output', 'Random output');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['custom'] = array('Own sorting', 'Own sorting');
+
+
+/**
  * Meta fields
  */
 $GLOBALS['TL_LANG']['pa2']['pa2MetaFieldOptions']['date'] = 'Capture date';

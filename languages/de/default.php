@@ -43,7 +43,7 @@ $GLOBALS['TL_LANG']['MSC']['imagesEmpty'] = 'Das Fotoalbum konnte nicht gefunden
 
 
 /**
- * Sort types
+ * Image sort types
  */
 $GLOBALS['TL_LANG']['pa2']['imageSortTypes']['metatitle_asc'] = array('Meta-Titel (aufsteigend)', 'Meta-Titel (aufsteigend)');
 $GLOBALS['TL_LANG']['pa2']['imageSortTypes']['metatitle_desc'] = array('Meta-Titel (absteigend)', 'Meta-Titel (absteigend)');
@@ -78,6 +78,21 @@ $GLOBALS['TL_LANG']['pa2']['previewImageModuleTypes']['random_images_at_no_previ
 $GLOBALS['TL_LANG']['pa2']['moduleModeTypes']['pa2_on_one_page'] = array('Foto-Ansicht und Alben-Ansicht auf gleicher Seite darstellen (Standard)', 'Wählen Sie diese Einstellung, damit beide Ansichtsarten auf der gleichen Seite dargestellt werden.');
 $GLOBALS['TL_LANG']['pa2']['moduleModeTypes']['pa2_only_album_view'] = array('Nur Album-Ansicht verwenden und Lightbox direkt einbinden', 'Wählen Sie diese Einstellung um nur die Alben-Ansicht zu verwenden. Bei einem Klick auf ein Album öffnet sich dann direkt die Ligabox mit den Bildern aus dem Fotoalbum.');
 $GLOBALS['TL_LANG']['pa2']['moduleModeTypes']['pa2_with_detail_page'] = array('Foto-Ansicht auf einer anderen Seite anzeigen', 'Wählen Sie diese Einstellung, damit die Foto-Ansicht und die Alben-Ansicht auf zwei verschiedenen Seiten dargestellt werden kann.');
+
+
+/**
+ * Album sort types
+ */
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['name_asc'] = array('Name (aufsteigend)', 'Name (aufsteigend)');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['name_desc'] = array('Name (absteigend)', 'Name (absteigend)');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['startdate_asc'] = array('Startdatum (aufsteigend)', 'Startdatum (aufsteigend)');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['startdate_desc'] = array('Startdatum (absteigend)', 'Startdatum (absteigend)');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['enddate_asc'] = array('Enddatum (aufsteigend)', 'Enddatum (aufsteigend)');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['enddate_desc'] = array('Enddatum (absteigend)', 'Enddatum (absteigend)');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['numberOfImages_asc'] = array('Bilderanzahl (aufsteigend)', 'Bilderanzahl (aufsteigend)');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['numberOfImages_desc'] = array('Bilderanzahl (absteigend)', 'Bilderanzahl (absteigend)');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['random'] = array('Zufällige Ausgabe', 'Zufällige Ausgabe');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['custom'] = array('Eigene Sortierung', 'Eigene Sortierung');
 
 
 /**

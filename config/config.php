@@ -66,6 +66,20 @@ $GLOBALS['pa2']['imageSortTypes'] = array
 	'custom'                             => 'custom'
 );
 
+$GLOBALS['pa2']['albumSortTypes'] = array
+(
+	'name_asc'                           => 'name_asc',
+	'name_desc'                          => 'name_desc',
+	'startdate_asc'                      => 'startdate_asc',
+	'startdate_desc'                     => 'startdate_desc',
+	'enddate_asc'                        => 'enddate_asc',
+	'enddate_desc'                       => 'enddate_desc',
+	'numberOfImages_asc'                 => 'numberOfImages_asc',
+	'numberOfImages_desc'                => 'numberOfImages_desc',
+	'random'                             => 'random',
+	'custom'                             => 'custom'
+);
+
 // Album image preview types
 $GLOBALS['pa2']['albumPreviewImageTypes'] = array
 (

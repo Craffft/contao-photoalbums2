@@ -168,7 +168,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'exclude'                 => true,
 			'inputType'               => 'text',
 			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
-			'save_callback' => array
+			'save_callback'           => array
 			(
 				array('tl_photoalbums2_album', 'generateAlias')
 			),
