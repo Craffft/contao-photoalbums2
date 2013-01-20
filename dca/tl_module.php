@@ -79,7 +79,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2PreviewImage'] = array
 	'default'                 => 'use_album_options',
 	'options'                 => $GLOBALS['pa2']['modulePreviewImageTypes'],
 	'reference'               => &$GLOBALS['TL_LANG']['pa2']['previewImageModuleTypes'],
-	'eval'                    => array('tl_class'=>'w50,clr'),
+	'eval'                    => array('tl_class'=>'w50'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
 );
 
@@ -485,15 +485,15 @@ class tl_module_photoalbums2 extends Pa2Backend
 		// Fix pa2 field position
 		if ($pa2Mode == 'pa2_only_album_view')
 		{
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsTemplate']['eval']['tl_class'] = 'w50,clr';
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2NumberOfAlbums']['eval']['tl_class'] = 'w50,clr';
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsPerPage']['eval']['tl_class'] = 'w50,clr';
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsPerRow']['eval']['tl_class'] = 'w50,clr';
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowHeadline']['eval']['tl_class'] = 'w50,clr';
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowTitle']['eval']['tl_class'] = 'w50,clr';
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowTeaser']['eval']['tl_class'] = 'w50,clr';
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageSize']['eval']['tl_class'] = 'w50,clr';
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageMargin']['eval']['tl_class'] = 'w50,clr';
+			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsTemplate']['eval']['tl_class'] = 'w50 clr';
+			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2NumberOfAlbums']['eval']['tl_class'] = 'w50 clr';
+			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsPerPage']['eval']['tl_class'] = 'w50 clr';
+			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsPerRow']['eval']['tl_class'] = 'w50 clr';
+			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowHeadline']['eval']['tl_class'] = 'w50 clr';
+			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowTitle']['eval']['tl_class'] = 'w50 clr';
+			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowTeaser']['eval']['tl_class'] = 'w50 clr';
+			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageSize']['eval']['tl_class'] = 'w50 clr';
+			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageMargin']['eval']['tl_class'] = 'w50 clr';
 		}
 
 		// Remove from palette
