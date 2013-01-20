@@ -333,7 +333,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_archive'] = array
  * @author    Daniel Kiesel <https://github.com/icodr8>
  * @package   photoalbums2
  */
-class tl_photoalbums2_archive extends Backend
+class tl_photoalbums2_archive extends Pa2Backend
 {
 	/**
 	 * Import the back end user object

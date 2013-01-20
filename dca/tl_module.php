@@ -21,7 +21,8 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][] = 'pa2TimeFilter';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['photoalbums2']     = '{title_legend},name,headline,type;
 																			{config_legend},pa2Mode';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_on_one_page']    = '{title_legend},name,headline,type;
-																			{config_legend},pa2Mode,pa2PreviewImage,pa2Archives,pa2AlbumSortType;
+																			{config_legend},pa2Mode,pa2PreviewImage;
+																			{pa2Album_legend},pa2Archives,pa2AlbumSortType,pa2AlbumSort;
 																			{pa2Template_legend},pa2AlbumsTemplate,pa2ImagesTemplate,pa2NumberOfAlbums,pa2NumberOfImages,pa2AlbumsPerPage,pa2ImagesPerPage,pa2AlbumsShowHeadline,pa2ImagesShowHeadline,pa2AlbumsShowTitle,pa2ImagesShowTitle,pa2AlbumsShowTeaser,pa2ImagesShowTeaser;
 																			{pa2Image_legend},pa2AlbumsPerRow,pa2ImagesPerRow,pa2AlbumsImageSize,pa2ImagesImageSize,pa2AlbumsImageMargin,pa2ImagesImageMargin;
 																			{pa2Meta_legend:hide},pa2AlbumsMetaFields,pa2ImagesMetaFields;
@@ -30,7 +31,8 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_on_one_page']    = '{title_lege
 																			{protected_legend:hide},protected;
 																			{expert_legend:hide},guests,cssID,space';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_only_album_view']   = '{title_legend},name,headline,type;
-																			{config_legend},pa2Mode,pa2PreviewImage,pa2Archives,pa2AlbumSortType;
+																			{config_legend},pa2Mode,pa2PreviewImage;
+																			{pa2Album_legend},pa2Archives,pa2AlbumSortType,pa2AlbumSort;
 																			{pa2Template_legend},pa2AlbumsTemplate,pa2NumberOfAlbums,pa2AlbumsPerPage,pa2AlbumsShowHeadline,pa2AlbumsShowTitle,pa2AlbumsShowTeaser;
 																			{pa2Image_legend},pa2AlbumsPerRow,pa2AlbumsImageSize,pa2AlbumsImageMargin;
 																			{pa2Meta_legend:hide},pa2AlbumsMetaFields;
@@ -39,7 +41,8 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_only_album_view']   = '{title_l
 																			{protected_legend:hide},protected;
 																			{expert_legend:hide},guests,cssID,space';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_with_detail_page']   = '{title_legend},name,headline,type;
-																			{config_legend},pa2Mode,pa2DetailPage,pa2PreviewImage,pa2Archives,pa2AlbumSortType;
+																			{config_legend},pa2Mode,pa2PreviewImage,pa2DetailPage;
+																			{pa2Album_legend},pa2Archives,pa2AlbumSortType,pa2AlbumSort;
 																			{pa2Template_legend},pa2AlbumsTemplate,pa2ImagesTemplate,pa2NumberOfAlbums,pa2NumberOfImages,pa2AlbumsPerPage,pa2ImagesPerPage,pa2AlbumsShowHeadline,pa2ImagesShowHeadline,pa2AlbumsShowTitle,pa2ImagesShowTitle,pa2AlbumsShowTeaser,pa2ImagesShowTeaser;
 																			{pa2Image_legend},pa2AlbumsPerRow,pa2ImagesPerRow,pa2AlbumsImageSize,pa2ImagesImageSize,pa2AlbumsImageMargin,pa2ImagesImageMargin;
 																			{pa2Meta_legend:hide},pa2AlbumsMetaFields,pa2ImagesMetaFields;
@@ -64,17 +67,8 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2Mode'] = array
 	'options'                 => array('pa2_on_one_page', 'pa2_only_album_view', 'pa2_with_detail_page'),
 	'reference'               => &$GLOBALS['TL_LANG']['pa2']['moduleModeTypes'],
 	'default'                 => 'pa2_on_one_page',
-	'eval'                    => array('submitOnChange'=>true, 'tl_class'=>'long'),
+	'eval'                    => array('submitOnChange'=>true, 'tl_class'=>'w50'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
-);
-
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2DetailPage'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2DetailPage'],
-	'exclude'                 => true,
-	'inputType'               => 'pageTree',
-	'eval'                    => array('fieldType'=>'radio'),
-	'sql'                     => "varchar(10) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['pa2PreviewImage'] = array
@@ -85,8 +79,17 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2PreviewImage'] = array
 	'default'                 => 'use_album_options',
 	'options'                 => $GLOBALS['pa2']['modulePreviewImageTypes'],
 	'reference'               => &$GLOBALS['TL_LANG']['pa2']['previewImageModuleTypes'],
-	'eval'                    => array('tl_class'=>'long'),
+	'eval'                    => array('tl_class'=>'w50,clr'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2DetailPage'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2DetailPage'],
+	'exclude'                 => true,
+	'inputType'               => 'pageTree',
+	'eval'                    => array('fieldType'=>'radio'),
+	'sql'                     => "varchar(10) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['pa2Archives'] = array
@@ -108,6 +111,15 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumSortType'] = array
 	'reference'               => &$GLOBALS['TL_LANG']['pa2']['albumSortTypes'],
 	'eval'                    => array('submitOnChange'=>true),
 	'sql'                     => "varchar(64) NOT NULL default ''"
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumSort'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumSort'],
+	'exclude'                 => true,
+	'inputType'               => 'checkboxWizard',
+	'eval'                    => array(),
+	'sql'                     => "blob NULL"
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsTemplate'] = array
@@ -374,7 +386,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2Teaser'] = array
  * @author    Daniel Kiesel <https://github.com/icodr8>
  * @package   photoalbums2
  */
-class tl_module_photoalbums2 extends Backend
+class tl_module_photoalbums2 extends Pa2Backend
 {
 
 	/**
@@ -482,6 +494,12 @@ class tl_module_photoalbums2 extends Backend
 			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowTeaser']['eval']['tl_class'] = 'w50,clr';
 			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageSize']['eval']['tl_class'] = 'w50,clr';
 			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageMargin']['eval']['tl_class'] = 'w50,clr';
+		}
+
+		// Remove from palette
+		if ($objModule->pa2AlbumSortType != 'custom')
+		{
+			$this->removeFromPalette('tl_module', 'photoalbums2', 'pa2AlbumSort');
 		}
 	}
 }

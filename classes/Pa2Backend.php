@@ -86,4 +86,19 @@ class Pa2Backend extends \Backend
 			$res = $stmt->execute($objModule->pa2TimeFilterStart, $objModule->pa2TimeFilterEnd, $objModule->id);
 		}
 	}
+	
+	
+	/**
+	 * removeFromPalette function.
+	 * 
+	 * @access protected
+	 * @param string $table
+	 * @param string $palette
+	 * @param string $value
+	 * @return void
+	 */
+	protected function removeFromPalette($table, $palette, $value)
+	{
+		$GLOBALS['TL_DCA'][$table]['palettes'][$palette] = preg_replace('#[,]{1}(' . $value . ')([,;]{1})#', '$2', $GLOBALS['TL_DCA'][$table]['palettes'][$palette]);
+	}
 }

@@ -21,16 +21,16 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 	// Config
 	'config' => array
 	(
-		'dataContainer'               => 'Table',
-		'enableVersioning'            => true,
-		'ptable'       => 'tl_photoalbums2_archive',
-		'onload_callback' => array
+		'dataContainer'     => 'Table',
+		'enableVersioning'  => true,
+		'ptable'            => 'tl_photoalbums2_archive',
+		'onload_callback'   => array
 		(
 			array('tl_photoalbums2_album', 'checkPermission'),
 			array('tl_photoalbums2_album', 'generateFeed'),
 			array('tl_photoalbums2_album', 'generatePalette')
 		),
-		'oncut_callback' => array
+		'oncut_callback'    => array
 		(
 			array('tl_photoalbums2_album', 'scheduleUpdate')
 		),
@@ -363,7 +363,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
  * @author    Daniel Kiesel <https://github.com/icodr8>
  * @package   photoalbums2
  */
-class tl_photoalbums2_album extends Backend
+class tl_photoalbums2_album extends Pa2Backend
 {
 	/**
 	 * Import the back end user object
@@ -743,26 +743,13 @@ class tl_photoalbums2_album extends Backend
 		// Remove from palette
 		if ($objAlbum->previewImageType != 'select_preview_image')
 		{
-			$this->removeFromPalette('previewImage');
+			$this->removeFromPalette('tl_photoalbums2_album', 'default', 'previewImage');
 		}
 
 		// Remove from palette
 		if ($objAlbum->imageSortType != 'custom')
 		{
-			$this->removeFromPalette('imageSort');
+			$this->removeFromPalette('tl_photoalbums2_album', 'default', 'imageSort');
 		}
-	}
-
-
-	/**
-	 * removeFromPalette function.
-	 *
-	 * @access private
-	 * @param string $value
-	 * @return void
-	 */
-	private function removeFromPalette($value)
-	{
-		$GLOBALS['TL_DCA']['tl_photoalbums2_album']['palettes']['default'] = preg_replace('#[,]{1}(' . $value . ')([,;]{1})#', '$2', $GLOBALS['TL_DCA']['tl_photoalbums2_album']['palettes']['default']);
 	}
 }

@@ -200,7 +200,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2Teaser'] = array
  * @author    Daniel Kiesel <https://github.com/icodr8>
  * @package   photoalbums2
  */
-class tl_content_photoalbums2 extends Backend
+class tl_content_photoalbums2 extends Pa2Backend
 {
 
 	/**

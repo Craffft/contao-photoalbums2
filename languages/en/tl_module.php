@@ -33,10 +33,11 @@
  * Fields
  */
 $GLOBALS['TL_LANG']['tl_module']['pa2Mode']               = array('Select view mode', 'Here you can select the view mode of the module.');
-$GLOBALS['TL_LANG']['tl_module']['pa2DetailPage']         = array('Image view on another page', 'Normally, the album view and the image view are on the same page. If it is necessary to use different pages, choose here the page for the image view.<br>Please use the "auto_item"-parameter.');
 $GLOBALS['TL_LANG']['tl_module']['pa2PreviewImage']       = array('Preview image', 'Here you can define the output of the preview image.');
+$GLOBALS['TL_LANG']['tl_module']['pa2DetailPage']         = array('Image view on another page', 'Normally, the album view and the image view are on the same page. If it is necessary to use different pages, choose here the page for the image view.<br>Please use the "auto_item"-parameter.');
 $GLOBALS['TL_LANG']['tl_module']['pa2Archives']           = array('Image album archive', 'Please choose one or more image album archives.');
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumSortType']      = array('Sort albums', 'Here you can select the order of photo albums for the summary page.');
+$GLOBALS['TL_LANG']['tl_module']['pa2AlbumSort']          = array('Sort albums', 'Here you can sort the albums individually.');
 
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsTemplate']     = array('Album Layout', 'Please choose here the layout of the album.');
 $GLOBALS['TL_LANG']['tl_module']['pa2ImagesTemplate']     = array('Image Layout', 'Please choose here the layout of the images.');
@@ -71,6 +72,7 @@ $GLOBALS['TL_LANG']['tl_module']['pa2Teaser']             = array('Teaser', 'Her
 /**
  * Reference
  */
+$GLOBALS['TL_LANG']['tl_module']['pa2Album_legend']       = 'Album settings';
 $GLOBALS['TL_LANG']['tl_module']['pa2Template_legend']    = 'Template settings';
 $GLOBALS['TL_LANG']['tl_module']['pa2Image_legend']       = 'Image settings';
 $GLOBALS['TL_LANG']['tl_module']['pa2Meta_legend']        = 'Meta settings';

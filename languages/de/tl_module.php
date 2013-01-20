@@ -33,10 +33,11 @@
  * Fields
  */
 $GLOBALS['TL_LANG']['tl_module']['pa2Mode']               = array('Ansichtsmodus wählen', 'Hier können Sie den Ansichtsmodus des Moduls auswählen.');
-$GLOBALS['TL_LANG']['tl_module']['pa2DetailPage']         = array('Foto-Ansicht auf einer anderen Seite anzeigen', 'Im Normalfall wird die Alben-Ansicht und die Foto-Ansicht auf der gleichen Seite dargestellt. Manchmal ist es jedoch nötig diese Beiden Seitenansichten auf zwei verschiedenen Seiten darzustellen. Damit Sie dies tun können, wählen Sie hier einfach die Seite aus, auf der die Foto-Ansicht dargestellt werden soll. Danach fügen Sie dieses Modul einmal auf der ausgewählten Seite und einmal auf einer anderen Seite ein. Auf der anderen Seite ist dann die Alben-Ansicht zu sehen.<br>Kleiner Tipp: Es empfiehlt sich den "auto_item-Parameter" zu verwenden.');
 $GLOBALS['TL_LANG']['tl_module']['pa2PreviewImage']       = array('Vorschau Foto', 'Hier können Sie die Ausgabe des Vorschau Fotos definieren.');
+$GLOBALS['TL_LANG']['tl_module']['pa2DetailPage']         = array('Foto-Ansicht auf einer anderen Seite anzeigen', 'Im Normalfall wird die Alben-Ansicht und die Foto-Ansicht auf der gleichen Seite dargestellt. Manchmal ist es jedoch nötig diese Beiden Seitenansichten auf zwei verschiedenen Seiten darzustellen. Damit Sie dies tun können, wählen Sie hier einfach die Seite aus, auf der die Foto-Ansicht dargestellt werden soll. Danach fügen Sie dieses Modul einmal auf der ausgewählten Seite und einmal auf einer anderen Seite ein. Auf der anderen Seite ist dann die Alben-Ansicht zu sehen.<br>Kleiner Tipp: Es empfiehlt sich den "auto_item-Parameter" zu verwenden.');
 $GLOBALS['TL_LANG']['tl_module']['pa2Archives']           = array('Fotoalben-Archive', 'Bitte wählen Sie ein oder mehrere Fotoalben-Archive.');
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumSortType']      = array('Alben sortieren', 'Wählen Sie hier die Sortierung der Fotoalben für die Übersichtsseite aus.');
+$GLOBALS['TL_LANG']['tl_module']['pa2AlbumSort']          = array('Alben sortieren', 'Hier können Sie die Alben individuell sortieren.');
 
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsTemplate']     = array('Alben Template', 'Wählen Sie hier das Template für die Alben aus.');
 $GLOBALS['TL_LANG']['tl_module']['pa2ImagesTemplate']     = array('Fotos Template', 'Wählen Sie hier das Template für die Fotos aus.');
@@ -71,6 +72,7 @@ $GLOBALS['TL_LANG']['tl_module']['pa2Teaser']             = array('Teaser', 'Hie
 /**
  * Reference
  */
+$GLOBALS['TL_LANG']['tl_module']['pa2Album_legend']       = 'Album Einstellungen';
 $GLOBALS['TL_LANG']['tl_module']['pa2Template_legend']    = 'Template Einstellungen';
 $GLOBALS['TL_LANG']['tl_module']['pa2Image_legend']       = 'Foto Einstellungen';
 $GLOBALS['TL_LANG']['tl_module']['pa2Meta_legend']        = 'Meta Einstellungen';
