@@ -213,7 +213,8 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 						$objImageTemplate = new \FrontendTemplate('pa2_lightbox_image');
 
 						// Set vars
-						$objImageTemplate->albumID = $strAlbumIndividualId;
+						$objImageTemplate->albumID = $objTemplate->albumID;
+
 						$objImageTemplate->href = str_replace(' ', '%20', $objImage->path);
 
 						// Add image to template
