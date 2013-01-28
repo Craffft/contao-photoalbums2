@@ -68,8 +68,8 @@ $GLOBALS['pa2']['imageSortTypes'] = array
 
 $GLOBALS['pa2']['albumSortTypes'] = array
 (
-	'name_asc'                           => 'name_asc',
-	'name_desc'                          => 'name_desc',
+	'title_asc'                          => 'title_asc',
+	'title_desc'                         => 'title_desc',
 	'startdate_asc'                      => 'startdate_asc',
 	'startdate_desc'                     => 'startdate_desc',
 	'enddate_asc'                        => 'enddate_asc',

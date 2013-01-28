@@ -119,6 +119,17 @@ class Pa2Archive extends \Pa2Lib
 			$arrAlbumIds[] = $objAlbums->id;
 		}
 
+		if (isset($this->arrData['pa2AlbumSortType']) && isset($this->arrData['pa2AlbumSort']))
+		{
+			$objPa2AlbumSorter = new \Pa2AlbumSorter($this->arrData['pa2AlbumSortType'], $arrAlbumIds, $this->arrData['pa2AlbumSort']);
+			$arrAlbumIds = $objPa2AlbumSorter->getSortedIds();
+			
+			if ($arrAlbumIds === false)
+			{
+				return null;
+			}
+		}
+
 		$objPa2Album = new \Pa2Album($arrAlbumIds, $this->arrData);
 
 		return $objPa2Album->getAlbumIds();

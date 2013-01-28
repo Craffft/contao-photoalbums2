@@ -83,8 +83,8 @@ $GLOBALS['TL_LANG']['pa2']['moduleModeTypes']['pa2_with_detail_page'] = array('F
 /**
  * Album sort types
  */
-$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['name_asc'] = array('Name (ascending)', 'Name (ascending)');
-$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['name_desc'] = array('Name (descending)', 'Name (descending)');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['title_asc'] = array('Name (ascending)', 'Name (ascending)');
+$GLOBALS['TL_LANG']['pa2']['albumSortTypes']['title_desc'] = array('Name (descending)', 'Name (descending)');
 $GLOBALS['TL_LANG']['pa2']['albumSortTypes']['startdate_asc'] = array('Startdate (ascending)', 'Startdate (ascending)');
 $GLOBALS['TL_LANG']['pa2']['albumSortTypes']['startdate_desc'] = array('Startdate (descending)', 'Startdate (descending)');
 $GLOBALS['TL_LANG']['pa2']['albumSortTypes']['enddate_asc'] = array('Enddate (ascending)', 'Enddate (ascending)');

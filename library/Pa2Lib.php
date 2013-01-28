@@ -63,9 +63,9 @@ abstract class Pa2Lib extends \Controller
 			$this->arrItems = array($varValue);
 		}
 		else if (is_array($varValue))
-			{
-				$this->arrItems = $varValue;
-			}
+		{
+			$this->arrItems = $varValue;
+		}
 
 		if (is_array($arrData))
 		{

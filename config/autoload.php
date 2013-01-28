@@ -2,9 +2,9 @@
 
 /**
  * Contao Open Source CMS
- *
- * Copyright (C) 2005-2012 Leo Feyer
- *
+ * 
+ * Copyright (C) 2005-2013 Leo Feyer
+ * 
  * @package Photoalbums2
  * @link    http://contao.org
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
@@ -27,15 +27,13 @@ ClassLoader::addClasses(array
 (
 	// Classes
 	'Photoalbums2\Pa2'                      => 'system/modules/photoalbums2/classes/Pa2.php',
-	'Photoalbums2\Pa2Albums'                => 'system/modules/photoalbums2/classes/Pa2Albums.php',
+	'Photoalbums2\Pa2AlbumSorter'           => 'system/modules/photoalbums2/classes/Pa2AlbumSorter.php',
 	'Photoalbums2\Pa2AlbumViewParser'       => 'system/modules/photoalbums2/classes/Pa2AlbumViewParser.php',
 	'Photoalbums2\Pa2Backend'               => 'system/modules/photoalbums2/classes/Pa2Backend.php',
 	'Photoalbums2\Pa2Empty'                 => 'system/modules/photoalbums2/classes/Pa2Empty.php',
-	'Photoalbums2\Pa2'                   => 'system/modules/photoalbums2/classes/Pa2.php',
-	'Photoalbums2\Pa2Pagination'            => 'system/modules/photoalbums2/classes/Pa2Pagination.php',
-	'Photoalbums2\Pa2Images'                => 'system/modules/photoalbums2/classes/Pa2Images.php',
-	'Photoalbums2\Pa2ImageViewParser'       => 'system/modules/photoalbums2/classes/Pa2ImageViewParser.php',
 	'Photoalbums2\Pa2ImageSorter'           => 'system/modules/photoalbums2/classes/Pa2ImageSorter.php',
+	'Photoalbums2\Pa2ImageViewParser'       => 'system/modules/photoalbums2/classes/Pa2ImageViewParser.php',
+	'Photoalbums2\Pa2Pagination'            => 'system/modules/photoalbums2/classes/Pa2Pagination.php',
 	'Photoalbums2\Pa2PreviewImage'          => 'system/modules/photoalbums2/classes/Pa2PreviewImage.php',
 	'Photoalbums2\Pa2TimeFilter'            => 'system/modules/photoalbums2/classes/Pa2TimeFilter.php',
 	'Photoalbums2\Pa2ViewParser'            => 'system/modules/photoalbums2/classes/Pa2ViewParser.php',
@@ -46,8 +44,8 @@ ClassLoader::addClasses(array
 	// Library
 	'Photoalbums2\Pa2Album'                 => 'system/modules/photoalbums2/library/Pa2Album.php',
 	'Photoalbums2\Pa2Archive'               => 'system/modules/photoalbums2/library/Pa2Archive.php',
-	'Photoalbums2\Pa2Lib'                   => 'system/modules/photoalbums2/library/Pa2Lib.php',
 	'Photoalbums2\Pa2Image'                 => 'system/modules/photoalbums2/library/Pa2Image.php',
+	'Photoalbums2\Pa2Lib'                   => 'system/modules/photoalbums2/library/Pa2Lib.php',
 
 	// Models
 	'Photoalbums2\Photoalbums2AlbumModel'   => 'system/modules/photoalbums2/models/Photoalbums2AlbumModel.php',
@@ -68,7 +66,7 @@ TemplateLoader::addFiles(array
 	'mod_photoalbums2_empty' => 'system/modules/photoalbums2/templates',
 	'pa2_album'              => 'system/modules/photoalbums2/templates',
 	'pa2_album_fluid'        => 'system/modules/photoalbums2/templates',
-	'pa2_lightbox_image'     => 'system/modules/photoalbums2/templates',
 	'pa2_image'              => 'system/modules/photoalbums2/templates',
 	'pa2_image_fluid'        => 'system/modules/photoalbums2/templates',
+	'pa2_lightbox_image'     => 'system/modules/photoalbums2/templates',
 ));

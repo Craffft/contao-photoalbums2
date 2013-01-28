@@ -117,8 +117,9 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumSort'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumSort'],
 	'exclude'                 => true,
-	'inputType'               => 'checkboxWizard',
-	'eval'                    => array(),
+	'inputType'               => 'SortWizard',
+	'options_callback'        => array('tl_module_photoalbums2', 'getAlbumSort'),
+	'eval'                    => array('reloadButton'=>true),
 	'sql'                     => "blob NULL"
 );
 
@@ -458,6 +459,48 @@ class tl_module_photoalbums2 extends Pa2Backend
 		}
 
 		return $this->getTemplateGroup('pa2_image', $intPid);
+	}
+
+
+	/**
+	 * getAlbumSort function.
+	 * 
+	 * @access public
+	 * @param DataContainer $dc
+	 * @return void
+	 */
+	public function getAlbumSort(DataContainer $dc)
+	{
+		$arrArchives = array();
+		$arrAlbumSort = array();
+
+		// Get chosen archives
+		$pa2Archives = deserialize($dc->activeRecord->pa2Archives);
+
+		// Get released archives and albums as object
+		$objPa2Archive = new \Pa2Archive($pa2Archives, array());
+		$objArchives = $objPa2Archive->getArchives();
+		$objAlbums = $objPa2Archive->getAlbums();
+
+		// Get title from archives and add them to array
+		if ($objArchives !== null)
+		{
+			while($objArchives->next())
+			{
+				$arrArchives[$objArchives->id] = $objArchives->title;
+			}
+		}
+
+		// Get complete album and archive titles and add them to array
+		if ($objAlbums !== null)
+		{
+			while($objAlbums->next())
+			{
+				$arrAlbumSort[$objAlbums->id] = $objAlbums->title . ' (' . $arrArchives[$objAlbums->pid] . ')';
+			}
+		}
+
+		return $arrAlbumSort;
 	}
 
 

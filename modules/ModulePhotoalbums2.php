@@ -88,6 +88,7 @@ class ModulePhotoalbums2 extends \Module
 		// Deserialize vars
 		$this->groups = deserialize($this->groups);
 		$this->pa2Archives = deserialize($this->pa2Archives);
+		$this->pa2AlbumSort = deserialize($this->pa2AlbumSort);
 		$this->pa2AlbumsMetaFields = deserialize($this->pa2AlbumsMetaFields);
 		$this->pa2ImagesMetaFields = deserialize($this->pa2ImagesMetaFields);
 		$this->pa2TimeFilterStart = deserialize($this->pa2TimeFilterStart);
