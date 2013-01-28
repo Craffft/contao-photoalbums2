@@ -539,7 +539,7 @@ class tl_module_photoalbums2 extends Pa2Backend
 			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageMargin']['eval']['tl_class'] = 'w50 clr';
 		}
 
-		// Remove from palette
+		// Remove fields from palette
 		if ($objModule->pa2AlbumSortType != 'custom')
 		{
 			$this->removeFromPalette('tl_module', 'photoalbums2', 'pa2AlbumSort');

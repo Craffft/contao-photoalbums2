@@ -91,22 +91,22 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 	{
 		$this->strEmptyText = $GLOBALS['TL_LANG']['MSC']['imagesEmpty'];
 
-		$this->Template->intMaxItems      = $this->Template->pa2NumberOfImages;
-		$this->Template->intItemsPerPage  = $this->Template->pa2ImagesPerPage;
-		$this->Template->intItemsPerRow   = $this->Template->pa2ImagesPerRow;
-		$this->Template->strSubtemplate   = $this->Template->pa2ImagesTemplate;
-		$this->Template->arrMetaFields    = $this->Template->pa2ImagesMetaFields;
+		$this->Template->intMaxItems            = $this->Template->pa2NumberOfImages;
+		$this->Template->intItemsPerPage        = $this->Template->pa2ImagesPerPage;
+		$this->Template->intItemsPerRow         = $this->Template->pa2ImagesPerRow;
+		$this->Template->strSubtemplate         = $this->Template->pa2ImagesTemplate;
+		$this->Template->arrMetaFields          = $this->Template->pa2ImagesMetaFields;
 
 		// Image params
-		$this->Template->size             = $this->Template->pa2ImagesImageSize;
-		$this->Template->imagemargin      = $this->Template->pa2ImagesImageMargin;
+		$this->Template->size                   = $this->Template->pa2ImagesImageSize;
+		$this->Template->imagemargin            = $this->Template->pa2ImagesImageMargin;
 
-		$this->Template->showHeadline     = $this->Template->pa2ImagesShowHeadline;
-		$this->Template->showTitle        = $this->Template->pa2ImagesShowTitle;
-		$this->Template->showTeaser       = $this->Template->pa2ImagesShowTeaser;
-		$this->Template->teaser           = $this->cleanRteOutput($this->Template->pa2Teaser);
-		$this->Template->showHeadline     = ($this->Template->headline != '' ? $this->Template->showHeadline : false);
-		$this->Template->showTeaser       = ($this->Template->teaser != '' ? $this->Template->showTeaser : false);
+		$this->Template->showHeadline           = $this->Template->pa2ImagesShowHeadline;
+		$this->Template->showTitle              = $this->Template->pa2ImagesShowTitle;
+		$this->Template->showTeaser             = $this->Template->pa2ImagesShowTeaser;
+		$this->Template->teaser                 = $this->cleanRteOutput($this->Template->pa2Teaser);
+		$this->Template->showHeadline           = ($this->Template->headline != '' ? $this->Template->showHeadline : false);
+		$this->Template->showTeaser             = ($this->Template->teaser != '' ? $this->Template->showTeaser : false);
 
 		parent::generate();
 	}

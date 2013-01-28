@@ -45,24 +45,24 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 	{
 		$this->strEmptyText = $GLOBALS['TL_LANG']['MSC']['albumsEmpty'];
 
-		$this->Template->intMaxItems      = $this->Template->pa2NumberOfAlbums;
-		$this->Template->intItemsPerPage  = $this->Template->pa2AlbumsPerPage;
-		$this->Template->intItemsPerRow   = $this->Template->pa2AlbumsPerRow;
-		$this->Template->strSubtemplate   = $this->Template->pa2AlbumsTemplate;
-		$this->Template->intDetailPage    = $this->Template->pa2DetailPage;
-		$this->Template->albumLightbox    = $this->Template->pa2AlbumLightbox;
-		$this->Template->arrMetaFields    = $this->Template->pa2AlbumsMetaFields;
+		$this->Template->intMaxItems            = $this->Template->pa2NumberOfAlbums;
+		$this->Template->intItemsPerPage        = $this->Template->pa2AlbumsPerPage;
+		$this->Template->intItemsPerRow         = $this->Template->pa2AlbumsPerRow;
+		$this->Template->strSubtemplate         = $this->Template->pa2AlbumsTemplate;
+		$this->Template->intDetailPage          = $this->Template->pa2DetailPage;
+		$this->Template->albumLightbox          = $this->Template->pa2AlbumLightbox;
+		$this->Template->arrMetaFields          = $this->Template->pa2AlbumsMetaFields;
 
 		// Image params
-		$this->Template->size             = $this->Template->pa2AlbumsImageSize;
-		$this->Template->imagemargin      = $this->Template->pa2AlbumsImageMargin;
+		$this->Template->size                   = $this->Template->pa2AlbumsImageSize;
+		$this->Template->imagemargin            = $this->Template->pa2AlbumsImageMargin;
 
-		$this->Template->showHeadline     = $this->Template->pa2AlbumsShowHeadline;
-		$this->Template->showTitle        = $this->Template->pa2AlbumsShowTitle;
-		$this->Template->showTeaser       = $this->Template->pa2AlbumsShowTeaser;
-		$this->Template->teaser           = $this->cleanRteOutput($this->Template->pa2Teaser);
-		$this->Template->showHeadline     = ($this->Template->headline != '' ? $this->Template->showHeadline : false);
-		$this->Template->showTeaser       = ($this->Template->teaser != '' ? $this->Template->showTeaser : false);
+		$this->Template->showHeadline           = $this->Template->pa2AlbumsShowHeadline;
+		$this->Template->showTitle              = $this->Template->pa2AlbumsShowTitle;
+		$this->Template->showTeaser             = $this->Template->pa2AlbumsShowTeaser;
+		$this->Template->teaser                 = $this->cleanRteOutput($this->Template->pa2Teaser);
+		$this->Template->showHeadline           = ($this->Template->headline != '' ? $this->Template->showHeadline : false);
+		$this->Template->showTeaser             = ($this->Template->teaser != '' ? $this->Template->showTeaser : false);
 
 		parent::generate();
 	}
