@@ -1,7 +1,7 @@
 
 <?php if ($this->show): ?>
 <?php if ($this->itemNumber == $this->firstItemInPageNumber): ?><ul><?php endif; ?>
-<li class="image block<?php echo $this->class; ?>">
+<li class="image block<?php if ($this->class): ?> <?php echo $this->class; ?><?php endif; ?>">
 <?php if ($this->addImage): ?>
 <div class="image_container"<?php if ($this->margin): ?> style="<?php echo $this->margin; ?>"<?php endif; ?>>
 <a href="<?php echo $this->href; ?>" title="<?php echo $this->title; ?>" rel="lightbox[pa2_<?php echo $this->albumID; ?>]">

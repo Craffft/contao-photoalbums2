@@ -1,7 +1,7 @@
 
 <?php if ($this->show): ?>
 <?php if ($this->rowStart): ?><div class="imagewrap <?php echo $this->rowClass; ?>"><?php endif; ?>
-<div class="image block<?php echo $this->class; ?>"<?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+<div class="image block<?php if ($this->class): ?> <?php echo $this->class; ?><?php endif; ?>"<?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
 <div class="imageInside">
 <?php if ($this->addImage): ?>
 <div class="image_container"<?php if ($this->margin): ?> style="<?php echo $this->margin; ?>"<?php endif; ?>>

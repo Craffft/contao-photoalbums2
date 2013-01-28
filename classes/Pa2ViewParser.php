@@ -294,11 +294,13 @@ abstract class Pa2ViewParser extends \Frontend
 		$arrClasses            = array();
 		$arrStyles             = array();
 		$totalItems            = $objTemplate->totalItems;
+		$intItemsPerRow        = $objTemplate->intItemsPerRow;
 		$intItemsPerPage       = $objTemplate->intItemsPerPage;
 		$objTemplate->rowStart = false;
 		$objTemplate->rowEnd   = false;
 
-		$intItemNumberInRow = ($i % $objTemplate->intItemsPerRow);
+		$intItemNumberInRow    = ($i % $intItemsPerRow);
+		$intItemNumberPerPage  = ($i % $intItemsPerPage);
 
 		// Fix division by zero problem
 		$intItemsPerPage = ($intItemsPerPage < 1) ? $totalItems : $intItemsPerPage;
@@ -323,7 +325,7 @@ abstract class Pa2ViewParser extends \Frontend
 		$intLastItemInPageNumber = ($totalItems > $intLastItemInPageNumber) ? $intLastItemInPageNumber : $totalItems;
 
 		// Add width to styles
-		$arrStyles[] = 'width: ' . (100 / $objTemplate->intItemsPerRow) . '%;';
+		$arrStyles[] = 'width: ' . (100 / $intItemsPerRow) . '%;';
 
 
 		// Set row start
@@ -334,7 +336,7 @@ abstract class Pa2ViewParser extends \Frontend
 		}
 
 		// Set row end
-		if ($intItemNumberInRow == ($objTemplate->intItemsPerRow - 1) || $totalItems == ($i+1) || $itemNumber == $totalItems)
+		if (($intItemNumberInRow + 1) == $intItemsPerRow || ($intItemNumberPerPage + 1) == $intItemsPerPage || $totalItems == ($i+1) || $itemNumber == $totalItems)
 		{
 			$arrClasses[] = 'last';
 			$objTemplate->rowEnd = true;
