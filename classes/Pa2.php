@@ -40,16 +40,9 @@ class Pa2 extends \Controller
 		$objLayout = \LayoutModel::findByPk($objPage->layout);
 
 		// Add css
-		if (TL_MODE=='FE' && $objLayout->skipPhotoalbums2 != '1')
+		if ((TL_MODE=='FE' && $objLayout->skipPhotoalbums2 != '1') || TL_MODE=='BE')
 		{
 			$GLOBALS['TL_CSS'][] = TL_FILES_URL . 'system/modules/photoalbums2/html/photoalbums2.css';
-		}
-
-		// Add css
-		if (TL_MODE=='BE')
-		{
-			$GLOBALS['TL_CSS'][] = TL_FILES_URL . 'system/modules/photoalbums2/html/photoalbums2.css';
-			$GLOBALS['TL_CSS'][] = TL_FILES_URL . 'system/modules/photoalbums2/html/photoalbums2_be.css';
 		}
 	}
 

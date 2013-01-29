@@ -29,6 +29,12 @@
  */
 
 
+// Add BE CSS
+if (TL_MODE == 'BE')
+{
+	$GLOBALS['TL_CSS'][] = 'system/modules/photoalbums2/html/photoalbums2_be.css';
+}
+
 // Backend Modules
 $GLOBALS['BE_MOD']['content']['photoalbums2'] = array
 (
