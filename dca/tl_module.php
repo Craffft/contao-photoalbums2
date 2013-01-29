@@ -88,7 +88,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2DetailPage'] = array
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2DetailPage'],
 	'exclude'                 => true,
 	'inputType'               => 'pageTree',
-	'eval'                    => array('fieldType'=>'radio'),
+	'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr'),
 	'sql'                     => "varchar(10) NOT NULL default ''"
 );
 
