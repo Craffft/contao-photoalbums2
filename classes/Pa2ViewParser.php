@@ -299,11 +299,11 @@ abstract class Pa2ViewParser extends \Frontend
 		$objTemplate->rowStart = false;
 		$objTemplate->rowEnd   = false;
 
-		$intItemNumberInRow    = ($i % $intItemsPerRow);
-		$intItemNumberPerPage  = ($i % $intItemsPerPage);
-
 		// Fix division by zero problem
 		$intItemsPerPage = ($intItemsPerPage < 1) ? $totalItems : $intItemsPerPage;
+
+		$intItemNumberInRow    = ($i % $intItemsPerRow);
+		$intItemNumberPerPage  = ($i % $intItemsPerPage);
 
 		// Set maxPage
 		$intMaxPage = (int) ceil($totalItems/$intItemsPerPage);
