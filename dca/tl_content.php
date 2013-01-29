@@ -21,7 +21,7 @@ $GLOBALS['TL_DCA']['tl_content']['palettes']['photoalbums2']      = '{type_legen
 																			{config_legend},pa2Album;
 																			{pa2Template_legend},pa2ImagesTemplate,pa2NumberOfImages,pa2ImagesPerPage,pa2ImagesShowHeadline,pa2ImagesShowTitle,pa2ImagesShowTeaser;
 																			{pa2Image_legend},pa2ImagesPerRow,pa2ImagesImageSize,pa2ImagesImageMargin;
-																			{pa2Meta_legend:hide},pa2ImagesMetaFields;
+																			{pa2Meta_legend:hide},pa2ImagesShowMetaDescriptions,pa2ImagesMetaFields;
 																			{pa2TimeFilter_legend:hide},pa2TimeFilter;
 																			{pa2Other_legend:hide},pa2Teaser;
 																			{protected_legend:hide},protected;
@@ -139,6 +139,16 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesImageMargin'] = array
 	'sql'                     => "varchar(128) NOT NULL default ''"
 );
 
+$GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesShowMetaDescriptions'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesShowMetaDescriptions'],
+	'exclude'                 => true,
+	'inputType'               => 'checkbox',
+	'default'                 => 1,
+	'eval'                    => array(),
+	'sql'                     => "char(1) NOT NULL default ''"
+);
+
 $GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesMetaFields'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesMetaFields'],
@@ -165,7 +175,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2TimeFilterStart'] = array
 	'exclude'                 => true,
 	'inputType'               => 'timePeriod',
 	'default'                 => 'days',
-	'options'                 => array(/*'seconds', 'minutes', 'hours', */'days', 'weeks', 'months', 'years'),
+	'options'                 => $GLOBALS['pa2']['timeFilterOptions'],
 	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2TimeFilterOptions'],
 	'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
@@ -177,7 +187,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2TimeFilterEnd'] = array
 	'exclude'                 => true,
 	'inputType'               => 'timePeriod',
 	'default'                 => 'days',
-	'options'                 => $GLOBALS['pa2']['timeFilterOptions'],
+	'options'                 => array(/*'seconds', 'minutes', 'hours', */'days', 'weeks', 'months', 'years'),
 	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2TimeFilterOptions'],
 	'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'),
 	'sql'                     => "varchar(64) NOT NULL default ''"

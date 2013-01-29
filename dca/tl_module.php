@@ -25,7 +25,7 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_on_one_page']    = '{title_lege
 																			{pa2Album_legend},pa2Archives,pa2AlbumSortType,pa2AlbumSort;
 																			{pa2Template_legend},pa2AlbumsTemplate,pa2ImagesTemplate,pa2NumberOfAlbums,pa2NumberOfImages,pa2AlbumsPerPage,pa2ImagesPerPage,pa2AlbumsShowHeadline,pa2ImagesShowHeadline,pa2AlbumsShowTitle,pa2ImagesShowTitle,pa2AlbumsShowTeaser,pa2ImagesShowTeaser;
 																			{pa2Image_legend},pa2AlbumsPerRow,pa2ImagesPerRow,pa2AlbumsImageSize,pa2ImagesImageSize,pa2AlbumsImageMargin,pa2ImagesImageMargin;
-																			{pa2Meta_legend:hide},pa2AlbumsMetaFields,pa2ImagesMetaFields;
+																			{pa2Meta_legend:hide},pa2AlbumsShowMetaDescriptions,pa2ImagesShowMetaDescriptions,pa2AlbumsMetaFields,pa2ImagesMetaFields;
 																			{pa2TimeFilter_legend:hide},pa2TimeFilter;
 																			{pa2Other_legend:hide},pa2Teaser;
 																			{protected_legend:hide},protected;
@@ -35,7 +35,7 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_only_album_view']   = '{title_l
 																			{pa2Album_legend},pa2Archives,pa2AlbumSortType,pa2AlbumSort;
 																			{pa2Template_legend},pa2AlbumsTemplate,pa2NumberOfAlbums,pa2AlbumsPerPage,pa2AlbumsShowHeadline,pa2AlbumsShowTitle,pa2AlbumsShowTeaser;
 																			{pa2Image_legend},pa2AlbumsPerRow,pa2AlbumsImageSize,pa2AlbumsImageMargin;
-																			{pa2Meta_legend:hide},pa2AlbumsMetaFields;
+																			{pa2Meta_legend:hide},pa2AlbumsShowMetaDescriptions,pa2AlbumsMetaFields;
 																			{pa2TimeFilter_legend:hide},pa2TimeFilter;
 																			{pa2Other_legend:hide},pa2Teaser;
 																			{protected_legend:hide},protected;
@@ -45,7 +45,7 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_with_detail_page']   = '{title_
 																			{pa2Album_legend},pa2Archives,pa2AlbumSortType,pa2AlbumSort;
 																			{pa2Template_legend},pa2AlbumsTemplate,pa2ImagesTemplate,pa2NumberOfAlbums,pa2NumberOfImages,pa2AlbumsPerPage,pa2ImagesPerPage,pa2AlbumsShowHeadline,pa2ImagesShowHeadline,pa2AlbumsShowTitle,pa2ImagesShowTitle,pa2AlbumsShowTeaser,pa2ImagesShowTeaser;
 																			{pa2Image_legend},pa2AlbumsPerRow,pa2ImagesPerRow,pa2AlbumsImageSize,pa2ImagesImageSize,pa2AlbumsImageMargin,pa2ImagesImageMargin;
-																			{pa2Meta_legend:hide},pa2AlbumsMetaFields,pa2ImagesMetaFields;
+																			{pa2Meta_legend:hide},pa2AlbumsShowMetaDescriptions,pa2ImagesShowMetaDescriptions,pa2AlbumsMetaFields,pa2ImagesMetaFields;
 																			{pa2TimeFilter_legend:hide},pa2TimeFilter;
 																			{pa2Other_legend:hide},pa2Teaser;
 																			{protected_legend:hide},protected;
@@ -315,6 +315,26 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesImageMargin'] = array
 	'sql'                     => "varchar(128) NOT NULL default ''"
 );
 
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowMetaDescriptions'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowMetaDescriptions'],
+	'exclude'                 => true,
+	'inputType'               => 'checkbox',
+	'default'                 => 1,
+	'eval'                    => array('tl_class'=>'w50'),
+	'sql'                     => "char(1) NOT NULL default ''"
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesShowMetaDescriptions'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImagesShowMetaDescriptions'],
+	'exclude'                 => true,
+	'inputType'               => 'checkbox',
+	'default'                 => 1,
+	'eval'                    => array('tl_class'=>'w50'),
+	'sql'                     => "char(1) NOT NULL default ''"
+);
+
 $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsMetaFields'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsMetaFields'],
@@ -322,7 +342,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsMetaFields'] = array
 	'inputType'               => 'checkboxWizard',
 	'options'                 => $GLOBALS['pa2']['metaFields'],
 	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldOptions'],
-	'eval'                    => array('multiple'=>true),
+	'eval'                    => array('multiple'=>true, 'tl_class'=>'w50 cbxes'),
 	'sql'                     => "blob NULL"
 );
 
@@ -333,7 +353,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesMetaFields'] = array
 	'inputType'               => 'checkboxWizard',
 	'options'                 => $GLOBALS['pa2']['metaFields'],
 	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldOptions'],
-	'eval'                    => array('multiple'=>true),
+	'eval'                    => array('multiple'=>true, 'tl_class'=>'w50 cbxes'),
 	'sql'                     => "blob NULL"
 );
 
@@ -537,6 +557,8 @@ class tl_module_photoalbums2 extends Pa2Backend
 			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowTeaser']['eval']['tl_class'] = 'w50 clr';
 			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageSize']['eval']['tl_class'] = 'w50 clr';
 			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageMargin']['eval']['tl_class'] = 'w50 clr';
+			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowMetaDescriptions']['eval']['tl_class'] = 'w50 clr';
+			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsMetaFields']['eval']['tl_class'] = 'w50 cbxes clr';
 		}
 
 		// Remove fields from palette

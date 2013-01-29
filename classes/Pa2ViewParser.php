@@ -258,10 +258,27 @@ abstract class Pa2ViewParser extends \Frontend
 				{
 					if ($objTemplate->$metaField != '')
 					{
+						// Set strValue
+						$strValue = $GLOBALS['TL_LANG']['pa2']['pa2MetaFieldWithoutDescription'][$metaField];
+
+						// Set strValue to %s if the current strValue has no %s
+						if (strpos($strValue, '%s') === false)
+						{
+							$strValue = '%s';
+						}
+
+						if ($objTemplate->showMetaDescriptions == '1')
+						{
+							$strValue = $GLOBALS['TL_LANG']['pa2']['pa2MetaFieldDescription'][$metaField];
+						}
+
+						// Add meta data to strValue
+						$strValue = sprintf($strValue, $objTemplate->$metaField);
+
 						$metaFields[] = array
 						(
 							'key'      => $metaField,
-							'value'    => sprintf($GLOBALS['TL_LANG']['pa2']['pa2MetaFieldDescription'][$metaField], $objTemplate->$metaField)
+							'value'    => $strValue
 						);
 					}
 				}

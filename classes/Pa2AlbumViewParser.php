@@ -51,6 +51,7 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 		$this->Template->strSubtemplate         = $this->Template->pa2AlbumsTemplate;
 		$this->Template->intDetailPage          = $this->Template->pa2DetailPage;
 		$this->Template->albumLightbox          = $this->Template->pa2AlbumLightbox;
+		$this->Template->showMetaDescriptions    = $this->Template->pa2AlbumsShowMetaDescriptions;
 		$this->Template->arrMetaFields          = $this->Template->pa2AlbumsMetaFields;
 
 		// Image params

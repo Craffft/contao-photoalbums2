@@ -110,6 +110,7 @@ $GLOBALS['TL_LANG']['pa2']['pa2MetaFieldDescription']['place'] = 'Place: %s';
 $GLOBALS['TL_LANG']['pa2']['pa2MetaFieldDescription']['photographer'] = 'Photographer: %s';
 $GLOBALS['TL_LANG']['pa2']['pa2MetaFieldDescription']['description'] = 'Description: %s';
 $GLOBALS['TL_LANG']['pa2']['pa2MetaFieldDescription']['numberOfAllImages'] = 'Quantity: %s images';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldWithoutDescription']['numberOfAllImages'] = '%s images';
 
 
 /**
