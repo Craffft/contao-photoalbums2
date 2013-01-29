@@ -352,7 +352,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2TimeFilterStart'] = array
 	'exclude'                 => true,
 	'inputType'               => 'timePeriod',
 	'default'                 => 'days',
-	'options'                 => array(/*'seconds', 'minutes', 'hours', */'days', 'weeks', 'months', 'years'),
+	'options'                 => $GLOBALS['pa2']['timeFilterOptions'],
 	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2TimeFilterOptions'],
 	'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
@@ -364,7 +364,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2TimeFilterEnd'] = array
 	'exclude'                 => true,
 	'inputType'               => 'timePeriod',
 	'default'                 => 'days',
-	'options'                 => array(/*'seconds', 'minutes', 'hours', */'days', 'weeks', 'months', 'years'),
+	'options'                 => $GLOBALS['pa2']['timeFilterOptions'],
 	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2TimeFilterOptions'],
 	'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'),
 	'sql'                     => "varchar(64) NOT NULL default ''"

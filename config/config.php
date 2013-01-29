@@ -103,5 +103,8 @@ $GLOBALS['pa2']['modulePreviewImageTypes'] = array
 	'random_images_at_no_preview_images' => 'random_images_at_no_preview_images'
 );
 
+// Time filter options
+$GLOBALS['pa2']['timeFilterOptions'] = array('days', 'weeks', 'months', 'years');
+
 // Meta fields
 $GLOBALS['pa2']['metaFields'] = array('date', 'event', 'place', 'photographer', 'description', 'numberOfAllImages');
