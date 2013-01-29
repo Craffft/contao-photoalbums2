@@ -219,8 +219,11 @@ abstract class Pa2ViewParser extends \Frontend
 			return false;
 		}
 
-		$startdate = (!empty($intStartdate) && $intStartdate > 0) ? $this->parseDate($objPage->dateFormat, $intStartdate) : false;
-		$enddate = (!empty($intEnddate) && $intEnddate > 0) ? $this->parseDate($objPage->dateFormat, $intEnddate) : false;
+		// Fixes the date format problem
+		$dateFormat = ($objPage->dateFormat != '' ? $objPage->dateFormat : $GLOBALS['TL_CONFIG']['dateFormat']);
+
+		$startdate = (!empty($intStartdate) && $intStartdate > 0) ? $this->parseDate($dateFormat, $intStartdate) : false;
+		$enddate = (!empty($intEnddate) && $intEnddate > 0) ? $this->parseDate($dateFormat, $intEnddate) : false;
 
 		if ($startdate == $enddate)
 		{
