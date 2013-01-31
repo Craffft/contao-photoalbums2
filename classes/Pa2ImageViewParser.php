@@ -94,8 +94,8 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 		$this->Template->intMaxItems            = $this->Template->pa2NumberOfImages;
 		$this->Template->intItemsPerPage        = $this->Template->pa2ImagesPerPage;
 		$this->Template->intItemsPerRow         = $this->Template->pa2ImagesPerRow;
-		$this->Template->strTemplate            = ($this->Template->pa2ImageViewTemplate != '' ? $this->Template->pa2ImageViewTemplate : $this->Template->strTemplate);
-		$this->Template->strSubtemplate         = ($this->Template->pa2ImagesTemplate != '' ? $this->Template->pa2ImagesTemplate : $this->Template->strSubtemplate);
+		$this->Template->strTemplate            = (strlen($this->Template->pa2ImageViewTemplate) > 0 ? $this->Template->pa2ImageViewTemplate : 'pa2_wrap');
+		$this->Template->strSubtemplate         = (strlen($this->Template->pa2ImagesTemplate) > 0 ? $this->Template->pa2ImagesTemplate : 'pa2_image');
 		$this->Template->showMetaDescriptions   = $this->Template->pa2ImagesShowMetaDescriptions;
 		$this->Template->arrMetaFields          = $this->Template->pa2ImagesMetaFields;
 

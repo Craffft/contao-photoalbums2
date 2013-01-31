@@ -510,7 +510,6 @@ class tl_photoalbums2_album extends Pa2Backend
 		$objTemplate->pa2NumberOfImages     = 0;
 		$objTemplate->pa2ImagesPerPage      = 0;
 		$objTemplate->pa2ImagesPerRow       = 1;
-		$objTemplate->pa2ImagesTemplate     = 'pa2_image';
 		$objTemplate->arrImage              = array('size' => array(100, 100, 'crop'));
 
 		// Render image view

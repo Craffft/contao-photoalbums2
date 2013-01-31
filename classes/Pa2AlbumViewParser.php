@@ -48,8 +48,8 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 		$this->Template->intMaxItems            = $this->Template->pa2NumberOfAlbums;
 		$this->Template->intItemsPerPage        = $this->Template->pa2AlbumsPerPage;
 		$this->Template->intItemsPerRow         = $this->Template->pa2AlbumsPerRow;
-		$this->Template->strTemplate            = ($this->Template->pa2AlbumViewTemplate != '' ? $this->Template->pa2AlbumViewTemplate : $this->Template->strTemplate);
-		$this->Template->strSubtemplate         = ($this->Template->pa2AlbumsTemplate != '' ? $this->Template->pa2AlbumsTemplate : $this->Template->strSubtemplate);
+		$this->Template->strTemplate            = (strlen($this->Template->pa2AlbumViewTemplate) > 0 ? $this->Template->pa2AlbumViewTemplate : 'pa2_wrap');
+		$this->Template->strSubtemplate         = (strlen($this->Template->pa2AlbumsTemplate) > 0 ? $this->Template->pa2AlbumsTemplate : 'pa2_album');
 		$this->Template->intDetailPage          = $this->Template->pa2DetailPage;
 		$this->Template->albumLightbox          = $this->Template->pa2AlbumLightbox;
 		$this->Template->showMetaDescriptions   = $this->Template->pa2AlbumsShowMetaDescriptions;
