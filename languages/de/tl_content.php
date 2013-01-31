@@ -34,7 +34,8 @@
  */
 $GLOBALS['TL_LANG']['tl_content']['pa2Album']                     = array('Fotoalbum wählen', 'Bitte wählen Sie Ihr gewünschtes Fotoalbum aus.');
 
-$GLOBALS['TL_LANG']['tl_content']['pa2ImagesTemplate']            = array('Fotos Template', 'Wählen Sie hier das Template für die Fotos aus.');
+$GLOBALS['TL_LANG']['tl_content']['pa2ImageViewTemplate']         = array('Foto-Ansicht Template', 'Wählen Sie hier das Template für die Foto-Ansicht aus.');
+$GLOBALS['TL_LANG']['tl_content']['pa2ImagesTemplate']            = array('Foto-Element Template', 'Wählen Sie hier das Template für das Foto-Element aus. Dieses wird innerhalb der Foto-Ansicht für jedes Foto verwendet.');
 $GLOBALS['TL_LANG']['tl_content']['pa2NumberOfImages']            = array('Gesamtzahl der Fotos', 'Hier können Sie die Gesamtzahl der Fotos festlegen. Geben Sie 0 ein, um alle anzuzeigen.');
 $GLOBALS['TL_LANG']['tl_content']['pa2ImagesPerPage']             = array('Fotos pro Seite', 'Die Anzahl an Fotos pro Seite. Geben Sie 0 ein, um den automatischen Seitenumbruch zu deaktivieren.');
 $GLOBALS['TL_LANG']['tl_content']['pa2ImagesShowHeadline']        = array('Modul Überschrift in Foto-Ansicht anzeigen', 'Setzen Sie dieses Häkchen, um die Modul Überschrift in der Foto-Ansicht anzuzeigen.');

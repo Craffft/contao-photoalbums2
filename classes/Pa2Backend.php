@@ -86,6 +86,66 @@ class Pa2Backend extends \Backend
 			$res = $stmt->execute($objModule->pa2TimeFilterStart, $objModule->pa2TimeFilterEnd, $objModule->id);
 		}
 	}
+
+
+	/**
+	 * getPa2WrapTemplates function.
+	 * 
+	 * @access public
+	 * @param DataContainer $dc
+	 * @return array
+	 */
+	public function getPa2WrapTemplates(\DataContainer $dc)
+	{
+		$intPid = $dc->activeRecord->pid;
+
+		if ($this->Input->get('act') == 'overrideAll')
+		{
+			$intPid = $this->Input->get('id');
+		}
+
+		return $this->getTemplateGroup('pa2_wrap', $intPid);
+	}
+
+
+	/**
+	 * getPa2AlbumTemplates function.
+	 * 
+	 * @access public
+	 * @param DataContainer $dc
+	 * @return array
+	 */
+	public function getPa2AlbumTemplates(\DataContainer $dc)
+	{
+		$intPid = $dc->activeRecord->pid;
+
+		if ($this->Input->get('act') == 'overrideAll')
+		{
+			$intPid = $this->Input->get('id');
+		}
+
+		return $this->getTemplateGroup('pa2_album', $intPid);
+	}
+
+
+	/**
+	 * getPa2ImageTemplates function.
+	 * 
+	 * @access public
+	 * @param DataContainer $dc
+	 * @return array
+	 */
+	public function getPa2ImageTemplates(\DataContainer $dc)
+	{
+		$intPid = $dc->activeRecord->pid;
+
+		if ($this->Input->get('act') == 'overrideAll')
+		{
+			$intPid = $this->Input->get('id');
+		}
+
+		return $this->getTemplateGroup('pa2_image', $intPid);
+	}
 	
 	
 	/**

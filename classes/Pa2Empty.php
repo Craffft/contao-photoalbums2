@@ -81,7 +81,7 @@ class Pa2Empty extends \Controller
 			return null;
 		}
 
-		$this->Template = new \FrontendTemplate('mod_photoalbums2_empty');
+		$this->Template = new \FrontendTemplate('pa2_empty');
 		$this->Template->empty = $this->strMessage;
 
 		return $this->Template;

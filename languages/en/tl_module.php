@@ -39,8 +39,10 @@ $GLOBALS['TL_LANG']['tl_module']['pa2Archives']                  = array('Image 
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumSortType']             = array('Sort albums', 'Here you can select the order of photo albums for the summary page.');
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumSort']                 = array('Sort albums', 'Here you can sort the albums individually.');
 
-$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsTemplate']            = array('Album Layout', 'Please choose here the layout of the album.');
-$GLOBALS['TL_LANG']['tl_module']['pa2ImagesTemplate']            = array('Image Layout', 'Please choose here the layout of the images.');
+$GLOBALS['TL_LANG']['tl_module']['pa2AlbumViewTemplate']         = array('Album view template', 'Here you can select the template for the album view.');
+$GLOBALS['TL_LANG']['tl_module']['pa2ImageViewTemplate']         = array('Image view template', 'Here you can select the template for the image view.');
+$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsTemplate']            = array('Album element template', 'Here you can select the template for the album element. This is used in the album view for each album.');
+$GLOBALS['TL_LANG']['tl_module']['pa2ImagesTemplate']            = array('Image element template', 'Here you can select the template for the image element. This is used in the image view for each image.');
 $GLOBALS['TL_LANG']['tl_module']['pa2NumberOfAlbums']            = array('Total number of albums', 'Here you can specify the total number of albums. Enter 0 to display all.');
 $GLOBALS['TL_LANG']['tl_module']['pa2NumberOfImages']            = array('Total number of images', 'Here you can specify the total number of images. Enter 0 to display all.');
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsPerPage']             = array('Albums per page', 'The number of albums per page. Enter 0 to disable the automatic page break.');

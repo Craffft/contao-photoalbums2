@@ -6,7 +6,7 @@
  * Copyright (C) 2005-2013 Leo Feyer
  * 
  * @package Photoalbums2
- * @link    http://contao.org
+ * @link    https://contao.org
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
@@ -62,11 +62,11 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'mod_photoalbums2'       => 'system/modules/photoalbums2/templates',
-	'mod_photoalbums2_empty' => 'system/modules/photoalbums2/templates',
-	'pa2_album'              => 'system/modules/photoalbums2/templates',
-	'pa2_album_fluid'        => 'system/modules/photoalbums2/templates',
-	'pa2_image'              => 'system/modules/photoalbums2/templates',
-	'pa2_image_fluid'        => 'system/modules/photoalbums2/templates',
-	'pa2_lightbox_image'     => 'system/modules/photoalbums2/templates',
+	'pa2_album'          => 'system/modules/photoalbums2/templates',
+	'pa2_album_fluid'    => 'system/modules/photoalbums2/templates',
+	'pa2_empty'          => 'system/modules/photoalbums2/templates',
+	'pa2_image'          => 'system/modules/photoalbums2/templates',
+	'pa2_image_fluid'    => 'system/modules/photoalbums2/templates',
+	'pa2_lightbox_image' => 'system/modules/photoalbums2/templates',
+	'pa2_wrap'           => 'system/modules/photoalbums2/templates',
 ));

@@ -31,7 +31,7 @@ class ModulePhotoalbums2 extends \Module
 	 * Template
 	 * @var string
 	 */
-	protected $strTemplate = 'mod_photoalbums2';
+	protected $strTemplate = 'pa2_wrap';
 
 
 	/**

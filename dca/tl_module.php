@@ -23,7 +23,7 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['photoalbums2']     = '{title_legend
 $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_on_one_page']    = '{title_legend},name,headline,type;
 																			{config_legend},pa2Mode,pa2PreviewImage;
 																			{pa2Album_legend},pa2Archives,pa2AlbumSortType,pa2AlbumSort;
-																			{pa2Template_legend},pa2AlbumsTemplate,pa2ImagesTemplate,pa2NumberOfAlbums,pa2NumberOfImages,pa2AlbumsPerPage,pa2ImagesPerPage,pa2AlbumsShowHeadline,pa2ImagesShowHeadline,pa2AlbumsShowTitle,pa2ImagesShowTitle,pa2AlbumsShowTeaser,pa2ImagesShowTeaser;
+																			{pa2Template_legend},pa2AlbumViewTemplate,pa2ImageViewTemplate,pa2AlbumsTemplate,pa2ImagesTemplate,pa2NumberOfAlbums,pa2NumberOfImages,pa2AlbumsPerPage,pa2ImagesPerPage,pa2AlbumsShowHeadline,pa2ImagesShowHeadline,pa2AlbumsShowTitle,pa2ImagesShowTitle,pa2AlbumsShowTeaser,pa2ImagesShowTeaser;
 																			{pa2Image_legend},pa2AlbumsPerRow,pa2ImagesPerRow,pa2AlbumsImageSize,pa2ImagesImageSize,pa2AlbumsImageMargin,pa2ImagesImageMargin;
 																			{pa2Meta_legend:hide},pa2AlbumsShowMetaDescriptions,pa2ImagesShowMetaDescriptions,pa2AlbumsMetaFields,pa2ImagesMetaFields;
 																			{pa2TimeFilter_legend:hide},pa2TimeFilter;
@@ -33,7 +33,7 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_on_one_page']    = '{title_lege
 $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_only_album_view']   = '{title_legend},name,headline,type;
 																			{config_legend},pa2Mode,pa2PreviewImage;
 																			{pa2Album_legend},pa2Archives,pa2AlbumSortType,pa2AlbumSort;
-																			{pa2Template_legend},pa2AlbumsTemplate,pa2NumberOfAlbums,pa2AlbumsPerPage,pa2AlbumsShowHeadline,pa2AlbumsShowTitle,pa2AlbumsShowTeaser;
+																			{pa2Template_legend},pa2AlbumViewTemplate,pa2AlbumsTemplate,pa2NumberOfAlbums,pa2AlbumsPerPage,pa2AlbumsShowHeadline,pa2AlbumsShowTitle,pa2AlbumsShowTeaser;
 																			{pa2Image_legend},pa2AlbumsPerRow,pa2AlbumsImageSize,pa2AlbumsImageMargin;
 																			{pa2Meta_legend:hide},pa2AlbumsShowMetaDescriptions,pa2AlbumsMetaFields;
 																			{pa2TimeFilter_legend:hide},pa2TimeFilter;
@@ -43,7 +43,7 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_only_album_view']   = '{title_l
 $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_with_detail_page']   = '{title_legend},name,headline,type;
 																			{config_legend},pa2Mode,pa2PreviewImage,pa2DetailPage;
 																			{pa2Album_legend},pa2Archives,pa2AlbumSortType,pa2AlbumSort;
-																			{pa2Template_legend},pa2AlbumsTemplate,pa2ImagesTemplate,pa2NumberOfAlbums,pa2NumberOfImages,pa2AlbumsPerPage,pa2ImagesPerPage,pa2AlbumsShowHeadline,pa2ImagesShowHeadline,pa2AlbumsShowTitle,pa2ImagesShowTitle,pa2AlbumsShowTeaser,pa2ImagesShowTeaser;
+																			{pa2Template_legend},pa2AlbumViewTemplate,pa2ImageViewTemplate,pa2AlbumsTemplate,pa2ImagesTemplate,pa2NumberOfAlbums,pa2NumberOfImages,pa2AlbumsPerPage,pa2ImagesPerPage,pa2AlbumsShowHeadline,pa2ImagesShowHeadline,pa2AlbumsShowTitle,pa2ImagesShowTitle,pa2AlbumsShowTeaser,pa2ImagesShowTeaser;
 																			{pa2Image_legend},pa2AlbumsPerRow,pa2ImagesPerRow,pa2AlbumsImageSize,pa2ImagesImageSize,pa2AlbumsImageMargin,pa2ImagesImageMargin;
 																			{pa2Meta_legend:hide},pa2AlbumsShowMetaDescriptions,pa2ImagesShowMetaDescriptions,pa2AlbumsMetaFields,pa2ImagesMetaFields;
 																			{pa2TimeFilter_legend:hide},pa2TimeFilter;
@@ -123,6 +123,34 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumSort'] = array
 	'sql'                     => "blob NULL"
 );
 
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumViewTemplate'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumViewTemplate'],
+	'exclude'                 => true,
+	'filter'                  => true,
+	'search'                  => true,
+	'sorting'                 => true,
+	'flag'                    => 11,
+	'inputType'               => 'select',
+	'options_callback'        => array('Pa2Backend', 'getPa2WrapTemplates'),
+	'eval'                    => array('chosen'=>true, 'tl_class'=>'w50'),
+	'sql'                     => "varchar(64) NOT NULL default ''"
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImageViewTemplate'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImageViewTemplate'],
+	'exclude'                 => true,
+	'filter'                  => true,
+	'search'                  => true,
+	'sorting'                 => true,
+	'flag'                    => 11,
+	'inputType'               => 'select',
+	'options_callback'        => array('Pa2Backend', 'getPa2WrapTemplates'),
+	'eval'                    => array('chosen'=>true, 'tl_class'=>'w50'),
+	'sql'                     => "varchar(64) NOT NULL default ''"
+);
+
 $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsTemplate'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsTemplate'],
@@ -132,7 +160,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsTemplate'] = array
 	'sorting'                 => true,
 	'flag'                    => 11,
 	'inputType'               => 'select',
-	'options_callback'        => array('tl_module_photoalbums2', 'getAlbumsTemplates'),
+	'options_callback'        => array('Pa2Backend', 'getPa2AlbumTemplates'),
 	'eval'                    => array('chosen'=>true, 'tl_class'=>'w50'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
 );
@@ -146,7 +174,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesTemplate'] = array
 	'sorting'                 => true,
 	'flag'                    => 11,
 	'inputType'               => 'select',
-	'options_callback'        => array('tl_module_photoalbums2', 'getImagesTemplates'),
+	'options_callback'        => array('Pa2Backend', 'getPa2ImageTemplates'),
 	'eval'                    => array('chosen'=>true, 'tl_class'=>'w50'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
 );
@@ -443,42 +471,6 @@ class tl_module_photoalbums2 extends Pa2Backend
 		}
 
 		return $arrArchives;
-	}
-
-
-	/**
-	 * Return all album templates as array
-	 * @param DataContainer
-	 * @return array
-	 */
-	public function getAlbumsTemplates(DataContainer $dc)
-	{
-		$intPid = $dc->activeRecord->pid;
-
-		if ($this->Input->get('act') == 'overrideAll')
-		{
-			$intPid = $this->Input->get('id');
-		}
-
-		return $this->getTemplateGroup('pa2_album', $intPid);
-	}
-
-
-	/**
-	 * Return all album templates as array
-	 * @param DataContainer
-	 * @return array
-	 */
-	public function getImagesTemplates(DataContainer $dc)
-	{
-		$intPid = $dc->activeRecord->pid;
-
-		if ($this->Input->get('act') == 'overrideAll')
-		{
-			$intPid = $this->Input->get('id');
-		}
-
-		return $this->getTemplateGroup('pa2_image', $intPid);
 	}
 
 

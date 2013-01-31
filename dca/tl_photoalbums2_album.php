@@ -499,7 +499,7 @@ class tl_photoalbums2_album extends Pa2Backend
 		$arrRow['users'] = deserialize($arrRow['users']);
 
 		// Generate Template
-		$objTemplate = new \FrontendTemplate('mod_photoalbums2');
+		$objTemplate = new \FrontendTemplate('pa2_wrap');
 		$objTemplate->setData($arrRow);
 
 		// Set template vars

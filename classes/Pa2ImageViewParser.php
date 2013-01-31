@@ -94,8 +94,9 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 		$this->Template->intMaxItems            = $this->Template->pa2NumberOfImages;
 		$this->Template->intItemsPerPage        = $this->Template->pa2ImagesPerPage;
 		$this->Template->intItemsPerRow         = $this->Template->pa2ImagesPerRow;
-		$this->Template->strSubtemplate         = $this->Template->pa2ImagesTemplate;
-		$this->Template->showMetaDescriptions    = $this->Template->pa2ImagesShowMetaDescriptions;
+		$this->Template->strTemplate            = ($this->Template->pa2ImageViewTemplate != '' ? $this->Template->pa2ImageViewTemplate : $this->Template->strTemplate);
+		$this->Template->strSubtemplate         = ($this->Template->pa2ImagesTemplate != '' ? $this->Template->pa2ImagesTemplate : $this->Template->strSubtemplate);
+		$this->Template->showMetaDescriptions   = $this->Template->pa2ImagesShowMetaDescriptions;
 		$this->Template->arrMetaFields          = $this->Template->pa2ImagesMetaFields;
 
 		// Image params
@@ -121,6 +122,11 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 	 */
 	protected function compile()
 	{
+		// Generate new template object
+		$objTemplate = new \FrontendTemplate($this->Template->strTemplate);
+		$objTemplate->setData($this->Template->getData());
+		$this->Template = $objTemplate;
+
 		// Get album id
 		$objPa2Album = new \Pa2Album($this->getAlbumIdOrAlias(), $this->Template->getData());
 		$objAlbum = $objPa2Album->getAlbums();

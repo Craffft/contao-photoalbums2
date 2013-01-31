@@ -39,8 +39,10 @@ $GLOBALS['TL_LANG']['tl_module']['pa2Archives']                  = array('Fotoal
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumSortType']             = array('Alben sortieren', 'Wählen Sie hier die Sortierung der Fotoalben für die Übersichtsseite aus.');
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumSort']                 = array('Alben sortieren', 'Hier können Sie die Alben individuell sortieren.');
 
-$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsTemplate']            = array('Alben Template', 'Wählen Sie hier das Template für die Alben aus.');
-$GLOBALS['TL_LANG']['tl_module']['pa2ImagesTemplate']            = array('Fotos Template', 'Wählen Sie hier das Template für die Fotos aus.');
+$GLOBALS['TL_LANG']['tl_module']['pa2AlbumViewTemplate']         = array('Alben-Ansicht Template', 'Wählen Sie hier das Template für die Alben-Ansicht aus.');
+$GLOBALS['TL_LANG']['tl_module']['pa2ImageViewTemplate']         = array('Foto-Ansicht Template', 'Wählen Sie hier das Template für die Foto-Ansicht aus.');
+$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsTemplate']            = array('Alben-Element Template', 'Wählen Sie hier das Template für das Alben-Element aus. Dieses wird innerhalb der Alben-Ansicht für jedes Album verwendet.');
+$GLOBALS['TL_LANG']['tl_module']['pa2ImagesTemplate']            = array('Foto-Element Template', 'Wählen Sie hier das Template für das Foto-Element aus. Dieses wird innerhalb der Foto-Ansicht für jedes Foto verwendet.');
 $GLOBALS['TL_LANG']['tl_module']['pa2NumberOfAlbums']            = array('Gesamtzahl der Alben', 'Hier können Sie die Gesamtzahl der Alben festlegen. Geben Sie 0 ein, um alle anzuzeigen.');
 $GLOBALS['TL_LANG']['tl_module']['pa2NumberOfImages']            = array('Gesamtzahl der Fotos', 'Hier können Sie die Gesamtzahl der Fotos festlegen. Geben Sie 0 ein, um alle anzuzeigen.');
 $GLOBALS['TL_LANG']['tl_module']['pa2AlbumsPerPage']             = array('Alben pro Seite', 'Die Anzahl an Alben pro Seite. Geben Sie 0 ein, um den automatischen Seitenumbruch zu deaktivieren.');

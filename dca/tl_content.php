@@ -19,7 +19,7 @@ $GLOBALS['TL_DCA']['tl_content']['config']['onsubmit_callback'][] = array('Pa2Ba
 $GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][]    = 'pa2TimeFilter';
 $GLOBALS['TL_DCA']['tl_content']['palettes']['photoalbums2']      = '{type_legend},type,headline;
 																			{config_legend},pa2Album;
-																			{pa2Template_legend},pa2ImagesTemplate,pa2NumberOfImages,pa2ImagesPerPage,pa2ImagesShowHeadline,pa2ImagesShowTitle,pa2ImagesShowTeaser;
+																			{pa2Template_legend},pa2ImageViewTemplate,pa2ImagesTemplate,pa2NumberOfImages,pa2ImagesPerPage,pa2ImagesShowHeadline,pa2ImagesShowTitle,pa2ImagesShowTeaser;
 																			{pa2Image_legend},pa2ImagesPerRow,pa2ImagesImageSize,pa2ImagesImageMargin;
 																			{pa2Meta_legend:hide},pa2ImagesShowMetaDescriptions,pa2ImagesMetaFields;
 																			{pa2TimeFilter_legend:hide},pa2TimeFilter;
@@ -43,6 +43,20 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2Album'] = array
 	'sql'                     => "int(10) unsigned NOT NULL default '0'"
 );
 
+$GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImageViewTemplate'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImageViewTemplate'],
+	'exclude'                 => true,
+	'filter'                  => true,
+	'search'                  => true,
+	'sorting'                 => true,
+	'flag'                    => 11,
+	'inputType'               => 'select',
+	'options_callback'        => array('Pa2Backend', 'getPa2WrapTemplates'),
+	'eval'                    => array('chosen'=>true, 'tl_class'=>'w50'),
+	'sql'                     => "varchar(64) NOT NULL default ''"
+);
+
 $GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesTemplate'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2ImagesTemplate'],
@@ -52,7 +66,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesTemplate'] = array
 	'sorting'                 => true,
 	'flag'                    => 11,
 	'inputType'               => 'select',
-	'options_callback'        => array('tl_content_photoalbums2', 'getImagesTemplates'),
+	'options_callback'        => array('Pa2Backend', 'getPa2ImageTemplates'),
 	'eval'                    => array('tl_class'=>'long', 'chosen'=>true),
 	'sql'                     => "varchar(64) NOT NULL default ''"
 );
@@ -251,24 +265,6 @@ class tl_content_photoalbums2 extends Pa2Backend
 		}
 
 		return $arrArchives;
-	}
-
-
-	/**
-	 * Return all album templates as array
-	 * @param DataContainer
-	 * @return array
-	 */
-	public function getImagesTemplates(DataContainer $dc)
-	{
-		$intPid = $dc->activeRecord->pid;
-
-		if ($this->Input->get('act') == 'overrideAll')
-		{
-			$intPid = $this->Input->get('id');
-		}
-
-		return $this->getTemplateGroup('pa2_image', $intPid);
 	}
 
 

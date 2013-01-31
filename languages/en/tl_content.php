@@ -34,7 +34,8 @@
  */
 $GLOBALS['TL_LANG']['tl_content']['pa2Album']                     = array('Select album', 'Please select your favourite album.');
 
-$GLOBALS['TL_LANG']['tl_content']['pa2ImagesTemplate']            = array('Image Layout', 'Please choose here the layout of the images.');
+$GLOBALS['TL_LANG']['tl_content']['pa2ImageViewTemplate']         = array('Image view template', 'Here you can select the template for the image view.');
+$GLOBALS['TL_LANG']['tl_content']['pa2ImagesTemplate']            = array('Image element template', 'Here you can select the template for the image element. This is used in the image view for each image.');
 $GLOBALS['TL_LANG']['tl_content']['pa2NumberOfImages']            = array('Total number of images', 'Here you can specify the total number of images. Enter 0 to display all.');
 $GLOBALS['TL_LANG']['tl_content']['pa2ImagesPerPage']             = array('Images per Page', 'The number of images per page. Enter 0 to disable the automatic page break.');
 $GLOBALS['TL_LANG']['tl_content']['pa2ImagesShowHeadline']        = array('Show the module title in the image view', 'Set this checkbox to display the module title in the image view.');

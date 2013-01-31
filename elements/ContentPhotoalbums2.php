@@ -31,7 +31,7 @@ class ContentPhotoalbums2 extends \ContentElement
 	 * Template
 	 * @var string
 	 */
-	protected $strTemplate = 'mod_photoalbums2';
+	protected $strTemplate = 'pa2_wrap';
 
 
 	/**
