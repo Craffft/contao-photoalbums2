@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * Contao Open Source CMS
@@ -78,5 +78,3 @@ $GLOBALS['TL_LANG']['tl_photoalbums2_album']['cut']   = array('Cut image album',
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['delete'] = array('Delete image album', 'Delete image album ID %s');
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['show']   = array('Show details of the image album', 'Show details of the image album ID %s');
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['toggle'] = array('Publish/unpublish image album', 'Publish/unpublish image album ID %s');
-
-?>
