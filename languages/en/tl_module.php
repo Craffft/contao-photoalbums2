@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * Contao Open Source CMS
@@ -82,5 +82,3 @@ $GLOBALS['TL_LANG']['tl_module']['pa2Image_legend']              = 'Image settin
 $GLOBALS['TL_LANG']['tl_module']['pa2Meta_legend']               = 'Meta settings';
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter_legend']         = 'Time filter settings';
 $GLOBALS['TL_LANG']['tl_module']['pa2Other_legend']              = 'Other';
-
-?>

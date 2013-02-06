@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * Contao Open Source CMS
@@ -33,5 +33,3 @@
  * Fields
  */
 $GLOBALS['TL_LANG']['tl_layout']['skipPhotoalbums2'] = array('Ignore image album stylesheet', 'By checking this box, you ignore the photoalbums2 default stylesheet.');
-
-?>

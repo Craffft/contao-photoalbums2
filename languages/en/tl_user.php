@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * Contao Open Source CMS
@@ -40,5 +40,3 @@ $GLOBALS['TL_LANG']['tl_user']['photoalbums2p'] = array('Archive rights', 'Here 
  * Reference
  */
 $GLOBALS['TL_LANG']['tl_user']['photoalbums2_legend'] = 'Image album rights';
-
-?>

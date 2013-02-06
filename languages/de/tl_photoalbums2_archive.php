@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * Contao Open Source CMS
@@ -77,8 +77,7 @@ $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['notify_both'] = 'Autor und Syste
  */
 $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['new'] = array('Neues Fotoalben Archiv', 'Neues Fotoalben Archiv erstellen');
 $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['edit'] = array('Fotoalben Archiv bearbeiten', 'Fotoalben Archiv ID %s bearbeiten');
+$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['editheader'] = array('Einstellungen des Fotoalben Archivs bearbeiten', 'Einstellungen des Fotoalben Archivs ID %s bearbeiten');
 $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['copy'] = array('Fotoalben Archiv duplizieren', 'Fotoalben Archiv ID %s duplizieren');
 $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['delete'] = array('Fotoalben Archiv löschen', 'Fotoalben Archiv ID %s löschen');
 $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['show'] = array('Fotoalben Archiv anzeigen', 'Fotoalben Archiv ID %s anzeigen');
-
-?>
