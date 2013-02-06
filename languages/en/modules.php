@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * Contao Open Source CMS
@@ -40,5 +40,3 @@ $GLOBALS['TL_LANG']['MOD']['photoalbums2'] = array('Image album', 'With this mod
  */
 $GLOBALS['TL_LANG']['FMD']['photoalbums2_legend'] = 'Image album';
 $GLOBALS['TL_LANG']['FMD']['photoalbums2'] = array('Image album', 'With this module you can display your image albums in the frontend.');
-
-?>

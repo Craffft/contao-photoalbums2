@@ -79,6 +79,13 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_archive'] = array
 				'icon'                => 'edit.gif',
 				'attributes'          => 'class="contextmenu"'
 			),
+			'editheader' => array
+			(
+				'label'               => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['editheader'],
+				'href'                => 'act=edit',
+				'icon'                => 'header.gif',
+				'attributes'          => 'class="edit-header"'
+			),
 			'copy' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_photoalbums2_archive']['copy'],

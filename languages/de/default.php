@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * Contao Open Source CMS
@@ -123,5 +123,3 @@ $GLOBALS['TL_LANG']['pa2']['pa2TimeFilterOptions']['days'] = 'Tag(en)';
 $GLOBALS['TL_LANG']['pa2']['pa2TimeFilterOptions']['weeks'] = 'Woche(n)';
 $GLOBALS['TL_LANG']['pa2']['pa2TimeFilterOptions']['months'] = 'Monat(en)';
 $GLOBALS['TL_LANG']['pa2']['pa2TimeFilterOptions']['years'] = 'Jahr(en)';
-
-?>
