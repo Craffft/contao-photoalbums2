@@ -299,7 +299,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
 			'foreignKey'              => 'tl_member.username',
-			'eval'                    => array('multiple'=>true, 'tl_class'=>'w50'),
+			'eval'                    => array('multiple'=>true, 'tl_class'=>'w50 cbxes'),
 			'sql'                     => "blob NULL"
 		),
 		'groups' => array
@@ -308,7 +308,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
 			'foreignKey'              => 'tl_member_group.name',
-			'eval'                    => array('multiple'=>true, 'tl_class'=>'w50'),
+			'eval'                    => array('multiple'=>true, 'tl_class'=>'w50 cbxes'),
 			'sql'                     => "blob NULL"
 		),
 		'cssClass' => array

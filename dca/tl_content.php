@@ -170,7 +170,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesMetaFields'] = array
 	'inputType'               => 'checkboxWizard',
 	'options'                 => $GLOBALS['pa2']['metaFields'],
 	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldOptions'],
-	'eval'                    => array('multiple'=>true),
+	'eval'                    => array('multiple'=>true, 'tl_class'=>'cbxes'),
 	'sql'                     => "blob NULL"
 );
 
