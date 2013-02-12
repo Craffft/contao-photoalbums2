@@ -210,8 +210,8 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 		$this->Template->place              = $objAlbum->place;
 		$this->Template->photographer       = $objAlbum->photographer;
 		$this->Template->description        = $objAlbum->description;
-		$this->Template->numberOfAllImages  = count($objAlbum->images);
-		
+		$this->Template->numberOfAllImages  = count($objAlbum->arrSortedImageIds);
+
 		// Generate the backlink
 		$this->generateBacklink();
 
@@ -284,7 +284,7 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 
 	/**
 	 * generateBacklink function.
-	 * 
+	 *
 	 * @access protected
 	 * @return void
 	 */
@@ -294,7 +294,7 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 		{
 			return;
 		}
-		
+
 		global $objPage;
 
 		// Import

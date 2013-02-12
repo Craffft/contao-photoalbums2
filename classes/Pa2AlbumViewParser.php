@@ -152,7 +152,7 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 			$objSubtemplate->place              = $objAlbums->place;
 			$objSubtemplate->photographer       = $objAlbums->photographer;
 			$objSubtemplate->description        = $objAlbums->description;
-			$objSubtemplate->numberOfAllImages  = count($objAlbums->images);
+			$objSubtemplate->numberOfAllImages  = count($objAlbums->arrSortedImageIds);
 
 			// Call template methods
 			$objSubtemplate = $this->addDateToTemplate($objSubtemplate, $objAlbums->startdate, $objAlbums->enddate);
