@@ -267,7 +267,7 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 				$arrImage = array();
 				$arrImage['size'] = serialize(array(0, 0, 'crop'));
 				$arrImage['imagemargin'] = serialize(array('bottom'=>'', 'left'=>'', 'right'=>'', 'top'=>'', 'unit'=>''));
-				$arrImage['singleSRC'] = 'system/modules/photoalbums2/html/blank.gif';
+				$arrImage['singleSRC'] = 'system/modules/photoalbums2/assets/blank.gif';
 				$arrImage['alt'] = substr(strrchr($element, '/'), 1);
 
 				// Add image to template

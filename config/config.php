@@ -15,14 +15,14 @@
 // Add BE CSS
 if (TL_MODE == 'BE')
 {
-	$GLOBALS['TL_CSS'][] = 'system/modules/photoalbums2/html/photoalbums2_be.css';
+	$GLOBALS['TL_CSS'][] = 'system/modules/photoalbums2/assets/photoalbums2_be.css';
 }
 
 // Backend Modules
 $GLOBALS['BE_MOD']['content']['photoalbums2'] = array
 (
 	'tables' => array('tl_photoalbums2_archive', 'tl_photoalbums2_album'),
-	'icon'   => 'system/modules/photoalbums2/html/icon.gif'
+	'icon'   => 'system/modules/photoalbums2/assets/icon.gif'
 );
 
 // Frontend Modules
