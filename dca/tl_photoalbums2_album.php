@@ -210,7 +210,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['images'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
-			'eval'                    => array('mandatory'=>true, 'multiple'=>true, 'fieldType'=>'checkbox', 'files'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
+			'eval'                    => array('mandatory'=>true, 'submitOnChange'=>true, 'multiple'=>true, 'fieldType'=>'checkbox', 'files'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
 			'sql'                     => "blob NULL"
 		),
 		'imageSortType' => array
