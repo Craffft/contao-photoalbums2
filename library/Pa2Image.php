@@ -61,6 +61,9 @@ class Pa2Image extends \Controller
 
 		if ($objFile !== null)
 		{
+			// Deserialize meta data
+			$objFile->meta = deserialize($objFile->meta);
+
 			return $objFile;
 		}
 	}

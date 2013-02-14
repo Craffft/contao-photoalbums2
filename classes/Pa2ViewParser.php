@@ -506,6 +506,38 @@ abstract class Pa2ViewParser extends \Frontend
 
 		return $individualId;
 	}
+	
+	
+	/**
+	 * getImageTitle function.
+	 * 
+	 * @access protected
+	 * @param object $objImage
+	 * @return void
+	 */
+	protected function getImageTitle($objImage)
+	{
+		if (!is_object($objImage))
+		{
+			return false;
+		}
+		
+		// Set the filename as default
+		$strAlt = $objImage->name;
+
+		// If there is a meta title in the current language, then use this meta data
+		if ($objImage->meta[$GLOBALS['TL_LANGUAGE']] != '')
+		{
+			$strAlt = $objImage->meta[$GLOBALS['TL_LANGUAGE']]['title'];
+		}
+		// Else if there is a meta title in english, use this meta data
+		else if ($objImage->meta['en'] != '')
+		{
+			$strAlt = $objImage->meta['en']['title'];
+		}
+
+		return $strAlt;
+	}
 
 
 	/**

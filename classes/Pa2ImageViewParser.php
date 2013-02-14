@@ -236,8 +236,8 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 			$objImage = $objPa2Image->getPa2Image();
 
 			// Show this image not in the album
-			$objSubtemplate->title       = $objImage->name;
-			$objSubtemplate->alt         = $objImage->name;
+			$objSubtemplate->title       = $this->getImageTitle($objImage);
+			$objSubtemplate->alt         = $this->getImageTitle($objImage);
 			$objSubtemplate->show        = false;
 			$objSubtemplate->elementID   = $i;
 			$objSubtemplate->albumID     = $objAlbum->id . '_' . $strIndividualId;
