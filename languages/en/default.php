@@ -109,8 +109,8 @@ $GLOBALS['TL_LANG']['pa2']['pa2MetaFieldDescription']['event'] = 'Event: %s';
 $GLOBALS['TL_LANG']['pa2']['pa2MetaFieldDescription']['place'] = 'Place: %s';
 $GLOBALS['TL_LANG']['pa2']['pa2MetaFieldDescription']['photographer'] = 'Photographer: %s';
 $GLOBALS['TL_LANG']['pa2']['pa2MetaFieldDescription']['description'] = 'Description: %s';
-$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldDescription']['numberOfAllImages'] = 'Quantity: %s images';
-$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldWithoutDescription']['numberOfAllImages'] = '%s images';
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldDescription']['numberOfAllImages'] = array('Quantity: %s image', 'Quantity: %s images');
+$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldWithoutDescription']['numberOfAllImages'] = array('%s image', '%s images');
 
 
 /**
