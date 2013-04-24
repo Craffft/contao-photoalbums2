@@ -23,8 +23,8 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['photoalbums2']     = '{title_legend
 $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_on_one_page']    = '{title_legend},name,headline,type;
 																			{config_legend},pa2Mode,pa2PreviewImage;
 																			{pa2Album_legend},pa2Archives,pa2AlbumSortType,pa2AlbumSort;
-																			{pa2Template_legend},pa2AlbumViewTemplate,pa2ImageViewTemplate,pa2AlbumsTemplate,pa2ImagesTemplate,pa2NumberOfAlbums,pa2NumberOfImages,pa2AlbumsPerPage,pa2ImagesPerPage,pa2AlbumsShowHeadline,pa2ImagesShowHeadline,pa2AlbumsShowTitle,pa2ImagesShowTitle,pa2AlbumsShowTeaser,pa2ImagesShowTeaser;
-																			{pa2Image_legend},pa2AlbumsPerRow,pa2ImagesPerRow,pa2AlbumsImageSize,pa2ImagesImageSize,pa2AlbumsImageMargin,pa2ImagesImageMargin;
+																			{pa2Template_legend},pa2AlbumViewTemplate,pa2ImageViewTemplate,pa2AlbumsTemplate,pa2ImagesTemplate,pa2AlbumsShowHeadline,pa2ImagesShowHeadline,pa2AlbumsShowTitle,pa2ImagesShowTitle,pa2AlbumsShowTeaser,pa2ImagesShowTeaser;
+																			{pa2Image_legend},pa2AlbumsImageSize,pa2ImagesImageSize,pa2AlbumsImageMargin,pa2ImagesImageMargin,pa2AlbumsPerRow,pa2ImagesPerRow,pa2AlbumsPerPage,pa2ImagesPerPage,pa2NumberOfAlbums,pa2NumberOfImages;
 																			{pa2Meta_legend:hide},pa2AlbumsShowMetaDescriptions,pa2ImagesShowMetaDescriptions,pa2AlbumsMetaFields,pa2ImagesMetaFields;
 																			{pa2TimeFilter_legend:hide},pa2TimeFilter;
 																			{pa2Other_legend:hide},pa2Teaser;
@@ -33,8 +33,8 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_on_one_page']    = '{title_lege
 $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_only_album_view']   = '{title_legend},name,headline,type;
 																			{config_legend},pa2Mode,pa2PreviewImage;
 																			{pa2Album_legend},pa2Archives,pa2AlbumSortType,pa2AlbumSort;
-																			{pa2Template_legend},pa2AlbumViewTemplate,pa2AlbumsTemplate,pa2NumberOfAlbums,pa2AlbumsPerPage,pa2AlbumsShowHeadline,pa2AlbumsShowTitle,pa2AlbumsShowTeaser;
-																			{pa2Image_legend},pa2AlbumsPerRow,pa2AlbumsImageSize,pa2AlbumsImageMargin;
+																			{pa2Template_legend},pa2AlbumViewTemplate,pa2AlbumsTemplate,pa2AlbumsShowHeadline,pa2AlbumsShowTitle,pa2AlbumsShowTeaser;
+																			{pa2Image_legend},pa2AlbumsImageSize,pa2AlbumsImageMargin,pa2AlbumsPerRow,pa2AlbumsPerPage,pa2NumberOfAlbums;
 																			{pa2Meta_legend:hide},pa2AlbumsShowMetaDescriptions,pa2AlbumsMetaFields;
 																			{pa2TimeFilter_legend:hide},pa2TimeFilter;
 																			{pa2Other_legend:hide},pa2Teaser;
@@ -43,8 +43,8 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_only_album_view']   = '{title_l
 $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_with_detail_page']   = '{title_legend},name,headline,type;
 																			{config_legend},pa2Mode,pa2PreviewImage,pa2DetailPage;
 																			{pa2Album_legend},pa2Archives,pa2AlbumSortType,pa2AlbumSort;
-																			{pa2Template_legend},pa2AlbumViewTemplate,pa2ImageViewTemplate,pa2AlbumsTemplate,pa2ImagesTemplate,pa2NumberOfAlbums,pa2NumberOfImages,pa2AlbumsPerPage,pa2ImagesPerPage,pa2AlbumsShowHeadline,pa2ImagesShowHeadline,pa2AlbumsShowTitle,pa2ImagesShowTitle,pa2AlbumsShowTeaser,pa2ImagesShowTeaser;
-																			{pa2Image_legend},pa2AlbumsPerRow,pa2ImagesPerRow,pa2AlbumsImageSize,pa2ImagesImageSize,pa2AlbumsImageMargin,pa2ImagesImageMargin;
+																			{pa2Template_legend},pa2AlbumViewTemplate,pa2ImageViewTemplate,pa2AlbumsTemplate,pa2ImagesTemplate,pa2AlbumsShowHeadline,pa2ImagesShowHeadline,pa2AlbumsShowTitle,pa2ImagesShowTitle,pa2AlbumsShowTeaser,pa2ImagesShowTeaser;
+																			{pa2Image_legend},pa2AlbumsImageSize,pa2ImagesImageSize,pa2AlbumsImageMargin,pa2ImagesImageMargin,pa2AlbumsPerRow,pa2ImagesPerRow,pa2AlbumsPerPage,pa2ImagesPerPage,pa2NumberOfAlbums,pa2NumberOfImages;
 																			{pa2Meta_legend:hide},pa2AlbumsShowMetaDescriptions,pa2ImagesShowMetaDescriptions,pa2AlbumsMetaFields,pa2ImagesMetaFields;
 																			{pa2TimeFilter_legend:hide},pa2TimeFilter;
 																			{pa2Other_legend:hide},pa2Teaser;
@@ -167,68 +167,6 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesTemplate'] = array
 	'sql'                     => "varchar(64) NOT NULL default ''"
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2NumberOfAlbums'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2NumberOfAlbums'],
-	'default'                 => 0,
-	'exclude'                 => true,
-	'inputType'               => 'text',
-	'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'),
-	'sql'                     => "smallint(5) unsigned NOT NULL default '0'"
-);
-
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2NumberOfImages'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2NumberOfImages'],
-	'default'                 => 0,
-	'exclude'                 => true,
-	'inputType'               => 'text',
-	'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'),
-	'sql'                     => "smallint(5) unsigned NOT NULL default '0'"
-);
-
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsPerPage'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsPerPage'],
-	'default'                 => 5,
-	'exclude'                 => true,
-	'inputType'               => 'text',
-	'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50'),
-	'sql'                     => "smallint(5) unsigned NOT NULL default '5'"
-);
-
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesPerPage'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImagesPerPage'],
-	'default'                 => 24,
-	'exclude'                 => true,
-	'inputType'               => 'text',
-	'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50'),
-	'sql'                     => "smallint(5) unsigned NOT NULL default '24'"
-);
-
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsPerRow'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsPerRow'],
-	'exclude'                 => true,
-	'inputType'               => 'select',
-	'default'                 => 1,
-	'options'                 => array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
-	'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
-	'sql'                     => "smallint(5) unsigned NOT NULL default '1'"
-);
-
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesPerRow'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImagesPerRow'],
-	'exclude'                 => true,
-	'inputType'               => 'select',
-	'default'                 => 2,
-	'options'                 => array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
-	'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
-	'sql'                     => "smallint(5) unsigned NOT NULL default '2'"
-);
-
 $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowHeadline'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowHeadline'],
@@ -329,6 +267,68 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesImageMargin'] = array
 	'options'                 => array('px', '%', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
 	'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50'),
 	'sql'                     => "varchar(128) NOT NULL default ''"
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsPerRow'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsPerRow'],
+	'exclude'                 => true,
+	'inputType'               => 'select',
+	'default'                 => 1,
+	'options'                 => array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
+	'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
+	'sql'                     => "smallint(5) unsigned NOT NULL default '1'"
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesPerRow'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImagesPerRow'],
+	'exclude'                 => true,
+	'inputType'               => 'select',
+	'default'                 => 2,
+	'options'                 => array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
+	'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
+	'sql'                     => "smallint(5) unsigned NOT NULL default '2'"
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsPerPage'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsPerPage'],
+	'default'                 => 5,
+	'exclude'                 => true,
+	'inputType'               => 'text',
+	'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50'),
+	'sql'                     => "smallint(5) unsigned NOT NULL default '5'"
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesPerPage'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImagesPerPage'],
+	'default'                 => 24,
+	'exclude'                 => true,
+	'inputType'               => 'text',
+	'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50'),
+	'sql'                     => "smallint(5) unsigned NOT NULL default '24'"
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2NumberOfAlbums'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2NumberOfAlbums'],
+	'default'                 => 0,
+	'exclude'                 => true,
+	'inputType'               => 'text',
+	'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'),
+	'sql'                     => "smallint(5) unsigned NOT NULL default '0'"
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2NumberOfImages'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2NumberOfImages'],
+	'default'                 => 0,
+	'exclude'                 => true,
+	'inputType'               => 'text',
+	'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'),
+	'sql'                     => "smallint(5) unsigned NOT NULL default '0'"
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowMetaDescriptions'] = array
