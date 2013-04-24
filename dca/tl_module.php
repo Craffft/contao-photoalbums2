@@ -127,9 +127,6 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumViewTemplate'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumViewTemplate'],
 	'exclude'                 => true,
-	'filter'                  => true,
-	'search'                  => true,
-	'sorting'                 => true,
 	'flag'                    => 11,
 	'inputType'               => 'select',
 	'options_callback'        => array('Pa2Backend', 'getPa2WrapTemplates'),
@@ -141,9 +138,6 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImageViewTemplate'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImageViewTemplate'],
 	'exclude'                 => true,
-	'filter'                  => true,
-	'search'                  => true,
-	'sorting'                 => true,
 	'flag'                    => 11,
 	'inputType'               => 'select',
 	'options_callback'        => array('Pa2Backend', 'getPa2WrapTemplates'),
@@ -155,9 +149,6 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsTemplate'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsTemplate'],
 	'exclude'                 => true,
-	'filter'                  => true,
-	'search'                  => true,
-	'sorting'                 => true,
 	'flag'                    => 11,
 	'inputType'               => 'select',
 	'options_callback'        => array('Pa2Backend', 'getPa2AlbumTemplates'),
@@ -169,9 +160,6 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesTemplate'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImagesTemplate'],
 	'exclude'                 => true,
-	'filter'                  => true,
-	'search'                  => true,
-	'sorting'                 => true,
 	'flag'                    => 11,
 	'inputType'               => 'select',
 	'options_callback'        => array('Pa2Backend', 'getPa2ImageTemplates'),

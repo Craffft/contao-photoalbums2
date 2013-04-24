@@ -86,12 +86,15 @@ class Pa2 extends \Controller
 		$this->removeOldFeeds();
 		$objArchive = \Photoalbums2ArchiveModel::findBy(array('makeFeed=1', 'protected!=1'), array());
 
-		while ($objArchive->next())
+		if ($objArchive !== null)
 		{
-			$objArchive->feedName = ($objArchive->alias != '') ? $objArchive->alias : 'pa2' . $objArchive->id;
-
-			$this->generateFiles($objArchive->row());
-			$this->log('Generated pa2 feed "' . $objArchive->feedName . '.xml"', 'Pa2 generateFeeds()', TL_CRON);
+			while ($objArchive->next())
+			{
+				$objArchive->feedName = ($objArchive->alias != '') ? $objArchive->alias : 'pa2' . $objArchive->id;
+	
+				$this->generateFiles($objArchive->row());
+				$this->log('Generated pa2 feed "' . $objArchive->feedName . '.xml"', 'Pa2 generateFeeds()', TL_CRON);
+			}
 		}
 	}
 
@@ -139,38 +142,39 @@ class Pa2 extends \Controller
 		$strUrl = $this->generateFrontendUrl($objParent->row(), ($GLOBALS['TL_CONFIG']['useAutoItem'] ?  '/%s' : '/album/%s'), $objParent->language);
 
 		// Parse items
-		while ($objArticle->next())
+		if ($objArticle !== null)
 		{
-			// Deserialize image arrays
-			$objArticle->images = deserialize($objArticle->images);
-			$objArticle->imageSort = deserialize($objArticle->imageSort);
-
-			// Sort images
-			$objPa2ImageSorter = new \Pa2ImageSorter($objArticle->imageSortType, $objArticle->images, $objArticle->imageSort);
-			$this->arrImages = $objPa2ImageSorter->getSortedIds();
-
-			$objItem = new \FeedItem();
-
-			$objItem->title = $objArticle->title;
-			$objItem->link = sprintf($strLink . $strUrl, (($objArticle->alias != '' && !$GLOBALS['TL_CONFIG']['disableAlias']) ? $objArticle->alias : $objArticle->id));
-			$objItem->published = $objArticle->startdate;
-			$objItem->author = $objArticle->authorName;
-
-			if (is_array($objArticle->arrImages) && count($objArticle->arrImages) > 0)
+			while ($objArticle->next())
 			{
-				foreach ($objArticle->arrImages as $image)
+				// Deserialize image arrays
+				$objArticle->images = deserialize($objArticle->images);
+				$objArticle->imageSort = deserialize($objArticle->imageSort);
+
+				// Sort images
+				$objPa2ImageSorter = new \Pa2ImageSorter($objArticle->imageSortType, $objArticle->images, $objArticle->imageSort);
+				$this->arrImages = $objPa2ImageSorter->getSortedIds();
+
+				$objItem = new \FeedItem();
+
+				$objItem->title = $objArticle->title;
+				$objItem->link = sprintf($strLink . $strUrl, (($objArticle->alias != '' && !$GLOBALS['TL_CONFIG']['disableAlias']) ? $objArticle->alias : $objArticle->id));
+				$objItem->published = $objArticle->startdate;
+				$objItem->author = $objArticle->authorName;
+
+				if (is_array($objArticle->arrImages) && count($objArticle->arrImages) > 0)
 				{
-					if (is_file(TL_ROOT . '/' . $image))
+					foreach ($objArticle->arrImages as $image)
 					{
-						$objItem->addEnclosure($image);
+						if (is_file(TL_ROOT . '/' . $image))
+						{
+							$objItem->addEnclosure($image);
+						}
 					}
 				}
+
+				$objItem->description = $this->replaceInsertTags($objArticle->description);
+				$objFeed->addItem($objItem);
 			}
-
-			// Prepare the description
-			$objItem->description = $this->replaceInsertTags($objArticle->description);
-
-			$objFeed->addItem($objItem);
 		}
 
 		// Create file

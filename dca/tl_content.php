@@ -251,15 +251,21 @@ class tl_content_photoalbums2 extends Pa2Backend
 		$arrArchives = array();
 		$objArchives = \Photoalbums2ArchiveModel::findAll(array('order'=>'title'));
 
-		while ($objArchives->next())
+		if ($objArchives !== null)
 		{
-			if ($this->User->isAdmin || $this->User->hasAccess($objArchives->id, 'photoalbums2_archive'))
+			while ($objArchives->next())
 			{
-				$objAlbums = \Photoalbums2AlbumModel::findBy('pid', $objArchives->id, array('order'=>'title'));
-
-				while ($objAlbums->next())
+				if ($this->User->isAdmin || $this->User->hasAccess($objArchives->id, 'photoalbums2_archive'))
 				{
-					$arrArchives[$objArchives->title][$objAlbums->id] = $objAlbums->title;
+					$objAlbums = \Photoalbums2AlbumModel::findBy('pid', $objArchives->id, array('order'=>'title'));
+
+					if ($objAlbums !== null)
+					{
+						while ($objAlbums->next())
+						{
+							$arrArchives[$objArchives->title][$objAlbums->id] = $objAlbums->title;
+						}
+					}
 				}
 			}
 		}

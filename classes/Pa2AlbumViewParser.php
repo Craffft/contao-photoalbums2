@@ -138,43 +138,46 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 		$this->Session->set('pa2PageNumber_' . $this->Template->id, (\Input::get('page') ? \Input::get('page') : 1));
 		$this->Session->set('pa2PageId_' . $this->Template->id, $objPage->id);
 
-		while ($objAlbums->next())
+		if ($objAlbums !== null)
 		{
-			// Generate subtemplate object
-			$objSubtemplate = new \FrontendTemplate($this->Template->strSubtemplate);
-			$objSubtemplate->setData($this->Template->getData());
+			while ($objAlbums->next())
+			{
+				// Generate subtemplate object
+				$objSubtemplate = new \FrontendTemplate($this->Template->strSubtemplate);
+				$objSubtemplate->setData($this->Template->getData());
 
-			// Set template variables
-			$objSubtemplate->title              = strip_tags($objAlbums->title);
-			$objSubtemplate->alt                = strip_tags($objAlbums->title);
-			$objSubtemplate->showTitle          = ($objSubtemplate->title != '' ? $objSubtemplate->showTitle : false);
-			$objSubtemplate->event              = $objAlbums->event;
-			$objSubtemplate->place              = $objAlbums->place;
-			$objSubtemplate->photographer       = $objAlbums->photographer;
-			$objSubtemplate->description        = $objAlbums->description;
-			$objSubtemplate->numberOfAllImages  = count($objAlbums->arrSortedImageIds);
+				// Set template variables
+				$objSubtemplate->title              = strip_tags($objAlbums->title);
+				$objSubtemplate->alt                = strip_tags($objAlbums->title);
+				$objSubtemplate->showTitle          = ($objSubtemplate->title != '' ? $objSubtemplate->showTitle : false);
+				$objSubtemplate->event              = $objAlbums->event;
+				$objSubtemplate->place              = $objAlbums->place;
+				$objSubtemplate->photographer       = $objAlbums->photographer;
+				$objSubtemplate->description        = $objAlbums->description;
+				$objSubtemplate->numberOfAllImages  = count($objAlbums->arrSortedImageIds);
 
-			// Call template methods
-			$objSubtemplate = $this->addDateToTemplate($objSubtemplate, $objAlbums->startdate, $objAlbums->enddate);
-			$objSubtemplate = $this->addSpecificClassesToTemplate($objSubtemplate, $i);
-			$objSubtemplate = $this->addLinkToTemplate($objSubtemplate, $objAlbums->current());
-			$objSubtemplate = $this->addMetaFieldsToTemplate($objSubtemplate);
+				// Call template methods
+				$objSubtemplate = $this->addDateToTemplate($objSubtemplate, $objAlbums->startdate, $objAlbums->enddate);
+				$objSubtemplate = $this->addSpecificClassesToTemplate($objSubtemplate, $i);
+				$objSubtemplate = $this->addLinkToTemplate($objSubtemplate, $objAlbums->current());
+				$objSubtemplate = $this->addMetaFieldsToTemplate($objSubtemplate);
 
-			// Add preview image to template
-			$objPa2PreviewImage = new \Pa2PreviewImage($objAlbums->current(), $objSubtemplate->pa2PreviewImage);
-			$objPa2Image = new \Pa2Image($objPa2PreviewImage->getPreviewImageId());
-			$objPa2Image->addPa2ImageToTemplate($objSubtemplate);
+				// Add preview image to template
+				$objPa2PreviewImage = new \Pa2PreviewImage($objAlbums->current(), $objSubtemplate->pa2PreviewImage);
+				$objPa2Image = new \Pa2Image($objPa2PreviewImage->getPreviewImageId());
+				$objPa2Image->addPa2ImageToTemplate($objSubtemplate);
 
-			// Add album class to the class string
-			$objSubtemplate->class .= ($objSubtemplate->class == '') ? $objAlbums->cssClass : ' ' . $objAlbums->cssClass;
+				// Add album class to the class string
+				$objSubtemplate->class .= ($objSubtemplate->class == '') ? $objAlbums->cssClass : ' ' . $objAlbums->cssClass;
 
-			// If album lightbox is activated the images will be added to the album template
-			$objSubtemplate = $this->albumLightbox($objSubtemplate, $objAlbums->current());
+				// If album lightbox is activated the images will be added to the album template
+				$objSubtemplate = $this->albumLightbox($objSubtemplate, $objAlbums->current());
 
-			// Parse subtemplate
-			$arrItems[] = $objSubtemplate->parse();
+				// Parse subtemplate
+				$arrItems[] = $objSubtemplate->parse();
 
-			$i++;
+				$i++;
+			}
 		}
 
 		$this->Template->items = $arrItems;

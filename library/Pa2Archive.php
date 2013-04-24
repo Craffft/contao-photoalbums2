@@ -42,26 +42,29 @@ class Pa2Archive extends \Pa2Lib
 
 			$arrItems = array();
 
-			while ($objItems->next())
+			if ($objItems !== null)
 			{
-				if ($objItems->protected)
+				while ($objItems->next())
 				{
-					if (!FE_USER_LOGGED_IN)
+					if ($objItems->protected)
 					{
-						continue;
+						if (!FE_USER_LOGGED_IN)
+						{
+							continue;
+						}
+
+						$arrUsers = deserialize($objItems->users);
+						$arrGroups = deserialize($objItems->groups);
+
+						// Check users and groups
+						if ((!is_array($arrUsers) || count($arrUsers) < 1 || count(array_intersect($arrUsers, array($this->User->id))) < 1) && (!is_array($arrGroups) || count($arrGroups) < 1 || count(array_intersect($arrGroups, $this->User->groups)) < 1))
+						{
+							continue;
+						}
 					}
 
-					$arrUsers = deserialize($objItems->users);
-					$arrGroups = deserialize($objItems->groups);
-
-					// Check users and groups
-					if ((!is_array($arrUsers) || count($arrUsers) < 1 || count(array_intersect($arrUsers, array($this->User->id))) < 1) && (!is_array($arrGroups) || count($arrGroups) < 1 || count(array_intersect($arrGroups, $this->User->groups)) < 1))
-					{
-						continue;
-					}
+					$arrItems[] = $objItems->id;
 				}
-
-				$arrItems[] = $objItems->id;
 			}
 
 			$this->arrItems = $arrItems;
@@ -109,6 +112,7 @@ class Pa2Archive extends \Pa2Lib
 		$arrAlbumIds = array();
 		$objAlbums = \Photoalbums2AlbumModel::findAlbumsByMultipleArchives($this->arrItems);
 
+		// Return null if albums is not an object
 		if ($objAlbums === null)
 		{
 			return null;
