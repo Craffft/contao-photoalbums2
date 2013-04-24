@@ -219,29 +219,31 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 						{
 							$objTemplate->href = str_replace(' ', '%20', $objImage->path);
 						}
+						else
+						{
+							// Define image template
+							$objImageTemplate = new \FrontendTemplate('pa2_lightbox_image');
 
-						// Define image template
-						$objImageTemplate = new \FrontendTemplate('pa2_lightbox_image');
+							// Set vars
+							$objImageTemplate->albumID = $objTemplate->albumID;
 
-						// Set vars
-						$objImageTemplate->albumID = $objTemplate->albumID;
+							$objImageTemplate->href = str_replace(' ', '%20', $objImage->path);
 
-						$objImageTemplate->href = str_replace(' ', '%20', $objImage->path);
+							// Add image to template
+							$arrImage = array();
+							$arrImage['size'] = serialize(array(0, 0, 'crop'));
+							$arrImage['imagemargin'] = serialize(array('bottom'=>'', 'left'=>'', 'right'=>'', 'top'=>'', 'unit'=>''));
+							$arrImage['singleSRC'] = 'system/modules/photoalbums2/assets/blank.gif';
+							$arrImage['alt'] = substr(strrchr($element, '/'), 1);
 
-						// Add image to template
-						$arrImage = array();
-						$arrImage['size'] = serialize(array(0, 0, 'crop'));
-						$arrImage['imagemargin'] = serialize(array('bottom'=>'', 'left'=>'', 'right'=>'', 'top'=>'', 'unit'=>''));
-						$arrImage['singleSRC'] = 'system/modules/photoalbums2/assets/blank.gif';
-						$arrImage['alt'] = substr(strrchr($element, '/'), 1);
+							$objImageTemplate = $objPa2Image->addPa2ImageToTemplate($objImageTemplate, $arrImage);
 
-						$objImageTemplate = $objPa2Image->addPa2ImageToTemplate($objImageTemplate, $arrImage);
+							// Add link title to template
+							$objImageTemplate->title = substr(strrchr($objImage->path, '/'), 1);
 
-						// Add link title to template
-						$objImageTemplate->title = substr(strrchr($objImage->path, '/'), 1);
-
-						// Add image template to parent template
-						$arrLightboxImages[] = $objImageTemplate->parse();
+							// Add image template to parent template
+							$arrLightboxImages[] = $objImageTemplate->parse();
+						}
 					}
 
 					$i++;
