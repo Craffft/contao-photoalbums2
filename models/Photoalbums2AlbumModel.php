@@ -61,7 +61,7 @@ class Photoalbums2AlbumModel extends \Model
 
 		return static::findBy
 		(
-			array("$t.pid IN(" . $arrIds . ") AND (start='' OR start<'$time') AND (stop='' OR stop>'$time') AND published='1'"),
+			array("$t.pid IN(" . $arrIds . ") AND ($t.start='' OR $t.start<'$time') AND ($t.stop='' OR $t.stop>'$time') AND $t.published='1'"),
 			null,
 			array('order'=>"$t.pid, $t.sorting")
 		);
@@ -76,7 +76,7 @@ class Photoalbums2AlbumModel extends \Model
 		$arrOptions = array
 		(
 			'limit'  => 1,
-			'column' => array("($t.id=? OR $t.alias=?) AND (start='' OR start<$time) AND (stop='' OR stop>$time) AND published=1"),
+			'column' => array("($t.id=? OR $t.alias=?) AND ($t.start='' OR $t.start<$time) AND ($t.stop='' OR $t.stop>$time) AND $t.published=1"),
 			'value'  => array((is_numeric($value) ? $value : 0), $value),
 			'return' => 'Collection'
 		);
