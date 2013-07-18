@@ -106,7 +106,7 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 		$this->Template->showHeadline           = $this->Template->pa2ImagesShowHeadline;
 		$this->Template->showTitle              = $this->Template->pa2ImagesShowTitle;
 		$this->Template->showTeaser             = $this->Template->pa2ImagesShowTeaser;
-		$this->Template->teaser                 = $this->cleanRteOutput($this->Template->pa2Teaser);
+		$this->Template->teaser                 = $this->cleanRteOutput(\TranslationFields::translateValue($this->Template->pa2Teaser));
 		$this->Template->showHeadline           = ($this->Template->headline != '' ? $this->Template->showHeadline : false);
 		$this->Template->showTeaser             = ($this->Template->teaser != '' ? $this->Template->showTeaser : false);
 

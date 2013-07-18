@@ -62,7 +62,7 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 		$this->Template->showHeadline           = $this->Template->pa2AlbumsShowHeadline;
 		$this->Template->showTitle              = $this->Template->pa2AlbumsShowTitle;
 		$this->Template->showTeaser             = $this->Template->pa2AlbumsShowTeaser;
-		$this->Template->teaser                 = $this->cleanRteOutput($this->Template->pa2Teaser);
+		$this->Template->teaser                 = $this->cleanRteOutput(\TranslationFields::translateValue($this->Template->pa2Teaser));
 		$this->Template->showHeadline           = ($this->Template->headline != '' ? $this->Template->showHeadline : false);
 		$this->Template->showTeaser             = ($this->Template->teaser != '' ? $this->Template->showTeaser : false);
 

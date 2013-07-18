@@ -16,6 +16,9 @@
  * Table tl_content
  */
 $GLOBALS['TL_DCA']['tl_content']['config']['onsubmit_callback'][] = array('Pa2Backend', 'checkTimeFilter');
+
+$GLOBALS['TL_DCA']['tl_content']['config']['sql']['keys']['pa2Teaser'] = 'index';
+
 $GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][]    = 'pa2TimeFilter';
 $GLOBALS['TL_DCA']['tl_content']['palettes']['photoalbums2']      = '{type_legend},type,headline;
 																			{config_legend},pa2Album;
@@ -211,9 +214,10 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2Teaser'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pa2Teaser'],
 	'exclude'                 => true,
-	'inputType'               => 'textarea',
+	'inputType'               => 'TranslationTextArea',
 	'eval'                    => array('rte'=>'tinyFlash', 'tl_class'=>'long'),
-	'sql'                     => "text NULL"
+	'sql'                     => "int(10) unsigned NOT NULL default '0'",
+	'relation'                => array('type'=>'hasOne', 'load'=>'lazy')
 );
 
 

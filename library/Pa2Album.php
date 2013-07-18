@@ -194,6 +194,9 @@ class Pa2Album extends \Pa2Lib
 			{
 				while ($objAlbum->next())
 				{
+					// Translate fields
+					$objAlbum = \TranslationFields::translateDCObject($objAlbum);
+
 					// Get preview image as Pa2Image object
 					$objImage = new \Pa2Image($objAlbum->previewImage);
 					$objAlbum->objPreviewImage = $objImage->getPa2Image();

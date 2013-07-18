@@ -49,7 +49,11 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			(
 				'id' => 'primary',
 				'pid' => 'index',
-				'alias' => 'index'
+				'alias' => 'index',
+				'event' => 'index',
+				'place' => 'index',
+				'photographer' => 'index',
+				'description' => 'index'
 			)
 		)
 	),
@@ -255,36 +259,40 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['event'],
 			'exclude'                 => true,
 			'search'                  => true,
-			'inputType'               => 'text',
+			'inputType'               => 'TranslationTextField',
 			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
-			'sql'                     => "varchar(255) NOT NULL default ''"
+			'sql'                     => "int(10) unsigned NOT NULL default '0'",
+			'relation'                => array('type'=>'hasOne', 'load'=>'lazy')
 		),
 		'place' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['place'],
 			'exclude'                 => true,
 			'search'                  => true,
-			'inputType'               => 'text',
+			'inputType'               => 'TranslationTextField',
 			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
-			'sql'                     => "varchar(255) NOT NULL default ''"
+			'sql'                     => "int(10) unsigned NOT NULL default '0'",
+			'relation'                => array('type'=>'hasOne', 'load'=>'lazy')
 		),
 		'photographer' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['photographer'],
 			'exclude'                 => true,
 			'search'                  => true,
-			'inputType'               => 'text',
+			'inputType'               => 'TranslationTextField',
 			'eval'                    => array('maxlength'=>255),
-			'sql'                     => "varchar(255) NOT NULL default ''"
+			'sql'                     => "int(10) unsigned NOT NULL default '0'",
+			'relation'                => array('type'=>'hasOne', 'load'=>'lazy')
 		),
 		'description' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['description'],
 			'exclude'                 => true,
 			'search'                  => true,
-			'inputType'               => 'textarea',
+			'inputType'               => 'TranslationTextArea',
 			'eval'                    => array('rte'=>'tinyFlash'),
-			'sql'                     => "text NULL"
+			'sql'                     => "int(10) unsigned NOT NULL default '0'",
+			'relation'                => array('type'=>'hasOne', 'load'=>'lazy')
 		),
 		'protected' => array
 		(
