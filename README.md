@@ -6,9 +6,9 @@ Photoalbums2 is a flexible image gallery for the Contao Open Source CMS.
 https://contao.org
 
 ## Dependencies ##
-image_sort_wizard (https://github.com/iCodr8/contao-image_sort_wizard)
-sort_wizard (https://github.com/iCodr8/contao-sort_wizard)
-translation_fields (https://github.com/iCodr8/contao-translation_fields)
+- image_sort_wizard (https://github.com/iCodr8/contao-image_sort_wizard)
+- sort_wizard (https://github.com/iCodr8/contao-sort_wizard)
+- translation_fields (https://github.com/iCodr8/contao-translation_fields)
 
 ## Demo and infos ##
 http://www.daniel-kiesel.de/contao-erweiterungen/articles/photoalbums2
