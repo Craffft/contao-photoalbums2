@@ -10,10 +10,8 @@ Photoalbums2 is a flexible image gallery for the Contao Open Source CMS.
 ## Links ##
 ### Contao OpenSource CMS ###
 https://contao.org
-
 ### Demo and infos ###
 http://www.daniel-kiesel.de/contao-erweiterungen/articles/photoalbums2
-
 ### Contao Extension Repository ###
 https://contao.org/en/extension-list/view/photoalbums2.html
 
