@@ -81,6 +81,9 @@ class Photoalbums2Runonce extends \Controller
 				{
 					$objAlbum->description = \TranslationFieldsWidgetHelper::saveValuesAndReturnFid(\TranslationFieldsWidgetHelper::addValueToAllLanguages($objAlbum->description));
 				}
+
+				// Save
+				$objAlbum->save();
 			}
 		}
 
@@ -92,6 +95,9 @@ class Photoalbums2Runonce extends \Controller
 				{
 					$objContent->pa2Teaser = \TranslationFieldsWidgetHelper::saveValuesAndReturnFid(\TranslationFieldsWidgetHelper::addValueToAllLanguages($objContent->pa2Teaser));
 				}
+
+				// Save
+				$objContent->save();
 			}
 		}
 
@@ -103,13 +109,11 @@ class Photoalbums2Runonce extends \Controller
 				{
 					$objModule->pa2Teaser = \TranslationFieldsWidgetHelper::saveValuesAndReturnFid(\TranslationFieldsWidgetHelper::addValueToAllLanguages($objModule->pa2Teaser));
 				}
+
+				// Save
+				$objModule->save();
 			}
 		}
-
-		// Save objects
-		$objAlbum->save();
-		$objContent->save();
-		$objModule->save();
 
 
 		/**
