@@ -43,6 +43,12 @@ $GLOBALS['TL_LANG']['MSC']['imagesEmpty'] = 'Das Fotoalbum konnte nicht gefunden
 
 
 /**
+ * Pa2 miscellaneous
+ */
+$GLOBALS['TL_LANG']['PA2']['goBack'] = 'Zurück';
+
+
+/**
  * Image sort types
  */
 $GLOBALS['TL_LANG']['PA2']['imageSortTypes']['metatitle_asc'] = array('Meta-Titel (aufsteigend)', 'Meta-Titel (aufsteigend)');

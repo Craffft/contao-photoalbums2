@@ -329,6 +329,6 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 
 		// Set template vars
 		$this->Template->referer = $this->generateFrontendUrl($objPageDetails->row(), '', $objPageDetails->language) . ($intPageNumber > 1 ? '?page=' . $intPageNumber : '');
-		$this->Template->back    = $GLOBALS['TL_LANG']['MSC']['goBack'];
+		$this->Template->back    = $GLOBALS['TL_LANG']['PA2']['goBack'];
 	}
 }

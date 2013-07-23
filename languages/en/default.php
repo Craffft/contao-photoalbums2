@@ -43,6 +43,12 @@ $GLOBALS['TL_LANG']['MSC']['imagesEmpty'] = 'The image album could not be found!
 
 
 /**
+ * Pa2 miscellaneous
+ */
+$GLOBALS['TL_LANG']['PA2']['goBack'] = 'Back';
+
+
+/**
  * Sort types
  */
 $GLOBALS['TL_LANG']['PA2']['imageSortTypes']['metatitle_asc'] = array('Meta title (ascending)', 'Meta title (ascending)');
