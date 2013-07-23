@@ -81,9 +81,9 @@ $GLOBALS['TL_LANG']['PA2']['previewImageModuleTypes']['random_images_at_no_previ
 /**
  * Mode types
  */
-$GLOBALS['TL_LANG']['PA2']['moduleModeTypes']['pa2_on_one_page'] = array('Foto-Ansicht und Alben-Ansicht auf gleicher Seite darstellen (Standard)', 'Wählen Sie diese Einstellung, damit beide Ansichtsarten auf der gleichen Seite dargestellt werden.');
-$GLOBALS['TL_LANG']['PA2']['moduleModeTypes']['pa2_only_album_view'] = array('Nur Album-Ansicht verwenden und Lightbox direkt einbinden', 'Wählen Sie diese Einstellung um nur die Alben-Ansicht zu verwenden. Bei einem Klick auf ein Album öffnet sich dann direkt die Ligabox mit den Bildern aus dem Fotoalbum.');
-$GLOBALS['TL_LANG']['PA2']['moduleModeTypes']['pa2_with_detail_page'] = array('Foto-Ansicht auf einer anderen Seite anzeigen', 'Wählen Sie diese Einstellung, damit die Foto-Ansicht und die Alben-Ansicht auf zwei verschiedenen Seiten dargestellt werden kann.');
+$GLOBALS['TL_LANG']['PA2']['moduleModeTypes']['pa2_on_one_page'] = array('Alben-Übersicht und Foto-Ansicht auf einer Seite anzeigen (Standard)', 'Stellt die Alben-Übersicht und die Foto-Ansicht auf der gleichen Seite dar.');
+$GLOBALS['TL_LANG']['PA2']['moduleModeTypes']['pa2_only_album_view'] = array('Nur Album-Ansicht mit Lightbox verwenden', 'Zeigt nur die Alben-Übersicht an. Bei einem Klick auf ein Album wird die Lightbox geöffnet und zeigt alle Fotos aus dem Fotoalbum an.');
+$GLOBALS['TL_LANG']['PA2']['moduleModeTypes']['pa2_with_detail_page'] = array('Alben-Übersicht und Foto-Ansicht auf unterschiedlichen Seiten anzeigen', 'Stellt die Alben-Übersicht und die Foto-Ansicht auf unterschiedlichen Seiten dar. Binden Sie dazu dieses Modul in beide Seiten ein.');
 
 
 /**

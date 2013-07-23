@@ -319,6 +319,12 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 		$intPageNumber = $this->Session->get('pa2PageNumber_' . $this->Template->id);
 		$intPageId     = $this->Session->get('pa2PageId_' . $this->Template->id);
 
+		// Set backlink via overview page id
+		if (is_numeric($this->Template->pa2OverviewPage) && $this->Template->pa2OverviewPage > 0)
+		{
+			$intPageId = $this->Template->pa2OverviewPage;
+		}
+
 		// Check and correct session vars
 		$intPageNumber = (is_numeric($intPageNumber) ? $intPageNumber : 1);
 		$intPageId     = (is_numeric($intPageId) ? $intPageId : $objPage->id);

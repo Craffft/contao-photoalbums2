@@ -44,7 +44,7 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_only_album_view']   = '{title_l
 																			{protected_legend:hide},protected;
 																			{expert_legend:hide},guests,cssID,space';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_with_detail_page']   = '{title_legend},name,headline,type;
-																			{config_legend},pa2Mode,pa2PreviewImage,pa2DetailPage;
+																			{config_legend},pa2Mode,pa2PreviewImage,pa2OverviewPage,pa2DetailPage;
 																			{pa2Album_legend},pa2Archives,pa2AlbumSortType,pa2AlbumSort;
 																			{pa2Template_legend},pa2AlbumViewTemplate,pa2ImageViewTemplate,pa2AlbumsTemplate,pa2ImagesTemplate,pa2AlbumsShowHeadline,pa2ImagesShowHeadline,pa2AlbumsShowTitle,pa2ImagesShowTitle,pa2AlbumsShowTeaser,pa2ImagesShowTeaser;
 																			{pa2Image_legend},pa2AlbumsImageSize,pa2ImagesImageSize,pa2AlbumsImageMargin,pa2ImagesImageMargin,pa2AlbumsPerRow,pa2ImagesPerRow,pa2AlbumsPerPage,pa2ImagesPerPage,pa2NumberOfAlbums,pa2NumberOfImages;
@@ -70,7 +70,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2Mode'] = array
 	'options'                 => array('pa2_on_one_page', 'pa2_only_album_view', 'pa2_with_detail_page'),
 	'reference'               => &$GLOBALS['TL_LANG']['PA2']['moduleModeTypes'],
 	'default'                 => 'pa2_on_one_page',
-	'eval'                    => array('submitOnChange'=>true, 'tl_class'=>'w50'),
+	'eval'                    => array('submitOnChange'=>true, 'helpwizard'=>true, 'tl_class'=>'w50'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
 );
 
@@ -86,12 +86,21 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2PreviewImage'] = array
 	'sql'                     => "varchar(64) NOT NULL default ''"
 );
 
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2OverviewPage'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2OverviewPage'],
+	'exclude'                 => true,
+	'inputType'               => 'pageTree',
+	'eval'                    => array('mandatory'=>true, 'fieldType'=>'radio', 'tl_class'=>'clr'),
+	'sql'                     => "varchar(10) NOT NULL default ''"
+);
+
 $GLOBALS['TL_DCA']['tl_module']['fields']['pa2DetailPage'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2DetailPage'],
 	'exclude'                 => true,
 	'inputType'               => 'pageTree',
-	'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr'),
+	'eval'                    => array('mandatory'=>true, 'fieldType'=>'radio', 'tl_class'=>'clr'),
 	'sql'                     => "varchar(10) NOT NULL default ''"
 );
 

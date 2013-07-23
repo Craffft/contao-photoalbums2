@@ -143,6 +143,11 @@ class ModulePhotoalbums2 extends \Module
 		{
 			$this->goToDetailPage();
 		}
+		// Go to overview page (albums)
+		else if (is_numeric($this->pa2OverviewPage) && $this->pa2OverviewPage > 0 && $objPage->id != $this->pa2OverviewPage)
+		{
+			$this->goToOverviewPage();
+		}
 		// Go to root page
 		else
 		{
@@ -185,24 +190,50 @@ class ModulePhotoalbums2 extends \Module
 	 */
 	public function goToDetailPage()
 	{
-		// Get detail page informations
+		global $objPage;
+
+		// Do not redirect if current and redirect page are the same
+		if ($objPage->id == $this->pa2DetailPage)
+		{
+			return;
+		}
+
+		// Get detail page and redirect url
 		$objDetailPage = $this->getPageDetails($this->pa2DetailPage);
-
-		// Add array
-		$arrDetailPage = array(
-			'id' => $objDetailPage->id,
-			'alias' => $objDetailPage->alias
-		);
-
-		$linkDetailPage = $this->generateFrontendUrl($arrDetailPage, sprintf(($GLOBALS['TL_CONFIG']['useAutoItem'] ?  '/%s' : '/album/%s'), $this->Input->get('album')), $objDetailPage->language);
+		$strUrl = $this->generateFrontendUrl($objDetailPage->row(), sprintf(($GLOBALS['TL_CONFIG']['useAutoItem'] ?  '/%s' : '/album/%s'), $this->Input->get('album')), $objDetailPage->language);
 
 		if (($this->Input->get('page') != '') && ($this->Input->get('page') != NULL) && is_numeric($this->Input->get('page')))
 		{
-			$linkDetailPage .= '?page=' . $this->Input->get('page');
+			$strUrl .= '?page=' . $this->Input->get('page');
 		}
 
-		// Locate to detail page
-		$this->redirect($linkDetailPage);
+		// Redirect to detail page
+		$this->redirect($strUrl);
+	}
+
+
+	/**
+	 * goToOverviewPage function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function goToOverviewPage()
+	{
+		global $objPage;
+
+		// Do not redirect if current and redirect page are the same
+		if ($objPage->id == $this->pa2OverviewPage)
+		{
+			return;
+		}
+
+		// Get page and redirect url
+		$objRedirectPage = \PageModel::findByPk($this->pa2OverviewPage);
+		$strUrl = $this->generateFrontendUrl($objRedirectPage->row());
+
+		// Redirect to overview page
+		$this->redirect($strUrl);
 	}
 
 
@@ -220,18 +251,11 @@ class ModulePhotoalbums2 extends \Module
 		$objPage->noSearch = 1;
 		$objPage->cache = 0;
 
-		// Get root page informations
+		// Get root page and redirect url
 		$objRootPage = $this->getPageDetails($objPage->rootId);
-
-		// Add array
-		$arrRootPage = array(
-			'id' => $objRootPage->id,
-			'alias' => $objRootPage->alias
-		);
-
-		$linkRootPage = $this->generateFrontendUrl($arrRootPage);
+		$strUrl = $this->generateFrontendUrl($objRootPage->row());
 
 		// Locate to root page
-		$this->redirect($linkRootPage);
+		$this->redirect($strUrl);
 	}
 }
