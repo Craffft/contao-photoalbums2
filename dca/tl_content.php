@@ -172,7 +172,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2ImagesMetaFields'] = array
 	'exclude'                 => true,
 	'inputType'               => 'checkboxWizard',
 	'options'                 => $GLOBALS['pa2']['metaFields'],
-	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2MetaFieldOptions'],
+	'reference'               => &$GLOBALS['TL_LANG']['PA2']['pa2MetaFieldOptions'],
 	'eval'                    => array('multiple'=>true, 'tl_class'=>'cbxes'),
 	'sql'                     => "blob NULL"
 );
@@ -193,7 +193,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2TimeFilterStart'] = array
 	'inputType'               => 'timePeriod',
 	'default'                 => 'days',
 	'options'                 => $GLOBALS['pa2']['timeFilterOptions'],
-	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2TimeFilterOptions'],
+	'reference'               => &$GLOBALS['TL_LANG']['PA2']['pa2TimeFilterOptions'],
 	'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
 );
@@ -205,7 +205,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2TimeFilterEnd'] = array
 	'inputType'               => 'timePeriod',
 	'default'                 => 'days',
 	'options'                 => $GLOBALS['pa2']['timeFilterOptions'],
-	'reference'               => &$GLOBALS['TL_LANG']['pa2']['pa2TimeFilterOptions'],
+	'reference'               => &$GLOBALS['TL_LANG']['PA2']['pa2TimeFilterOptions'],
 	'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
 );

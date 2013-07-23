@@ -224,7 +224,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'exclude'                 => true,
 			'inputType'               => 'select',
 			'options'                 => $GLOBALS['pa2']['imageSortTypes'],
-			'reference'               => &$GLOBALS['TL_LANG']['pa2']['imageSortTypes'],
+			'reference'               => &$GLOBALS['TL_LANG']['PA2']['imageSortTypes'],
 			'eval'                    => array('submitOnChange'=>true),
 			'sql'                     => "varchar(64) NOT NULL default ''"
 		),
@@ -242,7 +242,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'exclude'                 => true,
 			'inputType'               => 'select',
 			'options'                 => $GLOBALS['pa2']['albumPreviewImageTypes'],
-			'reference'               => &$GLOBALS['TL_LANG']['pa2']['albumPreviewImageTypes'],
+			'reference'               => &$GLOBALS['TL_LANG']['PA2']['albumPreviewImageTypes'],
 			'eval'                    => array('submitOnChange'=>true),
 			'sql'                     => "varchar(64) NOT NULL default ''"
 		),
