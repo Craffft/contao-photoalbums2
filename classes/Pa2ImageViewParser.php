@@ -122,6 +122,8 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 	 */
 	protected function compile()
 	{
+		global $objPage;
+
 		// Generate new template object
 		$objTemplate = new \FrontendTemplate($this->Template->strTemplate);
 		$objTemplate->setData($this->Template->getData());
@@ -141,9 +143,22 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 		// Get only the current object
 		$objAlbum = $objAlbum->current();
 
-		// Add comments module in Frontend
+		// Do this only in the Frontend
 		if (TL_MODE == 'FE')
 		{
+			// Overwrite the page title
+			if ($objAlbum->title != '')
+			{
+				$objPage->pageTitle = strip_tags(strip_insert_tags($objAlbum->title));
+			}
+
+			// Overwrite the page description
+			if ($objAlbum->description != '')
+			{
+				$objPage->description = $this->prepareMetaDescription($objAlbum->description);
+			}
+
+			// Add comments module
 			$this->addComments($objAlbum);
 		}
 
