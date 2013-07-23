@@ -135,14 +135,14 @@ class ModulePhotoalbums2 extends \Module
 		}
 		// Show albums
 		else if (!$this->Input->get('album') && ($this->pa2DetailPage == '' || ($this->pa2DetailPage != '' && $this->pa2DetailPage != $objPage->id)))
-			{
-				$this->prepareAlbums();
-			}
+		{
+			$this->prepareAlbums();
+		}
 		// Go to detail page (images)
 		else if ($this->Input->get('album'))
-			{
-				$this->goToDetailPage();
-			}
+		{
+			$this->goToDetailPage();
+		}
 		// Go to root page
 		else
 		{
