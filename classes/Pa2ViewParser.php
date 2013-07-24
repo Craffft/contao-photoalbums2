@@ -365,6 +365,26 @@ abstract class Pa2ViewParser extends \Frontend
 		$arrStyles[] = 'width: ' . (100 / $intItemsPerRow) . '%;';
 
 
+		// Add image propotion types to classes
+		if (file_exists($objTemplate->href))
+		{
+			$arrImageSize = deserialize($objTemplate->size);
+
+			if ($arrImageSize[0] > $arrImageSize[1])
+			{
+				$arrClasses[] = 'landscape';
+			}
+			else if ($arrImageSize[0] < $arrImageSize[1])
+			{
+				$arrClasses[] = 'portrait';
+			}
+			else if ($arrImageSize[0] == $arrImageSize[1] && $arrImageSize[0] != 0 && $arrImageSize[1] != 0)
+			{
+				$arrClasses[] = 'square';
+			}
+		}
+
+
 		// Set row start
 		if ($intItemNumberInRow == 0)
 		{
