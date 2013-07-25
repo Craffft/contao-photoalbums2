@@ -49,11 +49,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			(
 				'id' => 'primary',
 				'pid' => 'index',
-				'alias' => 'index',
-				'event' => 'index',
-				'place' => 'index',
-				'photographer' => 'index',
-				'description' => 'index'
+				'alias' => 'index'
 			)
 		)
 	),

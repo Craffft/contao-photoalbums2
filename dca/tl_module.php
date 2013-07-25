@@ -18,8 +18,6 @@
 $GLOBALS['TL_DCA']['tl_module']['config']['onsubmit_callback'][] = array('Pa2Backend', 'checkTimeFilter');
 $GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][] = array('tl_module_photoalbums2', 'fixPa2Palette');
 
-$GLOBALS['TL_DCA']['tl_module']['config']['sql']['keys']['pa2Teaser'] = 'index';
-
 $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][] = 'pa2TimeFilter';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['photoalbums2']     = '{title_legend},name,headline,type;
 																			{config_legend},pa2Mode';

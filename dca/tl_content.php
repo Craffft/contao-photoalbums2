@@ -17,8 +17,6 @@
  */
 $GLOBALS['TL_DCA']['tl_content']['config']['onsubmit_callback'][] = array('Pa2Backend', 'checkTimeFilter');
 
-$GLOBALS['TL_DCA']['tl_content']['config']['sql']['keys']['pa2Teaser'] = 'index';
-
 $GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][]    = 'pa2TimeFilter';
 $GLOBALS['TL_DCA']['tl_content']['palettes']['photoalbums2']      = '{type_legend},type,headline;
 																			{config_legend},pa2Album;
