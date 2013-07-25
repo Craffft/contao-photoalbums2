@@ -549,10 +549,10 @@ class tl_photoalbums2_album extends Pa2Backend
 			$varValue = standardize($dc->activeRecord->title);
 		}
 
-		$objAlias = \Photoalbums2AlbumModel::findBy(array("id!=?", "alias=?"), array($dc->id, $varValue));
+		$objAlias = \Photoalbums2AlbumModel::findBy(array($dc->table . ".id!=?", $dc->table . ".alias=?"), array($dc->id, $varValue));
 
 		// Check whether the albums alias exists
-		if ($objAlias != null && !$autoAlias)
+		if ($objAlias !== null && !$autoAlias)
 		{
 			throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $varValue));
 		}
