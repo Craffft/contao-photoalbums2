@@ -478,7 +478,7 @@ class tl_module_photoalbums2 extends Pa2Backend
 
 	/**
 	 * getAlbumSort function.
-	 * 
+	 *
 	 * @access public
 	 * @param DataContainer $dc
 	 * @return void

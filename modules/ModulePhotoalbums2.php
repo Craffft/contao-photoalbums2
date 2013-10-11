@@ -214,7 +214,7 @@ class ModulePhotoalbums2 extends \Module
 
 	/**
 	 * goToOverviewPage function.
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 */

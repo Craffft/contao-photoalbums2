@@ -526,11 +526,11 @@ abstract class Pa2ViewParser extends \Frontend
 
 		return $individualId;
 	}
-	
-	
+
+
 	/**
 	 * getImageTitle function.
-	 * 
+	 *
 	 * @access protected
 	 * @param object $objImage
 	 * @return void
@@ -541,7 +541,7 @@ abstract class Pa2ViewParser extends \Frontend
 		{
 			return false;
 		}
-		
+
 		// Set the filename as default
 		$strAlt = $objImage->name;
 

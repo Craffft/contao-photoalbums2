@@ -127,7 +127,7 @@ class Pa2Archive extends \Pa2Lib
 		{
 			$objPa2AlbumSorter = new \Pa2AlbumSorter($this->arrData['pa2AlbumSortType'], $arrAlbumIds, $this->arrData['pa2AlbumSort']);
 			$arrAlbumIds = $objPa2AlbumSorter->getSortedIds();
-			
+
 			if ($arrAlbumIds === false)
 			{
 				return null;

@@ -100,14 +100,14 @@ class Pa2Album extends \Pa2Lib
 						{
 							continue;
 						}
-	
+
 						// If has access
 						if ($this->hasAccess($objItems->current()) === false)
 						{
 							continue;
 						}
 					}
-	
+
 					$arrItems[] = $objItems->id;
 				}
 			}

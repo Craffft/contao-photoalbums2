@@ -91,7 +91,7 @@ class Pa2 extends \Controller
 			while ($objArchive->next())
 			{
 				$objArchive->feedName = ($objArchive->alias != '') ? $objArchive->alias : 'pa2' . $objArchive->id;
-	
+
 				$this->generateFiles($objArchive->row());
 				$this->log('Generated pa2 feed "' . $objArchive->feedName . '.xml"', 'Pa2 generateFeeds()', TL_CRON);
 			}

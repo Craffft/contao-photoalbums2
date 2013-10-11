@@ -90,7 +90,7 @@ class Pa2Backend extends \Backend
 
 	/**
 	 * getPa2WrapTemplates function.
-	 * 
+	 *
 	 * @access public
 	 * @param DataContainer $dc
 	 * @return array
@@ -110,7 +110,7 @@ class Pa2Backend extends \Backend
 
 	/**
 	 * getPa2AlbumTemplates function.
-	 * 
+	 *
 	 * @access public
 	 * @param DataContainer $dc
 	 * @return array
@@ -130,7 +130,7 @@ class Pa2Backend extends \Backend
 
 	/**
 	 * getPa2ImageTemplates function.
-	 * 
+	 *
 	 * @access public
 	 * @param DataContainer $dc
 	 * @return array
@@ -146,11 +146,11 @@ class Pa2Backend extends \Backend
 
 		return $this->getTemplateGroup('pa2_image', $intPid);
 	}
-	
-	
+
+
 	/**
 	 * removeFromPalette function.
-	 * 
+	 *
 	 * @access protected
 	 * @param string $table
 	 * @param string $palette

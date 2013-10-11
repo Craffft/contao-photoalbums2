@@ -28,21 +28,21 @@ class Photoalbums2Runonce extends \Controller
 {
 	/**
 	 * __construct function.
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 */
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		$this->import((TL_MODE=='BE' ? 'BackendUser' : 'FrontendUser'), 'User');
 	}
-	
-	
+
+
 	/**
 	 * run function.
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 */
@@ -171,7 +171,7 @@ class Photoalbums2Runonce extends \Controller
 			"ALTER TABLE `tl_content` CHANGE `pa2Teaser` `pa2Teaser` int(10) unsigned NOT NULL default '0'",
 			"ALTER TABLE `tl_module` CHANGE `pa2Teaser` `pa2Teaser` int(10) unsigned NOT NULL default '0'",
 		);
-		
+
 		foreach($arrSqlStatements as $strSqlStatement)
 		{
 			// Execute sql statements

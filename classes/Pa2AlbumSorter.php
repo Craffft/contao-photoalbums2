@@ -84,7 +84,7 @@ class Pa2AlbumSorter extends \Controller
 
 	/**
 	 * sortBy function.
-	 * 
+	 *
 	 * @access protected
 	 * @param string $strSortKey
 	 * @param string $strSortDirection (default: 'ASC')
@@ -104,7 +104,7 @@ class Pa2AlbumSorter extends \Controller
 
 		/**
 		 * SET SORT FIELDS HERE
-		 * 
+		 *
 		 * title
 		 * startdate
 		 * enddate
@@ -185,7 +185,7 @@ class Pa2AlbumSorter extends \Controller
 						if($objPa2AlbumModel->images != '')
 						{
 							$objPa2AlbumModel->images = deserialize($objPa2AlbumModel->images);
-							
+
 							if(is_array($objPa2AlbumModel->images))
 							{
 								$numberofimages = count($objPa2AlbumModel->images);
