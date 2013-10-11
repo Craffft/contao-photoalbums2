@@ -167,12 +167,12 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['alias'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+			'eval'                    => array('maxlength'=>128, 'unique'=>true, 'tl_class'=>'w50'),
 			'save_callback'           => array
 			(
 				array('tl_photoalbums2_album', 'generateAlias')
 			),
-			'sql'                     => "varchar(255) NOT NULL default ''"
+			'sql'                     => "varbinary(128) NOT NULL default ''"
 		),
 		'author' => array
 		(
