@@ -57,16 +57,16 @@ class Photoalbums2Runonce extends \Controller
 		if (!$db->tableExists('tl_translation_fields'))
 		{
 			$arrSqlStatements = array();
-			$arrSqlStatements .= "CREATE TABLE `tl_translation_fields` (";
-			$arrSqlStatements .= "`id` int(10) unsigned NOT NULL auto_increment,";
-			$arrSqlStatements .= "`tstamp` int(10) unsigned NOT NULL default '0',";
-			$arrSqlStatements .= "`fid` int(10) unsigned NOT NULL default '0',";
-			$arrSqlStatements .= "`language` varchar(5) NOT NULL default '',";
-			$arrSqlStatements .= "`content` text NOT NULL,";
-			$arrSqlStatements .= "PRIMARY KEY  (`id`),";
-			$arrSqlStatements .= "UNIQUE KEY `fid_language` (`fid`, `language`),";
-			$arrSqlStatements .= "KEY `fid` (`fid`)";
-			$arrSqlStatements .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+			$arrSqlStatements[] = "CREATE TABLE `tl_translation_fields` (";
+			$arrSqlStatements[] = "`id` int(10) unsigned NOT NULL auto_increment,";
+			$arrSqlStatements[] = "`tstamp` int(10) unsigned NOT NULL default '0',";
+			$arrSqlStatements[] = "`fid` int(10) unsigned NOT NULL default '0',";
+			$arrSqlStatements[] = "`language` varchar(5) NOT NULL default '',";
+			$arrSqlStatements[] = "`content` text NOT NULL,";
+			$arrSqlStatements[] = "PRIMARY KEY  (`id`),";
+			$arrSqlStatements[] = "UNIQUE KEY `fid_language` (`fid`, `language`),";
+			$arrSqlStatements[] = "KEY `fid` (`fid`)";
+			$arrSqlStatements[] = ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
 			$db->execute(implode(' ', $arrSqlStatements));
 		}
