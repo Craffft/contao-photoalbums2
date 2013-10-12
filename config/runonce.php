@@ -54,7 +54,7 @@ class Photoalbums2Runonce extends \Controller
 		/**
 		 * Create new translation fields table, if it does not exist
 		 */
-		if (!$db->tableExists())
+		if (!$db->tableExists('tl_translation_fields'))
 		{
 			$arrSqlStatements = array();
 			$arrSqlStatements .= "CREATE TABLE `tl_translation_fields` (";
