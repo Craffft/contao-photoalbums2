@@ -147,7 +147,8 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 		if (TL_MODE == 'FE')
 		{
 			// Overwrite the page title
-			if ($objAlbum->title != '')
+//			if ($objAlbum->title != '')
+			if ($objAlbum->title != '' && empty($objPage->pageTitle))
 			{
 				$objPage->pageTitle = strip_tags(strip_insert_tags($objAlbum->title));
 			}
