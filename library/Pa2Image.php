@@ -3,12 +3,12 @@
 /**
  * Contao Open Source CMS
  *
- * Copyright (C) 2005-2013 Leo Feyer
+ * Copyright (C) 2005-2014 Leo Feyer
  *
- * @package   photoalbums2
- * @author    Daniel Kiesel <https://github.com/icodr8>
- * @license   LGPL
- * @copyright Daniel Kiesel 2012-2013
+ * @package    photoalbums2
+ * @author     Daniel Kiesel <https://github.com/icodr8>
+ * @license    LGPL
+ * @copyright  Daniel Kiesel 2012-2014
  */
 
 
@@ -21,7 +21,7 @@ namespace Photoalbums2;
 /**
  * Class Pa2Image
  *
- * @copyright  Daniel Kiesel 2012-2013
+ * @copyright  Daniel Kiesel 2012-2014
  * @author     Daniel Kiesel <https://github.com/icodr8>
  * @package    photoalbums2
  */

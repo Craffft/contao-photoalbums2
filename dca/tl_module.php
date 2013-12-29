@@ -3,12 +3,12 @@
 /**
  * Contao Open Source CMS
  *
- * Copyright (C) 2005-2013 Leo Feyer
+ * Copyright (C) 2005-2014 Leo Feyer
  *
- * @package   photoalbums2
- * @author    Daniel Kiesel <https://github.com/icodr8>
- * @license   LGPL
- * @copyright Daniel Kiesel 2012-2013
+ * @package    photoalbums2
+ * @author     Daniel Kiesel <https://github.com/icodr8>
+ * @license    LGPL
+ * @copyright  Daniel Kiesel 2012-2014
  */
 
 
@@ -430,9 +430,9 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2Teaser'] = array
 /**
  * Class tl_module_photoalbums2
  *
- * @copyright Daniel Kiesel 2012-2013
- * @author    Daniel Kiesel <https://github.com/icodr8>
- * @package   photoalbums2
+ * @copyright  Daniel Kiesel 2012-2014
+ * @author     Daniel Kiesel <https://github.com/icodr8>
+ * @package    photoalbums2
  */
 class tl_module_photoalbums2 extends Pa2Backend
 {
