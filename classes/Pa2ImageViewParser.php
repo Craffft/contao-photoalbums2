@@ -17,6 +17,7 @@
  */
 namespace Photoalbums2;
 
+
 /**
  * Class Pa2ImageViewParser
  *
@@ -26,6 +27,7 @@ namespace Photoalbums2;
  */
 class Pa2ImageViewParser extends \Pa2ViewParser
 {
+
 	/**
 	 * intAlbumId
 	 *

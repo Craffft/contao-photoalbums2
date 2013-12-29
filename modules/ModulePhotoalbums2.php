@@ -17,6 +17,7 @@
  */
 namespace Photoalbums2;
 
+
 /**
  * Class ModulePhotoalbums2
  *

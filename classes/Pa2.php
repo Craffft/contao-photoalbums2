@@ -17,6 +17,7 @@
  */
 namespace Photoalbums2;
 
+
 /**
  * Class Pa2
  *
@@ -26,6 +27,7 @@ namespace Photoalbums2;
  */
 class Pa2 extends \Controller
 {
+
 	/**
 	 * addCssFile function.
 	 *

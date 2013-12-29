@@ -17,6 +17,7 @@
  */
 namespace Photoalbums2;
 
+
 /**
  * Class Pa2Album
  *
@@ -26,6 +27,7 @@ namespace Photoalbums2;
  */
 class Pa2Album extends \Pa2Lib
 {
+
 	/**
 	 * __construct function.
 	 *

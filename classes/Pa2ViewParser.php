@@ -17,6 +17,7 @@
  */
 namespace Photoalbums2;
 
+
 /**
  * Class Pa2ViewParser
  *
@@ -26,6 +27,7 @@ namespace Photoalbums2;
  */
 abstract class Pa2ViewParser extends \Frontend
 {
+
 	/**
 	 * Template
 	 *

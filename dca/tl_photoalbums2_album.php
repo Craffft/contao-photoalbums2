@@ -370,6 +370,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
  */
 class tl_photoalbums2_album extends Pa2Backend
 {
+
 	/**
 	 * Import the back end user object
 	 */

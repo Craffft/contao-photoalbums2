@@ -17,6 +17,7 @@
  */
 namespace Photoalbums2;
 
+
 /**
  * Class Pa2Archive
  *
@@ -26,6 +27,7 @@ namespace Photoalbums2;
  */
 abstract class Pa2Lib extends \Controller
 {
+
 	/**
 	 * arrItems
 	 *

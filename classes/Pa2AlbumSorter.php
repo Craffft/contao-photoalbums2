@@ -17,6 +17,7 @@
  */
 namespace Photoalbums2;
 
+
 /**
  * Class Pa2AlbumSorter
  *
@@ -26,6 +27,7 @@ namespace Photoalbums2;
  */
 class Pa2AlbumSorter extends \Controller
 {
+
 	/**
 	 * __construct function.
 	 *

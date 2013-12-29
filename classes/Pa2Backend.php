@@ -17,6 +17,7 @@
  */
 namespace Photoalbums2;
 
+
 /**
  * Class Pa2Backend
  *
@@ -26,6 +27,7 @@ namespace Photoalbums2;
  */
 class Pa2Backend extends \Backend
 {
+
 	/**
 	 * checkTimeFilter function.
 	 *

@@ -17,6 +17,7 @@
  */
 namespace Photoalbums2;
 
+
 /**
  * Class Pa2TimeFilter
  *
@@ -26,6 +27,7 @@ namespace Photoalbums2;
  */
 class Pa2TimeFilter extends \Controller
 {
+
 	/**
 	 * intFilterStart
 	 *

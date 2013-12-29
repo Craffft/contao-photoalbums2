@@ -17,6 +17,7 @@
  */
 namespace Photoalbums2;
 
+
 /**
  * Class Pa2AlbumViewParser
  *
@@ -26,6 +27,7 @@ namespace Photoalbums2;
  */
 class Pa2AlbumViewParser extends \Pa2ViewParser
 {
+
 	/**
 	 * objAlbums
 	 *
