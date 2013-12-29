@@ -34,9 +34,9 @@ class Pa2Pagination extends \Controller
 	 * (default value: array())
 	 *
 	 * @var array
-	 * @access public
+	 * @access private
 	 */
-	public $arrItems = array();
+	private $arrItems = array();
 
 
 	/**
@@ -45,9 +45,9 @@ class Pa2Pagination extends \Controller
 	 * (default value: 0)
 	 *
 	 * @var int
-	 * @access public
+	 * @access private
 	 */
-	public $intMaxItems = 0;
+	private $intMaxItems = 0;
 
 
 	/**
@@ -56,9 +56,9 @@ class Pa2Pagination extends \Controller
 	 * (default value: 0)
 	 *
 	 * @var int
-	 * @access public
+	 * @access private
 	 */
-	public $intItemsPerPage = 0;
+	private $intItemsPerPage = 0;
 
 
 	/**
@@ -67,9 +67,9 @@ class Pa2Pagination extends \Controller
 	 * (default value: 0)
 	 *
 	 * @var int
-	 * @access public
+	 * @access private
 	 */
-	public $intTotalItems = 0;
+	private $intTotalItems = 0;
 
 
 	/**
@@ -78,9 +78,9 @@ class Pa2Pagination extends \Controller
 	 * (default value: '')
 	 *
 	 * @var string
-	 * @access public
+	 * @access private
 	 */
-	public $varPagination = '';
+	private $varPagination = '';
 
 
 	/**
