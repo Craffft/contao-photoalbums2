@@ -26,6 +26,7 @@ namespace Photoalbums2;
  */
 class Photoalbums2Runonce extends \Controller
 {
+
 	/**
 	 * __construct function.
 	 *
