@@ -91,8 +91,6 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 	 */
 	protected function generate()
 	{
-		$this->strEmptyText = $GLOBALS['TL_LANG']['MSC']['imagesEmpty'];
-
 		$this->Template->intMaxItems            = $this->Template->pa2NumberOfImages;
 		$this->Template->intItemsPerPage        = $this->Template->pa2ImagesPerPage;
 		$this->Template->intItemsPerRow         = $this->Template->pa2ImagesPerRow;
@@ -135,10 +133,17 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 		$objPa2Album = new \Pa2Album($this->getAlbumIdOrAlias(), $this->Template->getData());
 		$objAlbum = $objPa2Album->getAlbums();
 
-		// If there are no album or images, show empty template with a message
-		if (!is_object($objAlbum) || $objAlbum === null || count($objAlbum->arrSortedImageIds) < 1)
+		// If there is no album
+		if (!is_object($objAlbum) || $objAlbum === null)
 		{
-			$this->setEmptyTemplate();
+			$this->setEmptyTemplate($GLOBALS['TL_LANG']['MSC']['albumNotFound']);
+			return;
+		}
+
+		// If there are no images
+		if (count($objAlbum->arrSortedImageIds) < 1)
+		{
+			$this->setEmptyTemplate($GLOBALS['TL_LANG']['MSC']['imagesNotFound']);
 			return;
 		}
 
@@ -207,9 +212,17 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 	 */
 	private function parseImages()
 	{
-		if (!is_object($this->objAlbum) || !is_array($this->arrItems) || count($this->arrItems) < 1)
+		// If there is no album
+		if (!is_object($this->objAlbum))
 		{
-			$this->setEmptyTemplate();
+			$this->setEmptyTemplate($GLOBALS['TL_LANG']['MSC']['albumNotFound']);
+			return;
+		}
+
+		// If there are no images
+		if (!is_array($this->arrItems) || count($this->arrItems) < 1)
+		{
+			$this->setEmptyTemplate($GLOBALS['TL_LANG']['MSC']['imagesNotFound']);
 			return;
 		}
 

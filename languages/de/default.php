@@ -38,8 +38,9 @@ $GLOBALS['TL_LANG']['CTE']['photoalbums2']  = array('Fotoalbum', 'Erzeugt ein Fo
 /**
  * Miscellaneous
  */
-$GLOBALS['TL_LANG']['MSC']['albumsEmpty'] = 'Es sind keine Fotoalben vorhanden!';
-$GLOBALS['TL_LANG']['MSC']['imagesEmpty'] = 'Das Fotoalbum konnte nicht gefunden werden!';
+$GLOBALS['TL_LANG']['MSC']['albumsNotFound'] = 'Es sind keine Fotoalben vorhanden!';
+$GLOBALS['TL_LANG']['MSC']['albumNotFound'] = 'Das Fotoalbum konnte nicht gefunden werden!';
+$GLOBALS['TL_LANG']['MSC']['imagesNotFound'] = 'Das Fotoalbum enthält keine Bilder!';
 
 
 /**

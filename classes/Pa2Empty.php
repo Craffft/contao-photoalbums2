@@ -38,15 +38,6 @@ class Pa2Empty extends \Controller
 
 
 	/**
-	 * arrItems
-	 *
-	 * @var array
-	 * @access private
-	 */
-	private $arrItems;
-
-
-	/**
 	 * strMessage
 	 *
 	 * @var string
@@ -56,17 +47,26 @@ class Pa2Empty extends \Controller
 
 
 	/**
+	 * arrItems
+	 *
+	 * @var array
+	 * @access private
+	 */
+	private $arrItems;
+
+
+	/**
 	 * __construct function.
 	 *
 	 * @access public
-	 * @param array $arrItems
 	 * @param string $strMessage
+	 * @param array $arrItems
 	 * @return void
 	 */
-	public function __construct($arrItems, $strMessage)
+	public function __construct($strMessage, $arrItems)
 	{
-		$this->arrItems = $arrItems;
 		$this->strMessage = $strMessage;
+		$this->arrItems = $arrItems;
 	}
 
 
@@ -83,6 +83,8 @@ class Pa2Empty extends \Controller
 			return null;
 		}
 
+		// Send a 404 header
+		header('HTTP/1.1 404 Not Found');
 		$this->Template = new \FrontendTemplate('pa2_empty');
 		$this->Template->empty = $this->strMessage;
 

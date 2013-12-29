@@ -45,8 +45,6 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 	 */
 	protected function generate()
 	{
-		$this->strEmptyText = $GLOBALS['TL_LANG']['MSC']['albumsEmpty'];
-
 		$this->Template->intMaxItems            = $this->Template->pa2NumberOfAlbums;
 		$this->Template->intItemsPerPage        = $this->Template->pa2AlbumsPerPage;
 		$this->Template->intItemsPerRow         = $this->Template->pa2AlbumsPerRow;
@@ -92,7 +90,7 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 		// If there are no albums, show empty template with a message
 		if (count($arrAllAlbums) < 1)
 		{
-			$this->setEmptyTemplate();
+			$this->setEmptyTemplate($GLOBALS['TL_LANG']['MSC']['albumsNotFound']);
 			return;
 		}
 
@@ -122,7 +120,7 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 	{
 		if (!is_object($this->objAlbums) || $this->objAlbums->count() < 1)
 		{
-			$this->setEmptyTemplate();
+			$this->setEmptyTemplate($GLOBALS['TL_LANG']['MSC']['albumsNotFound']);
 			return;
 		}
 

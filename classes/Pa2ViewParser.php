@@ -98,10 +98,10 @@ abstract class Pa2ViewParser extends \Frontend
 	 * @param array $arrItems (default: array())
 	 * @return void
 	 */
-	protected function setEmptyTemplate($arrItems = array())
+	protected function setEmptyTemplate($strMessage, $arrItems = array())
 	{
 		// If required set empty template
-		$objPa2Empty = new \Pa2Empty($arrItems, $this->strEmptyText);
+		$objPa2Empty = new \Pa2Empty($strMessage, $arrItems);
 
 		if ($objPa2Empty->run() !== null)
 		{
