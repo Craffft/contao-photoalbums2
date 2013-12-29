@@ -29,11 +29,11 @@ class Pa2Image extends \Controller
 {
 
 	/**
-	 * arrItems
+	 * intId
 	 *
-	 * (default value: array())
+	 * (default value: 0)
 	 *
-	 * @var array
+	 * @var int
 	 * @access protected
 	 */
 	protected $intId = 0;
@@ -57,6 +57,12 @@ class Pa2Image extends \Controller
 	}
 
 
+	/**
+	 * getPa2Image function.
+	 *
+	 * @access public
+	 * @return object
+	 */
 	public function getPa2Image()
 	{
 		$objFile = \FilesModel::findByPk($this->intId);
@@ -71,6 +77,14 @@ class Pa2Image extends \Controller
 	}
 
 
+	/**
+	 * addPa2ImageToTemplate function.
+	 *
+	 * @access public
+	 * @param object $objTemplate
+	 * @param array $arrMergeData (default: array())
+	 * @return object
+	 */
 	public function addPa2ImageToTemplate($objTemplate, $arrMergeData = array())
 	{
 		if (isset($this->intId) && is_array($arrMergeData))

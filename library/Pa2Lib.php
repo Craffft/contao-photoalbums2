@@ -34,9 +34,9 @@ abstract class Pa2Lib extends \Controller
 	 * (default value: array())
 	 *
 	 * @var array
-	 * @access protected
+	 * @access private
 	 */
-	protected $arrItems = array();
+	private $arrItems = array();
 
 
 	/**
@@ -45,9 +45,9 @@ abstract class Pa2Lib extends \Controller
 	 * (default value: array())
 	 *
 	 * @var array
-	 * @access protected
+	 * @access private
 	 */
-	protected $arrData = array();
+	private $arrData = array();
 
 
 	/**
@@ -75,6 +75,66 @@ abstract class Pa2Lib extends \Controller
 		}
 
 		$this->sortOut();
+	}
+
+
+	/**
+	 * __set function.
+	 *
+	 * @access public
+	 * @param string $strKey
+	 * @param mixed $varValue
+	 * @return void
+	 */
+	public function __set($strKey, $varValue)
+	{
+		switch ($strKey)
+		{
+			case 'items':
+				$this->arrItems = $varValue;
+				break;
+
+			default:
+				$this->arrData[$strKey] = $varValue;
+				break;
+		}
+	}
+
+
+	/**
+	 * __get function.
+	 *
+	 * @access public
+	 * @param string $strKey
+	 * @return mixed
+	 */
+	public function __get($strKey)
+	{
+		switch ($strKey)
+		{
+			case 'items':
+				return $this->arrItems;
+				break;
+		}
+
+		if (isset($this->arrData[$strKey]))
+		{
+			return $this->arrData[$strKey];
+		}
+
+		return null;
+	}
+
+
+	/**
+	 * getData function.
+	 *
+	 * @access public
+	 * @return array
+	 */
+	public function getData()
+	{
+		return $this->arrData;
 	}
 
 

@@ -83,11 +83,11 @@ class Pa2Album extends \Pa2Lib
 	 */
 	protected function sortOut()
 	{
-		if (count($this->arrItems) > 0)
+		if (count($this->items) > 0)
 		{
 			$this->import('FrontendUser', 'User');
 
-			$objItems = \Photoalbums2AlbumModel::findMultipleByIds($this->arrItems);
+			$objItems = \Photoalbums2AlbumModel::findMultipleByIds($this->items);
 
 			$arrItems = array();
 
@@ -114,7 +114,7 @@ class Pa2Album extends \Pa2Lib
 				}
 			}
 
-			$this->arrItems = $arrItems;
+			$this->items = $arrItems;
 		}
 	}
 
@@ -145,7 +145,7 @@ class Pa2Album extends \Pa2Lib
 		}
 
 		// Check if user has no access to archive (parent)
-		$objPa2Archive = new \Pa2Archive($objItems->pid, $this->arrData);
+		$objPa2Archive = new \Pa2Archive($objItems->pid, $this->getData());
 		$arrArchiveIds = $objPa2Archive->getArchiveIds();
 
 		if (!is_array($arrArchiveIds) || count($arrArchiveIds) < 1 || !in_array($objItems->pid, $arrArchiveIds))
@@ -154,9 +154,9 @@ class Pa2Album extends \Pa2Lib
 		}
 
 		// Timefilter
-		if ($this->arrData['pa2TimeFilter'])
+		if ($this->pa2TimeFilter)
 		{
-			$objTimeFilter = new Pa2TimeFilter($this->arrData['pa2TimeFilterStart'], $this->arrData['pa2TimeFilterEnd']);
+			$objTimeFilter = new Pa2TimeFilter($this->pa2TimeFilterStart, $this->pa2TimeFilterEnd);
 
 			if ($objTimeFilter->doFilter($objItems->startdate, $objItems->enddate))
 			{
@@ -176,7 +176,7 @@ class Pa2Album extends \Pa2Lib
 	 */
 	public function getAlbumIds()
 	{
-		return $this->arrItems;
+		return $this->items;
 	}
 
 
@@ -188,9 +188,9 @@ class Pa2Album extends \Pa2Lib
 	 */
 	public function getAlbums()
 	{
-		if (count($this->arrItems) > 0)
+		if (count($this->items) > 0)
 		{
-			$objAlbum = \Photoalbums2AlbumModel::findMultipleByIds($this->arrItems);
+			$objAlbum = \Photoalbums2AlbumModel::findMultipleByIds($this->items);
 
 			if ($objAlbum !== null)
 			{

@@ -86,6 +86,9 @@ class ModulePhotoalbums2 extends \Module
 			return $objTemplate->parse();
 		}
 
+		// Set Pa2 Type
+		$this->pa2type = 'MOD';
+
 		// Deserialize vars
 		$this->groups = deserialize($this->groups);
 		$this->pa2Archives = deserialize($this->pa2Archives);

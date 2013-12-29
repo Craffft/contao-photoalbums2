@@ -151,7 +151,7 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 		$objAlbum = $objAlbum->current();
 
 		// Do this only in the Frontend
-		if (TL_MODE == 'FE')
+		if (TL_MODE == 'FE' && $this->Template->pa2type == 'MOD')
 		{
 			// Overwrite the page title
 			if ($objAlbum->title != '')

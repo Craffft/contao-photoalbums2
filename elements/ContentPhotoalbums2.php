@@ -49,6 +49,9 @@ class ContentPhotoalbums2 extends \ContentElement
 	 */
 	public function generate()
 	{
+		// Set Pa2 Type
+		$this->pa2type = 'CE';
+
 		// Deserialize vars
 		$this->groups = deserialize($this->groups);
 		$this->pa2ImagesMetaFields = deserialize($this->pa2ImagesMetaFields);

@@ -36,11 +36,11 @@ class Pa2Archive extends \Pa2Lib
 	 */
 	protected function sortOut()
 	{
-		if (count($this->arrItems) > 0)
+		if (count($this->items) > 0)
 		{
 			$this->import('FrontendUser', 'User');
 
-			$objItems = \Photoalbums2ArchiveModel::findMultipleByIds($this->arrItems);
+			$objItems = \Photoalbums2ArchiveModel::findMultipleByIds($this->items);
 
 			$arrItems = array();
 
@@ -69,7 +69,7 @@ class Pa2Archive extends \Pa2Lib
 				}
 			}
 
-			$this->arrItems = $arrItems;
+			$this->items = $arrItems;
 		}
 	}
 
@@ -82,7 +82,7 @@ class Pa2Archive extends \Pa2Lib
 	 */
 	public function getArchiveIds()
 	{
-		return $this->arrItems;
+		return $this->items;
 	}
 
 
@@ -94,9 +94,9 @@ class Pa2Archive extends \Pa2Lib
 	 */
 	public function getArchives()
 	{
-		if (count($this->arrItems) > 0)
+		if (count($this->items) > 0)
 		{
-			return \Photoalbums2ArchiveModel::findMultipleByIds($this->arrItems);
+			return \Photoalbums2ArchiveModel::findMultipleByIds($this->items);
 		}
 
 		return null;
@@ -112,7 +112,7 @@ class Pa2Archive extends \Pa2Lib
 	public function getAlbumIds()
 	{
 		$arrAlbumIds = array();
-		$objAlbums = \Photoalbums2AlbumModel::findAlbumsByMultipleArchives($this->arrItems);
+		$objAlbums = \Photoalbums2AlbumModel::findAlbumsByMultipleArchives($this->items);
 
 		// Return null if albums is not an object
 		if ($objAlbums === null)
@@ -125,9 +125,9 @@ class Pa2Archive extends \Pa2Lib
 			$arrAlbumIds[] = $objAlbums->id;
 		}
 
-		if (isset($this->arrData['pa2AlbumSortType']) && isset($this->arrData['pa2AlbumSort']))
+		if (isset($this->pa2AlbumSortType) && isset($this->pa2AlbumSort))
 		{
-			$objPa2AlbumSorter = new \Pa2AlbumSorter($this->arrData['pa2AlbumSortType'], $arrAlbumIds, $this->arrData['pa2AlbumSort']);
+			$objPa2AlbumSorter = new \Pa2AlbumSorter($this->pa2AlbumSortType, $arrAlbumIds, $this->pa2AlbumSort);
 			$arrAlbumIds = $objPa2AlbumSorter->getSortedIds();
 
 			if ($arrAlbumIds === false)
@@ -136,7 +136,7 @@ class Pa2Archive extends \Pa2Lib
 			}
 		}
 
-		$objPa2Album = new \Pa2Album($arrAlbumIds, $this->arrData);
+		$objPa2Album = new \Pa2Album($arrAlbumIds, $this->getData());
 
 		return $objPa2Album->getAlbumIds();
 	}
@@ -150,7 +150,7 @@ class Pa2Archive extends \Pa2Lib
 	 */
 	public function getAlbums()
 	{
-		$objPa2Album = new \Pa2Album($this->getAlbumIds(), $this->arrData);
+		$objPa2Album = new \Pa2Album($this->getAlbumIds(), $this->getData());
 
 		return $objPa2Album->getAlbums();
 	}
