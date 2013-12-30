@@ -40,3 +40,5 @@ $GLOBALS['TL_LANG']['MOD']['photoalbums2'] = array('Fotoalben', 'Mit diesem Modu
  */
 $GLOBALS['TL_LANG']['FMD']['photoalbums2_legend'] = 'Fotoalben';
 $GLOBALS['TL_LANG']['FMD']['photoalbums2'] = array('Fotoalbum', 'Mit diesem Modul können Sie Ihre Fotoalben im Frontend ausgeben lassen.');
+$GLOBALS['TL_LANG']['FMD']['photoalbums2list'] = array('Fotoalben Liste (beta)', 'Dieses Modul gibt im Frontend eine Liste mit Fotoalben aus.');
+$GLOBALS['TL_LANG']['FMD']['photoalbums2view'] = array('Fotoalbum Leser (beta)', 'Dieses Modul gibt im Frontend einen Fotoalben Leser aus.');

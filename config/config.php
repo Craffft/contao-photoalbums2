@@ -27,6 +27,8 @@ $GLOBALS['BE_MOD']['content']['photoalbums2'] = array
 
 // Frontend Modules
 $GLOBALS['FE_MOD']['photoalbums2_legend']['photoalbums2'] = 'ModulePhotoalbums2';
+$GLOBALS['FE_MOD']['photoalbums2_legend']['photoalbums2list'] = 'ModulePhotoalbums2List';
+$GLOBALS['FE_MOD']['photoalbums2_legend']['photoalbums2view'] = 'ModulePhotoalbums2View';
 
 // Content Elements
 $GLOBALS['TL_CTE']['media']['photoalbums2'] = 'ContentPhotoalbums2';

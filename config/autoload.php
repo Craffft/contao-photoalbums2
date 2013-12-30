@@ -54,6 +54,8 @@ ClassLoader::addClasses(array
 
 	// Modules
 	'Photoalbums2\ModulePhotoalbums2'       => 'system/modules/photoalbums2/modules/ModulePhotoalbums2.php',
+	'Photoalbums2\ModulePhotoalbums2List'   => 'system/modules/photoalbums2/modules/ModulePhotoalbums2List.php',
+	'Photoalbums2\ModulePhotoalbums2View'   => 'system/modules/photoalbums2/modules/ModulePhotoalbums2View.php',
 ));
 
 

@@ -16,12 +16,14 @@
  * Table tl_module
  */
 $GLOBALS['TL_DCA']['tl_module']['config']['onsubmit_callback'][] = array('Pa2Backend', 'checkTimeFilter');
+$GLOBALS['TL_DCA']['tl_module']['config']['onsubmit_callback'][] = array('tl_module_photoalbums2', 'handleListAndViewModule');
 $GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][] = array('tl_module_photoalbums2', 'fixPa2Palette');
 
 $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][] = 'pa2TimeFilter';
-$GLOBALS['TL_DCA']['tl_module']['palettes']['photoalbums2']     = '{title_legend},name,headline,type;
+$GLOBALS['TL_DCA']['tl_module']['palettes']['photoalbums2']              = '{title_legend},name,headline,type;
 																			{config_legend},pa2Mode';
-$GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_on_one_page']    = '{title_legend},name,headline,type;
+
+$GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_on_one_page']           = '{title_legend},name,headline,type;
 																			{config_legend},pa2Mode,pa2PreviewImage;
 																			{pa2Album_legend},pa2Archives,pa2AlbumSortType,pa2AlbumSort;
 																			{pa2Template_legend},pa2AlbumViewTemplate,pa2ImageViewTemplate,pa2AlbumsTemplate,pa2ImagesTemplate,pa2AlbumsShowHeadline,pa2ImagesShowHeadline,pa2AlbumsShowTitle,pa2ImagesShowTitle,pa2AlbumsShowTeaser,pa2ImagesShowTeaser;
@@ -31,7 +33,8 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_on_one_page']    = '{title_lege
 																			{pa2Other_legend:hide},pa2Teaser;
 																			{protected_legend:hide},protected;
 																			{expert_legend:hide},guests,cssID,space';
-$GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_only_album_view']   = '{title_legend},name,headline,type;
+
+$GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_only_album_view']       = '{title_legend},name,headline,type;
 																			{config_legend},pa2Mode,pa2PreviewImage;
 																			{pa2Album_legend},pa2Archives,pa2AlbumSortType,pa2AlbumSort;
 																			{pa2Template_legend},pa2AlbumViewTemplate,pa2AlbumsTemplate,pa2AlbumsShowHeadline,pa2AlbumsShowTitle,pa2AlbumsShowTeaser;
@@ -41,12 +44,35 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_only_album_view']   = '{title_l
 																			{pa2Other_legend:hide},pa2Teaser;
 																			{protected_legend:hide},protected;
 																			{expert_legend:hide},guests,cssID,space';
-$GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_with_detail_page']   = '{title_legend},name,headline,type;
+
+$GLOBALS['TL_DCA']['tl_module']['palettes']['pa2_with_detail_page']      = '{title_legend},name,headline,type;
 																			{config_legend},pa2Mode,pa2PreviewImage,pa2OverviewPage,pa2DetailPage;
 																			{pa2Album_legend},pa2Archives,pa2AlbumSortType,pa2AlbumSort;
 																			{pa2Template_legend},pa2AlbumViewTemplate,pa2ImageViewTemplate,pa2AlbumsTemplate,pa2ImagesTemplate,pa2AlbumsShowHeadline,pa2ImagesShowHeadline,pa2AlbumsShowTitle,pa2ImagesShowTitle,pa2AlbumsShowTeaser,pa2ImagesShowTeaser;
 																			{pa2Image_legend},pa2AlbumsImageSize,pa2ImagesImageSize,pa2AlbumsImageMargin,pa2ImagesImageMargin,pa2AlbumsPerRow,pa2ImagesPerRow,pa2AlbumsPerPage,pa2ImagesPerPage,pa2NumberOfAlbums,pa2NumberOfImages;
 																			{pa2Meta_legend:hide},pa2AlbumsShowMetaDescriptions,pa2ImagesShowMetaDescriptions,pa2AlbumsMetaFields,pa2ImagesMetaFields;
+																			{pa2TimeFilter_legend:hide},pa2TimeFilter;
+																			{pa2Other_legend:hide},pa2Teaser;
+																			{protected_legend:hide},protected;
+																			{expert_legend:hide},guests,cssID,space';
+
+$GLOBALS['TL_DCA']['tl_module']['palettes']['photoalbums2list']          = '{title_legend},name,headline,type;
+																			{config_legend},pa2PreviewImage,pa2DetailPage;
+																			{pa2Album_legend},pa2Archives,pa2AlbumSortType,pa2AlbumSort;
+																			{pa2Template_legend},pa2AlbumViewTemplate,pa2AlbumsTemplate,pa2AlbumsShowHeadline,pa2AlbumsShowTitle,pa2AlbumsShowTeaser;
+																			{pa2Image_legend},pa2AlbumsImageSize,pa2AlbumsImageMargin,pa2AlbumsPerRow,pa2AlbumsPerPage,pa2NumberOfAlbums;
+																			{pa2Meta_legend:hide},pa2AlbumsShowMetaDescriptions,pa2AlbumsMetaFields;
+																			{pa2TimeFilter_legend:hide},pa2TimeFilter;
+																			{pa2Other_legend:hide},pa2Teaser;
+																			{protected_legend:hide},protected;
+																			{expert_legend:hide},guests,cssID,space';
+
+$GLOBALS['TL_DCA']['tl_module']['palettes']['photoalbums2view']          = '{title_legend},name,headline,type;
+																			{config_legend},pa2OverviewPage;
+																			{pa2Album_legend},pa2Archives;
+																			{pa2Template_legend},pa2ImageViewTemplate,pa2ImagesTemplate,pa2ImagesShowHeadline,pa2ImagesShowTitle,pa2ImagesShowTeaser;
+																			{pa2Image_legend},pa2ImagesImageSize,pa2ImagesImageMargin,pa2ImagesPerRow,pa2ImagesPerPage,pa2NumberOfImages;
+																			{pa2Meta_legend:hide},pa2ImagesShowMetaDescriptions,pa2ImagesMetaFields;
 																			{pa2TimeFilter_legend:hide},pa2TimeFilter;
 																			{pa2Other_legend:hide},pa2Teaser;
 																			{protected_legend:hide},protected;
@@ -519,6 +545,41 @@ class tl_module_photoalbums2 extends Pa2Backend
 
 
 	/**
+	 * handleListAndViewModule function.
+	 *
+	 * @access public
+	 * @param \DataContainer $dc
+	 * @return void
+	 */
+	public function handleListAndViewModule(\DataContainer $dc)
+	{
+		// Check if has active record
+		if (!$dc->activeRecord)
+		{
+			return;
+		}
+
+		// Get module object
+		$objModule = \ModuleModel::findByPk($dc->id);
+
+		switch ($dc->activeRecord->type)
+		{
+			case 'photoalbums2list':
+				$objModule->pa2Mode = 'pa2_with_detail_page';
+				$objModule->pa2OverviewPage = '';
+				break;
+
+			case 'photoalbums2view':
+				$objModule->pa2Mode = 'pa2_with_detail_page';
+				$objModule->pa2DetailPage = '';
+				break;
+		}
+
+		$objModule->save();
+	}
+
+
+	/**
 	 * fixPa2Palette function.
 	 *
 	 * @access public
@@ -539,20 +600,34 @@ class tl_module_photoalbums2 extends Pa2Backend
 		// Fix pa2 palette
 		$GLOBALS['TL_DCA']['tl_module']['palettes']['photoalbums2'] = $GLOBALS['TL_DCA']['tl_module']['palettes'][$pa2Mode];
 
-		// Fix pa2 field position
-		if ($pa2Mode == 'pa2_only_album_view')
+		// Fix pa2 field position via mode
+		switch ($pa2Mode)
 		{
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsTemplate']['eval']['tl_class'] = 'w50 clr';
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2NumberOfAlbums']['eval']['tl_class'] = 'w50 clr';
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsPerPage']['eval']['tl_class'] = 'w50 clr';
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsPerRow']['eval']['tl_class'] = 'w50 clr';
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowHeadline']['eval']['tl_class'] = 'w50 clr';
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowTitle']['eval']['tl_class'] = 'w50 clr';
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowTeaser']['eval']['tl_class'] = 'w50 clr';
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageSize']['eval']['tl_class'] = 'w50 clr';
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageMargin']['eval']['tl_class'] = 'w50 clr';
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowMetaDescriptions']['eval']['tl_class'] = 'w50 clr';
-			$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsMetaFields']['eval']['tl_class'] = 'w50 cbxes clr';
+			case 'pa2_only_album_view':
+				$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsTemplate']['eval']['tl_class'] = 'w50 clr';
+				$GLOBALS['TL_DCA']['tl_module']['fields']['pa2NumberOfAlbums']['eval']['tl_class'] = 'w50 clr';
+				$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsPerPage']['eval']['tl_class'] = 'w50 clr';
+				$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsPerRow']['eval']['tl_class'] = 'w50 clr';
+				$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowHeadline']['eval']['tl_class'] = 'w50 clr';
+				$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowTitle']['eval']['tl_class'] = 'w50 clr';
+				$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowTeaser']['eval']['tl_class'] = 'w50 clr';
+				$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageSize']['eval']['tl_class'] = 'w50 clr';
+				$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageMargin']['eval']['tl_class'] = 'w50 clr';
+				$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowMetaDescriptions']['eval']['tl_class'] = 'w50 clr';
+				$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsMetaFields']['eval']['tl_class'] = 'w50 cbxes clr';
+				break;
+		}
+
+		// Fix pa2 field position via type
+		switch ($objModule->type)
+		{
+			case 'photoalbums2list':
+				$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsMetaFields']['eval']['tl_class'] = 'w50 cbxes clr';
+				break;
+
+			case 'photoalbums2view':
+				$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesMetaFields']['eval']['tl_class'] = 'w50 cbxes clr';
+				break;
 		}
 
 		// Remove fields from palette
