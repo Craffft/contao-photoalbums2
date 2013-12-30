@@ -247,7 +247,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['previewImage'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
-			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
+			'eval'                    => array('mandatory'=>true, 'fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
 			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'event' => array
@@ -495,41 +495,68 @@ class tl_photoalbums2_album extends Pa2Backend
 	 */
 	public function listAlbums($arrRow)
 	{
-		// Import CSS files
-		$objPa2 = new \Pa2();
-		$objPa2->addCssFile();
-
-		// Deserialize vars
-		$arrRow['images'] = deserialize($arrRow['images']);
-		$arrRow['imageSort'] = deserialize($arrRow['imageSort']);
-		$arrRow['users'] = deserialize($arrRow['users']);
-
-		// Generate Template
-		$objTemplate = new \FrontendTemplate('pa2_wrap');
-		$objTemplate->setData($arrRow);
-
-		// Set template vars
-		$objTemplate->pa2ImagesShowHeadline = false;
-		$objTemplate->pa2ImagesShowTitle    = false;
-		$objTemplate->pa2ImagesShowTeaser   = false;
-		$objTemplate->pa2ImageMargin        = 0;
-		$objTemplate->pa2NumberOfImages     = 0;
-		$objTemplate->pa2ImagesPerPage      = 0;
-		$objTemplate->pa2ImagesPerRow       = 1;
-		$objTemplate->arrImage              = array('size' => array(100, 100, 'crop'));
-
-		// Render image view
-		$objImageViewParser = new \Pa2ImageViewParser($objTemplate, $arrRow['id']);
-		$objTemplate = $objImageViewParser->getViewParserTemplate();
+		$strContent = '';
 
 		// Set key
 		$key = $arrRow['invisible'] ? 'unpublished' : 'published';
 
-		return '
-<div class="cte_type ' . $key . '">' . $arrRow['title'] . '</div>
-<div class="limit_height' . (!$GLOBALS['TL_CONFIG']['doNotCollapse'] ? ' h64' : '') . '">
-' . $objTemplate->parse() . '
-</div>' . "\n";
+		// Do not hide preview images
+		if (!$GLOBALS['TL_CONFIG']['pa2HidePreviewImageInBackend'])
+		{
+			$objAlbum = \Photoalbums2AlbumModel::findByPk($arrRow['id']);
+
+			if ($objAlbum !== null)
+			{
+				switch ($objAlbum->previewImageType)
+				{
+					case 'no_preview_image':
+					case 'random_preview_image':
+						// Add message to content
+						if (isset($GLOBALS['TL_LANG']['PA2']['albumPreviewImageTypes'][$objAlbum->previewImageType][0]))
+						{
+							$strContent = $GLOBALS['TL_LANG']['PA2']['albumPreviewImageTypes'][$objAlbum->previewImageType][0];
+						}
+						break;
+
+
+					case 'select_preview_image':
+						// Add preview image
+						$objFiles = \FilesModel::findByPk($objAlbum->previewImage);
+
+						if ($objFiles !== null)
+						{
+							$objFile = new \File($objFiles->path);
+
+							// Generate thumbnail
+							if ($objFile->isGdImage && $objFile->height > 0)
+							{
+								$_width = ($objFile->width < 80) ? $objFile->width : 80;
+							    $_height = ($objFile->height < 60) ? $objFile->height : 60;
+						    	$strContent = '<img src="' . TL_FILES_URL . $this->getImage($objFiles->path, $_width, $_height, 'center_center') . '" alt="thumbnail">';
+						    }
+						}
+						break;
+				}
+
+				// If no preview image or text
+				if ($strContent == '')
+				{
+					$strContent = $GLOBALS['TL_LANG']['PA2']['albumPreviewImageTypes']['no_preview_image'][0];
+				}
+			}
+		}
+
+		$return  = '<div class="cte_type ' . $key . '"' . ((!$GLOBALS['TL_CONFIG']['pa2HidePreviewImageInBackend']) ?: ' style="margin-bottom: 0px;"') . '>';
+			$return .= $arrRow['title'];
+		$return .= '</div>';
+
+		// Add content only, if it is not empty
+		if ($strContent != '')
+		{
+			$return .= $strContent . "\n";
+		}
+
+		return $return;
 	}
 
 
