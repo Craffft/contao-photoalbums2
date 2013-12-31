@@ -154,7 +154,7 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 				$objSubtemplate->place              = $objAlbums->place;
 				$objSubtemplate->photographer       = $objAlbums->photographer;
 				$objSubtemplate->description        = $objAlbums->description;
-				$objSubtemplate->numberOfAllImages  = count($objAlbums->arrSortedImageIds);
+				$objSubtemplate->numberOfAllImages  = count($objAlbums->arrSortedImageUuids);
 
 				// Call template methods
 				$objSubtemplate = $this->addDateToTemplate($objSubtemplate, $objAlbums->startdate, $objAlbums->enddate);
@@ -164,7 +164,7 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 
 				// Add preview image to template
 				$objPa2PreviewImage = new \Pa2PreviewImage($objAlbums->current(), $objSubtemplate->pa2PreviewImage);
-				$objPa2Image = new \Pa2Image($objPa2PreviewImage->getPreviewImageId());
+				$objPa2Image = new \Pa2Image($objPa2PreviewImage->getPreviewImageUuid());
 				$objPa2Image->addPa2ImageToTemplate($objSubtemplate);
 
 				// Add album class to the class string
@@ -204,7 +204,7 @@ class Pa2AlbumViewParser extends \Pa2ViewParser
 
 			// Sort images
 			$objPa2ImageSorter = new \Pa2ImageSorter($objAlbum->imageSortType, $objAlbum->images, $objAlbum->imageSort);
-			$arrIds = $objPa2ImageSorter->getSortedIds();
+			$arrIds = $objPa2ImageSorter->getSortedUuids();
 
 			if ($arrIds > 0)
 			{

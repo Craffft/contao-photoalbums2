@@ -209,7 +209,7 @@ class Pa2Album extends \Pa2Lib
 
 					// Set sortedImageIds
 					$objPa2ImageSorter = new \Pa2ImageSorter($objAlbum->imageSortType, $objAlbum->images, $objAlbum->imageSort);
-					$objAlbum->arrSortedImageIds = $objPa2ImageSorter->getSortedIds();
+					$objAlbum->arrSortedImageUuids = $objPa2ImageSorter->getSortedUuids();
 				}
 
 				$objAlbum->reset();

@@ -154,7 +154,7 @@ class Pa2 extends \Controller
 
 				// Sort images
 				$objPa2ImageSorter = new \Pa2ImageSorter($objArticle->imageSortType, $objArticle->images, $objArticle->imageSort);
-				$this->arrImages = $objPa2ImageSorter->getSortedIds();
+				$this->arrImages = $objPa2ImageSorter->getSortedUuids();
 
 				$objItem = new \FeedItem();
 

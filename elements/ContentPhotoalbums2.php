@@ -68,6 +68,17 @@ class ContentPhotoalbums2 extends \ContentElement
 			$this->pa2ImagesShowHeadline = false;
 			$this->pa2ImagesShowTitle = false;
 			$this->pa2ImagesShowTeaser = false;
+			$this->pa2ImagesPerRow = 1;
+			$this->pa2ImagesPerPage = 0;
+			$this->pa2NumberOfImages = 0;
+			$this->pa2ImagesImageSize = serialize(array(50, 31, 'center_center'));
+			$this->pa2ImagesImageMargin = serialize(array(
+				'bottom' => 6,
+				'left' => '',
+				'right' => 6,
+				'top' => '',
+				'unit' => 'px'
+			));
 		}
 
 		return parent::generate();

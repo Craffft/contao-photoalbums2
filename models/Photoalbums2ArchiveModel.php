@@ -33,16 +33,4 @@ class Photoalbums2ArchiveModel extends \Model
 	 * @var string
 	 */
 	protected static $strTable = 'tl_photoalbums2_archive';
-
-
-	public static function findMultipleByIds($arrIds)
-	{
-		if (!is_array($arrIds) || empty($arrIds))
-		{
-			return null;
-		}
-
-		$t = static::$strTable;
-		return static::findBy(array("$t.id IN(" . implode(',', array_map('intval', $arrIds)) . ")"), null, array('order'=>\Database::getInstance()->findInSet("$t.id", $arrIds)));
-	}
 }

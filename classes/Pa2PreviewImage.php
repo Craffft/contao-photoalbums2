@@ -29,12 +29,12 @@ class Pa2PreviewImage extends \Controller
 {
 
 	/**
-	 * intId
+	 * uuid
 	 *
-	 * @var int
+	 * @var string
 	 * @access private
 	 */
-	private $intId;
+	private $uuid;
 
 
 	/**
@@ -90,7 +90,7 @@ class Pa2PreviewImage extends \Controller
 	 */
 	private function setPreviewImageId()
 	{
-		$this->intId = null;
+		$this->uuid = null;
 
 		switch($this->type)
 		{
@@ -98,35 +98,35 @@ class Pa2PreviewImage extends \Controller
 			switch($this->objAlbum->previewImageType)
 			{
 			case 'no_preview_image':
-				$this->intId = null;
+				$this->uuid = null;
 				break;
 
 			case 'random_preview_image':
-				$this->intId = $this->getRandomPreviewImage();
+				$this->uuid = $this->getRandomPreviewImage();
 				break;
 
 			case 'select_preview_image':
-				$this->intId = $this->objAlbum->previewImage;
+				$this->uuid = $this->objAlbum->previewImage;
 				break;
 			}
 			break;
 
 		case 'no_preview_images':
-			$this->intId = null;
+			$this->uuid = null;
 			break;
 
 		case 'random_images':
-			$this->intId = $this->getRandomPreviewImage();
+			$this->uuid = $this->getRandomPreviewImage();
 			break;
 
 		case 'random_images_at_no_preview_images':
 			if ($this->objAlbum->previewImageType == 'select_preview_image')
 			{
-				$this->intId = $this->objAlbum->previewImage;
+				$this->uuid = $this->objAlbum->previewImage;
 			}
 			else
 			{
-				$this->intId = $this->getRandomPreviewImage();
+				$this->uuid = $this->getRandomPreviewImage();
 			}
 			break;
 		}
@@ -134,14 +134,14 @@ class Pa2PreviewImage extends \Controller
 
 
 	/**
-	 * getPreviewImageId function.
+	 * getPreviewImageUuid function.
 	 *
 	 * @access public
 	 * @return int
 	 */
-	public function getPreviewImageId()
+	public function getPreviewImageUuid()
 	{
-		return $this->intId;
+		return $this->uuid;
 	}
 
 
@@ -159,7 +159,7 @@ class Pa2PreviewImage extends \Controller
 		}
 
 		// Get preview image as FilesModel object
-		$this->objPreviewImage = \FilesModel::findByPk($this->intId);
+		$this->objPreviewImage = \FilesModel::findByUuid($this->uuid);
 
 		return $this->objPreviewImage;
 	}
@@ -183,7 +183,7 @@ class Pa2PreviewImage extends \Controller
 
 		// Get all image ids and save them in the images array
 		$objImageSorter = new \ImageSorter($this->objAlbum->images, $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['images']['eval']['extensions']);
-		$this->objAlbum->images = $objImageSorter->getImageIds();
+		$this->objAlbum->images = $objImageSorter->getImageUuids();
 
 		return $this->objAlbum->images[mt_rand(0, count($this->objAlbum->images)-1)];
 	}
