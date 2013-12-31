@@ -141,8 +141,7 @@ class Photoalbums2Runonce extends \Controller
 		/**
 		 * SQL statements
 		 */
-		$arrSqlStatements = array
-		(
+		$arrSqlStatements = array(
 			"ALTER TABLE `tl_content` CHANGE `pa2PhotosTemplate` `pa2ImagesTemplate` varchar(64) NOT NULL default ''",
 			"ALTER TABLE `tl_content` CHANGE `pa2NumberOfPhotos` `pa2NumberOfImages` smallint(5) unsigned NOT NULL default '0'",
 			"ALTER TABLE `tl_content` CHANGE `pa2PhotosPerPage` `pa2ImagesPerPage` smallint(5) unsigned NOT NULL default '24'",
@@ -193,9 +192,6 @@ class Photoalbums2Runonce extends \Controller
 			"ALTER TABLE `tl_photoalbums2_album` CHANGE `description` `description` int(10) unsigned NOT NULL default '0'",
 			"ALTER TABLE `tl_content` CHANGE `pa2Teaser` `pa2Teaser` int(10) unsigned NOT NULL default '0'",
 			"ALTER TABLE `tl_module` CHANGE `pa2Teaser` `pa2Teaser` int(10) unsigned NOT NULL default '0'",
-
-			// UUIDs
-			"ALTER TABLE `tl_photoalbums2_album` CHANGE `previewImage` `previewImage` binary(16) NULL",
 		);
 
 		foreach($arrSqlStatements as $strSqlStatement)
@@ -203,53 +199,6 @@ class Photoalbums2Runonce extends \Controller
 			// Execute sql statements
 			$stmt = $db->prepare($strSqlStatement);
 			$res = $stmt->execute();
-		}
-
-
-		/**
-		 * Add UUIDs support
-		 */
-		if ($objAlbum !== null)
-		{
-			$objAlbum->reset();
-
-			while ($objAlbum->next())
-			{
-				// Handle preview image
-				if (is_numeric($objAlbum->previewImage) && $objAlbum->previewImage > 0)
-				{
-					$objFile = \FilesModel::findByPk($objAlbum->previewImage);
-
-					if ($objFile !== null)
-					{
-						$objAlbum->previewImage = $objFile->uuid;
-					}
-				}
-
-				// Handle image sort
-				$imageSort = deserialize($objAlbum->imageSort);
-
-				if (is_array($imageSort) && count($imageSort) > 0)
-				{
-					foreach ($imageSort as $k => $v)
-					{
-						if (is_numeric($v) && $v > 0)
-						{
-							$objFile = \FilesModel::findByPk($v);
-
-							if ($objFile !== null)
-							{
-								$imageSort[$k] = $objFile->uuid;
-							}
-						}
-					}
-				}
-
-				$objAlbum->imageSort = serialize($imageSort);
-
-				// Save album
-				$objAlbum->save();
-			}
 		}
 	}
 }

@@ -33,43 +33,43 @@ class Pa2ImageSorter extends \Controller
 	 *
 	 * @access public
 	 * @param string $strSortKey
-	 * @param array $arrUuids
-	 * @param array $arrCustomUuids
+	 * @param array $arrIds
+	 * @param array $arrCustomIds
 	 * @return void
 	 */
-	public function __construct($strSortKey, $arrUuids, $arrCustomUuids)
+	public function __construct($strSortKey, $arrIds, $arrCustomIds)
 	{
 		if ($strSortKey == '')
 		{
 			return false;
 		}
 
-		if (!is_array($arrUuids))
+		if (!is_array($arrIds))
 		{
 			return false;
 		}
 
-		if (!is_array($arrCustomUuids))
+		if (!is_array($arrCustomIds))
 		{
-			$arrCustomUuids = $arrUuids;
+			$arrCustomIds = $arrIds;
 		}
 
 		// Set vars
 		$this->strSortKey = $strSortKey;
-		$this->arrUuids = $arrUuids;
-		$this->arrCustomIds = $arrCustomUuids;
+		$this->arrIds = $arrIds;
+		$this->arrCustomIds = $arrCustomIds;
 	}
 
 
 	/**
-	 * getSortedUuids function.
+	 * getSortedIds function.
 	 *
 	 * @access public
 	 * @return array
 	 */
-	public function getSortedUuids()
+	public function getSortedIds()
 	{
-		$arrUuids = $this->arrUuids;
+		$arrIds = $this->arrIds;
 		$strSortKey = $this->strSortKey;
 		$strSortDirection = 'ASC';
 
@@ -80,13 +80,13 @@ class Pa2ImageSorter extends \Controller
 		}
 		else if ($this->strSortKey == 'custom')
 		{
-			$arrUuids = $this->arrCustomIds;
+			$arrIds = $this->arrCustomIds;
 		}
 
-		$objImageSorter = new \ImageSorter($arrUuids);
+		$objImageSorter = new \ImageSorter($arrIds);
 		$objImageSorter->sortImagesBy($strSortKey, $strSortDirection);
-		$arrUuids = $objImageSorter->getImageUuids();
+		$arrIds = $objImageSorter->getImageIds();
 
-		return $arrUuids;
+		return $arrIds;
 	}
 }

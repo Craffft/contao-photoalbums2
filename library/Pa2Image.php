@@ -29,31 +29,31 @@ class Pa2Image extends \Controller
 {
 
 	/**
-	 * uuid
+	 * intId
 	 *
 	 * (default value: 0)
 	 *
 	 * @var int
 	 * @access protected
 	 */
-	protected $uuid = 0;
+	protected $intId = 0;
 
 
 	/**
 	 * __construct function.
 	 *
 	 * @access public
-	 * @param string
+	 * @param array or id $arrItems
 	 * @return void
 	 */
-	public function __construct($uuid)
+	public function __construct($intId)
 	{
-		if (!\Validator::isUuid($uuid))
+		if (!is_numeric($intId) || $intId < 1)
 		{
 			return;
 		}
 
-		$this->uuid = $uuid;
+		$this->intId = $intId;
 	}
 
 
@@ -65,7 +65,7 @@ class Pa2Image extends \Controller
 	 */
 	public function getPa2Image()
 	{
-		$objFile = \FilesModel::findByUuid($this->uuid);
+		$objFile = \FilesModel::findByPk($this->intId);
 
 		if ($objFile !== null)
 		{
@@ -87,7 +87,7 @@ class Pa2Image extends \Controller
 	 */
 	public function addPa2ImageToTemplate($objTemplate, $arrMergeData = array())
 	{
-		if (isset($this->uuid) && is_array($arrMergeData))
+		if (isset($this->intId) && is_array($arrMergeData))
 		{
 			$objFile = $this->getPa2Image();
 

@@ -248,7 +248,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
 			'eval'                    => array('mandatory'=>true, 'fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
-			'sql'                     => "binary(16) NULL"
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'event' => array
 		(
@@ -257,7 +257,8 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'search'                  => true,
 			'inputType'               => 'TranslationTextField',
 			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
-			'sql'                     => "int(10) unsigned NOT NULL default '0'"
+			'sql'                     => "int(10) unsigned NOT NULL default '0'",
+			'relation'                => array('type'=>'hasOne', 'load'=>'lazy')
 		),
 		'place' => array
 		(
@@ -266,7 +267,8 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'search'                  => true,
 			'inputType'               => 'TranslationTextField',
 			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
-			'sql'                     => "int(10) unsigned NOT NULL default '0'"
+			'sql'                     => "int(10) unsigned NOT NULL default '0'",
+			'relation'                => array('type'=>'hasOne', 'load'=>'lazy')
 		),
 		'photographer' => array
 		(
@@ -275,7 +277,8 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'search'                  => true,
 			'inputType'               => 'TranslationTextField',
 			'eval'                    => array('maxlength'=>255),
-			'sql'                     => "int(10) unsigned NOT NULL default '0'"
+			'sql'                     => "int(10) unsigned NOT NULL default '0'",
+			'relation'                => array('type'=>'hasOne', 'load'=>'lazy')
 		),
 		'description' => array
 		(
@@ -284,7 +287,8 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
 			'search'                  => true,
 			'inputType'               => 'TranslationTextArea',
 			'eval'                    => array('rte'=>'tinyFlash'),
-			'sql'                     => "int(10) unsigned NOT NULL default '0'"
+			'sql'                     => "int(10) unsigned NOT NULL default '0'",
+			'relation'                => array('type'=>'hasOne', 'load'=>'lazy')
 		),
 		'protected' => array
 		(
@@ -517,7 +521,7 @@ class tl_photoalbums2_album extends Pa2Backend
 
 					case 'select_preview_image':
 						// Add preview image
-						$objFiles = \FilesModel::findByUuid($objAlbum->previewImage);
+						$objFiles = \FilesModel::findByPk($objAlbum->previewImage);
 
 						if ($objFiles !== null)
 						{

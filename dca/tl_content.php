@@ -214,7 +214,8 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2Teaser'] = array
 	'exclude'                 => true,
 	'inputType'               => 'TranslationTextArea',
 	'eval'                    => array('rte'=>'tinyFlash', 'tl_class'=>'long'),
-	'sql'                     => "int(10) unsigned NOT NULL default '0'"
+	'sql'                     => "int(10) unsigned NOT NULL default '0'",
+	'relation'                => array('type'=>'hasOne', 'load'=>'lazy')
 );
 
 

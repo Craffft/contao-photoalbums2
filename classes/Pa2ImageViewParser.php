@@ -141,7 +141,7 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 		}
 
 		// If there are no images
-		if (count($objAlbum->arrSortedImageUuids) < 1)
+		if (count($objAlbum->arrSortedImageIds) < 1)
 		{
 			$this->setEmptyTemplate($GLOBALS['TL_LANG']['MSC']['imagesNotFound']);
 			return;
@@ -170,7 +170,7 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 		}
 
 		// Set arrItems and objAlbum
-		$this->arrItems = $objAlbum->arrSortedImageUuids;
+		$this->arrItems = $objAlbum->arrSortedImageIds;
 		$this->objAlbum = $objAlbum;
 
 		// Pagination
@@ -240,7 +240,7 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 		$this->Template->place              = $objAlbum->place;
 		$this->Template->photographer       = $objAlbum->photographer;
 		$this->Template->description        = $objAlbum->description;
-		$this->Template->numberOfAllImages  = count($objAlbum->arrSortedImageUuids);
+		$this->Template->numberOfAllImages  = count($objAlbum->arrSortedImageIds);
 
 		// Generate the backlink
 		$this->generateBacklink();
