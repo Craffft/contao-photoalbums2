@@ -127,6 +127,28 @@ abstract class Pa2Lib extends \Controller
 
 
 	/**
+	 * __isset function.
+	 *
+	 * @access public
+	 * @param string $strKey
+	 * @return bool
+	 */
+	public function __isset($strKey)
+	{
+		switch ($strKey)
+		{
+			case 'items':
+				return isset($this->arrItems);
+				break;
+
+			default:
+				return isset($this->arrData[$strKey]);
+				break;
+		}
+	}
+
+
+	/**
 	 * getData function.
 	 *
 	 * @access public
