@@ -17,6 +17,7 @@
  */
 namespace Photoalbums2;
 
+
 /**
  * Class Photoalbums2Runonce
  *
@@ -24,7 +25,7 @@ namespace Photoalbums2;
  * @author     Daniel Kiesel <https://github.com/icodr8>
  * @package    photoalbums2
  */
-class Photoalbums2Runonce extends \Controller
+class Photoalbums2Runonce extends \System
 {
 
 	/**
@@ -36,6 +37,8 @@ class Photoalbums2Runonce extends \Controller
 	public function __construct()
 	{
 		parent::__construct();
+
+		$GLOBALS['TL_CONFIG']['debugMode'] = false;
 
 		$this->import((TL_MODE=='BE' ? 'BackendUser' : 'FrontendUser'), 'User');
 	}
@@ -50,6 +53,15 @@ class Photoalbums2Runonce extends \Controller
 	public function run()
 	{
 		$db = \Database::getInstance();
+
+		// Run only if all required modules are loaded
+		if (!in_array('photoalbums2', \ModuleLoader::getActive()) || !in_array('translation_fields', \ModuleLoader::getActive()))
+		{
+			echo 'PLEASE ENABLE THE FOLLOWING CODE IN system/config/localconfig.php TO RUN THE RUNONCE FILE FROM PHOTOALBUMS 2:';
+			echo '<br>';
+			echo '$GLOBALS[\'TL_CONFIG\'][\'coreOnlyMode\'] = false;';
+			exit;
+		}
 
 
 		/**
