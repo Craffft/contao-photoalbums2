@@ -303,12 +303,21 @@ class Photoalbums2Runonce extends \System
 
 		while ($objRow->next())
 		{
-			if (strlen($objRow->$backup) > 0 && !is_numeric($objRow->$backup))
+			if (is_numeric($objRow->$backup))
+			{
+				$intFid = $objRow->$backup;
+			}
+			else if (strlen($objRow->$backup) > 0)
 			{
 				$intFid = \TranslationFieldsWidgetHelper::saveValuesAndReturnFid(\TranslationFieldsWidgetHelper::addValueToAllLanguages($objRow->$backup));
-				$objDatabase->prepare("UPDATE $table SET $field=? WHERE id=?")
-							->execute($intFid, $objRow->id);
 			}
+			else
+			{
+				$intFid = 0;
+			}
+
+			$objDatabase->prepare("UPDATE $table SET $field=? WHERE id=?")
+						->execute($intFid, $objRow->id);
 		}
 	}
 }
