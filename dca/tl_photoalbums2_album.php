@@ -494,7 +494,7 @@ class tl_photoalbums2_album extends Pa2Backend
 		$strContent = '';
 
 		// Set key
-		$key = $arrRow['invisible'] ? 'unpublished' : 'published';
+		$key = $arrRow['published'] ? 'published' : 'unpublished';
 
 		// Do not hide preview images
 		if (!$GLOBALS['TL_CONFIG']['pa2HidePreviewImageInBackend'])
