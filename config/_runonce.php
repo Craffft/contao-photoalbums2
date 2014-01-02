@@ -38,10 +38,17 @@ class Photoalbums2Runonce extends \System
 	{
 		parent::__construct();
 
+		// Disable debug mode
 		$GLOBALS['TL_CONFIG']['debugMode'] = false;
 
+		// Load required translation_fields classes
+		\ClassLoader::addNamespace('TranslationFields');
+		\ClassLoader::addClass('TranslationFields\TranslationFieldsWidgetHelper', 'system/modules/translation_fields/classes/TranslationFieldsWidgetHelper.php');
+		\ClassLoader::addClass('TranslationFields\TranslationFieldsModel', 'system/modules/translation_fields/models/TranslationFieldsModel.php');
+		\ClassLoader::register();
+
+		// Import
 		$this->import('Database');
-		$this->import((TL_MODE=='BE' ? 'BackendUser' : 'FrontendUser'), 'User');
 	}
 
 
@@ -279,15 +286,6 @@ class Photoalbums2Runonce extends \System
 	 */
 	public static function convertTranslationField($table, $field)
 	{
-		// Run only if translation_fields is loaded
-		if (!in_array('translation_fields', \ModuleLoader::getActive()))
-		{
-			echo 'PLEASE ENABLE THE FOLLOWING CODE IN system/config/localconfig.php TO CONVERT THE TRANSLATION FIELDS AND UPGRADE THE PHOTOALBUMS2 MODULE AGAIN:';
-			echo '<br>';
-			echo '$GLOBALS[\'TL_CONFIG\'][\'coreOnlyMode\'] = false;';
-			exit;
-		}
-
 		$backup = $field . '_backup';
 		$objDatabase = \Database::getInstance();
 
