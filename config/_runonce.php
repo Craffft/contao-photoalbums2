@@ -17,6 +17,7 @@
  */
 namespace Photoalbums2;
 
+
 /**
  * Class Photoalbums2Runonce
  *
@@ -24,7 +25,7 @@ namespace Photoalbums2;
  * @author     Daniel Kiesel <https://github.com/icodr8>
  * @package    photoalbums2
  */
-class Photoalbums2Runonce extends \Controller
+class Photoalbums2Runonce extends \System
 {
 
 	/**
@@ -37,7 +38,17 @@ class Photoalbums2Runonce extends \Controller
 	{
 		parent::__construct();
 
-		$this->import((TL_MODE=='BE' ? 'BackendUser' : 'FrontendUser'), 'User');
+		// Disable debug mode
+		$GLOBALS['TL_CONFIG']['debugMode'] = false;
+
+		// Load required translation_fields classes
+		\ClassLoader::addNamespace('TranslationFields');
+		\ClassLoader::addClass('TranslationFields\TranslationFieldsWidgetHelper', 'system/modules/translation_fields/classes/TranslationFieldsWidgetHelper.php');
+		\ClassLoader::addClass('TranslationFields\TranslationFieldsModel', 'system/modules/translation_fields/models/TranslationFieldsModel.php');
+		\ClassLoader::register();
+
+		// Import
+		$this->import('Database');
 	}
 
 
@@ -49,13 +60,10 @@ class Photoalbums2Runonce extends \Controller
 	 */
 	public function run()
 	{
-		$db = \Database::getInstance();
-
-
 		/**
 		 * Create new translation fields table, if it does not exist
 		 */
-		if (!$db->tableExists('tl_translation_fields'))
+		if (!$this->Database->tableExists('tl_translation_fields'))
 		{
 			$arrSqlStatements = array();
 			$arrSqlStatements[] = "CREATE TABLE `tl_translation_fields` (";
@@ -69,136 +77,239 @@ class Photoalbums2Runonce extends \Controller
 			$arrSqlStatements[] = "KEY `fid` (`fid`)";
 			$arrSqlStatements[] = ") ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
-			$db->execute(implode(' ', $arrSqlStatements));
-		}
-
-
-		/**
-		 * Added translation fields
-		 */
-		$objAlbum = \Photoalbums2AlbumModel::findAll();
-		$objContent = \ContentModel::findAll();
-		$objModule = \ModuleModel::findAll();
-
-		if ($objAlbum !== null)
-		{
-			while ($objAlbum->next())
-			{
-				if (strlen($objAlbum->event) > 0 && !is_numeric($objAlbum->event))
-				{
-					$objAlbum->event = \TranslationFieldsWidgetHelper::saveValuesAndReturnFid(\TranslationFieldsWidgetHelper::addValueToAllLanguages($objAlbum->event));
-				}
-
-				if (strlen($objAlbum->place) > 0 && !is_numeric($objAlbum->place))
-				{
-					$objAlbum->place = \TranslationFieldsWidgetHelper::saveValuesAndReturnFid(\TranslationFieldsWidgetHelper::addValueToAllLanguages($objAlbum->place));
-				}
-
-				if (strlen($objAlbum->photographer) > 0 && !is_numeric($objAlbum->photographer))
-				{
-					$objAlbum->photographer = \TranslationFieldsWidgetHelper::saveValuesAndReturnFid(\TranslationFieldsWidgetHelper::addValueToAllLanguages($objAlbum->photographer));
-				}
-
-				if (strlen($objAlbum->description) > 0 && !is_numeric($objAlbum->description))
-				{
-					$objAlbum->description = \TranslationFieldsWidgetHelper::saveValuesAndReturnFid(\TranslationFieldsWidgetHelper::addValueToAllLanguages($objAlbum->description));
-				}
-
-				// Save
-				$objAlbum->save();
-			}
-		}
-
-		if ($objContent !== null)
-		{
-			while ($objContent->next())
-			{
-				if (strlen($objContent->pa2Teaser) > 0 && !is_numeric($objContent->pa2Teaser))
-				{
-					$objContent->pa2Teaser = \TranslationFieldsWidgetHelper::saveValuesAndReturnFid(\TranslationFieldsWidgetHelper::addValueToAllLanguages($objContent->pa2Teaser));
-				}
-
-				// Save
-				$objContent->save();
-			}
-		}
-
-		if ($objModule !== null)
-		{
-			while ($objModule->next())
-			{
-				if (strlen($objModule->pa2Teaser) > 0 && !is_numeric($objModule->pa2Teaser))
-				{
-					$objModule->pa2Teaser = \TranslationFieldsWidgetHelper::saveValuesAndReturnFid(\TranslationFieldsWidgetHelper::addValueToAllLanguages($objModule->pa2Teaser));
-				}
-
-				// Save
-				$objModule->save();
-			}
+			$this->Database->query(implode(' ', $arrSqlStatements));
 		}
 
 
 		/**
 		 * SQL statements
 		 */
-		$arrSqlStatements = array(
-			"ALTER TABLE `tl_content` CHANGE `pa2PhotosTemplate` `pa2ImagesTemplate` varchar(64) NOT NULL default ''",
-			"ALTER TABLE `tl_content` CHANGE `pa2NumberOfPhotos` `pa2NumberOfImages` smallint(5) unsigned NOT NULL default '0'",
-			"ALTER TABLE `tl_content` CHANGE `pa2PhotosPerPage` `pa2ImagesPerPage` smallint(5) unsigned NOT NULL default '24'",
-			"ALTER TABLE `tl_content` CHANGE `pa2PhotosPerRow` `pa2ImagesPerRow` smallint(5) unsigned NOT NULL default '2'",
-			"ALTER TABLE `tl_content` CHANGE `pa2PhotosShowHeadline` `pa2ImagesShowHeadline` char(1) NOT NULL default ''",
-			"ALTER TABLE `tl_content` CHANGE `pa2PhotosShowTitle` `pa2ImagesShowTitle` char(1) NOT NULL default ''",
-			"ALTER TABLE `tl_content` CHANGE `pa2PhotosShowTeaser` `pa2ImagesShowTeaser` char(1) NOT NULL default ''",
-			"ALTER TABLE `tl_content` CHANGE `pa2PhotosImageSize` `pa2ImagesImageSize` varchar(64) NOT NULL default ''",
-			"ALTER TABLE `tl_content` CHANGE `pa2PhotosImageMargin` `pa2ImagesImageMargin` varchar(128) NOT NULL default ''",
-			"ALTER TABLE `tl_content` CHANGE `pa2PhotosMetaFields` `pa2ImagesMetaFields` blob NULL",
-
-			"ALTER TABLE `tl_module` CHANGE `pa2PreviewPic` `pa2PreviewImage` varchar(64) NOT NULL default ''",
-			"ALTER TABLE `tl_module` CHANGE `pa2PhotosTemplate` `pa2ImagesTemplate` varchar(64) NOT NULL default ''",
-			"ALTER TABLE `tl_module` CHANGE `pa2NumberOfPhotos` `pa2NumberOfImages` smallint(5) unsigned NOT NULL default '0'",
-			"ALTER TABLE `tl_module` CHANGE `pa2PhotosPerPage` `pa2ImagesPerPage` smallint(5) unsigned NOT NULL default '24'",
-			"ALTER TABLE `tl_module` CHANGE `pa2PhotosPerRow` `pa2ImagesPerRow` smallint(5) unsigned NOT NULL default '2'",
-			"ALTER TABLE `tl_module` CHANGE `pa2PhotosShowHeadline` `pa2ImagesShowHeadline` char(1) NOT NULL default ''",
-			"ALTER TABLE `tl_module` CHANGE `pa2PhotosShowTitle` `pa2ImagesShowTitle` char(1) NOT NULL default ''",
-			"ALTER TABLE `tl_module` CHANGE `pa2PhotosShowTeaser` `pa2ImagesShowTeaser` char(1) NOT NULL default ''",
-			"ALTER TABLE `tl_module` CHANGE `pa2PhotosImageSize` `pa2ImagesImageSize` varchar(64) NOT NULL default ''",
-			"ALTER TABLE `tl_module` CHANGE `pa2PhotosImageMargin` `pa2ImagesImageMargin` varchar(128) NOT NULL default ''",
-			"ALTER TABLE `tl_module` CHANGE `pa2PhotosMetaFields` `pa2ImagesMetaFields` blob NULL",
-
-			"ALTER TABLE `tl_photoalbums2_album` CHANGE `pictures` `images` blob NULL",
-
-			"ALTER TABLE `tl_photoalbums2_album` CHANGE `preview_pic_check` `preview_image_check` varchar(64) NOT NULL default ''",
-			"ALTER TABLE `tl_photoalbums2_album` CHANGE `preview_image_check` `previewImageType` varchar(64) NOT NULL default ''",
-
-			"ALTER TABLE `tl_photoalbums2_album` CHANGE `preview_pic` `preview_image` varchar(255) NOT NULL default ''",
-			"ALTER TABLE `tl_photoalbums2_album` CHANGE `preview_image` `previewImage` varchar(255) NOT NULL default ''",
-
-			"ALTER TABLE `tl_photoalbums2_album` CHANGE `pic_sort_check` `image_sort_check` varchar(64) NOT NULL default ''",
-			"ALTER TABLE `tl_photoalbums2_album` CHANGE `image_sort_check` `imageSortType` varchar(64) NOT NULL default ''",
-
-			"ALTER TABLE `tl_photoalbums2_album` CHANGE `pic_sort` `image_sort` blob NULL",
-			"ALTER TABLE `tl_photoalbums2_album` CHANGE `image_sort` `imageSort` blob NULL",
-
-			"ALTER TABLE `tl_user_group` CHANGE `photoalbums` `photoalbums2s` blob NULL",
-			"ALTER TABLE `tl_user_group` CHANGE `photoalbump` `photoalbums2p` blob NULL",
-
-			"ALTER TABLE `tl_user` CHANGE `photoalbums` `photoalbums2s` blob NULL",
-			"ALTER TABLE `tl_user` CHANGE `photoalbump` `photoalbums2p` blob NULL",
-
-			// Translation fields
-			"ALTER TABLE `tl_photoalbums2_album` CHANGE `event` `event` int(10) unsigned NOT NULL default '0'",
-			"ALTER TABLE `tl_photoalbums2_album` CHANGE `place` `place` int(10) unsigned NOT NULL default '0'",
-			"ALTER TABLE `tl_photoalbums2_album` CHANGE `photographer` `photographer` int(10) unsigned NOT NULL default '0'",
-			"ALTER TABLE `tl_photoalbums2_album` CHANGE `description` `description` int(10) unsigned NOT NULL default '0'",
-			"ALTER TABLE `tl_content` CHANGE `pa2Teaser` `pa2Teaser` int(10) unsigned NOT NULL default '0'",
-			"ALTER TABLE `tl_module` CHANGE `pa2Teaser` `pa2Teaser` int(10) unsigned NOT NULL default '0'",
-		);
-
-		foreach($arrSqlStatements as $strSqlStatement)
+		if ($this->Database->fieldExists('pa2PhotosTemplate', 'tl_content'))
 		{
-			// Execute sql statements
-			$stmt = $db->prepare($strSqlStatement);
-			$res = $stmt->execute();
+			$this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosTemplate` `pa2ImagesTemplate` varchar(64) NOT NULL default ''");
+		}
+
+		if ($this->Database->fieldExists('pa2NumberOfPhotos', 'tl_content'))
+		{
+			$this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2NumberOfPhotos` `pa2NumberOfImages` smallint(5) unsigned NOT NULL default '0'");
+		}
+
+		if ($this->Database->fieldExists('pa2PhotosPerPage', 'tl_content'))
+		{
+			$this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosPerPage` `pa2ImagesPerPage` smallint(5) unsigned NOT NULL default '24'");
+		}
+
+		if ($this->Database->fieldExists('pa2PhotosPerRow', 'tl_content'))
+		{
+			$this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosPerRow` `pa2ImagesPerRow` smallint(5) unsigned NOT NULL default '2'");
+		}
+
+		if ($this->Database->fieldExists('pa2PhotosShowHeadline', 'tl_content'))
+		{
+			$this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosShowHeadline` `pa2ImagesShowHeadline` char(1) NOT NULL default ''");
+		}
+
+		if ($this->Database->fieldExists('pa2PhotosShowTitle', 'tl_content'))
+		{
+			$this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosShowTitle` `pa2ImagesShowTitle` char(1) NOT NULL default ''");
+		}
+
+		if ($this->Database->fieldExists('pa2PhotosShowTeaser', 'tl_content'))
+		{
+			$this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosShowTeaser` `pa2ImagesShowTeaser` char(1) NOT NULL default ''");
+		}
+
+		if ($this->Database->fieldExists('pa2PhotosImageSize', 'tl_content'))
+		{
+			$this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosImageSize` `pa2ImagesImageSize` varchar(64) NOT NULL default ''");
+		}
+
+		if ($this->Database->fieldExists('pa2PhotosImageMargin', 'tl_content'))
+		{
+			$this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosImageMargin` `pa2ImagesImageMargin` varchar(128) NOT NULL default ''");
+		}
+
+		if ($this->Database->fieldExists('pa2PhotosMetaFields', 'tl_content'))
+		{
+			$this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosMetaFields` `pa2ImagesMetaFields` blob NULL");
+		}
+
+		if ($this->Database->fieldExists('pa2PreviewPic', 'tl_module'))
+		{
+			$this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PreviewPic` `pa2PreviewImage` varchar(64) NOT NULL default ''");
+		}
+
+		if ($this->Database->fieldExists('pa2PhotosTemplate', 'tl_module'))
+		{
+			$this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosTemplate` `pa2ImagesTemplate` varchar(64) NOT NULL default ''");
+		}
+
+		if ($this->Database->fieldExists('pa2NumberOfPhotos', 'tl_module'))
+		{
+			$this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2NumberOfPhotos` `pa2NumberOfImages` smallint(5) unsigned NOT NULL default '0'");
+		}
+
+		if ($this->Database->fieldExists('pa2PhotosPerPage', 'tl_module'))
+		{
+			$this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosPerPage` `pa2ImagesPerPage` smallint(5) unsigned NOT NULL default '24'");
+		}
+
+		if ($this->Database->fieldExists('pa2PhotosPerRow', 'tl_module'))
+		{
+			$this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosPerRow` `pa2ImagesPerRow` smallint(5) unsigned NOT NULL default '2'");
+		}
+
+		if ($this->Database->fieldExists('pa2PhotosShowHeadline', 'tl_module'))
+		{
+			$this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosShowHeadline` `pa2ImagesShowHeadline` char(1) NOT NULL default ''");
+		}
+
+		if ($this->Database->fieldExists('pa2PhotosShowTitle', 'tl_module'))
+		{
+			$this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosShowTitle` `pa2ImagesShowTitle` char(1) NOT NULL default ''");
+		}
+
+		if ($this->Database->fieldExists('pa2PhotosShowTeaser', 'tl_module'))
+		{
+			$this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosShowTeaser` `pa2ImagesShowTeaser` char(1) NOT NULL default ''");
+		}
+
+		if ($this->Database->fieldExists('pa2PhotosImageSize', 'tl_module'))
+		{
+			$this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosImageSize` `pa2ImagesImageSize` varchar(64) NOT NULL default ''");
+		}
+
+		if ($this->Database->fieldExists('pa2PhotosImageMargin', 'tl_module'))
+		{
+			$this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosImageMargin` `pa2ImagesImageMargin` varchar(128) NOT NULL default ''");
+		}
+
+		if ($this->Database->fieldExists('pa2PhotosMetaFields', 'tl_module'))
+		{
+			$this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosMetaFields` `pa2ImagesMetaFields` blob NULL");
+		}
+
+		if ($this->Database->fieldExists('pictures', 'tl_photoalbums2_album'))
+		{
+			$this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `pictures` `images` blob NULL");
+		}
+
+		if ($this->Database->fieldExists('preview_pic_check', 'tl_photoalbums2_album'))
+		{
+			$this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `preview_pic_check` `preview_image_check` varchar(64) NOT NULL default ''");
+		}
+
+		if ($this->Database->fieldExists('preview_image_check', 'tl_photoalbums2_album'))
+		{
+			$this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `preview_image_check` `previewImageType` varchar(64) NOT NULL default ''");
+		}
+
+		if ($this->Database->fieldExists('preview_pic', 'tl_photoalbums2_album'))
+		{
+			$this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `preview_pic` `preview_image` varchar(255) NOT NULL default ''");
+		}
+
+		if ($this->Database->fieldExists('preview_image', 'tl_photoalbums2_album'))
+		{
+			$this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `preview_image` `previewImage` varchar(255) NOT NULL default ''");
+		}
+
+		if ($this->Database->fieldExists('pic_sort_check', 'tl_photoalbums2_album'))
+		{
+			$this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `pic_sort_check` `image_sort_check` varchar(64) NOT NULL default ''");
+		}
+
+		if ($this->Database->fieldExists('image_sort_check', 'tl_photoalbums2_album'))
+		{
+			$this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `image_sort_check` `imageSortType` varchar(64) NOT NULL default ''");
+		}
+
+		if ($this->Database->fieldExists('pic_sort', 'tl_photoalbums2_album'))
+		{
+			$this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `pic_sort` `image_sort` blob NULL");
+		}
+
+		if ($this->Database->fieldExists('image_sort', 'tl_photoalbums2_album'))
+		{
+			$this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `image_sort` `imageSort` blob NULL");
+		}
+
+		if ($this->Database->fieldExists('photoalbums', 'tl_user_group'))
+		{
+			$this->Database->query("ALTER TABLE `tl_user_group` CHANGE `photoalbums` `photoalbums2s` blob NULL");
+		}
+
+		if ($this->Database->fieldExists('photoalbump', 'tl_user_group'))
+		{
+			$this->Database->query("ALTER TABLE `tl_user_group` CHANGE `photoalbump` `photoalbums2p` blob NULL");
+		}
+
+		if ($this->Database->fieldExists('photoalbums', 'tl_user'))
+		{
+			$this->Database->query("ALTER TABLE `tl_user` CHANGE `photoalbums` `photoalbums2s` blob NULL");
+		}
+
+		if ($this->Database->fieldExists('photoalbump', 'tl_user'))
+		{
+			$this->Database->query("ALTER TABLE `tl_user` CHANGE `photoalbump` `photoalbums2p` blob NULL");
+		}
+
+
+		/**
+		 * Added translation fields
+		 */
+		self::convertTranslationField('tl_photoalbums2_album', 'event');
+		self::convertTranslationField('tl_photoalbums2_album', 'place');
+		self::convertTranslationField('tl_photoalbums2_album', 'photographer');
+		self::convertTranslationField('tl_photoalbums2_album', 'description');
+		self::convertTranslationField('tl_content', 'pa2Teaser');
+		self::convertTranslationField('tl_module', 'pa2Teaser');
+	}
+
+
+	/**
+	 * convertTranslationField function.
+	 *
+	 * @access public
+	 * @static
+	 * @param string $table
+	 * @param string $field
+	 * @return void
+	 */
+	public static function convertTranslationField($table, $field)
+	{
+		$backup = $field . '_backup';
+		$objDatabase = \Database::getInstance();
+
+		// Backup the original column and then change the column type
+		if (!$objDatabase->fieldExists($backup, $table, true))
+		{
+			$objDatabase->query("ALTER TABLE `$table` ADD `$backup` text NULL");
+			$objDatabase->query("UPDATE `$table` SET `$backup`=`$field`");
+			$objDatabase->query("ALTER TABLE `$table` CHANGE `$field` `$field` int(10) unsigned NOT NULL default '0'");
+			$objDatabase->query("UPDATE `$table` SET `$field`='0'");
+		}
+
+
+		$objRow = $objDatabase->query("SELECT id, $backup FROM $table WHERE $backup!=''");
+
+		while ($objRow->next())
+		{
+			if (is_numeric($objRow->$backup))
+			{
+				$intFid = $objRow->$backup;
+			}
+			else if (strlen($objRow->$backup) > 0)
+			{
+				$intFid = \TranslationFieldsWidgetHelper::saveValuesAndReturnFid(\TranslationFieldsWidgetHelper::addValueToAllLanguages($objRow->$backup));
+			}
+			else
+			{
+				$intFid = 0;
+			}
+
+			$objDatabase->prepare("UPDATE $table SET $field=? WHERE id=?")
+						->execute($intFid, $objRow->id);
 		}
 	}
 }
