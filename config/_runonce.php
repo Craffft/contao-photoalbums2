@@ -43,6 +43,7 @@ class Photoalbums2Runonce extends \System
 
 		// Load required translation_fields classes
 		\ClassLoader::addNamespace('TranslationFields');
+		\ClassLoader::addClass('TranslationFields\Updater', 'system/modules/translation_fields/classes/Updater.php');
 		\ClassLoader::addClass('TranslationFields\TranslationFieldsWidgetHelper', 'system/modules/translation_fields/classes/TranslationFieldsWidgetHelper.php');
 		\ClassLoader::addClass('TranslationFields\TranslationFieldsModel', 'system/modules/translation_fields/models/TranslationFieldsModel.php');
 		\ClassLoader::register();
@@ -258,12 +259,12 @@ class Photoalbums2Runonce extends \System
 		/**
 		 * Added translation fields
 		 */
-		self::convertTranslationField('tl_photoalbums2_album', 'event');
-		self::convertTranslationField('tl_photoalbums2_album', 'place');
-		self::convertTranslationField('tl_photoalbums2_album', 'photographer');
-		self::convertTranslationField('tl_photoalbums2_album', 'description');
-		self::convertTranslationField('tl_content', 'pa2Teaser');
-		self::convertTranslationField('tl_module', 'pa2Teaser');
+		\TranslationFields\Updater::convertTranslationField('tl_photoalbums2_album', 'event');
+		\TranslationFields\Updater::convertTranslationField('tl_photoalbums2_album', 'place');
+		\TranslationFields\Updater::convertTranslationField('tl_photoalbums2_album', 'photographer');
+		\TranslationFields\Updater::convertTranslationField('tl_photoalbums2_album', 'description');
+		\TranslationFields\Updater::convertTranslationField('tl_content', 'pa2Teaser');
+		\TranslationFields\Updater::convertTranslationField('tl_module', 'pa2Teaser');
 
 
 		/**
@@ -272,53 +273,6 @@ class Photoalbums2Runonce extends \System
 		\Database\Updater::convertMultiField('tl_photoalbums2_album', 'images');
 		\Database\Updater::convertMultiField('tl_photoalbums2_album', 'imageSort');
 		\Database\Updater::convertSingleField('tl_photoalbums2_album', 'previewImage');
-	}
-
-
-	/**
-	 * convertTranslationField function.
-	 *
-	 * @access public
-	 * @static
-	 * @param string $table
-	 * @param string $field
-	 * @return void
-	 */
-	public static function convertTranslationField($table, $field)
-	{
-		$backup = $field . '_backup';
-		$objDatabase = \Database::getInstance();
-
-		// Backup the original column and then change the column type
-		if (!$objDatabase->fieldExists($backup, $table, true))
-		{
-			$objDatabase->query("ALTER TABLE `$table` ADD `$backup` text NULL");
-			$objDatabase->query("UPDATE `$table` SET `$backup`=`$field`");
-			$objDatabase->query("ALTER TABLE `$table` CHANGE `$field` `$field` int(10) unsigned NOT NULL default '0'");
-			$objDatabase->query("UPDATE `$table` SET `$field`='0'");
-		}
-
-
-		$objRow = $objDatabase->query("SELECT id, $backup FROM $table WHERE $backup!=''");
-
-		while ($objRow->next())
-		{
-			if (is_numeric($objRow->$backup))
-			{
-				$intFid = $objRow->$backup;
-			}
-			else if (strlen($objRow->$backup) > 0)
-			{
-				$intFid = \TranslationFieldsWidgetHelper::saveValuesAndReturnFid(\TranslationFieldsWidgetHelper::addValueToAllLanguages($objRow->$backup));
-			}
-			else
-			{
-				$intFid = 0;
-			}
-
-			$objDatabase->prepare("UPDATE $table SET $field=? WHERE id=?")
-						->execute($intFid, $objRow->id);
-		}
 	}
 }
 
