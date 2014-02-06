@@ -10,13 +10,11 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
 /**
  * Fields
  */
 $GLOBALS['TL_LANG']['tl_user_group']['photoalbums2s'] = array('Erlaubte Archive', 'Hier können Sie den Zugriff auf ein oder mehrere Fotoalben-Archive erlauben.');
 $GLOBALS['TL_LANG']['tl_user_group']['photoalbums2p'] = array('Archivrechte', 'Hier können Sie die Archivrechte festlegen.');
-
 
 /**
  * Reference

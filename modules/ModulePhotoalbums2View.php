@@ -10,12 +10,10 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
 /**
  * Namespace
  */
 namespace Photoalbums2;
-
 
 /**
  * Class ModulePhotoalbums2View
@@ -27,74 +25,67 @@ namespace Photoalbums2;
 class ModulePhotoalbums2View extends \ModulePhotoalbums2
 {
 
-	/**
-	 * Template
-	 * @var string
-	 */
-	protected $strTemplate = 'pa2_wrap';
+    /**
+     * Template
+     * @var string
+     */
+    protected $strTemplate = 'pa2_wrap';
 
+    /**
+     * Subtemplate
+     * @var string
+     */
+    protected $strSubtemplate = 'pa2_album';
 
-	/**
-	 * Subtemplate
-	 * @var string
-	 */
-	protected $strSubtemplate = 'pa2_album';
+    /**
+     * generate function.
+     *
+     * @access public
+     * @return void
+     */
+    public function generate()
+    {
+        if (TL_MODE == 'BE') {
+            $objTemplate = new \BackendTemplate('be_wildcard');
+            $objTemplate->wildcard = '### PHOTOALBUMS 2 VIEW MODULE ###';
 
+            return $objTemplate->parse();
+        }
 
-	/**
-	 * generate function.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	public function generate()
-	{
-		if (TL_MODE == 'BE')
-		{
-			$objTemplate = new \BackendTemplate('be_wildcard');
-			$objTemplate->wildcard = '### PHOTOALBUMS 2 VIEW MODULE ###';
+        // Set Pa2 Type
+        $this->pa2type = 'MOD_VIEW';
 
-			return $objTemplate->parse();
-		}
+        // Set defaults
+        $this->pa2DetailPage = '';
 
-		// Set Pa2 Type
-		$this->pa2type = 'MOD_VIEW';
+        return parent::generate();
+    }
 
-		// Set defaults
-		$this->pa2DetailPage = '';
+    /**
+     * compile function.
+     *
+     * @access protected
+     * @return void
+     */
+    protected function compile()
+    {
+        global $objPage;
 
-		return parent::generate();
-	}
+        // Import CSS files
+        $objPa2 = new \Pa2();
+        $objPa2->addCssFile();
 
-
-	/**
-	 * compile function.
-	 *
-	 * @access protected
-	 * @return void
-	 */
-	protected function compile()
-	{
-		global $objPage;
-
-		// Import CSS files
-		$objPa2 = new \Pa2();
-		$objPa2->addCssFile();
-
-		// Show images
-		if ($this->Input->get('album') && (($this->pa2DetailPage == '') || ($this->pa2DetailPage != '' && ($this->pa2DetailPage == $objPage->id || ($objPage->languageMain != '' && $objPage->languageMain == $this->pa2DetailPage)))))
-		{
-			$this->prepareImages();
-		}
-		// Go to overview page (albums)
-		else if (is_numeric($this->pa2OverviewPage) && $this->pa2OverviewPage > 0 && $objPage->id != $this->pa2OverviewPage)
-		{
-			$this->goToOverviewPage();
-		}
-		// Go to root page
-		else
-		{
-			$this->goToRootPage();
-		}
-	}
+        // Show images
+        if ($this->Input->get('album') && (($this->pa2DetailPage == '') || ($this->pa2DetailPage != '' && ($this->pa2DetailPage == $objPage->id || ($objPage->languageMain != '' && $objPage->languageMain == $this->pa2DetailPage))))) {
+            $this->prepareImages();
+        }
+        // Go to overview page (albums)
+        else if (is_numeric($this->pa2OverviewPage) && $this->pa2OverviewPage > 0 && $objPage->id != $this->pa2OverviewPage) {
+            $this->goToOverviewPage();
+        }
+        // Go to root page
+        else {
+            $this->goToRootPage();
+        }
+    }
 }

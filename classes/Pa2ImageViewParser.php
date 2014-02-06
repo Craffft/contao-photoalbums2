@@ -10,12 +10,10 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
 /**
  * Namespace
  */
 namespace Photoalbums2;
-
 
 /**
  * Class Pa2ImageViewParser
@@ -27,328 +25,307 @@ namespace Photoalbums2;
 class Pa2ImageViewParser extends \Pa2ViewParser
 {
 
-	/**
-	 * intAlbumId
-	 *
-	 * @var mixed
-	 * @access private
-	 */
-	private $intAlbumId;
+    /**
+     * intAlbumId
+     *
+     * @var mixed
+     * @access private
+     */
+    private $intAlbumId;
 
+    /**
+     * objAlbum
+     *
+     * @var object
+     * @access private
+     */
+    private $objAlbum;
 
-	/**
-	 * objAlbum
-	 *
-	 * @var object
-	 * @access private
-	 */
-	private $objAlbum;
+    /**
+     * arrItems
+     *
+     * @var array
+     * @access private
+     */
+    private $arrItems = array();
 
+    /**
+     * arrAllItems
+     *
+     * @var array
+     * @access private
+     */
+    private $arrAllItems = array();
 
-	/**
-	 * arrItems
-	 *
-	 * @var array
-	 * @access private
-	 */
-	private $arrItems = array();
+    /**
+     * __construct function.
+     *
+     * @access public
+     * @param  object $objTemplate
+     * @param  int    $intAlbumId
+     * @return void
+     */
+    public function __construct($objTemplate, $intAlbumId = 0)
+    {
+        if (is_numeric($intAlbumId) && $intAlbumId > 0) {
+            $this->intAlbumId = $intAlbumId;
+        }
 
+        parent::__construct($objTemplate);
+    }
 
-	/**
-	 * arrAllItems
-	 *
-	 * @var array
-	 * @access private
-	 */
-	private $arrAllItems = array();
+    /**
+     * generate function.
+     *
+     * @access protected
+     * @return void
+     */
+    protected function generate()
+    {
+        $this->Template->intMaxItems            = $this->Template->pa2NumberOfImages;
+        $this->Template->intItemsPerPage        = $this->Template->pa2ImagesPerPage;
+        $this->Template->intItemsPerRow         = $this->Template->pa2ImagesPerRow;
+        $this->Template->strTemplate            = (strlen($this->Template->pa2ImageViewTemplate) > 0 ? $this->Template->pa2ImageViewTemplate : 'pa2_wrap');
+        $this->Template->strSubtemplate         = (strlen($this->Template->pa2ImagesTemplate) > 0 ? $this->Template->pa2ImagesTemplate : 'pa2_image');
+        $this->Template->showMetaDescriptions   = $this->Template->pa2ImagesShowMetaDescriptions;
+        $this->Template->arrMetaFields          = $this->Template->pa2ImagesMetaFields;
 
+        // Image params
+        $this->Template->size                   = $this->Template->pa2ImagesImageSize;
+        $this->Template->imagemargin            = $this->Template->pa2ImagesImageMargin;
 
-	/**
-	 * __construct function.
-	 *
-	 * @access public
-	 * @param object $objTemplate
-	 * @param int $intAlbumId
-	 * @return void
-	 */
-	public function __construct($objTemplate, $intAlbumId = 0)
-	{
-		if (is_numeric($intAlbumId) && $intAlbumId > 0)
-		{
-			$this->intAlbumId = $intAlbumId;
-		}
+        $this->Template->showHeadline           = $this->Template->pa2ImagesShowHeadline;
+        $this->Template->showTitle              = $this->Template->pa2ImagesShowTitle;
+        $this->Template->showTeaser             = $this->Template->pa2ImagesShowTeaser;
+        $this->Template->teaser                 = $this->cleanRteOutput(\TranslationFields::translateValue($this->Template->pa2Teaser));
+        $this->Template->showHeadline           = ($this->Template->headline != '' ? $this->Template->showHeadline : false);
+        $this->Template->showTeaser             = ($this->Template->teaser != '' ? $this->Template->showTeaser : false);
 
-		parent::__construct($objTemplate);
-	}
+        parent::generate();
+    }
 
+    /**
+     * compile function.
+     *
+     * @access protected
+     * @return void
+     */
+    protected function compile()
+    {
+        global $objPage;
 
-	/**
-	 * generate function.
-	 *
-	 * @access protected
-	 * @return void
-	 */
-	protected function generate()
-	{
-		$this->Template->intMaxItems            = $this->Template->pa2NumberOfImages;
-		$this->Template->intItemsPerPage        = $this->Template->pa2ImagesPerPage;
-		$this->Template->intItemsPerRow         = $this->Template->pa2ImagesPerRow;
-		$this->Template->strTemplate            = (strlen($this->Template->pa2ImageViewTemplate) > 0 ? $this->Template->pa2ImageViewTemplate : 'pa2_wrap');
-		$this->Template->strSubtemplate         = (strlen($this->Template->pa2ImagesTemplate) > 0 ? $this->Template->pa2ImagesTemplate : 'pa2_image');
-		$this->Template->showMetaDescriptions   = $this->Template->pa2ImagesShowMetaDescriptions;
-		$this->Template->arrMetaFields          = $this->Template->pa2ImagesMetaFields;
+        // Generate new template object
+        $objTemplate = new \FrontendTemplate($this->Template->strTemplate);
+        $objTemplate->setData($this->Template->getData());
+        $this->Template = $objTemplate;
 
-		// Image params
-		$this->Template->size                   = $this->Template->pa2ImagesImageSize;
-		$this->Template->imagemargin            = $this->Template->pa2ImagesImageMargin;
+        // Get album id
+        $objPa2Album = new \Pa2Album($this->getAlbumIdOrAlias(), $this->Template->getData());
+        $objAlbum = $objPa2Album->getAlbums();
 
-		$this->Template->showHeadline           = $this->Template->pa2ImagesShowHeadline;
-		$this->Template->showTitle              = $this->Template->pa2ImagesShowTitle;
-		$this->Template->showTeaser             = $this->Template->pa2ImagesShowTeaser;
-		$this->Template->teaser                 = $this->cleanRteOutput(\TranslationFields::translateValue($this->Template->pa2Teaser));
-		$this->Template->showHeadline           = ($this->Template->headline != '' ? $this->Template->showHeadline : false);
-		$this->Template->showTeaser             = ($this->Template->teaser != '' ? $this->Template->showTeaser : false);
+        // If there is no album
+        if (!is_object($objAlbum) || $objAlbum === null) {
+            $this->setEmptyTemplate($GLOBALS['TL_LANG']['MSC']['albumNotFound']);
 
-		parent::generate();
-	}
+            return;
+        }
 
+        // If there are no images
+        if (count($objAlbum->arrSortedImageUuids) < 1) {
+            $this->setEmptyTemplate($GLOBALS['TL_LANG']['MSC']['imagesNotFound']);
 
-	/**
-	 * compile function.
-	 *
-	 * @access protected
-	 * @return void
-	 */
-	protected function compile()
-	{
-		global $objPage;
+            return;
+        }
 
-		// Generate new template object
-		$objTemplate = new \FrontendTemplate($this->Template->strTemplate);
-		$objTemplate->setData($this->Template->getData());
-		$this->Template = $objTemplate;
+        // Get only the current object
+        $objAlbum = $objAlbum->current();
 
-		// Get album id
-		$objPa2Album = new \Pa2Album($this->getAlbumIdOrAlias(), $this->Template->getData());
-		$objAlbum = $objPa2Album->getAlbums();
+        // Do this only in the Frontend
+        if (TL_MODE == 'FE' && in_array($this->Template->pa2type, array('MOD', 'MOD_VIEW'))) {
+            // Overwrite the page title
+            if ($objAlbum->title != '') {
+                $objPage->pageTitle = strip_tags(strip_insert_tags($objAlbum->title));
+            }
 
-		// If there is no album
-		if (!is_object($objAlbum) || $objAlbum === null)
-		{
-			$this->setEmptyTemplate($GLOBALS['TL_LANG']['MSC']['albumNotFound']);
-			return;
-		}
+            // Overwrite the page description
+            if ($objAlbum->description != '') {
+                $objPage->description = $this->prepareMetaDescription($objAlbum->description);
+            }
 
-		// If there are no images
-		if (count($objAlbum->arrSortedImageUuids) < 1)
-		{
-			$this->setEmptyTemplate($GLOBALS['TL_LANG']['MSC']['imagesNotFound']);
-			return;
-		}
+            // Add comments module
+            $this->addComments($objAlbum);
+        }
 
-		// Get only the current object
-		$objAlbum = $objAlbum->current();
+        // Set arrItems and objAlbum
+        $this->arrItems = $objAlbum->arrSortedImageUuids;
+        $this->objAlbum = $objAlbum;
 
-		// Do this only in the Frontend
-		if (TL_MODE == 'FE' && in_array($this->Template->pa2type, array('MOD', 'MOD_VIEW')))
-		{
-			// Overwrite the page title
-			if ($objAlbum->title != '')
-			{
-				$objPage->pageTitle = strip_tags(strip_insert_tags($objAlbum->title));
-			}
+        // Pagination
+        $objPa2Pagination = new \Pa2Pagination($this->arrItems, $this->Template->intMaxItems, $this->Template->intItemsPerPage);
+        $this->arrAllItems = $this->arrItems;
+        $this->arrItems = $objPa2Pagination->getItems();
+        $this->Template->pagination = $objPa2Pagination->getPagination();
+        $this->Template->totalItems = $objPa2Pagination->getTotalItems();
 
-			// Overwrite the page description
-			if ($objAlbum->description != '')
-			{
-				$objPage->description = $this->prepareMetaDescription($objAlbum->description);
-			}
+        // Call parseImages
+        $this->parseImages();
+    }
 
-			// Add comments module
-			$this->addComments($objAlbum);
-		}
+    /**
+     * getAlbumIdOrAlias function.
+     *
+     * @access protected
+     * @return mixed
+     */
+    protected function getAlbumIdOrAlias()
+    {
+        $varValue = $this->intAlbumId;
 
-		// Set arrItems and objAlbum
-		$this->arrItems = $objAlbum->arrSortedImageUuids;
-		$this->objAlbum = $objAlbum;
+        if (!is_numeric($varValue) || $varValue < 1) {
+            $varValue = $this->Input->get('album');
+        }
 
-		// Pagination
-		$objPa2Pagination = new \Pa2Pagination($this->arrItems, $this->Template->intMaxItems, $this->Template->intItemsPerPage);
-		$this->arrAllItems = $this->arrItems;
-		$this->arrItems = $objPa2Pagination->getItems();
-		$this->Template->pagination = $objPa2Pagination->getPagination();
-		$this->Template->totalItems = $objPa2Pagination->getTotalItems();
+        return $varValue;
+    }
 
-		// Call parseImages
-		$this->parseImages();
-	}
+    /**
+     * parseImages function.
+     *
+     * @access private
+     * @return void
+     */
+    private function parseImages()
+    {
+        // If there is no album
+        if (!is_object($this->objAlbum)) {
+            $this->setEmptyTemplate($GLOBALS['TL_LANG']['MSC']['albumNotFound']);
 
+            return;
+        }
 
-	/**
-	 * getAlbumIdOrAlias function.
-	 *
-	 * @access protected
-	 * @return mixed
-	 */
-	protected function getAlbumIdOrAlias()
-	{
-		$varValue = $this->intAlbumId;
+        // If there are no images
+        if (!is_array($this->arrItems) || count($this->arrItems) < 1) {
+            $this->setEmptyTemplate($GLOBALS['TL_LANG']['MSC']['imagesNotFound']);
 
-		if (!is_numeric($varValue) || $varValue < 1)
-		{
-			$varValue = $this->Input->get('album');
-		}
+            return;
+        }
 
-		return $varValue;
-	}
+        global $objPage;
 
+        // Set album object
+        $objAlbum = $this->objAlbum;
 
-	/**
-	 * parseImages function.
-	 *
-	 * @access private
-	 * @return void
-	 */
-	private function parseImages()
-	{
-		// If there is no album
-		if (!is_object($this->objAlbum))
-		{
-			$this->setEmptyTemplate($GLOBALS['TL_LANG']['MSC']['albumNotFound']);
-			return;
-		}
+        // Add to template
+        $this->Template->title              = strip_tags($objAlbum->title);
+        $this->Template->alt                = strip_tags($objAlbum->title);
+        $this->Template->showTitle          = ($this->Template->title != '' ? $this->Template->showTitle : false);
+        $this->Template->cssClass          .= ($this->Template->cssClass == '') ? $objAlbum->cssClass : ' ' . $objAlbum->cssClass;
+        $this->Template->event              = $objAlbum->event;
+        $this->Template->place              = $objAlbum->place;
+        $this->Template->photographer       = $objAlbum->photographer;
+        $this->Template->description        = $objAlbum->description;
+        $this->Template->numberOfAllImages  = count($objAlbum->arrSortedImageUuids);
 
-		// If there are no images
-		if (!is_array($this->arrItems) || count($this->arrItems) < 1)
-		{
-			$this->setEmptyTemplate($GLOBALS['TL_LANG']['MSC']['imagesNotFound']);
-			return;
-		}
+        // Generate the backlink
+        $this->generateBacklink();
 
-		global $objPage;
+        // Call template methods
+        $this->Template = $this->addDateToTemplate($this->Template, $objAlbum->startdate, $objAlbum->enddate);
+        $this->Template = $this->addMetaFieldsToTemplate($this->Template);
 
-		// Set album object
-		$objAlbum = $this->objAlbum;
+        // Define useful vars
+        $arrItems = array();
+        $total = $this->Template->totalItems;
+        $i = 0;
+        $strIndividualId = $this->generateIndividualId();
 
-		// Add to template
-		$this->Template->title              = strip_tags($objAlbum->title);
-		$this->Template->alt                = strip_tags($objAlbum->title);
-		$this->Template->showTitle          = ($this->Template->title != '' ? $this->Template->showTitle : false);
-		$this->Template->cssClass          .= ($this->Template->cssClass == '') ? $objAlbum->cssClass : ' ' . $objAlbum->cssClass;
-		$this->Template->event              = $objAlbum->event;
-		$this->Template->place              = $objAlbum->place;
-		$this->Template->photographer       = $objAlbum->photographer;
-		$this->Template->description        = $objAlbum->description;
-		$this->Template->numberOfAllImages  = count($objAlbum->arrSortedImageUuids);
+        foreach ($this->arrAllItems as $k => $v) {
+            // Generate subtemplate object
+            $objSubtemplate = new \FrontendTemplate($this->Template->strSubtemplate);
+            $objSubtemplate->setData($this->Template->getData());
 
-		// Generate the backlink
-		$this->generateBacklink();
+            // Get new object from Pa2Image
+            $objPa2Image = new \Pa2Image($v);
+            $objImage = $objPa2Image->getPa2Image();
 
-		// Call template methods
-		$this->Template = $this->addDateToTemplate($this->Template, $objAlbum->startdate, $objAlbum->enddate);
-		$this->Template = $this->addMetaFieldsToTemplate($this->Template);
+            // Show this image not in the album
+            $objSubtemplate->title       = $this->getImageTitle($objImage);
+            $objSubtemplate->alt         = $this->getImageTitle($objImage);
+            $objSubtemplate->show        = false;
+            $objSubtemplate->elementID   = $i;
+            $objSubtemplate->albumID     = $objAlbum->id . '_' . $strIndividualId;
+            $objSubtemplate->href        = str_replace(' ', '%20', $objImage->path);
 
-		// Define useful vars
-		$arrItems = array();
-		$total = $this->Template->totalItems;
-		$i = 0;
-		$strIndividualId = $this->generateIndividualId();
+            // If show element
+            if (in_array($v, $this->arrItems)) {
+                // Set arrImage if is not set or no array
+                if (!is_array($objSubtemplate->arrImage)) {
+                    $objSubtemplate->arrImage = array();
+                }
 
-		foreach ($this->arrAllItems as $k => $v)
-		{
-			// Generate subtemplate object
-			$objSubtemplate = new \FrontendTemplate($this->Template->strSubtemplate);
-			$objSubtemplate->setData($this->Template->getData());
+                // Call template methods
+                $objSubtemplate = $objPa2Image->addPa2ImageToTemplate($objSubtemplate, $objSubtemplate->arrImage);
+                $objSubtemplate = $this->addSpecificClassesToTemplate($objSubtemplate, $i);
 
-			// Get new object from Pa2Image
-			$objPa2Image = new \Pa2Image($v);
-			$objImage = $objPa2Image->getPa2Image();
+                // Show this image in the album
+                $objSubtemplate->show = true;
 
-			// Show this image not in the album
-			$objSubtemplate->title       = $this->getImageTitle($objImage);
-			$objSubtemplate->alt         = $this->getImageTitle($objImage);
-			$objSubtemplate->show        = false;
-			$objSubtemplate->elementID   = $i;
-			$objSubtemplate->albumID     = $objAlbum->id . '_' . $strIndividualId;
-			$objSubtemplate->href        = str_replace(' ', '%20', $objImage->path);
+                $i++;
+            } else {
+                // Set image array
+                $arrImage = array();
+                $arrImage['size'] = serialize(array(0, 0, 'crop'));
+                $arrImage['imagemargin'] = serialize(array('bottom'=>'', 'left'=>'', 'right'=>'', 'top'=>'', 'unit'=>''));
+                $arrImage['singleSRC'] = 'system/modules/photoalbums2/assets/blank.gif';
+                $arrImage['alt'] = substr(strrchr($element, '/'), 1);
 
-			// If show element
-			if (in_array($v, $this->arrItems))
-			{
-				// Set arrImage if is not set or no array
-				if (!is_array($objSubtemplate->arrImage))
-				{
-					$objSubtemplate->arrImage = array();
-				}
+                // Add image to template
+                $objSubtemplate = $objPa2Image->addPa2ImageToTemplate($objSubtemplate, $arrImage);
+            }
 
-				// Call template methods
-				$objSubtemplate = $objPa2Image->addPa2ImageToTemplate($objSubtemplate, $objSubtemplate->arrImage);
-				$objSubtemplate = $this->addSpecificClassesToTemplate($objSubtemplate, $i);
+            // Parse subtemplate
+            $arrItems[] = $objSubtemplate->parse();
+        }
 
-				// Show this image in the album
-				$objSubtemplate->show = true;
+        $this->Template->items = $arrItems;
+    }
 
-				$i++;
-			}
-			else
-			{
-				// Set image array
-				$arrImage = array();
-				$arrImage['size'] = serialize(array(0, 0, 'crop'));
-				$arrImage['imagemargin'] = serialize(array('bottom'=>'', 'left'=>'', 'right'=>'', 'top'=>'', 'unit'=>''));
-				$arrImage['singleSRC'] = 'system/modules/photoalbums2/assets/blank.gif';
-				$arrImage['alt'] = substr(strrchr($element, '/'), 1);
+    /**
+     * generateBacklink function.
+     *
+     * @access protected
+     * @return void
+     */
+    protected function generateBacklink()
+    {
+        if (TL_MODE != 'FE') {
+            return;
+        }
 
-				// Add image to template
-				$objSubtemplate = $objPa2Image->addPa2ImageToTemplate($objSubtemplate, $arrImage);
-			}
+        global $objPage;
 
-			// Parse subtemplate
-			$arrItems[] = $objSubtemplate->parse();
-		}
+        // Import
+        $this->Import('Session');
 
-		$this->Template->items = $arrItems;
-	}
+        // Get session vars
+        $intPageNumber = $this->Session->get('pa2PageNumber_' . $this->Template->id);
+        $intPageId     = $this->Session->get('pa2PageId_' . $this->Template->id);
 
+        // Set backlink via overview page id
+        if (is_numeric($this->Template->pa2OverviewPage) && $this->Template->pa2OverviewPage > 0) {
+            $intPageId = $this->Template->pa2OverviewPage;
+        }
 
-	/**
-	 * generateBacklink function.
-	 *
-	 * @access protected
-	 * @return void
-	 */
-	protected function generateBacklink()
-	{
-		if(TL_MODE != 'FE')
-		{
-			return;
-		}
+        // Check and correct session vars
+        $intPageNumber = (is_numeric($intPageNumber) ? $intPageNumber : 1);
+        $intPageId     = (is_numeric($intPageId) ? $intPageId : $objPage->id);
 
-		global $objPage;
+        // Get page object by id
+        $objPageDetails = \PageModel::findByPk($intPageId);
+        $objPageDetails = $this->getPageDetails($objPageDetails->id);
 
-		// Import
-		$this->Import('Session');
-
-		// Get session vars
-		$intPageNumber = $this->Session->get('pa2PageNumber_' . $this->Template->id);
-		$intPageId     = $this->Session->get('pa2PageId_' . $this->Template->id);
-
-		// Set backlink via overview page id
-		if (is_numeric($this->Template->pa2OverviewPage) && $this->Template->pa2OverviewPage > 0)
-		{
-			$intPageId = $this->Template->pa2OverviewPage;
-		}
-
-		// Check and correct session vars
-		$intPageNumber = (is_numeric($intPageNumber) ? $intPageNumber : 1);
-		$intPageId     = (is_numeric($intPageId) ? $intPageId : $objPage->id);
-
-		// Get page object by id
-		$objPageDetails = \PageModel::findByPk($intPageId);
-		$objPageDetails = $this->getPageDetails($objPageDetails->id);
-
-		// Set template vars
-		$this->Template->referer = $this->generateFrontendUrl($objPageDetails->row(), '', $objPageDetails->language) . ($intPageNumber > 1 ? '?page=' . $intPageNumber : '');
-		$this->Template->back    = $GLOBALS['TL_LANG']['PA2']['goBack'];
-	}
+        // Set template vars
+        $this->Template->referer = $this->generateFrontendUrl($objPageDetails->row(), '', $objPageDetails->language) . ($intPageNumber > 1 ? '?page=' . $intPageNumber : '');
+        $this->Template->back    = $GLOBALS['TL_LANG']['PA2']['goBack'];
+    }
 }

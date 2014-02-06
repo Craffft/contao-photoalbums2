@@ -10,7 +10,6 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
 /**
  * Fields
  */
@@ -37,7 +36,6 @@ $GLOBALS['TL_LANG']['tl_photoalbums2_album']['published'] = array('Veröffentlic
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['start'] = array('Anzeigen ab', 'Das Album erst ab diesem Tag auf der Webseite anzeigen.');
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['stop'] = array('Anzeigen bis', 'Das Album nur bis zu diesem Tag auf der Webseite anzeigen.');
 
-
 /**
  * Reference
  */
@@ -48,7 +46,6 @@ $GLOBALS['TL_LANG']['tl_photoalbums2_album']['info_legend'] = 'Info';
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['protected_legend'] = 'Album schützen';
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['expert_legend'] = 'Experten-Einstellungen';
 $GLOBALS['TL_LANG']['tl_photoalbums2_album']['published_legend'] = 'Veröffentlichen';
-
 
 /**
  * Buttons

@@ -10,7 +10,6 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
 /**
  * Table tl_layout
  */
@@ -21,9 +20,9 @@ $GLOBALS['TL_DCA']['tl_layout']['palettes']['default'] = str_replace('skipTinymc
 // Define field
 $GLOBALS['TL_DCA']['tl_layout']['fields']['skipPhotoalbums2'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_layout']['skipPhotoalbums2'],
-	'default'                 => '',
-	'exclude'                 => true,
-	'inputType'               => 'checkbox',
-	'sql'                     => "char(1) NOT NULL default ''"
+    'label'                   => &$GLOBALS['TL_LANG']['tl_layout']['skipPhotoalbums2'],
+    'default'                 => '',
+    'exclude'                 => true,
+    'inputType'               => 'checkbox',
+    'sql'                     => "char(1) NOT NULL default ''"
 );

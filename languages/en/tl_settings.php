@@ -10,12 +10,10 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
 /**
  * Reference
  */
 $GLOBALS['TL_LANG']['tl_settings']['photoalbums2_legend'] = 'Image albums';
-
 
 /**
  * Fields

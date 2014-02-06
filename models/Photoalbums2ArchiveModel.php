@@ -10,12 +10,10 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
 /**
  * Namespace
  */
 namespace Photoalbums2;
-
 
 /**
  * Class Photoalbums2ArchiveModel
@@ -27,9 +25,9 @@ namespace Photoalbums2;
 class Photoalbums2ArchiveModel extends \Model
 {
 
-	/**
-	 * Name of the table
-	 * @var string
-	 */
-	protected static $strTable = 'tl_photoalbums2_archive';
+    /**
+     * Name of the table
+     * @var string
+     */
+    protected static $strTable = 'tl_photoalbums2_archive';
 }

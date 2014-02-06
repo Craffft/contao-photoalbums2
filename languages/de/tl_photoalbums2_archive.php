@@ -10,7 +10,6 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
 /**
  * Fields
  */
@@ -36,7 +35,6 @@ $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['alias'] = array('Feed-Alias', 'H
 $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['description'] = array('Feed-Beschreibung', 'Bitte geben Sie eine kurze Beschreibung des Fotoarchiv-Feeds ein.');
 $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['tstamp'] = array('Änderungsdatum', 'Datum und Uhrzeit der letzten Änderung');
 
-
 /**
  * Legends
  */
@@ -45,14 +43,12 @@ $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['comments_legend'] = 'Kommentare'
 $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['protected_legend'] = 'Zugriffsschutz';
 $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['feed_legend'] = 'RSS/Atom-Feed';
 
-
 /**
  * Reference
  */
 $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['notify_admin'] = 'Systemadministrator';
 $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['notify_author'] = 'Autor des Beitrags';
 $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['notify_both'] = 'Autor und Systemadministrator';
-
 
 /**
  * Buttons

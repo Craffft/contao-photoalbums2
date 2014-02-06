@@ -10,12 +10,10 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
 /**
  * Namespace
  */
 namespace Photoalbums2;
-
 
 /**
  * Class Pa2Empty
@@ -27,66 +25,61 @@ namespace Photoalbums2;
 class Pa2Empty extends \Controller
 {
 
-	/**
-	 * Template
-	 *
-	 * @var object
-	 * @access private
-	 */
-	private $Template;
+    /**
+     * Template
+     *
+     * @var object
+     * @access private
+     */
+    private $Template;
 
+    /**
+     * strMessage
+     *
+     * @var string
+     * @access private
+     */
+    private $strMessage;
 
-	/**
-	 * strMessage
-	 *
-	 * @var string
-	 * @access private
-	 */
-	private $strMessage;
+    /**
+     * arrItems
+     *
+     * @var array
+     * @access private
+     */
+    private $arrItems;
 
+    /**
+     * __construct function.
+     *
+     * @access public
+     * @param  string $strMessage
+     * @param  array  $arrItems
+     * @return void
+     */
+    public function __construct($strMessage, $arrItems)
+    {
+        $this->strMessage = $strMessage;
+        $this->arrItems = $arrItems;
+    }
 
-	/**
-	 * arrItems
-	 *
-	 * @var array
-	 * @access private
-	 */
-	private $arrItems;
+    /**
+     * run function.
+     *
+     * @access public
+     * @return object
+     */
+    public function run()
+    {
+        if (is_array($this->arrItems) && count($this->arrItems) > 0) {
+            return null;
+        }
 
+        // Send a 404 header
+        header('HTTP/1.1 404 Not Found');
+        $this->Template = new \FrontendTemplate('pa2_empty');
+        $this->Template->empty = $this->strMessage;
 
-	/**
-	 * __construct function.
-	 *
-	 * @access public
-	 * @param string $strMessage
-	 * @param array $arrItems
-	 * @return void
-	 */
-	public function __construct($strMessage, $arrItems)
-	{
-		$this->strMessage = $strMessage;
-		$this->arrItems = $arrItems;
-	}
-
-
-	/**
-	 * run function.
-	 *
-	 * @access public
-	 * @return object
-	 */
-	public function run()
-	{
-		if (is_array($this->arrItems) && count($this->arrItems) > 0)
-		{
-			return null;
-		}
-
-		// Send a 404 header
-		header('HTTP/1.1 404 Not Found');
-		$this->Template = new \FrontendTemplate('pa2_empty');
-		$this->Template->empty = $this->strMessage;
-
-		return $this->Template;
-	}
+        return $this->Template;
+    }
 }

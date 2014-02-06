@@ -10,7 +10,6 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
 /**
  * Fields
  */
@@ -54,7 +53,6 @@ $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilterStart']           = array('Zeitra
 $GLOBALS['TL_LANG']['tl_module']['pa2TimeFilterEnd']             = array('Zeitraum bis vor', 'Tragen Sie hier den Endwert des zu filternden Zeitraumes ein. Sollten Sie beispielsweise im ersten Feld 10 Tage und in diesem Feld 5 Tage eintragen, so werden die Alben im Zeitraum von vor 10 Tagen bis von vor 5 Tagen im Frontend angezeigt. Um das Ende des Zeitraumes auf heute zu legen, tragen Sie die Zahl "0" ein.');
 
 $GLOBALS['TL_LANG']['tl_module']['pa2Teaser']                    = array('Teaser', 'Hier können Sie einen Teaser definieren. Achten Sie darauf, dass der Teaser nur angezeigt wird, wenn Sie im oberen Teil des Formulars die Ausgabe aktiviert haben.');
-
 
 /**
  * Reference

@@ -11,7 +11,6 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
 /**
  * Fields
  */
@@ -37,7 +36,6 @@ $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['alias'] = array('Feed alias', 'H
 $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['description'] = array('Feed description', 'Please enter a short description of the image archive feed.');
 $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['tstamp'] = array('Revision date', 'Date and time of the latest revision');
 
-
 /**
  * Legends
  */
@@ -46,14 +44,12 @@ $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['comments_legend'] = 'Comments';
 $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['protected_legend'] = 'Access protection';
 $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['feed_legend'] = 'RSS/Atom feed';
 
-
 /**
  * Reference
  */
 $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['notify_admin'] = 'System administrator';
 $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['notify_author'] = 'Author of the news item';
 $GLOBALS['TL_LANG']['tl_photoalbums2_archive']['notify_both'] = 'Author and system administrator';
-
 
 /**
  * Buttons

@@ -11,7 +11,6 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
 /**
  * Fields
  */
@@ -37,7 +36,6 @@ $GLOBALS['TL_LANG']['tl_content']['pa2TimeFilterStart']           = array('Perio
 $GLOBALS['TL_LANG']['tl_content']['pa2TimeFilterEnd']             = array('Period up', 'Enter here the final value of the period to be filtered. For example, you should enter in the first field 10 days and in this field 5 days, the albums are displayed in the period before 10 days from 5 days before the front end. To add to the end of the period to today, enter the number "0".');
 
 $GLOBALS['TL_LANG']['tl_content']['pa2Teaser']                    = array('Teaser', 'Here you can define a teaser. Make sure that the teaser is displayed only if you selected in the upper part of the form the output.');
-
 
 /**
  * Reference

@@ -10,12 +10,10 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
 /**
  * Content elements
  */
 $GLOBALS['TL_LANG']['CTE']['photoalbums2']  = array('Fotoalbum', 'Erzeugt ein Fotoalbum.');
-
 
 /**
  * Miscellaneous
@@ -24,12 +22,10 @@ $GLOBALS['TL_LANG']['MSC']['albumsNotFound'] = 'Es sind keine Fotoalben vorhande
 $GLOBALS['TL_LANG']['MSC']['albumNotFound'] = 'Das Fotoalbum konnte nicht gefunden werden!';
 $GLOBALS['TL_LANG']['MSC']['imagesNotFound'] = 'Das Fotoalbum enthält keine Bilder!';
 
-
 /**
  * Pa2 miscellaneous
  */
 $GLOBALS['TL_LANG']['PA2']['goBack'] = 'Zurück';
-
 
 /**
  * Image sort types
@@ -43,14 +39,12 @@ $GLOBALS['TL_LANG']['PA2']['imageSortTypes']['date_desc'] = array('Datum (abstei
 $GLOBALS['TL_LANG']['PA2']['imageSortTypes']['random'] = array('Zufällige Ausgabe', 'Zufällige Ausgabe');
 $GLOBALS['TL_LANG']['PA2']['imageSortTypes']['custom'] = array('Eigene Sortierung', 'Eigene Sortierung');
 
-
 /**
  * Image preview types
  */
 $GLOBALS['TL_LANG']['PA2']['albumPreviewImageTypes']['no_preview_image'] = array('Kein Vorschau Foto', 'Kein Vorschau Foto');
 $GLOBALS['TL_LANG']['PA2']['albumPreviewImageTypes']['random_preview_image'] = array('Zufälliges Vorschau Foto', 'Zufälliges Vorschau Foto');
 $GLOBALS['TL_LANG']['PA2']['albumPreviewImageTypes']['select_preview_image'] = array('Vorschau Foto auswählen', 'Vorschau Foto auswählen');
-
 
 /**
  * Image preview types
@@ -60,14 +54,12 @@ $GLOBALS['TL_LANG']['PA2']['previewImageModuleTypes']['no_preview_images'] = arr
 $GLOBALS['TL_LANG']['PA2']['previewImageModuleTypes']['random_images'] = array('Zufällige Vorschau Fotos anzeigen', 'Zufällige Vorschau Fotos anzeigen');
 $GLOBALS['TL_LANG']['PA2']['previewImageModuleTypes']['random_images_at_no_preview_images'] = array('Zufällige Vorschau Fotos bei nicht definiertem Vorschau Foto verwenden', 'Zufällige Vorschau Fotos bei nicht definiertem Vorschau Foto verwenden');
 
-
 /**
  * Mode types
  */
 $GLOBALS['TL_LANG']['PA2']['moduleModeTypes']['pa2_on_one_page'] = array('Alben-Übersicht und Foto-Ansicht auf einer Seite anzeigen (Standard)', 'Stellt die Alben-Übersicht und die Foto-Ansicht auf der gleichen Seite dar.');
 $GLOBALS['TL_LANG']['PA2']['moduleModeTypes']['pa2_only_album_view'] = array('Nur Album-Ansicht mit Lightbox verwenden', 'Zeigt nur die Alben-Übersicht an. Bei einem Klick auf ein Album wird die Lightbox geöffnet und zeigt alle Fotos aus dem Fotoalbum an.');
 $GLOBALS['TL_LANG']['PA2']['moduleModeTypes']['pa2_with_detail_page'] = array('Alben-Übersicht und Foto-Ansicht auf unterschiedlichen Seiten anzeigen', 'Stellt die Alben-Übersicht und die Foto-Ansicht auf unterschiedlichen Seiten dar. Binden Sie dazu dieses Modul in beide Seiten ein.');
-
 
 /**
  * Album sort types
@@ -82,7 +74,6 @@ $GLOBALS['TL_LANG']['PA2']['albumSortTypes']['numberOfImages_asc'] = array('Bild
 $GLOBALS['TL_LANG']['PA2']['albumSortTypes']['numberOfImages_desc'] = array('Bilderanzahl (absteigend)', 'Bilderanzahl (absteigend)');
 $GLOBALS['TL_LANG']['PA2']['albumSortTypes']['random'] = array('Zufällige Ausgabe', 'Zufällige Ausgabe');
 $GLOBALS['TL_LANG']['PA2']['albumSortTypes']['custom'] = array('Eigene Sortierung', 'Eigene Sortierung');
-
 
 /**
  * Meta fields
@@ -100,7 +91,6 @@ $GLOBALS['TL_LANG']['PA2']['pa2MetaFieldDescription']['photographer'] = 'Fotogra
 $GLOBALS['TL_LANG']['PA2']['pa2MetaFieldDescription']['description'] = 'Beschreibung: %s';
 $GLOBALS['TL_LANG']['PA2']['pa2MetaFieldDescription']['numberOfAllImages'] = array('Anzahl: %s Foto', 'Anzahl: %s Fotos');
 $GLOBALS['TL_LANG']['PA2']['pa2MetaFieldWithoutDescription']['numberOfAllImages'] = array('%s Foto', '%s Fotos');
-
 
 /**
  * Time filter

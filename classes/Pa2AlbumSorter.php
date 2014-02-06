@@ -10,12 +10,10 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
 /**
  * Namespace
  */
 namespace Photoalbums2;
-
 
 /**
  * Class Pa2AlbumSorter
@@ -27,186 +25,165 @@ namespace Photoalbums2;
 class Pa2AlbumSorter extends \Controller
 {
 
-	/**
-	 * __construct function.
-	 *
-	 * @access public
-	 * @param string $strSortKey
-	 * @param array $arrIds
-	 * @param array $arrCustomIds
-	 * @return void
-	 */
-	public function __construct($strSortKey, $arrIds, $arrCustomIds)
-	{
-		if ($strSortKey == '')
-		{
-			return false;
-		}
+    /**
+     * __construct function.
+     *
+     * @access public
+     * @param  string $strSortKey
+     * @param  array  $arrIds
+     * @param  array  $arrCustomIds
+     * @return void
+     */
+    public function __construct($strSortKey, $arrIds, $arrCustomIds)
+    {
+        if ($strSortKey == '') {
+            return false;
+        }
 
-		if (!is_array($arrIds))
-		{
-			return false;
-		}
+        if (!is_array($arrIds)) {
+            return false;
+        }
 
-		if (!is_array($arrCustomIds))
-		{
-			$arrCustomIds = $arrIds;
-		}
+        if (!is_array($arrCustomIds)) {
+            $arrCustomIds = $arrIds;
+        }
 
-		// Set vars
-		$this->strSortKey = $strSortKey;
-		$this->arrIds = $arrIds;
-		$this->arrCustomIds = $arrCustomIds;
-	}
+        // Set vars
+        $this->strSortKey = $strSortKey;
+        $this->arrIds = $arrIds;
+        $this->arrCustomIds = $arrCustomIds;
+    }
 
+    /**
+     * getSortedIds function.
+     *
+     * @access public
+     * @return array
+     */
+    public function getSortedIds()
+    {
+        $strSortKey = $this->strSortKey;
+        $strSortDirection = 'ASC';
 
-	/**
-	 * getSortedIds function.
-	 *
-	 * @access public
-	 * @return array
-	 */
-	public function getSortedIds()
-	{
-		$strSortKey = $this->strSortKey;
-		$strSortDirection = 'ASC';
+        if (preg_match('#^([^_]*)_([a-zA-Z]{3,4})$#', $this->strSortKey, $arrMatches)) {
+            $strSortKey = $arrMatches[1];
+            $strSortDirection = $arrMatches[2];
+        }
 
-		if (preg_match('#^([^_]*)_([a-zA-Z]{3,4})$#', $this->strSortKey, $arrMatches))
-		{
-			$strSortKey = $arrMatches[1];
-			$strSortDirection = $arrMatches[2];
-		}
+        $this->sortBy($strSortKey, $strSortDirection);
 
-		$this->sortBy($strSortKey, $strSortDirection);
+        return $this->arrIds;
+    }
 
-		return $this->arrIds;
-	}
+    /**
+     * sortBy function.
+     *
+     * @access protected
+     * @param  string $strSortKey
+     * @param  string $strSortDirection (default: 'ASC')
+     * @return bool
+     */
+    protected function sortBy($strSortKey, $strSortDirection = 'ASC')
+    {
+        if (!is_array($this->arrIds) || count($this->arrIds) < 1) {
+            return false;
+        }
 
+        // Lower and uppercase for attributes
+        $strSortKey = strtolower($strSortKey);
+        $strSortDirection = strtoupper($strSortDirection);
 
-	/**
-	 * sortBy function.
-	 *
-	 * @access protected
-	 * @param string $strSortKey
-	 * @param string $strSortDirection (default: 'ASC')
-	 * @return bool
-	 */
-	protected function sortBy($strSortKey, $strSortDirection = 'ASC')
-	{
-		if(!is_array($this->arrIds) || count($this->arrIds) < 1)
-		{
-			return false;
-		}
+        /**
+         * SET SORT FIELDS HERE
+         *
+         * title
+         * startdate
+         * enddate
+         * random
+         * custom
+         */
+        if ($strSortKey == 'custom') {
+            $arrIds = array();
+            $arrIds = $this->arrCustomIds;
 
-		// Lower and uppercase for attributes
-		$strSortKey = strtolower($strSortKey);
-		$strSortDirection = strtoupper($strSortDirection);
+            // Remove all unnecessary ids which are not present in the variable arrIds
+            $arrIds = array_intersect($arrIds, $this->arrIds);
 
+            // Merge both arrays
+            $arrIds = array_merge($arrIds, $this->arrIds);
 
-		/**
-		 * SET SORT FIELDS HERE
-		 *
-		 * title
-		 * startdate
-		 * enddate
-		 * random
-		 * custom
-		 */
-		if($strSortKey == 'custom')
-		{
-			$arrIds = array();
-			$arrIds = $this->arrCustomIds;
+            // Remove all duplicate ids which are present more than once
+            $arrIds = array_unique($arrIds);
 
-			// Remove all unnecessary ids which are not present in the variable arrIds
-			$arrIds = array_intersect($arrIds, $this->arrIds);
+            // Set new arrIds
+            $this->arrIds = $arrIds;
+        } elseif ($strSortKey == 'random') {
+            shuffle($this->arrIds);
+        } else {
+            $arrSort = array();
 
-			// Merge both arrays
-			$arrIds = array_merge($arrIds, $this->arrIds);
+            foreach ($this->arrIds as $intId) {
+                $objPa2AlbumModel = \Photoalbums2\Photoalbums2AlbumModel::findByPk($intId);
 
-			// Remove all duplicate ids which are present more than once
-			$arrIds = array_unique($arrIds);
+                switch ($strSortKey) {
+                    case 'title':
+                        $sortType = SORT_STRING;
+                        $title = '';
 
-			// Set new arrIds
-			$this->arrIds = $arrIds;
-		}
-		else if($strSortKey == 'random')
-		{
-			shuffle($this->arrIds);
-		}
-		else
-		{
-			$arrSort = array();
+                        if ($objPa2AlbumModel->title != '') {
+                            $title = $objPa2AlbumModel->title;
+                        }
 
-			foreach($this->arrIds as $intId)
-			{
-				$objPa2AlbumModel = \Photoalbums2\Photoalbums2AlbumModel::findByPk($intId);
+                        $arrSort[$objPa2AlbumModel->id] = $title;
+                    break;
 
-				switch($strSortKey)
-				{
-					case 'title':
-						$sortType = SORT_STRING;
-						$title = '';
+                    case 'startdate':
+                        $sortType = SORT_NUMERIC;
+                        $title = '';
 
-						if($objPa2AlbumModel->title != '')
-						{
-							$title = $objPa2AlbumModel->title;
-						}
+                        if ($objPa2AlbumModel->startdate != '') {
+                            $startdate = $objPa2AlbumModel->startdate;
+                        }
 
-						$arrSort[$objPa2AlbumModel->id] = $title;
-					break;
+                        $arrSort[$objPa2AlbumModel->id] = $startdate;
+                    break;
 
-					case 'startdate':
-						$sortType = SORT_NUMERIC;
-						$title = '';
+                    case 'enddate':
+                        $sortType = SORT_NUMERIC;
+                        $title = '';
 
-						if($objPa2AlbumModel->startdate != '')
-						{
-							$startdate = $objPa2AlbumModel->startdate;
-						}
+                        if ($objPa2AlbumModel->enddate != '') {
+                            $enddate = $objPa2AlbumModel->enddate;
+                        }
 
-						$arrSort[$objPa2AlbumModel->id] = $startdate;
-					break;
+                        $arrSort[$objPa2AlbumModel->id] = $enddate;
+                    break;
 
-					case 'enddate':
-						$sortType = SORT_NUMERIC;
-						$title = '';
+                    case 'numberofimages':
+                        $sortType = SORT_NUMERIC;
+                        $numberofimages = '';
 
-						if($objPa2AlbumModel->enddate != '')
-						{
-							$enddate = $objPa2AlbumModel->enddate;
-						}
+                        if ($objPa2AlbumModel->images != '') {
+                            $objPa2AlbumModel->images = deserialize($objPa2AlbumModel->images);
 
-						$arrSort[$objPa2AlbumModel->id] = $enddate;
-					break;
+                            if (is_array($objPa2AlbumModel->images)) {
+                                $numberofimages = count($objPa2AlbumModel->images);
+                            }
+                        }
 
-					case 'numberofimages':
-						$sortType = SORT_NUMERIC;
-						$numberofimages = '';
+                        $arrSort[$objPa2AlbumModel->id] = $numberofimages;
+                    break;
+                }
+            }
 
-						if($objPa2AlbumModel->images != '')
-						{
-							$objPa2AlbumModel->images = deserialize($objPa2AlbumModel->images);
+            asort($arrSort, $sortType);
+            $this->arrIds = array_keys($arrSort);
+        }
 
-							if(is_array($objPa2AlbumModel->images))
-							{
-								$numberofimages = count($objPa2AlbumModel->images);
-							}
-						}
+        if ($strSortDirection == 'DESC') {
+            $this->arrIds = array_reverse($this->arrIds);
+        }
 
-						$arrSort[$objPa2AlbumModel->id] = $numberofimages;
-					break;
-				}
-			}
-
-			asort($arrSort, $sortType);
-			$this->arrIds = array_keys($arrSort);
-		}
-
-		if($strSortDirection == 'DESC')
-		{
-			$this->arrIds = array_reverse($this->arrIds);
-		}
-
-		return true;
-	}
+        return true;
+    }
 }

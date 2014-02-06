@@ -10,12 +10,10 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
 /**
  * Back end modules
  */
 $GLOBALS['TL_LANG']['MOD']['photoalbums2'] = array('Fotoalben', 'Mit diesem Modul können Fotoalben erstellt werden und über ein Frontend Modul auf der Webseite ausgegeben werden.');
-
 
 /**
  * Front end modules
