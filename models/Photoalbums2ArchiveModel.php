@@ -1,14 +1,13 @@
 <?php
 
 /**
- * Contao Open Source CMS
+ * Extension for Contao Open Source CMS
  *
- * Copyright (C) 2005-2014 Leo Feyer
+ * Copyright (c) 2012-2014 Daniel Kiesel
  *
- * @package    photoalbums2
- * @author     Daniel Kiesel <https://github.com/icodr8>
- * @license    LGPL
- * @copyright  Daniel Kiesel 2012-2014
+ * @package Photoalbums2
+ * @link    https://github.com/icodr8/contao-photoalbums
+ * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
 
