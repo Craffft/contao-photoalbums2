@@ -1,0 +1,38 @@
+{
+    "name": "icodr8/contao-photoalbums2",
+    "description": "Photoalbums2 for Contao OpenSource CMS",
+    "keywords": ["gallery", "album", "images", "photos", "pictures"],
+    "type": "contao-module",
+    "homepage": "http://daniel-kiesel.de",
+    "license": "LGPL-3.0+",
+    "authors": [
+        {
+            "name": "Daniel Kiesel",
+            "email": "icodr8@gmail.com",
+            "homepage": "http://daniel-kiesel.de",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/iCodr8/contao-photoalbums2/issues",
+        "source": "https://github.com/iCodr8/contao-photoalbums2"
+    },
+    "require": {
+        "php": ">=5.3.2",
+        "contao/core": ">=3.2,<3.3-dev",
+        "contao-community-alliance/composer-installer": "*"
+    },
+    "autoload": {
+        "classmap": ["system/"]
+    },
+    "replace": {
+        "contao-legacy/photoalbums2": "*"
+    },
+    "extra": {
+        "contao": {
+            "sources": {
+                "system/modules/photoalbums2": "system/modules/photoalbums2"
+            }
+        }
+    }
+}
