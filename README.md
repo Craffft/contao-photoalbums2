@@ -8,7 +8,7 @@ Dependencies
 
 - imagesortwizard (https://github.com/iCodr8/contao-imagesortwizard)
 - sortwizard (https://github.com/iCodr8/contao-sortwizard)
-- translation_fields (https://github.com/iCodr8/contao-translation_fields)
+- translation-fields (https://github.com/iCodr8/contao-translation-fields)
 
 License
 -------
