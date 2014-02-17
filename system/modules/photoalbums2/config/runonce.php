@@ -22,7 +22,7 @@ namespace Photoalbums2;
  * @author     Daniel Kiesel <https://github.com/icodr8>
  * @package    photoalbums2
  */
-class runonce extends \System
+class Photoalbums2Runonce extends \System
 {
 
     /**
