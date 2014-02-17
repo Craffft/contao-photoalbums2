@@ -22,7 +22,7 @@ namespace Photoalbums2;
  * @author     Daniel Kiesel <https://github.com/icodr8>
  * @package    photoalbums2
  */
-class _runonce extends \System
+class Photoalbums2Runonce extends \System
 {
 
     /**
@@ -38,11 +38,11 @@ class _runonce extends \System
         // Disable debug mode
         $GLOBALS['TL_CONFIG']['debugMode'] = false;
 
-        // Load required translation_fields classes
+        // Load required translation-fields classes
         \ClassLoader::addNamespace('TranslationFields');
-        \ClassLoader::addClass('TranslationFields\Updater', 'system/modules/translation_fields/classes/Updater.php');
-        \ClassLoader::addClass('TranslationFields\TranslationFieldsWidgetHelper', 'system/modules/translation_fields/classes/TranslationFieldsWidgetHelper.php');
-        \ClassLoader::addClass('TranslationFields\TranslationFieldsModel', 'system/modules/translation_fields/models/TranslationFieldsModel.php');
+        \ClassLoader::addClass('TranslationFields\Updater', 'system/modules/translation-fields/classes/Updater.php');
+        \ClassLoader::addClass('TranslationFields\TranslationFieldsWidgetHelper', 'system/modules/translation-fields/classes/TranslationFieldsWidgetHelper.php');
+        \ClassLoader::addClass('TranslationFields\TranslationFieldsModel', 'system/modules/translation-fields/models/TranslationFieldsModel.php');
         \ClassLoader::register();
 
         // Import

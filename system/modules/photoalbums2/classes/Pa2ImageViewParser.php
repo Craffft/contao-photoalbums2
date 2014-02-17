@@ -298,7 +298,7 @@ class Pa2ImageViewParser extends \Pa2ViewParser
      */
     protected function generateBacklink()
     {
-        if (TL_MODE != 'FE') {
+        if (TL_MODE != 'FE' || $this->Template->pa2type == 'CE') {
             return;
         }
 
