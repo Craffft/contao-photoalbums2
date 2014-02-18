@@ -84,28 +84,27 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
             'copy' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['copy'],
-                'href'                => 'act=copy',
+                'href'                => 'act=paste&amp;mode=copy',
                 'icon'                => 'copy.gif'
             ),
             'cut' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['cut'],
                 'href'                => 'act=paste&amp;mode=cut',
-                'icon'                => 'cut.gif',
-                'attributes'          => 'onclick="Backend.getScrollOffset()"'
+                'icon'                => 'cut.gif'
             ),
             'delete' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['delete'],
                 'href'                => 'act=delete',
                 'icon'                => 'delete.gif',
-                'attributes'          => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
+                'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset();"'
             ),
             'toggle' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['toggle'],
                 'icon'                => 'visible.gif',
-                'attributes'          => 'onclick="Backend.getScrollOffset(); return AjaxRequest.toggleVisibility(this, %s);"',
+                'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this, %s);"',
                 'button_callback'     => array('tl_photoalbums2_album', 'toggleIcon')
             ),
             'show' => array
@@ -141,7 +140,9 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
         ),
         'pid' => array
         (
-            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+            'foreignKey'              => 'tl_photoalbums2_archive.title',
+            'sql'                     => "int(10) unsigned NOT NULL default '0'",
+            'relation'                => array('type'=>'belongsTo', 'load'=>'eager')
         ),
         'sorting' => array
         (

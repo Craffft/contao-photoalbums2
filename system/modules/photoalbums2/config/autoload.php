@@ -48,7 +48,6 @@ ClassLoader::addClasses(array
     // Models
     'Photoalbums2\Photoalbums2AlbumModel'   => 'system/modules/photoalbums2/models/Photoalbums2AlbumModel.php',
     'Photoalbums2\Photoalbums2ArchiveModel' => 'system/modules/photoalbums2/models/Photoalbums2ArchiveModel.php',
-    'Photoalbums2\UserGroupModel'           => 'system/modules/photoalbums2/models/UserGroupModel.php',
 
     // Modules
     'Photoalbums2\ModulePhotoalbums2'       => 'system/modules/photoalbums2/modules/ModulePhotoalbums2.php',
