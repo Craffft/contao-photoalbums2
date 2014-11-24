@@ -473,7 +473,7 @@ class tl_module_photoalbums2 extends Pa2Backend
      */
     public function getPhotoalbums2Archives()
     {
-        if (!$this->User->isAdmin && !is_array($this->User->photoalbums2_archive)) {
+        if (!$this->User->isAdmin && !is_array($this->User->photoalbums2s)) {
             return array();
         }
 
@@ -482,7 +482,7 @@ class tl_module_photoalbums2 extends Pa2Backend
 
         if ($objArchives !== null) {
             while ($objArchives->next()) {
-                if ($this->User->isAdmin || $this->User->hasAccess($objArchives->id, 'photoalbums2_archive')) {
+                if ($this->User->isAdmin || $this->User->hasAccess($objArchives->id, 'photoalbums2s')) {
                     $arrArchives[$objArchives->id] = $objArchives->title;
                 }
             }
