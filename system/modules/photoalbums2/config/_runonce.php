@@ -226,11 +226,38 @@ class Photoalbums2Runonce extends \System
         \TranslationFields\Updater::convertTranslationField('tl_module', 'pa2Teaser');
 
         /**
+         * Fix imageSort bug to add UUID support
+         */
+        $this->fixImageSortBug();
+
+        /**
          * Add UUIDs support
          */
         \Database\Updater::convertMultiField('tl_photoalbums2_album', 'images');
         \Database\Updater::convertMultiField('tl_photoalbums2_album', 'imageSort');
         \Database\Updater::convertSingleField('tl_photoalbums2_album', 'previewImage');
+    }
+
+    /**
+     * Fix imageSort bug to add UUID support
+     */
+    protected function fixImageSortBug()
+    {
+        $objModel = $this->Database->prepare("SELECT id, imageSort FROM tl_photoalbums2_album")->execute();
+
+        while ($objModel->next()) {
+            $arrItem = deserialize($objModel->imageSort);
+
+            if (is_array($arrItem)) {
+                foreach ($arrItem as $k => $v) {
+                    if (\Validator::isStringUuid($v)) {
+                        $arrItem[$k] = \String::uuidToBin($v);
+                    }
+                }
+            }
+
+            $this->Database->prepare("UPDATE tl_photoalbums2_album %s WHERE id=?")->set(array('imageSort' => serialize($arrItem)))->execute($objModel->id);
+        }
     }
 }
 
