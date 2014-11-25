@@ -35,6 +35,7 @@ ClassLoader::addClasses(array
     'Photoalbums2\Pa2PreviewImage'          => 'system/modules/photoalbums2/classes/Pa2PreviewImage.php',
     'Photoalbums2\Pa2TimeFilter'            => 'system/modules/photoalbums2/classes/Pa2TimeFilter.php',
     'Photoalbums2\Pa2ViewParser'            => 'system/modules/photoalbums2/classes/Pa2ViewParser.php',
+    'Photoalbums2\Updater'                  => 'system/modules/photoalbums2/classes/Updater.php',
 
     // Elements
     'Photoalbums2\ContentPhotoalbums2'      => 'system/modules/photoalbums2/elements/ContentPhotoalbums2.php',
