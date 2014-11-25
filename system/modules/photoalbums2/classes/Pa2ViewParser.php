@@ -24,7 +24,6 @@ namespace Photoalbums2;
  */
 abstract class Pa2ViewParser extends \Frontend
 {
-
     /**
      * Template
      *
@@ -151,7 +150,7 @@ abstract class Pa2ViewParser extends \Frontend
 
         // Adjust the comments headline level
         $intHl = min(intval(str_replace('h', '', $this->hl)), 5);
-        $this->Template->hlc = 'h' . ($intHl + 1);
+        $this->Template->hlc = 'h'.($intHl + 1);
 
         $this->import('Comments');
         $arrNotifies = array();
@@ -180,7 +179,8 @@ abstract class Pa2ViewParser extends \Frontend
         $objConfig->bbcode = $objArchive->bbcode;
         $objConfig->moderate = $objArchive->moderate;
 
-        $this->Comments->addCommentsToTemplate($this->Template, $objConfig, 'tl_photoalbums2_album', $objAlbum->id, $arrNotifies);
+        $this->Comments->addCommentsToTemplate($this->Template, $objConfig, 'tl_photoalbums2_album', $objAlbum->id,
+            $arrNotifies);
     }
 
     /**
@@ -204,13 +204,14 @@ abstract class Pa2ViewParser extends \Frontend
         // Fixes the date format problem
         $dateFormat = ($objPage->dateFormat != '' ? $objPage->dateFormat : $GLOBALS['TL_CONFIG']['dateFormat']);
 
-        $startdate = (!empty($intStartdate) && $intStartdate > 0) ? $this->parseDate($dateFormat, $intStartdate) : false;
+        $startdate = (!empty($intStartdate) && $intStartdate > 0) ? $this->parseDate($dateFormat,
+            $intStartdate) : false;
         $enddate = (!empty($intEnddate) && $intEnddate > 0) ? $this->parseDate($dateFormat, $intEnddate) : false;
 
         if ($startdate == $enddate) {
             $objTemplate->date = $startdate;
         } else {
-            $objTemplate->date = $startdate . ' - ' . $enddate;
+            $objTemplate->date = $startdate.' - '.$enddate;
         }
 
         return $objTemplate;
@@ -232,7 +233,7 @@ abstract class Pa2ViewParser extends \Frontend
 
                 foreach ($objTemplate->arrMetaFields as $metaField) {
                     if ($objTemplate->$metaField != '') {
-                        $strMetaFieldDescription        = $GLOBALS['TL_LANG']['PA2']['pa2MetaFieldDescription'][$metaField];
+                        $strMetaFieldDescription = $GLOBALS['TL_LANG']['PA2']['pa2MetaFieldDescription'][$metaField];
                         $strMetaFieldWithoutDescription = $GLOBALS['TL_LANG']['PA2']['pa2MetaFieldWithoutDescription'][$metaField];
 
                         // Set strValue
@@ -260,10 +261,9 @@ abstract class Pa2ViewParser extends \Frontend
                         // Add meta data to strValue
                         $strValue = sprintf($strValue, $objTemplate->$metaField);
 
-                        $metaFields[] = array
-                        (
-                            'key'      => $metaField,
-                            'value'    => $strValue
+                        $metaFields[] = array(
+                            'key'   => $metaField,
+                            'value' => $strValue,
                         );
                     }
                 }
@@ -293,22 +293,22 @@ abstract class Pa2ViewParser extends \Frontend
         }
 
         // Define vars
-        $arrClasses            = array();
-        $arrStyles             = array();
-        $totalItems            = $objTemplate->totalItems;
-        $intItemsPerRow        = $objTemplate->intItemsPerRow;
-        $intItemsPerPage       = $objTemplate->intItemsPerPage;
+        $arrClasses = array();
+        $arrStyles = array();
+        $totalItems = $objTemplate->totalItems;
+        $intItemsPerRow = $objTemplate->intItemsPerRow;
+        $intItemsPerPage = $objTemplate->intItemsPerPage;
         $objTemplate->rowStart = false;
-        $objTemplate->rowEnd   = false;
+        $objTemplate->rowEnd = false;
 
         // Fix division by zero problem
         $intItemsPerPage = ($intItemsPerPage < 1) ? $totalItems : $intItemsPerPage;
 
-        $intItemNumberInRow    = ($i % $intItemsPerRow);
-        $intItemNumberPerPage  = ($i % $intItemsPerPage);
+        $intItemNumberInRow = ($i % $intItemsPerRow);
+        $intItemNumberPerPage = ($i % $intItemsPerPage);
 
         // Set maxPage
-        $intMaxPage = (int) ceil($totalItems/$intItemsPerPage);
+        $intMaxPage = (int) ceil($totalItems / $intItemsPerPage);
 
         // Set page
         $intPage = $this->Input->get('page');
@@ -319,7 +319,7 @@ abstract class Pa2ViewParser extends \Frontend
         $itemNumber = $i + 1 + (($intPage - 1) * $intItemsPerPage);
 
         // Set firstItemInPageNumber
-        $intFirstItemInPageNumber = (($intPage-1) * $intItemsPerPage) + 1;
+        $intFirstItemInPageNumber = (($intPage - 1) * $intItemsPerPage) + 1;
         $intFirstItemInPageNumber = ($totalItems > $intFirstItemInPageNumber) ? $intFirstItemInPageNumber : $totalItems;
 
         // Set lastItemInPageNumber
@@ -327,7 +327,7 @@ abstract class Pa2ViewParser extends \Frontend
         $intLastItemInPageNumber = ($totalItems > $intLastItemInPageNumber) ? $intLastItemInPageNumber : $totalItems;
 
         // Add width to styles
-        $arrStyles[] = 'width: ' . (100 / $intItemsPerRow) . '%;';
+        $arrStyles[] = 'width: '.(100 / $intItemsPerRow).'%;';
 
         // Add image propotion types to classes
         if (file_exists($objTemplate->href)) {
@@ -349,21 +349,29 @@ abstract class Pa2ViewParser extends \Frontend
         }
 
         // Set row end
-        if (($intItemNumberInRow + 1) == $intItemsPerRow || ($intItemNumberPerPage + 1) == $intItemsPerPage || $totalItems == ($i+1) || $itemNumber == $totalItems) {
+        if (($intItemNumberInRow + 1) == $intItemsPerRow || ($intItemNumberPerPage + 1) == $intItemsPerPage || $totalItems == ($i + 1) || $itemNumber == $totalItems) {
             $arrClasses[] = 'last';
             $objTemplate->rowEnd = true;
         }
 
         // Add first of page and last of page to classes
-        if ($itemNumber == $intFirstItemInPageNumber) $arrClasses[] = 'first_page';
-        if ($itemNumber == $intLastItemInPageNumber)  $arrClasses[] = 'last_page';
+        if ($itemNumber == $intFirstItemInPageNumber) {
+            $arrClasses[] = 'first_page';
+        }
+        if ($itemNumber == $intLastItemInPageNumber) {
+            $arrClasses[] = 'last_page';
+        }
 
         // Add first of all and last of all to classes
-        if ($itemNumber == '1')         $arrClasses[] = 'first_all';
-        if ($itemNumber == $totalItems) $arrClasses[] = 'last_all';
+        if ($itemNumber == '1') {
+            $arrClasses[] = 'first_all';
+        }
+        if ($itemNumber == $totalItems) {
+            $arrClasses[] = 'last_all';
+        }
 
         // Add item number to classes
-        $arrClasses[] = 'itemNumber_' . $itemNumber;
+        $arrClasses[] = 'itemNumber_'.$itemNumber;
 
         // Set even and odd in items
         $arrClasses[] = ((($i % 2) == 0) ? 'even' : 'odd');
@@ -380,10 +388,11 @@ abstract class Pa2ViewParser extends \Frontend
         }
 
         // Add all classes to template
-        $objTemplate->class = (($objTemplate->class == '') ? '' : $objTemplate->class . ' ') . implode(' ', $arrClasses);
+        $objTemplate->class = (($objTemplate->class == '') ? '' : $objTemplate->class.' ').implode(' ',
+                $arrClasses);
 
         // Add all styles to template
-        $objTemplate->style = (($objTemplate->style == '') ? '' : $objTemplate->style . ' ') . implode(' ', $arrStyles);
+        $objTemplate->style = (($objTemplate->style == '') ? '' : $objTemplate->style.' ').implode(' ', $arrStyles);
 
         // Add vars to template
         $objTemplate->itemNumber = $itemNumber;
@@ -422,8 +431,8 @@ abstract class Pa2ViewParser extends \Frontend
 
         // Add array
         $arrLink = array(
-            'id' => $objPage->id,
-            'alias' => $objPage->alias
+            'id'    => $objPage->id,
+            'alias' => $objPage->alias,
         );
 
         if (!empty($objTemplate->intDetailPage) && is_numeric($objTemplate->intDetailPage)) {
@@ -434,7 +443,9 @@ abstract class Pa2ViewParser extends \Frontend
             $arrLink['language'] = $objDetailPage->language;
         }
 
-        $objTemplate->href = $this->generateFrontendUrl($arrLink, sprintf(($GLOBALS['TL_CONFIG']['useAutoItem'] ?  '/%s' : '/album/%s'), $objAlbum->alias), $objDetailPage->language);
+        $objTemplate->href = $this->generateFrontendUrl($arrLink,
+            sprintf(($GLOBALS['TL_CONFIG']['useAutoItem'] ? '/%s' : '/album/%s'), $objAlbum->alias),
+            $objDetailPage->language);
 
         return $objTemplate;
     }
@@ -457,10 +468,12 @@ abstract class Pa2ViewParser extends \Frontend
         $GLOBALS['pa2']['individualId']['count']++;
 
         // New id
-        $individualId = substr(md5('pa2_' . $GLOBALS['pa2']['individualId']['count']), 1, 12);
+        $individualId = substr(md5('pa2_'.$GLOBALS['pa2']['individualId']['count']), 1, 12);
 
         // If new id already in id list exists
-        if (is_array($GLOBALS['pa2']['individualId']['id']) && in_array($individualId, $GLOBALS['pa2']['individualId']['id'])) {
+        if (is_array($GLOBALS['pa2']['individualId']['id']) && in_array($individualId,
+                $GLOBALS['pa2']['individualId']['id'])
+        ) {
             return $this->generateIndividualId();
         }
 
@@ -489,10 +502,11 @@ abstract class Pa2ViewParser extends \Frontend
         // If there is a meta title in the current language, then use this meta data
         if ($objImage->meta[$GLOBALS['TL_LANGUAGE']] != '') {
             $strAlt = $objImage->meta[$GLOBALS['TL_LANGUAGE']]['title'];
-        }
-        // Else if there is a meta title in english, use this meta data
-        else if ($objImage->meta['en'] != '') {
-            $strAlt = $objImage->meta['en']['title'];
+        } // Else if there is a meta title in english, use this meta data
+        else {
+            if ($objImage->meta['en'] != '') {
+                $strAlt = $objImage->meta['en']['title'];
+            }
         }
 
         return $strAlt;

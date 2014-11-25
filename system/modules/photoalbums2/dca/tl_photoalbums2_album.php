@@ -13,168 +13,138 @@
 /**
  * Table tl_photoalbums2_album
  */
-$GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
-(
+$GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array(
 
     // Config
-    'config' => array
-    (
+    'config' => array(
         'dataContainer'     => 'Table',
         'enableVersioning'  => true,
         'ptable'            => 'tl_photoalbums2_archive',
-        'onload_callback'   => array
-        (
+        'onload_callback'   => array(
             array('tl_photoalbums2_album', 'checkPermission'),
             array('tl_photoalbums2_album', 'generateFeed'),
-            array('tl_photoalbums2_album', 'generatePalette')
+            array('tl_photoalbums2_album', 'generatePalette'),
         ),
-        'oncut_callback'    => array
-        (
-            array('tl_photoalbums2_album', 'scheduleUpdate')
+        'oncut_callback'    => array(
+            array('tl_photoalbums2_album', 'scheduleUpdate'),
         ),
-        'ondelete_callback' => array
-        (
-            array('tl_photoalbums2_album', 'scheduleUpdate')
+        'ondelete_callback' => array(
+            array('tl_photoalbums2_album', 'scheduleUpdate'),
         ),
-        'onsubmit_callback' => array
-        (
+        'onsubmit_callback' => array(
             array('tl_photoalbums2_album', 'adjustTime'),
-            array('tl_photoalbums2_album', 'scheduleUpdate')
+            array('tl_photoalbums2_album', 'scheduleUpdate'),
         ),
-        'sql' => array
-        (
-            'keys' => array
-            (
+        'sql' => array(
+            'keys' => array(
                 'id' => 'primary',
                 'pid' => 'index',
-                'alias' => 'index'
-            )
-        )
+                'alias' => 'index',
+            ),
+        ),
     ),
 
     // List
-    'list' => array
-    (
-        'sorting' => array
-        (
+    'list' => array(
+        'sorting' => array(
             'mode'                    => 4,
             'fields'                  => array('sorting'),
             'headerFields'            => array('title', 'tstamp', 'protected', 'allowComments', 'makeFeed'),
             'panelLayout'             => 'search,limit',
-            'child_record_callback'   => array('tl_photoalbums2_album', 'listAlbums')
+            'child_record_callback'   => array('tl_photoalbums2_album', 'listAlbums'),
         ),
-        'global_operations' => array
-        (
-            'all' => array
-            (
+        'global_operations' => array(
+            'all' => array(
                 'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],
                 'href'                => 'act=select',
                 'class'               => 'header_edit_all',
-                'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"'
-            )
+                'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"',
+            ),
         ),
-        'operations' => array
-        (
-            'edit' => array
-            (
+        'operations' => array(
+            'edit' => array(
                 'label'               => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['edit'],
                 'href'                => 'act=edit',
-                'icon'                => 'edit.gif'
+                'icon'                => 'edit.gif',
             ),
-            'copy' => array
-            (
+            'copy' => array(
                 'label'               => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['copy'],
                 'href'                => 'act=paste&amp;mode=copy',
-                'icon'                => 'copy.gif'
+                'icon'                => 'copy.gif',
             ),
-            'cut' => array
-            (
+            'cut' => array(
                 'label'               => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['cut'],
                 'href'                => 'act=paste&amp;mode=cut',
-                'icon'                => 'cut.gif'
+                'icon'                => 'cut.gif',
             ),
-            'delete' => array
-            (
+            'delete' => array(
                 'label'               => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['delete'],
                 'href'                => 'act=delete',
                 'icon'                => 'delete.gif',
-                'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset();"'
+                'attributes'          => 'onclick="if(!confirm(\''.$GLOBALS['TL_LANG']['MSC']['deleteConfirm'].'\'))return false;Backend.getScrollOffset();"',
             ),
-            'toggle' => array
-            (
+            'toggle' => array(
                 'label'               => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['toggle'],
                 'icon'                => 'visible.gif',
                 'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this, %s);"',
-                'button_callback'     => array('tl_photoalbums2_album', 'toggleIcon')
+                'button_callback'     => array('tl_photoalbums2_album', 'toggleIcon'),
             ),
-            'show' => array
-            (
+            'show' => array(
                 'label'               => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['show'],
                 'href'                => 'act=show',
-                'icon'                => 'show.gif'
-            )
-        )
+                'icon'                => 'show.gif',
+            ),
+        ),
     ),
 
     // Palettes
-    'palettes' => array
-    (
+    'palettes' => array(
         '__selector__'                => array('imageSortType', 'previewImageType', 'protected'),
-        'default'                     => '{title_legend},title,alias,author;{date_legend},startdate,enddate;{images_legend},images,imageSortType,imageSort,previewImageType,previewImage;{info_legend},event,place,photographer,description;{protected_legend},protected;{expert_legend:hide},cssClass,noComments;{published_legend},published,start,stop'
+        'default'                     => '{title_legend},title,alias,author;{date_legend},startdate,enddate;{images_legend},images,imageSortType,imageSort,previewImageType,previewImage;{info_legend},event,place,photographer,description;{protected_legend},protected;{expert_legend:hide},cssClass,noComments;{published_legend},published,start,stop',
     ),
 
     // Subpalettes
-    'subpalettes' => array
-    (
+    'subpalettes' => array(
         'protected'                   => 'users,groups',
     ),
 
     // Fields
-    'fields' => array
-    (
-        'id' => array
-        (
+    'fields' => array(
+        'id' => array(
             'label'                   => array('ID'),
             'search'                  => true,
-            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+            'sql'                     => "int(10) unsigned NOT NULL auto_increment",
         ),
-        'pid' => array
-        (
+        'pid' => array(
             'foreignKey'              => 'tl_photoalbums2_archive.title',
             'sql'                     => "int(10) unsigned NOT NULL default '0'",
-            'relation'                => array('type'=>'belongsTo', 'load'=>'eager')
+            'relation'                => array('type' => 'belongsTo', 'load' => 'eager'),
         ),
-        'sorting' => array
-        (
-            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        'sorting' => array(
+            'sql'                     => "int(10) unsigned NOT NULL default '0'",
         ),
-        'tstamp' => array
-        (
-            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+        'tstamp' => array(
+            'sql'                     => "int(10) unsigned NOT NULL default '0'",
         ),
-        'title' => array
-        (
+        'title' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['title'],
             'exclude'                 => true,
             'search'                  => true,
             'inputType'               => 'text',
-            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
-            'sql'                     => "varchar(255) NOT NULL default ''"
+            'eval'                    => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''",
         ),
-        'alias' => array
-        (
+        'alias' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['alias'],
             'exclude'                 => true,
             'inputType'               => 'text',
-            'eval'                    => array('maxlength'=>128, 'unique'=>true, 'tl_class'=>'w50'),
-            'save_callback'           => array
-            (
-                array('tl_photoalbums2_album', 'generateAlias')
+            'eval'                    => array('maxlength' => 128, 'unique' => true, 'tl_class' => 'w50'),
+            'save_callback'           => array(
+                array('tl_photoalbums2_album', 'generateAlias'),
             ),
-            'sql'                     => "varbinary(128) NOT NULL default ''"
+            'sql'                     => "varbinary(128) NOT NULL default ''",
         ),
-        'author' => array
-        (
+        'author' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['author'],
             'default'                 => \BackendUser::getInstance()->id,
             'exclude'                 => true,
@@ -183,176 +153,157 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
             'flag'                    => 11,
             'inputType'               => 'select',
             'foreignKey'              => 'tl_user.name',
-            'eval'                    => array('doNotCopy'=>true, 'chosen'=>true, 'mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50'),
+            'eval'                    => array('doNotCopy' => true, 'chosen' => true, 'mandatory' => true, 'includeBlankOption' => true, 'tl_class' => 'w50'),
             'sql'                     => "int(10) unsigned NOT NULL default '0'",
-            'relation'                => array('type'=>'hasOne', 'load'=>'eager')
+            'relation'                => array('type' => 'hasOne', 'load' => 'eager'),
         ),
-        'startdate' => array
-        (
+        'startdate' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['startdate'],
             'exclude'                 => true,
             'search'                  => true,
             'inputType'               => 'text',
-            'eval'                    => array('rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
-            'sql'                     => "varchar(10) NOT NULL default ''"
+            'eval'                    => array('rgxp' => 'date', 'datepicker' => true, 'tl_class' => 'w50 wizard'),
+            'sql'                     => "varchar(10) NOT NULL default ''",
         ),
-        'enddate' => array
-        (
+        'enddate' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['enddate'],
             'exclude'                 => true,
             'search'                  => true,
             'inputType'               => 'text',
-            'eval'                    => array('rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
-            'sql'                     => "varchar(10) NOT NULL default ''"
+            'eval'                    => array('rgxp' => 'date', 'datepicker' => true, 'tl_class' => 'w50 wizard'),
+            'sql'                     => "varchar(10) NOT NULL default ''",
         ),
-        'images' => array
-        (
+        'images' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['images'],
             'exclude'                 => true,
             'inputType'               => 'fileTree',
-            'eval'                    => array('mandatory'=>true, 'submitOnChange'=>true, 'multiple'=>true, 'fieldType'=>'checkbox', 'files'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
-            'sql'                     => "blob NULL"
+            'eval'                    => array('mandatory' => true, 'submitOnChange' => true, 'multiple' => true, 'fieldType' => 'checkbox', 'files' => true, 'extensions' => 'png,jpg,jpeg,gif'),
+            'sql'                     => "blob NULL",
         ),
-        'imageSortType' => array
-        (
+        'imageSortType' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['imageSortType'],
             'exclude'                 => true,
             'inputType'               => 'select',
             'options'                 => $GLOBALS['pa2']['imageSortTypes'],
             'reference'               => &$GLOBALS['TL_LANG']['PA2']['imageSortTypes'],
-            'eval'                    => array('submitOnChange'=>true),
-            'sql'                     => "varchar(64) NOT NULL default ''"
+            'eval'                    => array('submitOnChange' => true),
+            'sql'                     => "varchar(64) NOT NULL default ''",
         ),
-        'imageSort' => array
-        (
+        'imageSort' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['imageSort'],
             'exclude'                 => true,
             'inputType'               => 'ImageSortWizard',
-            'eval'                    => array('sortfiles'=>'images', 'extensions'=>'png,jpg,jpeg,gif'),
-            'sql'                     => "blob NULL"
+            'eval'                    => array('sortfiles' => 'images', 'extensions' => 'png,jpg,jpeg,gif'),
+            'sql'                     => "blob NULL",
         ),
-        'previewImageType' => array
-        (
+        'previewImageType' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['previewImageType'],
             'exclude'                 => true,
             'inputType'               => 'select',
             'options'                 => $GLOBALS['pa2']['albumPreviewImageTypes'],
             'reference'               => &$GLOBALS['TL_LANG']['PA2']['albumPreviewImageTypes'],
-            'eval'                    => array('submitOnChange'=>true),
-            'sql'                     => "varchar(64) NOT NULL default ''"
+            'eval'                    => array('submitOnChange' => true),
+            'sql'                     => "varchar(64) NOT NULL default ''",
         ),
-        'previewImage' => array
-        (
+        'previewImage' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['previewImage'],
             'exclude'                 => true,
             'inputType'               => 'fileTree',
-            'eval'                    => array('mandatory'=>true, 'fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'png,jpg,jpeg,gif'),
-            'sql'                     => "binary(16) NULL"
+            'eval'                    => array('mandatory' => true, 'fieldType' => 'radio', 'files' => true, 'filesOnly' => true, 'extensions' => 'png,jpg,jpeg,gif'),
+            'sql'                     => "binary(16) NULL",
         ),
-        'event' => array
-        (
+        'event' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['event'],
             'exclude'                 => true,
             'search'                  => true,
             'inputType'               => 'TranslationTextField',
-            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
-            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+            'eval'                    => array('maxlength' => 255, 'tl_class' => 'w50'),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'",
         ),
-        'place' => array
-        (
+        'place' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['place'],
             'exclude'                 => true,
             'search'                  => true,
             'inputType'               => 'TranslationTextField',
-            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
-            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+            'eval'                    => array('maxlength' => 255, 'tl_class' => 'w50'),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'",
         ),
-        'photographer' => array
-        (
+        'photographer' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['photographer'],
             'exclude'                 => true,
             'search'                  => true,
             'inputType'               => 'TranslationTextField',
-            'eval'                    => array('maxlength'=>255),
-            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+            'eval'                    => array('maxlength' => 255),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'",
         ),
-        'description' => array
-        (
+        'description' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['description'],
             'exclude'                 => true,
             'search'                  => true,
             'inputType'               => 'TranslationTextArea',
-            'eval'                    => array('rte'=>'tinyFlash'),
-            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+            'eval'                    => array('rte' => 'tinyFlash'),
+            'sql'                     => "int(10) unsigned NOT NULL default '0'",
         ),
-        'protected' => array
-        (
+        'protected' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['protected'],
             'exclude'                 => true,
             'inputType'               => 'checkbox',
-            'eval'                    => array('submitOnChange'=>true),
-            'sql'                     => "char(1) NOT NULL default ''"
+            'eval'                    => array('submitOnChange' => true),
+            'sql'                     => "char(1) NOT NULL default ''",
         ),
-        'users' => array
-        (
+        'users' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['users'],
             'exclude'                 => true,
             'inputType'               => 'checkbox',
             'foreignKey'              => 'tl_member.username',
-            'eval'                    => array('multiple'=>true, 'tl_class'=>'w50 cbxes'),
-            'sql'                     => "blob NULL"
+            'eval'                    => array('multiple' => true, 'tl_class' => 'w50 cbxes'),
+            'sql'                     => "blob NULL",
         ),
-        'groups' => array
-        (
+        'groups' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['groups'],
             'exclude'                 => true,
             'inputType'               => 'checkbox',
             'foreignKey'              => 'tl_member_group.name',
-            'eval'                    => array('multiple'=>true, 'tl_class'=>'w50 cbxes'),
-            'sql'                     => "blob NULL"
+            'eval'                    => array('multiple' => true, 'tl_class' => 'w50 cbxes'),
+            'sql'                     => "blob NULL",
         ),
-        'cssClass' => array
-        (
+        'cssClass' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['cssClass'],
             'exclude'                 => true,
             'inputType'               => 'text',
-            'sql'                     => "varchar(255) NOT NULL default ''"
+            'sql'                     => "varchar(255) NOT NULL default ''",
         ),
-        'noComments' => array
-        (
+        'noComments' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['noComments'],
             'exclude'                 => true,
             'filter'                  => true,
             'inputType'               => 'checkbox',
-            'eval'                    => array('tl_class'=>'w50'),
-            'sql'                     => "char(1) NOT NULL default ''"
+            'eval'                    => array('tl_class' => 'w50'),
+            'sql'                     => "char(1) NOT NULL default ''",
         ),
-        'published' => array
-        (
+        'published' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['published'],
             'exclude'                 => true,
             'search'                  => true,
             'inputType'               => 'checkbox',
             'eval'                    => array(),
-            'sql'                     => "char(1) NOT NULL default ''"
+            'sql'                     => "char(1) NOT NULL default ''",
         ),
-        'start' => array
-        (
+        'start' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['start'],
             'exclude'                 => true,
             'inputType'               => 'text',
-            'eval'                    => array('rgxp'=>'datim', 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
-            'sql'                     => "varchar(10) NOT NULL default ''"
+            'eval'                    => array('rgxp' => 'datim', 'datepicker' => true, 'tl_class' => 'w50 wizard'),
+            'sql'                     => "varchar(10) NOT NULL default ''",
         ),
-        'stop' => array
-        (
+        'stop' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_photoalbums2_album']['stop'],
             'exclude'                 => true,
             'inputType'               => 'text',
-            'eval'                    => array('rgxp'=>'datim', 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
-            'sql'                     => "varchar(10) NOT NULL default ''"
-        )
-    )
+            'eval'                    => array('rgxp' => 'datim', 'datepicker' => true, 'tl_class' => 'w50 wizard'),
+            'sql'                     => "varchar(10) NOT NULL default ''",
+        ),
+    ),
 );
 
 /**
@@ -364,7 +315,6 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array
  */
 class tl_photoalbums2_album extends Pa2Backend
 {
-
     /**
      * Import the back end user object
      */
@@ -503,7 +453,7 @@ class tl_photoalbums2_album extends Pa2Backend
                             if ($objFile->isGdImage && $objFile->height > 0) {
                                 $_width = ($objFile->width < 80) ? $objFile->width : 80;
                                 $_height = ($objFile->height < 60) ? $objFile->height : 60;
-                                $strContent = '<img src="' . TL_FILES_URL . $this->getImage($objFiles->path, $_width, $_height, 'center_center') . '" alt="thumbnail">';
+                                $strContent = '<img src="'.TL_FILES_URL.$this->getImage($objFiles->path, $_width, $_height, 'center_center').'" alt="thumbnail">';
                             }
                         }
                         break;
@@ -516,13 +466,13 @@ class tl_photoalbums2_album extends Pa2Backend
             }
         }
 
-        $return  = '<div class="cte_type ' . $key . '"' . ((!$GLOBALS['TL_CONFIG']['pa2HidePreviewImageInBackend']) ?: ' style="margin-bottom: 0px;"') . '>';
-            $return .= $arrRow['title'];
+        $return  = '<div class="cte_type '.$key.'"'.((!$GLOBALS['TL_CONFIG']['pa2HidePreviewImageInBackend']) ?: ' style="margin-bottom: 0px;"').'>';
+        $return .= $arrRow['title'];
         $return .= '</div>';
 
         // Add content only, if it is not empty
         if ($strContent != '') {
-            $return .= $strContent . "\n";
+            $return .= $strContent."\n";
         }
 
         return $return;
@@ -544,7 +494,7 @@ class tl_photoalbums2_album extends Pa2Backend
             $varValue = standardize($dc->activeRecord->title);
         }
 
-        $objAlias = \Photoalbums2AlbumModel::findBy(array($dc->table . ".id!=?", $dc->table . ".alias=?"), array($dc->id, $varValue));
+        $objAlias = \Photoalbums2AlbumModel::findBy(array($dc->table.".id!=?", $dc->table.".alias=?"), array($dc->id, $varValue));
 
         // Check whether the albums alias exists
         if ($objAlias !== null && !$autoAlias) {
@@ -553,7 +503,7 @@ class tl_photoalbums2_album extends Pa2Backend
 
         // Add ID to alias
         if ($objAlias != null && $autoAlias) {
-            $varValue .= '-' . $dc->id;
+            $varValue .= '-'.$dc->id;
             $varValue = $this->generateAlias($varValue, $dc);
         }
 

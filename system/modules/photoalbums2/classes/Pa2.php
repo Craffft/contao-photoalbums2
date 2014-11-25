@@ -24,7 +24,6 @@ namespace Photoalbums2;
  */
 class Pa2 extends \Controller
 {
-
     /**
      * addCssFile function.
      *
@@ -39,8 +38,8 @@ class Pa2 extends \Controller
         $objLayout = \LayoutModel::findByPk($objPage->layout);
 
         // Add css
-        if ((TL_MODE=='FE' && $objLayout->skipPhotoalbums2 != '1') || TL_MODE=='BE') {
-            $GLOBALS['TL_CSS'][] = TL_FILES_URL . 'system/modules/photoalbums2/assets/photoalbums2.css';
+        if ((TL_MODE == 'FE' && $objLayout->skipPhotoalbums2 != '1') || TL_MODE == 'BE') {
+            $GLOBALS['TL_CSS'][] = TL_FILES_URL.'system/modules/photoalbums2/assets/photoalbums2.css';
         }
     }
 
@@ -56,18 +55,16 @@ class Pa2 extends \Controller
             return;
         }
 
-        $objArchive->feedName = ($objArchive->alias != '') ? $objArchive->alias : 'pa2' . $objArchive->id;
+        $objArchive->feedName = ($objArchive->alias != '') ? $objArchive->alias : 'pa2'.$objArchive->id;
 
         // Delete XML file
         if ($this->Input->get('act') == 'delete' || $objArchive->protected) {
             $this->import('Files');
-            $this->Files->delete($objArchive->feedName . '.xml');
-        }
-
-        // Update XML file
+            $this->Files->delete($objArchive->feedName.'.xml');
+        } // Update XML file
         else {
             $this->generateFiles($objArchive->row());
-            $this->log('Generated pa2 feed "' . $objArchive->feedName . '.xml"', 'Pa2 generateFeed()', TL_CRON);
+            $this->log('Generated pa2 feed "'.$objArchive->feedName.'.xml"', 'Pa2 generateFeed()', TL_CRON);
         }
     }
 
@@ -81,10 +78,10 @@ class Pa2 extends \Controller
 
         if ($objArchive !== null) {
             while ($objArchive->next()) {
-                $objArchive->feedName = ($objArchive->alias != '') ? $objArchive->alias : 'pa2' . $objArchive->id;
+                $objArchive->feedName = ($objArchive->alias != '') ? $objArchive->alias : 'pa2'.$objArchive->id;
 
                 $this->generateFiles($objArchive->row());
-                $this->log('Generated pa2 feed "' . $objArchive->feedName . '.xml"', 'Pa2 generateFeeds()', TL_CRON);
+                $this->log('Generated pa2 feed "'.$objArchive->feedName.'.xml"', 'Pa2 generateFeeds()', TL_CRON);
             }
         }
     }
@@ -127,7 +124,8 @@ class Pa2 extends \Controller
         }
 
         $objParent = $this->getPageDetails($objParent->id);
-        $strUrl = $this->generateFrontendUrl($objParent->row(), ($GLOBALS['TL_CONFIG']['useAutoItem'] ?  '/%s' : '/album/%s'), $objParent->language);
+        $strUrl = $this->generateFrontendUrl($objParent->row(),
+            ($GLOBALS['TL_CONFIG']['useAutoItem'] ? '/%s' : '/album/%s'), $objParent->language);
 
         // Parse items
         if ($objArticle !== null) {
@@ -137,19 +135,21 @@ class Pa2 extends \Controller
                 $objArticle->imageSort = deserialize($objArticle->imageSort);
 
                 // Sort images
-                $objPa2ImageSorter = new \Pa2ImageSorter($objArticle->imageSortType, $objArticle->images, $objArticle->imageSort);
+                $objPa2ImageSorter = new \Pa2ImageSorter($objArticle->imageSortType, $objArticle->images,
+                    $objArticle->imageSort);
                 $this->arrImages = $objPa2ImageSorter->getSortedUuids();
 
                 $objItem = new \FeedItem();
 
                 $objItem->title = $objArticle->title;
-                $objItem->link = sprintf($strLink . $strUrl, (($objArticle->alias != '' && !$GLOBALS['TL_CONFIG']['disableAlias']) ? $objArticle->alias : $objArticle->id));
+                $objItem->link = sprintf($strLink.$strUrl,
+                    (($objArticle->alias != '' && !$GLOBALS['TL_CONFIG']['disableAlias']) ? $objArticle->alias : $objArticle->id));
                 $objItem->published = $objArticle->startdate;
                 $objItem->author = $objArticle->authorName;
 
                 if (is_array($objArticle->arrImages) && count($objArticle->arrImages) > 0) {
                     foreach ($objArticle->arrImages as $image) {
-                        if (is_file(TL_ROOT . '/' . $image)) {
+                        if (is_file(TL_ROOT.'/'.$image)) {
                             $objItem->addEnclosure($image);
                         }
                     }
@@ -161,7 +161,7 @@ class Pa2 extends \Controller
         }
 
         // Create file
-        $objRss = new \file($strFile . '.xml');
+        $objRss = new \file($strFile.'.xml');
         $objRss->write($this->replaceInsertTags($objFeed->$strType()));
         $objRss->close();
     }

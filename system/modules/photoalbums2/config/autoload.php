@@ -13,16 +13,14 @@
 /**
  * Register the namespaces
  */
-ClassLoader::addNamespaces(array
-(
+ClassLoader::addNamespaces(array(
     'Photoalbums2',
 ));
 
 /**
  * Register the classes
  */
-ClassLoader::addClasses(array
-(
+ClassLoader::addClasses(array(
     // Classes
     'Photoalbums2\Pa2'                      => 'system/modules/photoalbums2/classes/Pa2.php',
     'Photoalbums2\Pa2AlbumSorter'           => 'system/modules/photoalbums2/classes/Pa2AlbumSorter.php',
@@ -36,20 +34,16 @@ ClassLoader::addClasses(array
     'Photoalbums2\Pa2TimeFilter'            => 'system/modules/photoalbums2/classes/Pa2TimeFilter.php',
     'Photoalbums2\Pa2ViewParser'            => 'system/modules/photoalbums2/classes/Pa2ViewParser.php',
     'Photoalbums2\Updater'                  => 'system/modules/photoalbums2/classes/Updater.php',
-
     // Elements
     'Photoalbums2\ContentPhotoalbums2'      => 'system/modules/photoalbums2/elements/ContentPhotoalbums2.php',
-
     // Library
     'Photoalbums2\Pa2Album'                 => 'system/modules/photoalbums2/library/Pa2Album.php',
     'Photoalbums2\Pa2Archive'               => 'system/modules/photoalbums2/library/Pa2Archive.php',
     'Photoalbums2\Pa2Image'                 => 'system/modules/photoalbums2/library/Pa2Image.php',
     'Photoalbums2\Pa2Lib'                   => 'system/modules/photoalbums2/library/Pa2Lib.php',
-
     // Models
     'Photoalbums2\Photoalbums2AlbumModel'   => 'system/modules/photoalbums2/models/Photoalbums2AlbumModel.php',
     'Photoalbums2\Photoalbums2ArchiveModel' => 'system/modules/photoalbums2/models/Photoalbums2ArchiveModel.php',
-
     // Modules
     'Photoalbums2\ModulePhotoalbums2'       => 'system/modules/photoalbums2/modules/ModulePhotoalbums2.php',
     'Photoalbums2\ModulePhotoalbums2List'   => 'system/modules/photoalbums2/modules/ModulePhotoalbums2List.php',
@@ -59,8 +53,7 @@ ClassLoader::addClasses(array
 /**
  * Register the templates
  */
-TemplateLoader::addFiles(array
-(
+TemplateLoader::addFiles(array(
     'pa2_album'          => 'system/modules/photoalbums2/templates',
     'pa2_album_fluid'    => 'system/modules/photoalbums2/templates',
     'pa2_empty'          => 'system/modules/photoalbums2/templates',

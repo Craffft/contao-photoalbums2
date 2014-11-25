@@ -27,6 +27,7 @@ class Updater extends \Controller
     public function __construct()
     {
         parent::__construct();
+
         $this->import('Database');
 
         // Load required translation-fields classes
@@ -227,7 +228,7 @@ class Updater extends \Controller
     /**
      * Fix imageSort bug to add UUID support
      */
-    protected  function updatePhotoalbums2AlbumImageSortField()
+    protected function updatePhotoalbums2AlbumImageSortField()
     {
         $objModel = $this->Database->prepare("SELECT id, imageSort FROM tl_photoalbums2_album")->execute();
 

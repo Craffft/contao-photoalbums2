@@ -18,8 +18,7 @@ $GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{photoalbums2_lege
 /**
  * Add fields
  */
-$GLOBALS['TL_DCA']['tl_settings']['fields']['pa2HidePreviewImageInBackend'] = array
-(
+$GLOBALS['TL_DCA']['tl_settings']['fields']['pa2HidePreviewImageInBackend'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['pa2HidePreviewImageInBackend'],
-    'inputType'               => 'checkbox'
+    'inputType'               => 'checkbox',
 );
