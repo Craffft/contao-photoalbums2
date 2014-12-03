@@ -24,7 +24,6 @@ namespace Photoalbums2;
  */
 class Pa2Pagination extends \Controller
 {
-
     /**
      * arrItems
      *
@@ -129,8 +128,8 @@ class Pa2Pagination extends \Controller
             }
 
             // Check the maximum page number
-            if ($this->page > ($this->intTotalItems/$this->intItemsPerPage)) {
-                $this->page = ceil($this->intTotalItems/$this->intItemsPerPage);
+            if ($this->page > ($this->intTotalItems / $this->intItemsPerPage)) {
+                $this->page = ceil($this->intTotalItems / $this->intItemsPerPage);
             }
 
             // Limit and offset
@@ -149,7 +148,7 @@ class Pa2Pagination extends \Controller
             // Filter albums by pagination
             $arrItemFilter = array();
 
-            for ($i=$offset; ($offset+$limit) > $i; $i++) {
+            for ($i = $offset; ($offset + $limit) > $i; $i++) {
                 $arrItemFilter[] = $this->arrItems[$i];
             }
 

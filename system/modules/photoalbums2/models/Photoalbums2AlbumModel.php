@@ -24,7 +24,6 @@ namespace Photoalbums2;
  */
 class Photoalbums2AlbumModel extends \Model
 {
-
     /**
      * Name of the table
      * @var string
@@ -43,11 +42,10 @@ class Photoalbums2AlbumModel extends \Model
         $t = static::$strTable;
         $db = \Database::getInstance();
 
-        return static::findBy
-        (
-            array("$t.pid IN(" . $arrIds . ") AND ($t.start='' OR $t.start<'$time') AND ($t.stop='' OR $t.stop>'$time') AND $t.published='1'"),
+        return static::findBy(
+            array("$t.pid IN(".$arrIds.") AND ($t.start='' OR $t.start<'$time') AND ($t.stop='' OR $t.stop>'$time') AND $t.published='1'"),
             null,
-            array('order'=>"$t.pid, $t.sorting")
+            array('order' => "$t.pid, $t.sorting")
         );
     }
 
@@ -56,15 +54,13 @@ class Photoalbums2AlbumModel extends \Model
         $t = static::$strTable;
         $time = time();
 
-        $arrOptions = array
-        (
+        $arrOptions = array(
             'limit'  => 1,
             'column' => array("($t.id=? OR $t.alias=?) AND ($t.start='' OR $t.start<$time) AND ($t.stop='' OR $t.stop>$time) AND $t.published=1"),
             'value'  => array((is_numeric($value) ? $value : 0), $value),
-            'return' => 'Collection'
+            'return' => 'Collection',
         );
 
         return static::find($arrOptions);
     }
-
 }

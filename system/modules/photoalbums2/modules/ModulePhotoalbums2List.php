@@ -24,7 +24,6 @@ namespace Photoalbums2;
  */
 class ModulePhotoalbums2List extends \ModulePhotoalbums2
 {
-
     /**
      * Template
      * @var string
@@ -80,7 +79,7 @@ class ModulePhotoalbums2List extends \ModulePhotoalbums2
             $this->prepareAlbums();
         }
         // Go to detail page (images)
-        else if ($this->Input->get('album')) {
+        elseif ($this->Input->get('album')) {
             $this->goToDetailPage();
         }
         // Go to root page

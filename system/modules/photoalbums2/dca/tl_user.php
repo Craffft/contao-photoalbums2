@@ -19,23 +19,21 @@ $GLOBALS['TL_DCA']['tl_user']['palettes']['custom'] = str_replace('fop;', 'fop;{
 /**
  * Add fields to tl_user_group
  */
-$GLOBALS['TL_DCA']['tl_user']['fields']['photoalbums2s'] = array
-(
+$GLOBALS['TL_DCA']['tl_user']['fields']['photoalbums2s'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_user']['photoalbums2s'],
     'exclude'                 => true,
     'inputType'               => 'checkbox',
     'foreignKey'              => 'tl_photoalbums2_archive.title',
-    'eval'                    => array('multiple'=>true),
-    'sql'                     => "blob NULL"
+    'eval'                    => array('multiple' => true),
+    'sql'                     => "blob NULL",
 );
 
-$GLOBALS['TL_DCA']['tl_user']['fields']['photoalbums2p'] = array
-(
+$GLOBALS['TL_DCA']['tl_user']['fields']['photoalbums2p'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_user']['photoalbums2p'],
     'exclude'                 => true,
     'inputType'               => 'checkbox',
     'options'                 => array('create', 'delete'),
     'reference'               => &$GLOBALS['TL_LANG']['MSC'],
-    'eval'                    => array('multiple'=>true),
-    'sql'                     => "blob NULL"
+    'eval'                    => array('multiple' => true),
+    'sql'                     => "blob NULL",
 );

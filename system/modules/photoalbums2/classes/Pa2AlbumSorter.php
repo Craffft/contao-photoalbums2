@@ -24,7 +24,6 @@ namespace Photoalbums2;
  */
 class Pa2AlbumSorter extends \Controller
 {
-
     /**
      * __construct function.
      *
@@ -135,7 +134,7 @@ class Pa2AlbumSorter extends \Controller
                         }
 
                         $arrSort[$objPa2AlbumModel->id] = $title;
-                    break;
+                        break;
 
                     case 'startdate':
                         $sortType = SORT_NUMERIC;
@@ -146,7 +145,7 @@ class Pa2AlbumSorter extends \Controller
                         }
 
                         $arrSort[$objPa2AlbumModel->id] = $startdate;
-                    break;
+                        break;
 
                     case 'enddate':
                         $sortType = SORT_NUMERIC;
@@ -157,7 +156,7 @@ class Pa2AlbumSorter extends \Controller
                         }
 
                         $arrSort[$objPa2AlbumModel->id] = $enddate;
-                    break;
+                        break;
 
                     case 'numberofimages':
                         $sortType = SORT_NUMERIC;
@@ -172,7 +171,7 @@ class Pa2AlbumSorter extends \Controller
                         }
 
                         $arrSort[$objPa2AlbumModel->id] = $numberofimages;
-                    break;
+                        break;
                 }
             }
 

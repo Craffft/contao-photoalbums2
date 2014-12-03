@@ -24,7 +24,6 @@ namespace Photoalbums2;
  */
 class ModulePhotoalbums2View extends \ModulePhotoalbums2
 {
-
     /**
      * Template
      * @var string
@@ -80,7 +79,7 @@ class ModulePhotoalbums2View extends \ModulePhotoalbums2
             $this->prepareImages();
         }
         // Go to overview page (albums)
-        else if (is_numeric($this->pa2OverviewPage) && $this->pa2OverviewPage > 0 && $objPage->id != $this->pa2OverviewPage) {
+        elseif (is_numeric($this->pa2OverviewPage) && $this->pa2OverviewPage > 0 && $objPage->id != $this->pa2OverviewPage) {
             $this->goToOverviewPage();
         }
         // Go to root page
