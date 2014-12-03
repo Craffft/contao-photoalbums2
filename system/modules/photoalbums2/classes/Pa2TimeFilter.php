@@ -24,7 +24,6 @@ namespace Photoalbums2;
  */
 class Pa2TimeFilter extends \Controller
 {
-
     /**
      * intFilterStart
      *
@@ -98,25 +97,26 @@ class Pa2TimeFilter extends \Controller
         $year = date('Y', time());
 
         switch ($arrData['unit']) {
-        case 'days':
-            $intTs = mktime(0, 0, 0, $month, $day+($typeEnd ? 1 : 0)-$arrData['value'], $year);
-            break;
+            case 'days':
+                $intTs = mktime(0, 0, 0, $month, $day + ($typeEnd ? 1 : 0) - $arrData['value'], $year);
+                break;
 
-        case 'weeks':
-            $intTs = mktime(0, 0, 0, $month, $day+($typeEnd ? 7 : 0)-($arrData['value']*7)-(date('N', time())-1), $year);
-            break;
+            case 'weeks':
+                $intTs = mktime(0, 0, 0, $month,
+                    $day + ($typeEnd ? 7 : 0) - ($arrData['value'] * 7) - (date('N', time()) - 1), $year);
+                break;
 
-        case 'months':
-            $intTs = mktime(0, 0, 0, $month+($typeEnd ? 1 : 0)-$arrData['value'], 1, $year);
-            break;
+            case 'months':
+                $intTs = mktime(0, 0, 0, $month + ($typeEnd ? 1 : 0) - $arrData['value'], 1, $year);
+                break;
 
-        case 'years':
-            $intTs = mktime(0, 0, 0, 1, 1, $year+($typeEnd ? 1 : 0)-$arrData['value']);
-            break;
+            case 'years':
+                $intTs = mktime(0, 0, 0, 1, 1, $year + ($typeEnd ? 1 : 0) - $arrData['value']);
+                break;
 
-        default:
-            $intTs = null;
-            break;
+            default:
+                $intTs = null;
+                break;
         }
 
         if ($typeEnd === true) {

@@ -24,7 +24,6 @@ namespace Photoalbums2;
  */
 class ContentPhotoalbums2 extends \ContentElement
 {
-
     /**
      * Template
      * @var string
@@ -72,7 +71,7 @@ class ContentPhotoalbums2 extends \ContentElement
                 'left' => '',
                 'right' => 6,
                 'top' => '',
-                'unit' => 'px'
+                'unit' => 'px',
             ));
         }
 

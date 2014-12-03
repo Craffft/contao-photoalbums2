@@ -83,369 +83,334 @@ $GLOBALS['TL_DCA']['tl_module']['subpalettes']['pa2TimeFilter'] = 'pa2TimeFilter
  */
 $GLOBALS['TL_DCA']['tl_module']['fields']['name']['eval']['tl_class'] = 'w50';
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2Mode'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2Mode'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2Mode'],
     'exclude'                 => true,
     'inputType'               => 'select',
     'options'                 => array('pa2_on_one_page', 'pa2_only_album_view', 'pa2_with_detail_page'),
     'reference'               => &$GLOBALS['TL_LANG']['PA2']['moduleModeTypes'],
     'default'                 => 'pa2_on_one_page',
-    'eval'                    => array('submitOnChange'=>true, 'helpwizard'=>true, 'tl_class'=>'w50'),
-    'sql'                     => "varchar(64) NOT NULL default ''"
+    'eval'                    => array('submitOnChange' => true, 'helpwizard' => true, 'tl_class' => 'w50'),
+    'sql'                     => "varchar(64) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2PreviewImage'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2PreviewImage'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2PreviewImage'],
     'exclude'                 => true,
     'inputType'               => 'select',
     'default'                 => 'use_album_options',
     'options'                 => $GLOBALS['pa2']['modulePreviewImageTypes'],
     'reference'               => &$GLOBALS['TL_LANG']['PA2']['previewImageModuleTypes'],
-    'eval'                    => array('tl_class'=>'w50'),
-    'sql'                     => "varchar(64) NOT NULL default ''"
+    'eval'                    => array('tl_class' => 'w50'),
+    'sql'                     => "varchar(64) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2OverviewPage'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2OverviewPage'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2OverviewPage'],
     'exclude'                 => true,
     'inputType'               => 'pageTree',
-    'eval'                    => array('mandatory'=>true, 'fieldType'=>'radio', 'tl_class'=>'clr'),
-    'sql'                     => "varchar(10) NOT NULL default ''"
+    'eval'                    => array('mandatory' => true, 'fieldType' => 'radio', 'tl_class' => 'clr'),
+    'sql'                     => "varchar(10) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2DetailPage'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2DetailPage'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2DetailPage'],
     'exclude'                 => true,
     'inputType'               => 'pageTree',
-    'eval'                    => array('mandatory'=>true, 'fieldType'=>'radio', 'tl_class'=>'clr'),
-    'sql'                     => "varchar(10) NOT NULL default ''"
+    'eval'                    => array('mandatory' => true, 'fieldType' => 'radio', 'tl_class' => 'clr'),
+    'sql'                     => "varchar(10) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2Archives'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2Archives'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2Archives'],
     'exclude'                 => true,
     'inputType'               => 'checkbox',
     'options_callback'        => array('tl_module_photoalbums2', 'getPhotoalbums2Archives'),
-    'eval'                    => array('mandatory'=>true, 'multiple'=>true),
-    'sql'                     => "blob NULL"
+    'eval'                    => array('mandatory' => true, 'multiple' => true),
+    'sql'                     => "blob NULL",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumSortType'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumSortType'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumSortType'],
     'exclude'                 => true,
     'inputType'               => 'select',
     'options'                 => $GLOBALS['pa2']['albumSortTypes'],
     'reference'               => &$GLOBALS['TL_LANG']['PA2']['albumSortTypes'],
-    'eval'                    => array('submitOnChange'=>true),
-    'sql'                     => "varchar(64) NOT NULL default ''"
+    'eval'                    => array('submitOnChange' => true),
+    'sql'                     => "varchar(64) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumSort'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumSort'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumSort'],
     'exclude'                 => true,
     'inputType'               => 'SortWizard',
     'options_callback'        => array('tl_module_photoalbums2', 'getAlbumSort'),
-    'eval'                    => array('reloadButton'=>true),
-    'sql'                     => "blob NULL"
+    'eval'                    => array('reloadButton' => true),
+    'sql'                     => "blob NULL",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumViewTemplate'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumViewTemplate'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumViewTemplate'],
     'exclude'                 => true,
     'flag'                    => 11,
     'inputType'               => 'select',
     'options_callback'        => array('Pa2Backend', 'getPa2WrapTemplates'),
-    'eval'                    => array('chosen'=>true, 'tl_class'=>'w50'),
-    'sql'                     => "varchar(64) NOT NULL default ''"
+    'eval'                    => array('chosen' => true, 'tl_class' => 'w50'),
+    'sql'                     => "varchar(64) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImageViewTemplate'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImageViewTemplate'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImageViewTemplate'],
     'exclude'                 => true,
     'flag'                    => 11,
     'inputType'               => 'select',
     'options_callback'        => array('Pa2Backend', 'getPa2WrapTemplates'),
-    'eval'                    => array('chosen'=>true, 'tl_class'=>'w50'),
-    'sql'                     => "varchar(64) NOT NULL default ''"
+    'eval'                    => array('chosen' => true, 'tl_class' => 'w50'),
+    'sql'                     => "varchar(64) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsTemplate'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsTemplate'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsTemplate'],
     'exclude'                 => true,
     'flag'                    => 11,
     'inputType'               => 'select',
     'options_callback'        => array('Pa2Backend', 'getPa2AlbumTemplates'),
-    'eval'                    => array('chosen'=>true, 'tl_class'=>'w50'),
-    'sql'                     => "varchar(64) NOT NULL default ''"
+    'eval'                    => array('chosen' => true, 'tl_class' => 'w50'),
+    'sql'                     => "varchar(64) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesTemplate'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesTemplate'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImagesTemplate'],
     'exclude'                 => true,
     'flag'                    => 11,
     'inputType'               => 'select',
     'options_callback'        => array('Pa2Backend', 'getPa2ImageTemplates'),
-    'eval'                    => array('chosen'=>true, 'tl_class'=>'w50'),
-    'sql'                     => "varchar(64) NOT NULL default ''"
+    'eval'                    => array('chosen' => true, 'tl_class' => 'w50'),
+    'sql'                     => "varchar(64) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowHeadline'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowHeadline'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowHeadline'],
     'exclude'                 => true,
     'inputType'               => 'checkbox',
     'default'                 => 1,
-    'eval'                    => array('tl_class'=>'w50'),
-    'sql'                     => "char(1) NOT NULL default ''"
+    'eval'                    => array('tl_class' => 'w50'),
+    'sql'                     => "char(1) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesShowHeadline'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesShowHeadline'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImagesShowHeadline'],
     'exclude'                 => true,
     'inputType'               => 'checkbox',
     'default'                 => 1,
-    'eval'                    => array('tl_class'=>'w50'),
-    'sql'                     => "char(1) NOT NULL default ''"
+    'eval'                    => array('tl_class' => 'w50'),
+    'sql'                     => "char(1) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowTitle'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowTitle'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowTitle'],
     'exclude'                 => true,
     'inputType'               => 'checkbox',
     'default'                 => 1,
-    'eval'                    => array('tl_class'=>'w50'),
-    'sql'                     => "char(1) NOT NULL default ''"
+    'eval'                    => array('tl_class' => 'w50'),
+    'sql'                     => "char(1) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesShowTitle'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesShowTitle'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImagesShowTitle'],
     'exclude'                 => true,
     'inputType'               => 'checkbox',
     'default'                 => 1,
-    'eval'                    => array('tl_class'=>'w50'),
-    'sql'                     => "char(1) NOT NULL default ''"
+    'eval'                    => array('tl_class' => 'w50'),
+    'sql'                     => "char(1) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowTeaser'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowTeaser'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowTeaser'],
     'exclude'                 => true,
     'inputType'               => 'checkbox',
     'default'                 => 1,
-    'eval'                    => array('tl_class'=>'w50'),
-    'sql'                     => "char(1) NOT NULL default ''"
+    'eval'                    => array('tl_class' => 'w50'),
+    'sql'                     => "char(1) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesShowTeaser'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesShowTeaser'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImagesShowTeaser'],
     'exclude'                 => true,
     'inputType'               => 'checkbox',
     'default'                 => 1,
-    'eval'                    => array('tl_class'=>'w50'),
-    'sql'                     => "char(1) NOT NULL default ''"
+    'eval'                    => array('tl_class' => 'w50'),
+    'sql'                     => "char(1) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageSize'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageSize'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsImageSize'],
     'exclude'                 => true,
     'inputType'               => 'imageSize',
     'options'                 => $GLOBALS['TL_CROP'],
     'reference'               => &$GLOBALS['TL_LANG']['MSC'],
-    'eval'                    => array('rgxp'=>'digit', 'nospace'=>true, 'helpwizard'=>true, 'tl_class'=>'w50'),
-    'sql'                     => "varchar(64) NOT NULL default ''"
+    'eval'                    => array('rgxp' => 'digit', 'nospace' => true, 'helpwizard' => true, 'tl_class' => 'w50'),
+    'sql'                     => "varchar(64) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesImageSize'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesImageSize'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImagesImageSize'],
     'exclude'                 => true,
     'inputType'               => 'imageSize',
     'options'                 => $GLOBALS['TL_CROP'],
     'reference'               => &$GLOBALS['TL_LANG']['MSC'],
-    'eval'                    => array('rgxp'=>'digit', 'nospace'=>true, 'helpwizard'=>true, 'tl_class'=>'w50'),
-    'sql'                     => "varchar(64) NOT NULL default ''"
+    'eval'                    => array('rgxp' => 'digit', 'nospace' => true, 'helpwizard' => true, 'tl_class' => 'w50'),
+    'sql'                     => "varchar(64) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageMargin'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsImageMargin'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsImageMargin'],
     'exclude'                 => true,
     'inputType'               => 'trbl',
     'options'                 => array('px', '%', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
-    'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50'),
-    'sql'                     => "varchar(128) NOT NULL default ''"
+    'eval'                    => array('includeBlankOption' => true, 'tl_class' => 'w50'),
+    'sql'                     => "varchar(128) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesImageMargin'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesImageMargin'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImagesImageMargin'],
     'exclude'                 => true,
     'inputType'               => 'trbl',
     'options'                 => array('px', '%', 'em', 'pt', 'pc', 'in', 'cm', 'mm'),
-    'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50'),
-    'sql'                     => "varchar(128) NOT NULL default ''"
+    'eval'                    => array('includeBlankOption' => true, 'tl_class' => 'w50'),
+    'sql'                     => "varchar(128) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsPerRow'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsPerRow'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsPerRow'],
     'exclude'                 => true,
     'inputType'               => 'select',
     'default'                 => 1,
     'options'                 => array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
-    'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
-    'sql'                     => "smallint(5) unsigned NOT NULL default '1'"
+    'eval'                    => array('mandatory' => true, 'chosen' => true, 'tl_class' => 'w50'),
+    'sql'                     => "smallint(5) unsigned NOT NULL default '1'",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesPerRow'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesPerRow'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImagesPerRow'],
     'exclude'                 => true,
     'inputType'               => 'select',
     'default'                 => 2,
     'options'                 => array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
-    'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
-    'sql'                     => "smallint(5) unsigned NOT NULL default '2'"
+    'eval'                    => array('mandatory' => true, 'chosen' => true, 'tl_class' => 'w50'),
+    'sql'                     => "smallint(5) unsigned NOT NULL default '2'",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsPerPage'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsPerPage'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsPerPage'],
     'default'                 => 5,
     'exclude'                 => true,
     'inputType'               => 'text',
-    'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50'),
-    'sql'                     => "smallint(5) unsigned NOT NULL default '5'"
+    'eval'                    => array('rgxp' => 'digit', 'tl_class' => 'w50'),
+    'sql'                     => "smallint(5) unsigned NOT NULL default '5'",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesPerPage'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesPerPage'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImagesPerPage'],
     'default'                 => 24,
     'exclude'                 => true,
     'inputType'               => 'text',
-    'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50'),
-    'sql'                     => "smallint(5) unsigned NOT NULL default '24'"
+    'eval'                    => array('rgxp' => 'digit', 'tl_class' => 'w50'),
+    'sql'                     => "smallint(5) unsigned NOT NULL default '24'",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2NumberOfAlbums'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2NumberOfAlbums'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2NumberOfAlbums'],
     'default'                 => 0,
     'exclude'                 => true,
     'inputType'               => 'text',
-    'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'),
-    'sql'                     => "smallint(5) unsigned NOT NULL default '0'"
+    'eval'                    => array('mandatory' => true, 'rgxp' => 'digit', 'tl_class' => 'w50'),
+    'sql'                     => "smallint(5) unsigned NOT NULL default '0'",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2NumberOfImages'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2NumberOfImages'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2NumberOfImages'],
     'default'                 => 0,
     'exclude'                 => true,
     'inputType'               => 'text',
-    'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'),
-    'sql'                     => "smallint(5) unsigned NOT NULL default '0'"
+    'eval'                    => array('mandatory' => true, 'rgxp' => 'digit', 'tl_class' => 'w50'),
+    'sql'                     => "smallint(5) unsigned NOT NULL default '0'",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowMetaDescriptions'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsShowMetaDescriptions'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsShowMetaDescriptions'],
     'exclude'                 => true,
     'inputType'               => 'checkbox',
     'default'                 => 1,
-    'eval'                    => array('tl_class'=>'w50'),
-    'sql'                     => "char(1) NOT NULL default ''"
+    'eval'                    => array('tl_class' => 'w50'),
+    'sql'                     => "char(1) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesShowMetaDescriptions'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesShowMetaDescriptions'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImagesShowMetaDescriptions'],
     'exclude'                 => true,
     'inputType'               => 'checkbox',
     'default'                 => 1,
-    'eval'                    => array('tl_class'=>'w50'),
-    'sql'                     => "char(1) NOT NULL default ''"
+    'eval'                    => array('tl_class' => 'w50'),
+    'sql'                     => "char(1) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsMetaFields'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2AlbumsMetaFields'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2AlbumsMetaFields'],
     'exclude'                 => true,
     'inputType'               => 'checkboxWizard',
     'options'                 => $GLOBALS['pa2']['metaFields'],
     'reference'               => &$GLOBALS['TL_LANG']['PA2']['pa2MetaFieldOptions'],
-    'eval'                    => array('multiple'=>true, 'tl_class'=>'w50 cbxes'),
-    'sql'                     => "blob NULL"
+    'eval'                    => array('multiple' => true, 'tl_class' => 'w50 cbxes'),
+    'sql'                     => "blob NULL",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesMetaFields'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2ImagesMetaFields'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2ImagesMetaFields'],
     'exclude'                 => true,
     'inputType'               => 'checkboxWizard',
     'options'                 => $GLOBALS['pa2']['metaFields'],
     'reference'               => &$GLOBALS['TL_LANG']['PA2']['pa2MetaFieldOptions'],
-    'eval'                    => array('multiple'=>true, 'tl_class'=>'w50 cbxes'),
-    'sql'                     => "blob NULL"
+    'eval'                    => array('multiple' => true, 'tl_class' => 'w50 cbxes'),
+    'sql'                     => "blob NULL",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2TimeFilter'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2TimeFilter'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilter'],
     'exclude'                 => true,
     'inputType'               => 'checkbox',
-    'eval'                    => array('submitOnChange'=>true),
-    'sql'                     => "char(1) NOT NULL default ''"
+    'eval'                    => array('submitOnChange' => true),
+    'sql'                     => "char(1) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2TimeFilterStart'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2TimeFilterStart'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilterStart'],
     'exclude'                 => true,
     'inputType'               => 'timePeriod',
     'default'                 => 'days',
     'options'                 => $GLOBALS['pa2']['timeFilterOptions'],
     'reference'               => &$GLOBALS['TL_LANG']['PA2']['pa2TimeFilterOptions'],
-    'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'),
-    'sql'                     => "varchar(64) NOT NULL default ''"
+    'eval'                    => array('mandatory' => true, 'rgxp' => 'digit', 'tl_class' => 'w50'),
+    'sql'                     => "varchar(64) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2TimeFilterEnd'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2TimeFilterEnd'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2TimeFilterEnd'],
     'exclude'                 => true,
     'inputType'               => 'timePeriod',
     'default'                 => 'days',
     'options'                 => $GLOBALS['pa2']['timeFilterOptions'],
     'reference'               => &$GLOBALS['TL_LANG']['PA2']['pa2TimeFilterOptions'],
-    'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'),
-    'sql'                     => "varchar(64) NOT NULL default ''"
+    'eval'                    => array('mandatory' => true, 'rgxp' => 'digit', 'tl_class' => 'w50'),
+    'sql'                     => "varchar(64) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['pa2Teaser'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['pa2Teaser'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['pa2Teaser'],
     'exclude'                 => true,
     'inputType'               => 'TranslationTextArea',
-    'eval'                    => array('rte'=>'tinyFlash', 'tl_class'=>'long'),
-    'sql'                     => "int(10) unsigned NOT NULL default '0'"
+    'eval'                    => array('rte' => 'tinyFlash', 'tl_class' => 'long'),
+    'sql'                     => "int(10) unsigned NOT NULL default '0'",
 );
 
 /**
@@ -457,7 +422,6 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pa2Teaser'] = array
  */
 class tl_module_photoalbums2 extends Pa2Backend
 {
-
     /**
      * Import the back end user object
      */
@@ -478,7 +442,7 @@ class tl_module_photoalbums2 extends Pa2Backend
         }
 
         $arrArchives = array();
-        $objArchives = \Photoalbums2ArchiveModel::findAll(array('order'=>'title'));
+        $objArchives = \Photoalbums2ArchiveModel::findAll(array('order' => 'title'));
 
         if ($objArchives !== null) {
             while ($objArchives->next()) {
@@ -521,7 +485,7 @@ class tl_module_photoalbums2 extends Pa2Backend
         // Get complete album and archive titles and add them to array
         if ($objAlbums !== null) {
             while ($objAlbums->next()) {
-                $arrAlbumSort[$objAlbums->id] = $objAlbums->title . ' (' . $arrArchives[$objAlbums->pid] . ')';
+                $arrAlbumSort[$objAlbums->id] = $objAlbums->title.' ('.$arrArchives[$objAlbums->pid].')';
             }
         }
 

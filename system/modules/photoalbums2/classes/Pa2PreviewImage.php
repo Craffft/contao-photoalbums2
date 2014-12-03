@@ -24,7 +24,6 @@ namespace Photoalbums2;
  */
 class Pa2PreviewImage extends \Controller
 {
-
     /**
      * uuid
      *
@@ -84,37 +83,37 @@ class Pa2PreviewImage extends \Controller
         $this->uuid = null;
 
         switch ($this->type) {
-        case 'use_album_options':
-            switch ($this->objAlbum->previewImageType) {
-            case 'no_preview_image':
+            case 'use_album_options':
+                switch ($this->objAlbum->previewImageType) {
+                    case 'no_preview_image':
+                        $this->uuid = null;
+                        break;
+
+                    case 'random_preview_image':
+                        $this->uuid = $this->getRandomPreviewImage();
+                        break;
+
+                    case 'select_preview_image':
+                        $this->uuid = $this->objAlbum->previewImage;
+                        break;
+                }
+                break;
+
+            case 'no_preview_images':
                 $this->uuid = null;
                 break;
 
-            case 'random_preview_image':
+            case 'random_images':
                 $this->uuid = $this->getRandomPreviewImage();
                 break;
 
-            case 'select_preview_image':
-                $this->uuid = $this->objAlbum->previewImage;
+            case 'random_images_at_no_preview_images':
+                if ($this->objAlbum->previewImageType == 'select_preview_image') {
+                    $this->uuid = $this->objAlbum->previewImage;
+                } else {
+                    $this->uuid = $this->getRandomPreviewImage();
+                }
                 break;
-            }
-            break;
-
-        case 'no_preview_images':
-            $this->uuid = null;
-            break;
-
-        case 'random_images':
-            $this->uuid = $this->getRandomPreviewImage();
-            break;
-
-        case 'random_images_at_no_preview_images':
-            if ($this->objAlbum->previewImageType == 'select_preview_image') {
-                $this->uuid = $this->objAlbum->previewImage;
-            } else {
-                $this->uuid = $this->getRandomPreviewImage();
-            }
-            break;
         }
     }
 
@@ -163,9 +162,10 @@ class Pa2PreviewImage extends \Controller
         $this->objAlbum->images = deserialize($this->objAlbum->images);
 
         // Get all image ids and save them in the images array
-        $objImageSorter = new \ImageSorter($this->objAlbum->images, $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['images']['eval']['extensions']);
+        $objImageSorter = new \ImageSorter($this->objAlbum->images,
+            $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['images']['eval']['extensions']);
         $this->objAlbum->images = $objImageSorter->getImageUuids();
 
-        return $this->objAlbum->images[mt_rand(0, count($this->objAlbum->images)-1)];
+        return $this->objAlbum->images[mt_rand(0, count($this->objAlbum->images) - 1)];
     }
 }

@@ -24,7 +24,6 @@ namespace Photoalbums2;
  */
 class Pa2Archive extends \Pa2Lib
 {
-
     /**
      * sortOut function.
      *

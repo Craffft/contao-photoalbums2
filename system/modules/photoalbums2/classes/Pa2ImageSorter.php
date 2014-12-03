@@ -24,7 +24,6 @@ namespace Photoalbums2;
  */
 class Pa2ImageSorter extends \Controller
 {
-
     /**
      * __construct function.
      *

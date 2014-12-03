@@ -24,7 +24,6 @@ namespace Photoalbums2;
  */
 class ModulePhotoalbums2 extends \Module
 {
-
     /**
      * Template
      * @var string
@@ -125,15 +124,15 @@ class ModulePhotoalbums2 extends \Module
             $this->prepareImages();
         }
         // Show albums
-        else if (!$this->Input->get('album') && ($this->pa2DetailPage == '' || ($this->pa2DetailPage != '' && $this->pa2DetailPage != $objPage->id))) {
+        elseif (!$this->Input->get('album') && ($this->pa2DetailPage == '' || ($this->pa2DetailPage != '' && $this->pa2DetailPage != $objPage->id))) {
             $this->prepareAlbums();
         }
         // Go to detail page (images)
-        else if ($this->Input->get('album')) {
+        elseif ($this->Input->get('album')) {
             $this->goToDetailPage();
         }
         // Go to overview page (albums)
-        else if (is_numeric($this->pa2OverviewPage) && $this->pa2OverviewPage > 0 && $objPage->id != $this->pa2OverviewPage) {
+        elseif (is_numeric($this->pa2OverviewPage) && $this->pa2OverviewPage > 0 && $objPage->id != $this->pa2OverviewPage) {
             $this->goToOverviewPage();
         }
         // Go to root page
@@ -186,7 +185,7 @@ class ModulePhotoalbums2 extends \Module
         $strUrl = $this->generateFrontendUrl($objDetailPage->row(), sprintf(($GLOBALS['TL_CONFIG']['useAutoItem'] ?  '/%s' : '/album/%s'), $this->Input->get('album')), $objDetailPage->language);
 
         if (($this->Input->get('page') != '') && ($this->Input->get('page') != NULL) && is_numeric($this->Input->get('page'))) {
-            $strUrl .= '?page=' . $this->Input->get('page');
+            $strUrl .= '?page='.$this->Input->get('page');
         }
 
         // Redirect to detail page

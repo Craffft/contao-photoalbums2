@@ -24,7 +24,6 @@ namespace Photoalbums2;
  */
 class Pa2Image extends \Controller
 {
-
     /**
      * uuid
      *
@@ -82,7 +81,7 @@ class Pa2Image extends \Controller
         if (isset($this->uuid) && is_array($arrMergeData)) {
             $objFile = $this->getPa2Image();
 
-            if ($objFile !== null && is_file(TL_ROOT . '/' . $objFile->path)) {
+            if ($objFile !== null && is_file(TL_ROOT.'/'.$objFile->path)) {
                 $arrData = $objTemplate->getData();
                 $arrData['singleSRC'] = $objFile->path;
 

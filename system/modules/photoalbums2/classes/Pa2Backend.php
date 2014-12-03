@@ -24,7 +24,6 @@ namespace Photoalbums2;
  */
 class Pa2Backend extends \Backend
 {
-
     /**
      * checkTimeFilter function.
      *
@@ -145,6 +144,7 @@ class Pa2Backend extends \Backend
      */
     protected function removeFromPalette($table, $palette, $value)
     {
-        $GLOBALS['TL_DCA'][$table]['palettes'][$palette] = preg_replace('#[,]{1}(' . $value . ')([,;]{1})#', '$2', $GLOBALS['TL_DCA'][$table]['palettes'][$palette]);
+        $GLOBALS['TL_DCA'][$table]['palettes'][$palette] = preg_replace('#[,]{1}('.$value.')([,;]{1})#', '$2',
+            $GLOBALS['TL_DCA'][$table]['palettes'][$palette]);
     }
 }

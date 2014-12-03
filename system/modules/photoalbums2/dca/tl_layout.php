@@ -18,11 +18,10 @@
 $GLOBALS['TL_DCA']['tl_layout']['palettes']['default'] = str_replace('skipTinymce', 'skipPhotoalbums2,skipTinymce', $GLOBALS['TL_DCA']['tl_layout']['palettes']['default']);
 
 // Define field
-$GLOBALS['TL_DCA']['tl_layout']['fields']['skipPhotoalbums2'] = array
-(
+$GLOBALS['TL_DCA']['tl_layout']['fields']['skipPhotoalbums2'] = array(
     'label'                   => &$GLOBALS['TL_LANG']['tl_layout']['skipPhotoalbums2'],
     'default'                 => '',
     'exclude'                 => true,
     'inputType'               => 'checkbox',
-    'sql'                     => "char(1) NOT NULL default ''"
+    'sql'                     => "char(1) NOT NULL default ''",
 );

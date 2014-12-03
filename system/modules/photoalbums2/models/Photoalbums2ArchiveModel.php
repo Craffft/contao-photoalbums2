@@ -24,7 +24,6 @@ namespace Photoalbums2;
  */
 class Photoalbums2ArchiveModel extends \Model
 {
-
     /**
      * Name of the table
      * @var string
