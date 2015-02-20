@@ -6,7 +6,7 @@
  * Copyright (c) 2012-2014 Daniel Kiesel
  *
  * @package Photoalbums2
- * @link    https://github.com/icodr8/contao-photoalbums
+ * @link    https://github.com/craffft/contao-photoalbums
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
@@ -289,7 +289,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_archive'] = array(
  * tl_photoalbums2_archive class.
  *
  * @copyright  Daniel Kiesel 2012-2014
- * @author     Daniel Kiesel <https://github.com/icodr8>
+ * @author     Daniel Kiesel <daniel@craffft.de>
  * @package    photoalbums2
  */
 class tl_photoalbums2_archive extends Pa2Backend

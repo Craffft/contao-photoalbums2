@@ -6,7 +6,7 @@
  * Copyright (c) 2012-2014 Daniel Kiesel
  *
  * @package Photoalbums2
- * @link    https://github.com/icodr8/contao-photoalbums
+ * @link    https://github.com/craffft/contao-photoalbums
  * @author  Fabian Eisele
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
