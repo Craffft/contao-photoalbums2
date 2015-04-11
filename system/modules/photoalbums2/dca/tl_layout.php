@@ -15,7 +15,7 @@
  */
 
 // Add field to palette
-$GLOBALS['TL_DCA']['tl_layout']['palettes']['default'] = str_replace('skipTinymce', 'skipPhotoalbums2,skipTinymce', $GLOBALS['TL_DCA']['tl_layout']['palettes']['default']);
+$GLOBALS['TL_DCA']['tl_layout']['palettes']['default'] = str_replace('loadingOrder', 'loadingOrder,skipPhotoalbums2', $GLOBALS['TL_DCA']['tl_layout']['palettes']['default']);
 
 // Define field
 $GLOBALS['TL_DCA']['tl_layout']['fields']['skipPhotoalbums2'] = array(
