@@ -6,7 +6,7 @@
  * Copyright (c) 2012-2014 Daniel Kiesel
  *
  * @package Photoalbums2
- * @link    https://github.com/icodr8/contao-photoalbums
+ * @link    https://github.com/craffft/contao-photoalbums
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
@@ -19,7 +19,7 @@ namespace Photoalbums2;
  * Class Pa2
  *
  * @copyright  Daniel Kiesel 2012-2014
- * @author     Daniel Kiesel <https://github.com/icodr8>
+ * @author     Daniel Kiesel <daniel@craffft.de>
  * @package    photoalbums2
  */
 class Pa2 extends \Controller
