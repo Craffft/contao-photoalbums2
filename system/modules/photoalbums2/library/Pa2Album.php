@@ -15,6 +15,8 @@
  */
 namespace Photoalbums2;
 
+use \Contao\Controller;
+
 /**
  * Class Pa2Album
  *
@@ -169,6 +171,8 @@ class Pa2Album extends \Pa2Lib
                 while ($objAlbum->next()) {
                     // Translate fields
                     if ($objAlbum->current() instanceof \Photoalbums2\Photoalbums2AlbumModel) {
+                        Controller::loadDataContainer($objAlbum->current()->getTable());
+
                         $arrRow = \TranslationFields::translateDCArray(
                             $objAlbum->row(),
                             $objAlbum->current()->getTable()
