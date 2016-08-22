@@ -168,7 +168,13 @@ class Pa2Album extends \Pa2Lib
             if ($objAlbum !== null) {
                 while ($objAlbum->next()) {
                     // Translate fields
-                    $objAlbum = \TranslationFields::translateDCObject($objAlbum);
+                    if ($objAlbum->current() instanceof \Photoalbums2\Photoalbums2AlbumModel) {
+                        $arrRow = \TranslationFields::translateDCArray(
+                            $objAlbum->row(),
+                            $objAlbum->current()->getTable()
+                        );
+                        $objAlbum->setRow($arrRow);
+                    }
 
                     // Get preview image as Pa2Image object
                     $objImage = new \Pa2Image($objAlbum->previewImage);
