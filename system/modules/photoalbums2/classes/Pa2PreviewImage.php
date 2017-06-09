@@ -166,6 +166,10 @@ class Pa2PreviewImage extends \Controller
             $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['images']['eval']['extensions']);
         $this->objAlbum->images = $objImageSorter->getImageUuids();
 
+        if (count($this->objAlbum->images) < 1) {
+            return null;
+        }
+
         return $this->objAlbum->images[mt_rand(0, count($this->objAlbum->images) - 1)];
     }
 }
