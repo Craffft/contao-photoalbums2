@@ -328,11 +328,19 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 
         // Get page object by id
         $objPageDetails = \PageModel::findByPk($intPageId);
-        $objPageDetails = $this->getPageDetails($objPageDetails->id);
 
-        // Set template vars
-        $this->Template->referer = $this->generateFrontendUrl($objPageDetails->row(), '',
-                $objPageDetails->language).($intPageNumber > 1 ? '?page='.$intPageNumber : '');
-        $this->Template->back = $GLOBALS['TL_LANG']['PA2']['goBack'];
+        if ($objPageDetails !== null) {
+            $objPageDetails = $this->getPageDetails($objPageDetails->id);
+
+            // Set template vars
+            $referer = $this->generateFrontendUrl(
+                $objPageDetails->row(),
+                '',
+                $objPageDetails->language
+            );
+            $referer .= ($intPageNumber > 1 ? '?page=' . $intPageNumber : '');
+            $this->Template->referer = $referer;
+            $this->Template->back = $GLOBALS['TL_LANG']['PA2']['goBack'];
+        }
     }
 }
