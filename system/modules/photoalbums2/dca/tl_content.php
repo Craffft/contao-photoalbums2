@@ -212,7 +212,6 @@ class tl_content_photoalbums2 extends Pa2Backend
     public function __construct()
     {
         parent::__construct();
-        $this->import('BackendUser', 'User');
     }
 
     /**
@@ -221,7 +220,9 @@ class tl_content_photoalbums2 extends Pa2Backend
      */
     public function getPhotoalbums2Albums()
     {
-        if (!$this->User->isAdmin && !is_array($this->User->photoalbums2s)) {
+        $user = \Contao\BackendUser::getInstance();
+
+        if (!$user->isAdmin && !is_array($user->photoalbums2s)) {
             return array();
         }
 
@@ -230,7 +231,7 @@ class tl_content_photoalbums2 extends Pa2Backend
 
         if ($objArchives !== null) {
             while ($objArchives->next()) {
-                if ($this->User->isAdmin || $this->User->hasAccess($objArchives->id, 'photoalbums2s')) {
+                if ($user->isAdmin || $user->hasAccess($objArchives->id, 'photoalbums2s')) {
                     $objAlbums = \Photoalbums2AlbumModel::findBy('pid', $objArchives->id, array('order' => 'title'));
 
                     if ($objAlbums !== null) {

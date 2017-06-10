@@ -315,13 +315,15 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array(
  */
 class tl_photoalbums2_album extends Pa2Backend
 {
+    protected $User;
+
     /**
      * Import the back end user object
      */
     public function __construct()
     {
         parent::__construct();
-        $this->import('BackendUser', 'User');
+        $this->User = \Contao\BackendUser::getInstance();
     }
 
     /**
