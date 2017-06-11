@@ -182,7 +182,7 @@ class Pa2ImageViewParser extends \Pa2ViewParser
         $varValue = $this->intAlbumId;
 
         if (!is_numeric($varValue) || $varValue < 1) {
-            $varValue = $this->Input->get('album');
+            $varValue = \Input::get('album');
         }
 
         return $varValue;

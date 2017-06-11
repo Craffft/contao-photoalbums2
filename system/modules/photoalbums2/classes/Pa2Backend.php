@@ -90,8 +90,8 @@ class Pa2Backend extends \Backend
     {
         $intPid = $dc->activeRecord->pid;
 
-        if ($this->Input->get('act') == 'overrideAll') {
-            $intPid = $this->Input->get('id');
+        if (\Input::get('act') == 'overrideAll') {
+            $intPid = \Input::get('id');
         }
 
         return $this->getTemplateGroup('pa2_wrap', $intPid);
@@ -108,8 +108,8 @@ class Pa2Backend extends \Backend
     {
         $intPid = $dc->activeRecord->pid;
 
-        if ($this->Input->get('act') == 'overrideAll') {
-            $intPid = $this->Input->get('id');
+        if (\Input::get('act') == 'overrideAll') {
+            $intPid = \Input::get('id');
         }
 
         return $this->getTemplateGroup('pa2_album', $intPid);
@@ -126,8 +126,8 @@ class Pa2Backend extends \Backend
     {
         $intPid = $dc->activeRecord->pid;
 
-        if ($this->Input->get('act') == 'overrideAll') {
-            $intPid = $this->Input->get('id');
+        if (\Input::get('act') == 'overrideAll') {
+            $intPid = \Input::get('id');
         }
 
         return $this->getTemplateGroup('pa2_image', $intPid);

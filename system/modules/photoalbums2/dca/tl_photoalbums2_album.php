@@ -545,8 +545,8 @@ class tl_photoalbums2_album extends Pa2Backend
      */
     public function toggleIcon($row, $href, $label, $title, $icon, $attributes)
     {
-        if (strlen($this->Input->get('tid'))) {
-            $this->toggleVisibility($this->Input->get('tid'), ($this->Input->get('state') == 1));
+        if (strlen(\Input::get('tid'))) {
+            $this->toggleVisibility(\Input::get('tid'), (\Input::get('state') == 1));
             $this->redirect($this->getReferer());
         }
 
@@ -555,7 +555,7 @@ class tl_photoalbums2_album extends Pa2Backend
             return '';
         }
 
-        $href .= '&amp;id='.$this->Input->get('id').'&amp;tid='.$row['id'].'&amp;state='.$row['published'];
+        $href .= '&amp;id='.\Input::get('id').'&amp;tid='.$row['id'].'&amp;state='.$row['published'];
 
         if (!$row['published']) {
             $icon = 'invisible.gif';
@@ -572,8 +572,8 @@ class tl_photoalbums2_album extends Pa2Backend
     public function toggleVisibility($intId, $blnVisible)
     {
         // Check permissions to edit
-        $this->Input->setGet('id', $intId);
-        $this->Input->setGet('act', 'toggle');
+        \Input::setGet('id', $intId);
+        \Input::setGet('act', 'toggle');
         $this->checkPermission();
 
         // Check permissions to publish
@@ -670,7 +670,7 @@ class tl_photoalbums2_album extends Pa2Backend
     public function scheduleUpdate()
     {
         // Return if there is no ID
-        if (!CURRENT_ID || $this->Input->get('act') == 'copy') {
+        if (!CURRENT_ID || \Input::get('act') == 'copy') {
             return;
         }
 
@@ -689,7 +689,7 @@ class tl_photoalbums2_album extends Pa2Backend
     public function generatePalette()
     {
         // Get album
-        $objAlbum = \Photoalbums2AlbumModel::findByPk($this->Input->get('id'));
+        $objAlbum = \Photoalbums2AlbumModel::findByPk(\Input::get('id'));
 
         // Remove from palette
         if ($objAlbum->previewImageType != 'select_preview_image') {

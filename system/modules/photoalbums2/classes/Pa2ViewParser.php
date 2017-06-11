@@ -304,7 +304,7 @@ abstract class Pa2ViewParser extends \Frontend
         $intMaxPage = (int) ceil($totalItems / $intItemsPerPage);
 
         // Set page
-        $intPage = $this->Input->get('page');
+        $intPage = \Input::get('page');
         $intPage = (is_numeric($intPage)) ? $intPage : 1;
         $intPage = ($intMaxPage > $intPage) ? $intPage : $intMaxPage;
 

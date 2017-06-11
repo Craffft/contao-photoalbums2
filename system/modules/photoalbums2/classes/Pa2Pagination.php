@@ -103,7 +103,7 @@ class Pa2Pagination extends \Controller
         $this->intMaxItems = $intMaxItems;
         $this->intItemsPerPage = $intItemsPerPage;
         $this->intTotalItems = $intTotalItems;
-        $this->page = $this->Input->get('page') ? $this->Input->get('page') : 1;
+        $this->page = \Input::get('page') ? \Input::get('page') : 1;
 
         $this->compile();
     }

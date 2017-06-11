@@ -75,11 +75,11 @@ class ModulePhotoalbums2List extends \ModulePhotoalbums2
         $objPa2->addCssFile();
 
         // Show albums
-        if (!$this->Input->get('album') && ($this->pa2DetailPage == '' || ($this->pa2DetailPage != '' && $this->pa2DetailPage != $objPage->id))) {
+        if (!\Input::get('album') && ($this->pa2DetailPage == '' || ($this->pa2DetailPage != '' && $this->pa2DetailPage != $objPage->id))) {
             $this->prepareAlbums();
         }
         // Go to detail page (images)
-        elseif ($this->Input->get('album')) {
+        elseif (\Input::get('album')) {
             $this->goToDetailPage();
         }
         // Go to root page
