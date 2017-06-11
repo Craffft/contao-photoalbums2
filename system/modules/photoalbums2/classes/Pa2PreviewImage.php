@@ -80,41 +80,68 @@ class Pa2PreviewImage extends \Controller
      */
     private function setPreviewImageId()
     {
-        $this->uuid = null;
+        $uuid = null;
 
         switch ($this->type) {
             case 'use_album_options':
-                switch ($this->objAlbum->previewImageType) {
-                    case 'no_preview_image':
-                        $this->uuid = null;
-                        break;
-
-                    case 'random_preview_image':
-                        $this->uuid = $this->getRandomPreviewImage();
-                        break;
-
-                    case 'select_preview_image':
-                        $this->uuid = $this->objAlbum->previewImage;
-                        break;
-                }
+                $uuid = $this->getPreviewImageByAlbumType();
                 break;
 
             case 'no_preview_images':
-                $this->uuid = null;
+                $uuid = null;
                 break;
 
             case 'random_images':
-                $this->uuid = $this->getRandomPreviewImage();
+                $uuid = $this->getRandomPreviewImage();
+                break;
+
+            case 'first_image':
+                $uuid = $this->getFirstPreviewImage();
                 break;
 
             case 'random_images_at_no_preview_images':
-                if ($this->objAlbum->previewImageType == 'select_preview_image') {
-                    $this->uuid = $this->objAlbum->previewImage;
+                if ($this->objAlbum->previewImageType === 'no_preview_image') {
+                    $uuid = $this->getRandomPreviewImage();
                 } else {
-                    $this->uuid = $this->getRandomPreviewImage();
+                    $uuid = $this->getPreviewImageByAlbumType();
+                }
+                break;
+
+            case 'first_image_at_no_preview_images':
+                if ($this->objAlbum->previewImageType === 'no_preview_image') {
+                    $uuid = $this->getFirstPreviewImage();
+                } else {
+                    $uuid = $this->getPreviewImageByAlbumType();
                 }
                 break;
         }
+
+        $this->uuid = $uuid;
+    }
+
+    private function getPreviewImageByAlbumType()
+    {
+        $uuid = null;
+
+        switch ($this->objAlbum->previewImageType) {
+            case 'no_preview_image':
+                $uuid = null;
+                break;
+
+            case 'random_preview_image':
+                $uuid = $this->getRandomPreviewImage();
+                break;
+
+            case 'first_preview_image':
+                $uuid = $this->getFirstPreviewImage();
+                break;
+
+            case 'select_preview_image':
+                $uuid = $this->objAlbum->previewImage;
+                break;
+        }
+
+        return $uuid;
     }
 
     /**
@@ -154,22 +181,56 @@ class Pa2PreviewImage extends \Controller
      */
     protected function getRandomPreviewImage()
     {
+        $arrImages = $this->getAlbumImagesUuid();
+
+        if (count($arrImages) > 0) {
+            return $arrImages[mt_rand(0, count($arrImages) - 1)];
+        }
+
+        return null;
+    }
+
+    /**
+     * getFirstPreviewImage function.
+     *
+     * @access protected
+     * @return int
+     */
+    protected function getFirstPreviewImage()
+    {
+        $arrImages = $this->getAlbumImagesUuid();
+
+        if (count($arrImages) > 0) {
+            return $arrImages[0];
+        }
+
+        return null;
+    }
+
+    /**
+     * @return array
+     */
+    private function getAlbumImagesUuid()
+    {
         if (count($this->objAlbum->images) < 1) {
-            return null;
+            return array();
         }
 
         // Deserialize
         $this->objAlbum->images = deserialize($this->objAlbum->images);
 
         // Get all image ids and save them in the images array
-        $objImageSorter = new \ImageSorter($this->objAlbum->images,
-            $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['images']['eval']['extensions']);
+        $objImageSorter = new \ImageSorter(
+            $this->objAlbum->images,
+            $GLOBALS['TL_DCA']['tl_photoalbums2_album']['fields']['images']['eval']['extensions']
+        );
+
         $this->objAlbum->images = $objImageSorter->getImageUuids();
 
         if (count($this->objAlbum->images) < 1) {
-            return null;
+            return array();
         }
 
-        return $this->objAlbum->images[mt_rand(0, count($this->objAlbum->images) - 1)];
+        return $this->objAlbum->images;
     }
 }
