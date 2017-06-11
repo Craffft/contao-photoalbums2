@@ -58,7 +58,7 @@ class Pa2 extends \Controller
         $objArchive->feedName = ($objArchive->alias != '') ? $objArchive->alias : 'pa2'.$objArchive->id;
 
         // Delete XML file
-        if ($this->Input->get('act') == 'delete' || $objArchive->protected) {
+        if (\Input::get('act') == 'delete' || $objArchive->protected) {
             $this->import('Files');
             $this->Files->delete($objArchive->feedName.'.xml');
         } // Update XML file

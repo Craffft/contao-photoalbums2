@@ -53,7 +53,9 @@ $GLOBALS['TL_LANG']['PA2']['albumPreviewImageTypes']['select_preview_image'] = a
 $GLOBALS['TL_LANG']['PA2']['previewImageModuleTypes']['use_album_options'] = array('Settings of album take over', 'Settings of album take over');
 $GLOBALS['TL_LANG']['PA2']['previewImageModuleTypes']['no_preview_images'] = array('No preview images', 'No preview images');
 $GLOBALS['TL_LANG']['PA2']['previewImageModuleTypes']['random_images'] = array('Random preview images', 'Random preview images');
+$GLOBALS['TL_LANG']['PA2']['previewImageModuleTypes']['first_image'] = array('First preview image', 'First preview image');
 $GLOBALS['TL_LANG']['PA2']['previewImageModuleTypes']['random_images_at_no_preview_images'] = array('Random preview images at an undefined use preview image', 'Random preview images at an undefined use preview image');
+$GLOBALS['TL_LANG']['PA2']['previewImageModuleTypes']['first_image_at_no_preview_images'] = array('First preview image at an undefined use preview image', 'First preview image at an undefined use preview image');
 
 /**
  * Mode types

@@ -534,7 +534,7 @@ class tl_module_photoalbums2 extends Pa2Backend
     public function fixPa2Palette()
     {
         // Get pa2Mode
-        $objModule = ModuleModel::findByPk($this->Input->get('id'));
+        $objModule = ModuleModel::findByPk(\Input::get('id'));
         $pa2Mode = $objModule->pa2Mode;
 
         // If pa2Mode is not set
