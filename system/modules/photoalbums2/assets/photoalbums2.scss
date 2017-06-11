@@ -1,0 +1,61 @@
+.mod_photoalbums2,
+.mod_photoalbums2list,
+.mod_photoalbums2view,
+.ce_photoalbums2 {
+  &.pa2_album_fluid {
+    ul {
+      margin: 0;
+      padding: 0;
+
+      li {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  .albumswrap,
+  .imagewrap {
+    clear: both;
+    display: block;
+    overflow: hidden;
+
+    .album,
+    .image {
+      display: block;
+      float: left;
+      overflow: hidden;
+
+      .albumInside,
+      .imageInside {
+        margin-left: 10px;
+        margin-right: 10px;
+        overflow: hidden;
+      }
+
+      &.first {
+        .albumInside,
+        .imageInside {
+          margin-left: 0;
+        }
+      }
+
+      &.last {
+        .albumInside,
+        .imageInside {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .hide {
+    display: none !important;
+    height: 0px !important;
+    left: 0px !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    top: 0px !important;
+    width: 0px !important;
+  }
+}

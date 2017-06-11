@@ -16,6 +16,7 @@
 namespace Photoalbums2;
 
 use \Contao\Controller;
+use Contao\FrontendUser;
 
 /**
  * Class Pa2Album
@@ -76,8 +77,6 @@ class Pa2Album extends \Pa2Lib
     protected function sortOut()
     {
         if (count($this->items) > 0) {
-            $this->import('FrontendUser', 'User');
-
             $objItems = \Photoalbums2AlbumModel::findMultipleByIds($this->items);
 
             $arrItems = array();
@@ -119,8 +118,23 @@ class Pa2Album extends \Pa2Lib
             $arrUsers = deserialize($objItems->users);
             $arrGroups = deserialize($objItems->groups);
 
+            $user = FrontendUser::getInstance();
+
             // Check users and groups
-            if ((!is_array($arrUsers) || count($arrUsers) < 1 || count(array_intersect($arrUsers, array($this->User->id))) < 1) && (!is_array($arrGroups) || count($arrGroups) < 1 || count(array_intersect($arrGroups, $this->User->groups)) < 1)) {
+            if (
+                (
+                    !is_array($arrUsers)
+                    ||
+                    count($arrUsers) < 1
+                    ||
+                    count(array_intersect($arrUsers, array($user->id))) < 1
+                ) && (
+                    !is_array($arrGroups)
+                    ||
+                    count($arrGroups) < 1
+                    ||
+                    count(array_intersect($arrGroups, $user->groups)) < 1)
+            ) {
                 return false;
             }
         }

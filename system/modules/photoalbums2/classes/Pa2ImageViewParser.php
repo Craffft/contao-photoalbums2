@@ -61,7 +61,7 @@ class Pa2ImageViewParser extends \Pa2ViewParser
      *
      * @access public
      * @param  object $objTemplate
-     * @param  int    $intAlbumId
+     * @param  int $intAlbumId
      * @return void
      */
     public function __construct($objTemplate, $intAlbumId = 0)
@@ -219,7 +219,7 @@ class Pa2ImageViewParser extends \Pa2ViewParser
         $this->Template->title = strip_tags($objAlbum->title);
         $this->Template->alt = strip_tags($objAlbum->title);
         $this->Template->showTitle = ($this->Template->title != '' ? $this->Template->showTitle : false);
-        $this->Template->cssClass .= ($this->Template->cssClass == '') ? $objAlbum->cssClass : ' '.$objAlbum->cssClass;
+        $this->Template->cssClass .= ($this->Template->cssClass == '') ? $objAlbum->cssClass : ' ' . $objAlbum->cssClass;
         $this->Template->event = $objAlbum->event;
         $this->Template->place = $objAlbum->place;
         $this->Template->photographer = $objAlbum->photographer;
@@ -253,7 +253,7 @@ class Pa2ImageViewParser extends \Pa2ViewParser
             $objSubtemplate->alt = $this->getImageTitle($objImage);
             $objSubtemplate->show = false;
             $objSubtemplate->elementID = $i;
-            $objSubtemplate->albumID = $objAlbum->id.'_'.$strIndividualId;
+            $objSubtemplate->albumID = $objAlbum->id . '_' . $strIndividualId;
             $objSubtemplate->href = str_replace(' ', '%20', $objImage->path);
 
             // If show element
@@ -276,12 +276,12 @@ class Pa2ImageViewParser extends \Pa2ViewParser
                 $arrImage = array();
                 $arrImage['size'] = serialize(array(0, 0, 'crop'));
                 $arrImage['imagemargin'] = serialize(array(
-                        'bottom' => '',
-                        'left'   => '',
-                        'right'  => '',
-                        'top'    => '',
-                        'unit'   => '',
-                    ));
+                    'bottom' => '',
+                    'left'   => '',
+                    'right'  => '',
+                    'top'    => '',
+                    'unit'   => '',
+                ));
                 $arrImage['singleSRC'] = 'system/modules/photoalbums2/assets/blank.gif';
                 $arrImage['alt'] = substr(strrchr($element, '/'), 1);
 
@@ -314,8 +314,8 @@ class Pa2ImageViewParser extends \Pa2ViewParser
         $this->Import('Session');
 
         // Get session vars
-        $intPageNumber = $this->Session->get('pa2PageNumber_'.$this->Template->id);
-        $intPageId = $this->Session->get('pa2PageId_'.$this->Template->id);
+        $intPageNumber = $this->Session->get('pa2PageNumber_' . $this->Template->id);
+        $intPageId = $this->Session->get('pa2PageId_' . $this->Template->id);
 
         // Set backlink via overview page id
         if (is_numeric($this->Template->pa2OverviewPage) && $this->Template->pa2OverviewPage > 0) {
@@ -328,11 +328,19 @@ class Pa2ImageViewParser extends \Pa2ViewParser
 
         // Get page object by id
         $objPageDetails = \PageModel::findByPk($intPageId);
-        $objPageDetails = $this->getPageDetails($objPageDetails->id);
 
-        // Set template vars
-        $this->Template->referer = $this->generateFrontendUrl($objPageDetails->row(), '',
-                $objPageDetails->language).($intPageNumber > 1 ? '?page='.$intPageNumber : '');
-        $this->Template->back = $GLOBALS['TL_LANG']['PA2']['goBack'];
+        if ($objPageDetails !== null) {
+            $objPageDetails = $this->getPageDetails($objPageDetails->id);
+
+            // Set template vars
+            $referer = $this->generateFrontendUrl(
+                $objPageDetails->row(),
+                '',
+                $objPageDetails->language
+            );
+            $referer .= ($intPageNumber > 1 ? '?page=' . $intPageNumber : '');
+            $this->Template->referer = $referer;
+            $this->Template->back = $GLOBALS['TL_LANG']['PA2']['goBack'];
+        }
     }
 }

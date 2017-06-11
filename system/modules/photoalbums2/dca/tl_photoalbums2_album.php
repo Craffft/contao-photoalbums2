@@ -315,13 +315,15 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array(
  */
 class tl_photoalbums2_album extends Pa2Backend
 {
+    protected $User;
+
     /**
      * Import the back end user object
      */
     public function __construct()
     {
         parent::__construct();
-        $this->import('BackendUser', 'User');
+        $this->User = \Contao\BackendUser::getInstance();
     }
 
     /**
@@ -340,79 +342,100 @@ class tl_photoalbums2_album extends Pa2Backend
             $root = $this->User->photoalbums2s;
         }
 
-        $id = strlen($this->Input->get('id')) ? $this->Input->get('id') : CURRENT_ID;
+        $id = strlen(\Input::get('id')) ? \Input::get('id') : CURRENT_ID;
 
         // Check current action
-        switch ($this->Input->get('act')) {
-        case 'paste':
-            // Allow
-            break;
+        switch (\Input::get('act')) {
+            case 'paste':
+                // Allow
+                break;
 
-        case 'create':
-            if (!strlen($this->Input->get('pid')) || !in_array($this->Input->get('pid'), $root)) {
-                $this->log('Not enough permissions to create photoalbums2 items in photoalbums2 archive ID "'.$this->Input->get('pid').'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
-                $this->redirect('contao/main.php?act=error');
-            }
-            break;
+            case 'create':
+            case 'select':
+                if (!strlen(Input::get('id')) || !in_array(Input::get('id'), $root)) {
+                    $this->log('Not enough permissions to create photoalbums2 items in photoalbums2 archive ID "' . \Input::get('pid') . '"',
+                        __METHOD__, TL_ERROR);
+                    $this->redirect('contao/main.php?act=error');
+                }
+                break;
 
-        case 'cut':
-        case 'copy':
-            if (!in_array($this->Input->get('pid'), $root)) {
-                $this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums2 item ID "'.$id.'" to photoalbums2 archive ID "'.$this->Input->get('pid').'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
-                $this->redirect('contao/main.php?act=error');
-            }
+            case 'cut':
+            case 'copy':
+                $pid = \Input::get('pid');
+
+                // Get form ID
+                if (\Input::get('mode') == 1) {
+                    $objField = $this->Database->prepare("SELECT pid FROM tl_photoalbums2_album WHERE id=?")
+                        ->limit(1)
+                        ->execute(\Input::get('pid'));
+
+                    if ($objField->numRows < 1) {
+                        $this->log('Invalid photoalbums2 item ID "' . \Input::get('pid') . '"', __METHOD__, TL_ERROR);
+                        $this->redirect('contao/main.php?act=error');
+                    }
+
+                    $pid = $objField->pid;
+                }
+
+                if (!in_array($pid, $root)) {
+                    $this->log('Not enough permissions to ' . \Input::get('act') . ' photoalbums2 item ID "' . $id . '" to photoalbums2 archive ID "' . \Input::get('pid') . '"',
+                        __METHOD__, TL_ERROR);
+                    $this->redirect('contao/main.php?act=error');
+                }
             // NO BREAK STATEMENT HERE
 
-        case 'edit':
-        case 'show':
-        case 'delete':
-        case 'toggle':
-        case 'feature':
-            $objArchive = \Photoalbums2AlbumModel::findByPk($id);
+            case 'edit':
+            case 'show':
+            case 'delete':
+            case 'toggle':
+            case 'feature':
+                $objAlbum = \Photoalbums2AlbumModel::findByPk($id);
 
-            if ($objArchive == null) {
-                $this->log('Invalid photoalbums2 item ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
-                $this->redirect('contao/main.php?act=error');
-            }
+                if ($objAlbum == null) {
+                    $this->log('Invalid photoalbums2 item ID "' . $id . '"', __METHOD__, TL_ERROR);
+                    $this->redirect('contao/main.php?act=error');
+                }
 
-            if (!in_array($objArchive->pid, $root)) {
-                $this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums2 item ID "'.$id.'" of photoalbums2 archive ID "'.$objArchive->pid.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
-                $this->redirect('contao/main.php?act=error');
-            }
-            break;
+                if (!in_array($objAlbum->pid, $root)) {
+                    $this->log('Not enough permissions to ' . \Input::get('act') . ' photoalbums2 item ID "' . $id . '" of photoalbums2 archive ID "' . $objAlbum->pid . '"',
+                        __METHOD__, TL_ERROR);
+                    $this->redirect('contao/main.php?act=error');
+                }
+                break;
 
-        case 'select':
-        case 'editAll':
-        case 'deleteAll':
-        case 'overrideAll':
-        case 'cutAll':
-        case 'copyAll':
-            if (!in_array($id, $root)) {
-                $this->log('Not enough permissions to access photoalbums2 archive ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
-                $this->redirect('contao/main.php?act=error');
-            }
+            case 'editAll':
+            case 'deleteAll':
+            case 'overrideAll':
+            case 'cutAll':
+            case 'copyAll':
+                if (!in_array($id, $root)) {
+                    $this->log('Not enough permissions to access photoalbums2 archive ID "' . $id . '"',
+                        __METHOD__, TL_ERROR);
+                    $this->redirect('contao/main.php?act=error');
+                }
 
-            $objArchive = \Photoalbums2AlbumModel::findByPid($id);
+                $objAlbum = \Photoalbums2AlbumModel::findByPid($id);
 
-            if ($objArchive == null) {
-                $this->log('Invalid photoalbums2 archive ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
-                $this->redirect('contao/main.php?act=error');
-            }
+                if ($objAlbum == null) {
+                    $this->log('Invalid photoalbums2 archive ID "' . $id . '"', __METHOD__, TL_ERROR);
+                    $this->redirect('contao/main.php?act=error');
+                }
 
-            $session = $this->Session->getData();
-            $session['CURRENT']['IDS'] = array_intersect($session['CURRENT']['IDS'], $objArchive->fetchEach('id'));
-            $this->Session->setData($session);
-            break;
+                $session = $this->Session->getData();
+                $session['CURRENT']['IDS'] = array_intersect($session['CURRENT']['IDS'], $objAlbum->fetchEach('id'));
+                $this->Session->setData($session);
+                break;
 
-        default:
-            if (strlen($this->Input->get('act'))) {
-                $this->log('Invalid command "'.$this->Input->get('act').'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
-                $this->redirect('contao/main.php?act=error');
-            } elseif (!in_array($id, $root)) {
-                $this->log('Not enough permissions to access photoalbums2 archive ID "'.$id.'"', 'tl_photoalbums2_album checkPermission', TL_ERROR);
-                $this->redirect('contao/main.php?act=error');
-            }
-            break;
+            default:
+                if (strlen(\Input::get('act'))) {
+                    $this->log('Invalid command "' . \Input::get('act') . '"', __METHOD__, TL_ERROR);
+                    $this->redirect('contao/main.php?act=error');
+                } elseif (!in_array($id, $root)) {
+                    $this->log('Not enough permissions to access photoalbums2 archive ID "' . $id . '"', __METHOD__,
+                        TL_ERROR);
+                    $this->redirect('contao/main.php?act=error');
+                }
+                break;
         }
     }
 

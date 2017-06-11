@@ -1,0 +1,21 @@
+.pa2_image {
+  line-height: 0px !important;
+
+  .imagewrap {
+    float: left !important;
+    clear: none !important;
+    width: auto !important;
+
+    .image {
+      width: auto !important;
+
+      .imageInside {
+        margin: 0px !important;
+      }
+    }
+  }
+}
+
+.cbxes {
+  height: auto;
+}
