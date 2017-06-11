@@ -15,6 +15,8 @@
  */
 namespace Photoalbums2;
 
+use Contao\StringUtil;
+
 /**
  * Class Pa2ViewParser
  *
@@ -107,12 +109,8 @@ abstract class Pa2ViewParser extends \Frontend
      */
     public function cleanRteOutput($text)
     {
-        global $objPage;
-        $this->import('String');
-
-        // Clean the RTE output
-        $text = $this->String->toHtml5($text);
-        $text = $this->String->encodeEmail($text);
+        $text = StringUtil::toHtml5($text);
+        $text = StringUtil::encodeEmail($text);
 
         return $text;
     }
