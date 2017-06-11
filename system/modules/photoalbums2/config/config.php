@@ -68,6 +68,7 @@ $GLOBALS['pa2']['albumSortTypes'] = array(
 $GLOBALS['pa2']['albumPreviewImageTypes'] = array(
     'no_preview_image'     => 'no_preview_image',
     'random_preview_image' => 'random_preview_image',
+    'first_preview_image' => 'first_preview_image',
     'select_preview_image' => 'select_preview_image',
 );
 
@@ -77,6 +78,7 @@ $GLOBALS['pa2']['modulePreviewImageTypes'] = array(
     'no_preview_images'                  => 'no_preview_images',
     'random_images'                      => 'random_images',
     'random_images_at_no_preview_images' => 'random_images_at_no_preview_images',
+    'first_image_at_no_preview_images'   => 'first_image_at_no_preview_images',
 );
 
 // Time filter options

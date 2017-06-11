@@ -99,7 +99,7 @@ class ModulePhotoalbums2 extends \Module
 
         // Set the item from the auto_item parameter
         if ($GLOBALS['TL_CONFIG']['useAutoItem'] && isset($_GET['auto_item'])) {
-            $this->Input->setGet('album', $this->Input->get('auto_item'));
+            \Input::setGet('album', \Input::get('auto_item'));
         }
 
         return parent::generate();
@@ -120,15 +120,15 @@ class ModulePhotoalbums2 extends \Module
         $objPa2->addCssFile();
 
         // Show images
-        if ($this->Input->get('album') && (($this->pa2DetailPage == '') || ($this->pa2DetailPage != '' && ($this->pa2DetailPage == $objPage->id || ($objPage->languageMain != '' && $objPage->languageMain == $this->pa2DetailPage))))) {
+        if (\Input::get('album') && (($this->pa2DetailPage == '') || ($this->pa2DetailPage != '' && ($this->pa2DetailPage == $objPage->id || ($objPage->languageMain != '' && $objPage->languageMain == $this->pa2DetailPage))))) {
             $this->prepareImages();
         }
         // Show albums
-        elseif (!$this->Input->get('album') && ($this->pa2DetailPage == '' || ($this->pa2DetailPage != '' && $this->pa2DetailPage != $objPage->id))) {
+        elseif (!\Input::get('album') && ($this->pa2DetailPage == '' || ($this->pa2DetailPage != '' && $this->pa2DetailPage != $objPage->id))) {
             $this->prepareAlbums();
         }
         // Go to detail page (images)
-        elseif ($this->Input->get('album')) {
+        elseif (\Input::get('album')) {
             $this->goToDetailPage();
         }
         // Go to overview page (albums)
@@ -182,10 +182,10 @@ class ModulePhotoalbums2 extends \Module
 
         // Get detail page and redirect url
         $objDetailPage = $this->getPageDetails($this->pa2DetailPage);
-        $strUrl = $this->generateFrontendUrl($objDetailPage->row(), sprintf(($GLOBALS['TL_CONFIG']['useAutoItem'] ?  '/%s' : '/album/%s'), $this->Input->get('album')), $objDetailPage->language);
+        $strUrl = $this->generateFrontendUrl($objDetailPage->row(), sprintf(($GLOBALS['TL_CONFIG']['useAutoItem'] ?  '/%s' : '/album/%s'), \Input::get('album')), $objDetailPage->language);
 
-        if (($this->Input->get('page') != '') && ($this->Input->get('page') != NULL) && is_numeric($this->Input->get('page'))) {
-            $strUrl .= '?page='.$this->Input->get('page');
+        if ((\Input::get('page') != '') && (\Input::get('page') != NULL) && is_numeric(\Input::get('page'))) {
+            $strUrl .= '?page='.\Input::get('page');
         }
 
         // Redirect to detail page

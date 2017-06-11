@@ -22,29 +22,24 @@
 
     .album,
     .image {
+      box-sizing: border-box;
       display: block;
       float: left;
       overflow: hidden;
+      padding-left: 5px;
+      padding-right: 5px;
 
       .albumInside,
       .imageInside {
-        margin-left: 10px;
-        margin-right: 10px;
         overflow: hidden;
       }
 
       &.first {
-        .albumInside,
-        .imageInside {
-          margin-left: 0;
-        }
+        padding-left: 0;
       }
 
       &.last {
-        .albumInside,
-        .imageInside {
-          margin-right: 0;
-        }
+        padding-right: 0;
       }
     }
   }

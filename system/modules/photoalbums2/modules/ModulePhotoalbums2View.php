@@ -75,7 +75,7 @@ class ModulePhotoalbums2View extends \ModulePhotoalbums2
         $objPa2->addCssFile();
 
         // Show images
-        if ($this->Input->get('album') && (($this->pa2DetailPage == '') || ($this->pa2DetailPage != '' && ($this->pa2DetailPage == $objPage->id || ($objPage->languageMain != '' && $objPage->languageMain == $this->pa2DetailPage))))) {
+        if (\Input::get('album') && (($this->pa2DetailPage == '') || ($this->pa2DetailPage != '' && ($this->pa2DetailPage == $objPage->id || ($objPage->languageMain != '' && $objPage->languageMain == $this->pa2DetailPage))))) {
             $this->prepareImages();
         }
         // Go to overview page (albums)

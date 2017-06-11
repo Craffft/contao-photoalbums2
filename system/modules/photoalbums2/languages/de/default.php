@@ -44,6 +44,7 @@ $GLOBALS['TL_LANG']['PA2']['imageSortTypes']['custom'] = array('Eigene Sortierun
  */
 $GLOBALS['TL_LANG']['PA2']['albumPreviewImageTypes']['no_preview_image'] = array('Kein Vorschau Foto', 'Kein Vorschau Foto');
 $GLOBALS['TL_LANG']['PA2']['albumPreviewImageTypes']['random_preview_image'] = array('Zufälliges Vorschau Foto', 'Zufälliges Vorschau Foto');
+$GLOBALS['TL_LANG']['PA2']['albumPreviewImageTypes']['first_preview_image'] = array('Erstes Vorschau Foto', 'Erstes Vorschau Foto');
 $GLOBALS['TL_LANG']['PA2']['albumPreviewImageTypes']['select_preview_image'] = array('Vorschau Foto auswählen', 'Vorschau Foto auswählen');
 
 /**
@@ -53,6 +54,7 @@ $GLOBALS['TL_LANG']['PA2']['previewImageModuleTypes']['use_album_options'] = arr
 $GLOBALS['TL_LANG']['PA2']['previewImageModuleTypes']['no_preview_images'] = array('Keine Vorschau Fotos anzeigen', 'Keine Vorschau Fotos anzeigen');
 $GLOBALS['TL_LANG']['PA2']['previewImageModuleTypes']['random_images'] = array('Zufällige Vorschau Fotos anzeigen', 'Zufällige Vorschau Fotos anzeigen');
 $GLOBALS['TL_LANG']['PA2']['previewImageModuleTypes']['random_images_at_no_preview_images'] = array('Zufällige Vorschau Fotos bei nicht definiertem Vorschau Foto verwenden', 'Zufällige Vorschau Fotos bei nicht definiertem Vorschau Foto verwenden');
+$GLOBALS['TL_LANG']['PA2']['previewImageModuleTypes']['first_image_at_no_preview_images'] = array('Erstes Vorschau Foto bei nicht definiertem Vorschau Foto verwenden', 'Erstes Vorschau Foto bei nicht definiertem Vorschau Foto verwenden');
 
 /**
  * Mode types

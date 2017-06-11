@@ -329,7 +329,7 @@ class tl_photoalbums2_archive extends Pa2Backend
         }
 
         // Check current action
-        switch ($this->Input->get('act')) {
+        switch (\Input::get('act')) {
         case 'create':
         case 'select':
             // Allow
@@ -337,10 +337,10 @@ class tl_photoalbums2_archive extends Pa2Backend
 
         case 'edit':
             // Dynamically add the record to the user profile
-            if (!in_array($this->Input->get('id'), $root)) {
+            if (!in_array(\Input::get('id'), $root)) {
                 $arrNew = $this->Session->get('new_records');
 
-                if (is_array($arrNew['tl_photoalbums2_archive']) && in_array($this->Input->get('id'), $arrNew['tl_photoalbums2_archive'])) {
+                if (is_array($arrNew['tl_photoalbums2_archive']) && in_array(\Input::get('id'), $arrNew['tl_photoalbums2_archive'])) {
                     // Add permissions on user level
                     if ($this->User->inherit == 'custom' || !$this->User->groups[0]) {
                         $objUser = \UserModel::findByPk($this->User->id);
@@ -349,7 +349,7 @@ class tl_photoalbums2_archive extends Pa2Backend
 
                         if (is_array($arrPhotoalbums2p) && in_array('create', $arrPhotoalbums2p)) {
                             $arrPhotoalbums2s = deserialize($objUser->photoalbums2s);
-                            $arrPhotoalbums2s[] = $this->Input->get('id');
+                            $arrPhotoalbums2s[] = \Input::get('id');
 
                             $objUser->photoalbums2s = serialize($arrPhotoalbums2s);
                             $objUser->save();
@@ -364,7 +364,7 @@ class tl_photoalbums2_archive extends Pa2Backend
 
                         if (is_array($arrPhotoalbums2p) && in_array('create', $arrPhotoalbums2p)) {
                             $arrPhotoalbums2s = deserialize($objGroup->photoalbums2s);
-                            $arrPhotoalbums2s[] = $this->Input->get('id');
+                            $arrPhotoalbums2s[] = \Input::get('id');
 
                             $objGroup->photoalbums2s = serialize($arrPhotoalbums2s);
                             $objGroup->save();
@@ -372,7 +372,7 @@ class tl_photoalbums2_archive extends Pa2Backend
                     }
 
                     // Add new element to the user object
-                    $root[] = $this->Input->get('id');
+                    $root[] = \Input::get('id');
                     $this->User->photoalbums2s = $root;
                 }
             }
@@ -381,8 +381,8 @@ class tl_photoalbums2_archive extends Pa2Backend
         case 'copy':
         case 'delete':
         case 'show':
-            if (!in_array($this->Input->get('id'), $root) || ($this->Input->get('act') == 'delete' && !$this->User->hasAccess('delete', 'photoalbums2p'))) {
-                $this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums2 archive ID "'.$this->Input->get('id').'"', 'tl_photoalbums2_archive checkPermission', TL_ERROR);
+            if (!in_array(\Input::get('id'), $root) || (\Input::get('act') == 'delete' && !$this->User->hasAccess('delete', 'photoalbums2p'))) {
+                $this->log('Not enough permissions to '.\Input::get('act').' photoalbums2 archive ID "'.\Input::get('id').'"', 'tl_photoalbums2_archive checkPermission', TL_ERROR);
                 $this->redirect('contao/main.php?act=error');
             }
             break;
@@ -391,7 +391,7 @@ class tl_photoalbums2_archive extends Pa2Backend
         case 'deleteAll':
         case 'overrideAll':
             $session = $this->Session->getData();
-            if ($this->Input->get('act') == 'deleteAll' && !$this->User->hasAccess('delete', 'photoalbums2p')) {
+            if (\Input::get('act') == 'deleteAll' && !$this->User->hasAccess('delete', 'photoalbums2p')) {
                 $session['CURRENT']['IDS'] = array();
             } else {
                 $session['CURRENT']['IDS'] = array_intersect($session['CURRENT']['IDS'], $root);
@@ -400,8 +400,8 @@ class tl_photoalbums2_archive extends Pa2Backend
             break;
 
         default:
-            if (strlen($this->Input->get('act'))) {
-                $this->log('Not enough permissions to '.$this->Input->get('act').' photoalbums2 archives', 'tl_photoalbums2_archive checkPermission', TL_ERROR);
+            if (strlen(\Input::get('act'))) {
+                $this->log('Not enough permissions to '.\Input::get('act').' photoalbums2 archives', 'tl_photoalbums2_archive checkPermission', TL_ERROR);
                 $this->redirect('contao/main.php?act=error');
             }
             break;

@@ -15,6 +15,8 @@
  */
 namespace Photoalbums2;
 
+use Contao\FilesModel;
+
 /**
  * Class Pa2Image
  *
@@ -66,6 +68,8 @@ class Pa2Image extends \Controller
 
             return $objFile;
         }
+
+        return null;
     }
 
     /**
@@ -90,9 +94,25 @@ class Pa2Image extends \Controller
                 }
 
                 $this->addImageToTemplate($objTemplate, $arrData);
+                $this->addFileMetaDataToTemplate($objTemplate, $objFile);
             }
         }
 
         return $objTemplate;
+    }
+
+    private function addFileMetaDataToTemplate(&$objTemplate, FilesModel $objFile)
+    {
+        $objTemplate->meta = null;
+
+        if ($objFile->meta) {
+            $meta = $objFile->meta;
+
+            if (isset($meta[$GLOBALS['TL_LANGUAGE']])) {
+                $objTemplate->meta = $meta[$GLOBALS['TL_LANGUAGE']];
+            } else if (isset($meta['en'])) {
+                $objTemplate->meta = $meta['en'];
+            }
+        }
     }
 }

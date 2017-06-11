@@ -15,6 +15,8 @@
  */
 namespace Photoalbums2;
 
+use Contao\StringUtil;
+
 /**
  * Class Pa2ViewParser
  *
@@ -107,17 +109,8 @@ abstract class Pa2ViewParser extends \Frontend
      */
     public function cleanRteOutput($text)
     {
-        global $objPage;
-        $this->import('String');
-
-        // Clean the RTE output
-        if ($objPage->outputFormat == 'xhtml') {
-            $text = $this->String->toXhtml($text);
-        } else {
-            $text = $this->String->toHtml5($text);
-        }
-
-        $text = $this->String->encodeEmail($text);
+        $text = StringUtil::toHtml5($text);
+        $text = StringUtil::encodeEmail($text);
 
         return $text;
     }
@@ -311,7 +304,7 @@ abstract class Pa2ViewParser extends \Frontend
         $intMaxPage = (int) ceil($totalItems / $intItemsPerPage);
 
         // Set page
-        $intPage = $this->Input->get('page');
+        $intPage = \Input::get('page');
         $intPage = (is_numeric($intPage)) ? $intPage : 1;
         $intPage = ($intMaxPage > $intPage) ? $intPage : $intMaxPage;
 
