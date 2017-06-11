@@ -111,12 +111,7 @@ abstract class Pa2ViewParser extends \Frontend
         $this->import('String');
 
         // Clean the RTE output
-        if ($objPage->outputFormat == 'xhtml') {
-            $text = $this->String->toXhtml($text);
-        } else {
-            $text = $this->String->toHtml5($text);
-        }
-
+        $text = $this->String->toHtml5($text);
         $text = $this->String->encodeEmail($text);
 
         return $text;
