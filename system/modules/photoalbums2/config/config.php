@@ -12,7 +12,7 @@
 
 // Add BE CSS
 if (TL_MODE == 'BE') {
-    $GLOBALS['TL_CSS'][] = 'system/modules/photoalbums2/assets/photoalbums2_be.css';
+    $GLOBALS['TL_CSS'][] = 'system/modules/photoalbums2/assets/photoalbums2_be.min.css';
 }
 
 // Backend Modules
