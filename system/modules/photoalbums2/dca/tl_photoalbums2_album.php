@@ -335,6 +335,10 @@ class tl_photoalbums2_album extends Pa2Backend
             return;
         }
 
+        if (\Input::get('do') === 'files') {
+            return;
+        }
+
         // Set root IDs
         if (!is_array($this->User->photoalbums2s) || empty($this->User->photoalbums2s)) {
             $root = array(0);
