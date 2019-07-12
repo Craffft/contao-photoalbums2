@@ -193,7 +193,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pa2Teaser'] = array(
     'label'     => &$GLOBALS['TL_LANG']['tl_content']['pa2Teaser'],
     'exclude'   => true,
     'inputType' => 'TranslationTextArea',
-    'eval'      => array('rte' => 'tinyFlash', 'tl_class' => 'long'),
+    'eval'      => array('rte' => 'tinyMCE', 'tl_class' => 'long'),
     'sql'       => "int(10) unsigned NOT NULL default '0'",
 );
 

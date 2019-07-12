@@ -241,7 +241,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array(
             'exclude'                 => true,
             'search'                  => true,
             'inputType'               => 'TranslationTextArea',
-            'eval'                    => array('rte' => 'tinyFlash'),
+            'eval'                    => array('rte' => 'tinyMCE', 'tl_class' => 'clr'),
             'sql'                     => "int(10) unsigned NOT NULL default '0'",
         ),
         'protected' => array(
