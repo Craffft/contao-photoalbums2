@@ -241,7 +241,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array(
             'exclude'                 => true,
             'search'                  => true,
             'inputType'               => 'TranslationTextArea',
-            'eval'                    => array('rte' => 'tinyFlash'),
+            'eval'                    => array('rte' => 'tinyMCE', 'tl_class' => 'clr'),
             'sql'                     => "int(10) unsigned NOT NULL default '0'",
         ),
         'protected' => array(
@@ -565,7 +565,7 @@ class tl_photoalbums2_album extends Pa2Backend
             $icon = 'invisible.gif';
         }
 
-        return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
+        return '<a href="'.$this->addToUrl($href).'" title="'.\StringUtil::specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
     }
 
     /**
