@@ -233,7 +233,7 @@ $GLOBALS['TL_DCA']['tl_photoalbums2_album'] = array(
             'exclude'                 => true,
             'search'                  => true,
             'inputType'               => 'TranslationTextField',
-            'eval'                    => array('maxlength' => 255),
+            'eval'                    => array('maxlength' => 255, 'tl_class' => 'clr'),
             'sql'                     => "int(10) unsigned NOT NULL default '0'",
         ),
         'description' => array(
