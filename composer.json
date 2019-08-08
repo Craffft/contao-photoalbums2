@@ -19,7 +19,7 @@
     },
     "require": {
         "php": ">=5.6",
-        "contao/core-bundle": ">=4.5,<5.0",
+        "contao/core-bundle": ">=4.4,<5.0",
         "contao-community-alliance/composer-plugin": "^2.4.0 || 3.*",
         "craffft/contao-imagesortwizard": "~2.3",
         "craffft/contao-sortwizard": "~1.4",
