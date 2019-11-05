@@ -94,7 +94,7 @@ class Pa2Backend extends \Backend
             $intPid = \Input::get('id');
         }
 
-        return $this->getTemplateGroup('pa2_wrap', $intPid);
+        return $this->getTemplateGroup('pa2_wrap');
     }
 
     /**
@@ -112,7 +112,7 @@ class Pa2Backend extends \Backend
             $intPid = \Input::get('id');
         }
 
-        return $this->getTemplateGroup('pa2_album', $intPid);
+        return $this->getTemplateGroup('pa2_album');
     }
 
     /**
@@ -130,7 +130,7 @@ class Pa2Backend extends \Backend
             $intPid = \Input::get('id');
         }
 
-        return $this->getTemplateGroup('pa2_image', $intPid);
+        return $this->getTemplateGroup('pa2_image');
     }
 
     /**
