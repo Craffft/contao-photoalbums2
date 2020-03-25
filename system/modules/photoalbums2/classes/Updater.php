@@ -62,140 +62,150 @@ class Updater extends \Controller
 
     public function updateDatabaseFields()
     {
-        if ($this->Database->fieldExists('pa2PhotosTemplate', 'tl_content')) {
-            $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosTemplate` `pa2ImagesTemplate` varchar(64) NOT NULL default ''");
+        if ($this->Database->tableExists('tl_content')) {
+            if ($this->Database->fieldExists('pa2PhotosTemplate', 'tl_content')) {
+                $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosTemplate` `pa2ImagesTemplate` varchar(64) NOT NULL default ''");
+            }
+
+            if ($this->Database->fieldExists('pa2NumberOfPhotos', 'tl_content')) {
+                $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2NumberOfPhotos` `pa2NumberOfImages` smallint(5) unsigned NOT NULL default '0'");
+            }
+
+            if ($this->Database->fieldExists('pa2PhotosPerPage', 'tl_content')) {
+                $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosPerPage` `pa2ImagesPerPage` smallint(5) unsigned NOT NULL default '24'");
+            }
+
+            if ($this->Database->fieldExists('pa2PhotosPerRow', 'tl_content')) {
+                $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosPerRow` `pa2ImagesPerRow` smallint(5) unsigned NOT NULL default '2'");
+            }
+
+            if ($this->Database->fieldExists('pa2PhotosShowHeadline', 'tl_content')) {
+                $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosShowHeadline` `pa2ImagesShowHeadline` char(1) NOT NULL default ''");
+            }
+
+            if ($this->Database->fieldExists('pa2PhotosShowTitle', 'tl_content')) {
+                $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosShowTitle` `pa2ImagesShowTitle` char(1) NOT NULL default ''");
+            }
+
+            if ($this->Database->fieldExists('pa2PhotosShowTeaser', 'tl_content')) {
+                $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosShowTeaser` `pa2ImagesShowTeaser` char(1) NOT NULL default ''");
+            }
+
+            if ($this->Database->fieldExists('pa2PhotosImageSize', 'tl_content')) {
+                $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosImageSize` `pa2ImagesImageSize` varchar(64) NOT NULL default ''");
+            }
+
+            if ($this->Database->fieldExists('pa2PhotosImageMargin', 'tl_content')) {
+                $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosImageMargin` `pa2ImagesImageMargin` varchar(128) NOT NULL default ''");
+            }
+
+            if ($this->Database->fieldExists('pa2PhotosMetaFields', 'tl_content')) {
+                $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosMetaFields` `pa2ImagesMetaFields` blob NULL");
+            }
         }
 
-        if ($this->Database->fieldExists('pa2NumberOfPhotos', 'tl_content')) {
-            $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2NumberOfPhotos` `pa2NumberOfImages` smallint(5) unsigned NOT NULL default '0'");
+        if ($this->Database->tableExists('tl_module')) {
+            if ($this->Database->fieldExists('pa2PreviewPic', 'tl_module')) {
+                $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PreviewPic` `pa2PreviewImage` varchar(64) NOT NULL default ''");
+            }
+
+            if ($this->Database->fieldExists('pa2PhotosTemplate', 'tl_module')) {
+                $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosTemplate` `pa2ImagesTemplate` varchar(64) NOT NULL default ''");
+            }
+
+            if ($this->Database->fieldExists('pa2NumberOfPhotos', 'tl_module')) {
+                $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2NumberOfPhotos` `pa2NumberOfImages` smallint(5) unsigned NOT NULL default '0'");
+            }
+
+            if ($this->Database->fieldExists('pa2PhotosPerPage', 'tl_module')) {
+                $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosPerPage` `pa2ImagesPerPage` smallint(5) unsigned NOT NULL default '24'");
+            }
+
+            if ($this->Database->fieldExists('pa2PhotosPerRow', 'tl_module')) {
+                $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosPerRow` `pa2ImagesPerRow` smallint(5) unsigned NOT NULL default '2'");
+            }
+
+            if ($this->Database->fieldExists('pa2PhotosShowHeadline', 'tl_module')) {
+                $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosShowHeadline` `pa2ImagesShowHeadline` char(1) NOT NULL default ''");
+            }
+
+            if ($this->Database->fieldExists('pa2PhotosShowTitle', 'tl_module')) {
+                $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosShowTitle` `pa2ImagesShowTitle` char(1) NOT NULL default ''");
+            }
+
+            if ($this->Database->fieldExists('pa2PhotosShowTeaser', 'tl_module')) {
+                $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosShowTeaser` `pa2ImagesShowTeaser` char(1) NOT NULL default ''");
+            }
+
+            if ($this->Database->fieldExists('pa2PhotosImageSize', 'tl_module')) {
+                $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosImageSize` `pa2ImagesImageSize` varchar(64) NOT NULL default ''");
+            }
+
+            if ($this->Database->fieldExists('pa2PhotosImageMargin', 'tl_module')) {
+                $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosImageMargin` `pa2ImagesImageMargin` varchar(128) NOT NULL default ''");
+            }
+
+            if ($this->Database->fieldExists('pa2PhotosMetaFields', 'tl_module')) {
+                $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosMetaFields` `pa2ImagesMetaFields` blob NULL");
+            }
         }
 
-        if ($this->Database->fieldExists('pa2PhotosPerPage', 'tl_content')) {
-            $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosPerPage` `pa2ImagesPerPage` smallint(5) unsigned NOT NULL default '24'");
+        if ($this->Database->tableExists('tl_photoalbums2_album')) {
+            if ($this->Database->fieldExists('pictures', 'tl_photoalbums2_album')) {
+                $this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `pictures` `images` blob NULL");
+            }
+
+            if ($this->Database->fieldExists('preview_pic_check', 'tl_photoalbums2_album')) {
+                $this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `preview_pic_check` `preview_image_check` varchar(64) NOT NULL default ''");
+            }
+
+            if ($this->Database->fieldExists('preview_image_check', 'tl_photoalbums2_album')) {
+                $this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `preview_image_check` `previewImageType` varchar(64) NOT NULL default ''");
+            }
+
+            if ($this->Database->fieldExists('preview_pic', 'tl_photoalbums2_album')) {
+                $this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `preview_pic` `preview_image` varchar(255) NOT NULL default ''");
+            }
+
+            if ($this->Database->fieldExists('preview_image', 'tl_photoalbums2_album')) {
+                $this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `preview_image` `previewImage` varchar(255) NOT NULL default ''");
+            }
+
+            if ($this->Database->fieldExists('pic_sort_check', 'tl_photoalbums2_album')) {
+                $this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `pic_sort_check` `image_sort_check` varchar(64) NOT NULL default ''");
+            }
+
+            if ($this->Database->fieldExists('image_sort_check', 'tl_photoalbums2_album')) {
+                $this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `image_sort_check` `imageSortType` varchar(64) NOT NULL default ''");
+            }
+
+            if ($this->Database->fieldExists('pic_sort', 'tl_photoalbums2_album')) {
+                $this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `pic_sort` `image_sort` blob NULL");
+            }
+
+            if ($this->Database->fieldExists('image_sort', 'tl_photoalbums2_album')) {
+                $this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `image_sort` `imageSort` blob NULL");
+            }
         }
 
-        if ($this->Database->fieldExists('pa2PhotosPerRow', 'tl_content')) {
-            $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosPerRow` `pa2ImagesPerRow` smallint(5) unsigned NOT NULL default '2'");
+        if ($this->Database->tableExists('tl_user_group')) {
+            if ($this->Database->fieldExists('photoalbums', 'tl_user_group')) {
+                $this->Database->query("ALTER TABLE `tl_user_group` CHANGE `photoalbums` `photoalbums2s` blob NULL");
+            }
+
+            if ($this->Database->fieldExists('photoalbump', 'tl_user_group')) {
+                $this->Database->query("ALTER TABLE `tl_user_group` CHANGE `photoalbump` `photoalbums2p` blob NULL");
+            }
         }
 
-        if ($this->Database->fieldExists('pa2PhotosShowHeadline', 'tl_content')) {
-            $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosShowHeadline` `pa2ImagesShowHeadline` char(1) NOT NULL default ''");
-        }
+        if ($this->Database->tableExists('tl_user')) {
+            if ($this->Database->fieldExists('photoalbums', 'tl_user')) {
+                $this->Database->query("ALTER TABLE `tl_user` CHANGE `photoalbums` `photoalbums2s` blob NULL");
+            }
 
-        if ($this->Database->fieldExists('pa2PhotosShowTitle', 'tl_content')) {
-            $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosShowTitle` `pa2ImagesShowTitle` char(1) NOT NULL default ''");
-        }
-
-        if ($this->Database->fieldExists('pa2PhotosShowTeaser', 'tl_content')) {
-            $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosShowTeaser` `pa2ImagesShowTeaser` char(1) NOT NULL default ''");
-        }
-
-        if ($this->Database->fieldExists('pa2PhotosImageSize', 'tl_content')) {
-            $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosImageSize` `pa2ImagesImageSize` varchar(64) NOT NULL default ''");
-        }
-
-        if ($this->Database->fieldExists('pa2PhotosImageMargin', 'tl_content')) {
-            $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosImageMargin` `pa2ImagesImageMargin` varchar(128) NOT NULL default ''");
-        }
-
-        if ($this->Database->fieldExists('pa2PhotosMetaFields', 'tl_content')) {
-            $this->Database->query("ALTER TABLE `tl_content` CHANGE `pa2PhotosMetaFields` `pa2ImagesMetaFields` blob NULL");
-        }
-
-        if ($this->Database->fieldExists('pa2PreviewPic', 'tl_module')) {
-            $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PreviewPic` `pa2PreviewImage` varchar(64) NOT NULL default ''");
-        }
-
-        if ($this->Database->fieldExists('pa2PhotosTemplate', 'tl_module')) {
-            $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosTemplate` `pa2ImagesTemplate` varchar(64) NOT NULL default ''");
-        }
-
-        if ($this->Database->fieldExists('pa2NumberOfPhotos', 'tl_module')) {
-            $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2NumberOfPhotos` `pa2NumberOfImages` smallint(5) unsigned NOT NULL default '0'");
-        }
-
-        if ($this->Database->fieldExists('pa2PhotosPerPage', 'tl_module')) {
-            $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosPerPage` `pa2ImagesPerPage` smallint(5) unsigned NOT NULL default '24'");
-        }
-
-        if ($this->Database->fieldExists('pa2PhotosPerRow', 'tl_module')) {
-            $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosPerRow` `pa2ImagesPerRow` smallint(5) unsigned NOT NULL default '2'");
-        }
-
-        if ($this->Database->fieldExists('pa2PhotosShowHeadline', 'tl_module')) {
-            $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosShowHeadline` `pa2ImagesShowHeadline` char(1) NOT NULL default ''");
-        }
-
-        if ($this->Database->fieldExists('pa2PhotosShowTitle', 'tl_module')) {
-            $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosShowTitle` `pa2ImagesShowTitle` char(1) NOT NULL default ''");
-        }
-
-        if ($this->Database->fieldExists('pa2PhotosShowTeaser', 'tl_module')) {
-            $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosShowTeaser` `pa2ImagesShowTeaser` char(1) NOT NULL default ''");
-        }
-
-        if ($this->Database->fieldExists('pa2PhotosImageSize', 'tl_module')) {
-            $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosImageSize` `pa2ImagesImageSize` varchar(64) NOT NULL default ''");
-        }
-
-        if ($this->Database->fieldExists('pa2PhotosImageMargin', 'tl_module')) {
-            $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosImageMargin` `pa2ImagesImageMargin` varchar(128) NOT NULL default ''");
-        }
-
-        if ($this->Database->fieldExists('pa2PhotosMetaFields', 'tl_module')) {
-            $this->Database->query("ALTER TABLE `tl_module` CHANGE `pa2PhotosMetaFields` `pa2ImagesMetaFields` blob NULL");
-        }
-
-        if ($this->Database->fieldExists('pictures', 'tl_photoalbums2_album')) {
-            $this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `pictures` `images` blob NULL");
-        }
-
-        if ($this->Database->fieldExists('preview_pic_check', 'tl_photoalbums2_album')) {
-            $this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `preview_pic_check` `preview_image_check` varchar(64) NOT NULL default ''");
-        }
-
-        if ($this->Database->fieldExists('preview_image_check', 'tl_photoalbums2_album')) {
-            $this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `preview_image_check` `previewImageType` varchar(64) NOT NULL default ''");
-        }
-
-        if ($this->Database->fieldExists('preview_pic', 'tl_photoalbums2_album')) {
-            $this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `preview_pic` `preview_image` varchar(255) NOT NULL default ''");
-        }
-
-        if ($this->Database->fieldExists('preview_image', 'tl_photoalbums2_album')) {
-            $this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `preview_image` `previewImage` varchar(255) NOT NULL default ''");
-        }
-
-        if ($this->Database->fieldExists('pic_sort_check', 'tl_photoalbums2_album')) {
-            $this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `pic_sort_check` `image_sort_check` varchar(64) NOT NULL default ''");
-        }
-
-        if ($this->Database->fieldExists('image_sort_check', 'tl_photoalbums2_album')) {
-            $this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `image_sort_check` `imageSortType` varchar(64) NOT NULL default ''");
-        }
-
-        if ($this->Database->fieldExists('pic_sort', 'tl_photoalbums2_album')) {
-            $this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `pic_sort` `image_sort` blob NULL");
-        }
-
-        if ($this->Database->fieldExists('image_sort', 'tl_photoalbums2_album')) {
-            $this->Database->query("ALTER TABLE `tl_photoalbums2_album` CHANGE `image_sort` `imageSort` blob NULL");
-        }
-
-        if ($this->Database->fieldExists('photoalbums', 'tl_user_group')) {
-            $this->Database->query("ALTER TABLE `tl_user_group` CHANGE `photoalbums` `photoalbums2s` blob NULL");
-        }
-
-        if ($this->Database->fieldExists('photoalbump', 'tl_user_group')) {
-            $this->Database->query("ALTER TABLE `tl_user_group` CHANGE `photoalbump` `photoalbums2p` blob NULL");
-        }
-
-        if ($this->Database->fieldExists('photoalbums', 'tl_user')) {
-            $this->Database->query("ALTER TABLE `tl_user` CHANGE `photoalbums` `photoalbums2s` blob NULL");
-        }
-
-        if ($this->Database->fieldExists('photoalbump', 'tl_user')) {
-            $this->Database->query("ALTER TABLE `tl_user` CHANGE `photoalbump` `photoalbums2p` blob NULL");
+            if ($this->Database->fieldExists('photoalbump', 'tl_user')) {
+                $this->Database->query("ALTER TABLE `tl_user` CHANGE `photoalbump` `photoalbums2p` blob NULL");
+            }
         }
     }
 
@@ -204,12 +214,20 @@ class Updater extends \Controller
      */
     public function updateTranslationFields()
     {
-        \TranslationFields\Updater::convertTranslationField('tl_photoalbums2_album', 'event');
-        \TranslationFields\Updater::convertTranslationField('tl_photoalbums2_album', 'place');
-        \TranslationFields\Updater::convertTranslationField('tl_photoalbums2_album', 'photographer');
-        \TranslationFields\Updater::convertTranslationField('tl_photoalbums2_album', 'description');
-        \TranslationFields\Updater::convertTranslationField('tl_content', 'pa2Teaser');
-        \TranslationFields\Updater::convertTranslationField('tl_module', 'pa2Teaser');
+        if ($this->Database->tableExists('tl_photoalbums2_album')) {
+            \TranslationFields\Updater::convertTranslationField('tl_photoalbums2_album', 'event');
+            \TranslationFields\Updater::convertTranslationField('tl_photoalbums2_album', 'place');
+            \TranslationFields\Updater::convertTranslationField('tl_photoalbums2_album', 'photographer');
+            \TranslationFields\Updater::convertTranslationField('tl_photoalbums2_album', 'description');
+        }
+
+        if ($this->Database->tableExists('tl_content') && $this->Database->fieldExists('pa2Teaser', 'tl_content')) {
+            \TranslationFields\Updater::convertTranslationField('tl_content', 'pa2Teaser');
+        }
+
+        if ($this->Database->tableExists('tl_module') && $this->Database->fieldExists('pa2Teaser', 'tl_module')) {
+            \TranslationFields\Updater::convertTranslationField('tl_module', 'pa2Teaser');
+        }
     }
 
     /**
@@ -217,6 +235,10 @@ class Updater extends \Controller
      */
     public function updateUuidFields()
     {
+        if (!$this->Database->tableExists('tl_photoalbums2_album')) {
+            return;
+        }
+
         // Fix the broken imageSort field (UUID String => UUID binary)
         $this->updatePhotoalbums2AlbumImageSortField();
 
