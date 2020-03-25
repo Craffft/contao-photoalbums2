@@ -221,11 +221,11 @@ class Updater extends \Controller
             \TranslationFields\Updater::convertTranslationField('tl_photoalbums2_album', 'description');
         }
 
-        if ($this->Database->tableExists('tl_content')) {
+        if ($this->Database->tableExists('tl_content') && $this->Database->fieldExists('pa2Teaser', 'tl_content')) {
             \TranslationFields\Updater::convertTranslationField('tl_content', 'pa2Teaser');
         }
 
-        if ($this->Database->tableExists('tl_module')) {
+        if ($this->Database->tableExists('tl_module') && $this->Database->fieldExists('pa2Teaser', 'tl_module')) {
             \TranslationFields\Updater::convertTranslationField('tl_module', 'pa2Teaser');
         }
     }
